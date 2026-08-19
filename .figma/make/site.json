@@ -1,0 +1,10 @@
+{
+  "description": "A desktop-first subscription platform delivering premium editorial content and curated monthly professional matches for Pharma, MedTech, and AI-Health managers.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
