@@ -120,26 +120,36 @@ export default function MatchesTab() {
   return (
     <div className="max-w-[900px]">
       {/* Drop header */}
-      <div className="flex items-start justify-between mb-8 pb-6 border-b border-[rgba(26,26,26,0.1)]">
+      <div className="flex flex-col sm:flex-row items-start justify-between mb-8 pb-6 border-b border-[rgba(26,26,26,0.1)] gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex items-center gap-2 mb-2 flex-wrap">
             <div className="w-5 h-px bg-[#D4A373]" />
             <span className="text-[11px] font-medium tracking-[0.14em] uppercase text-[#D4A373]">Monthly Drop · August 2026</span>
+            <span className="rollover-pill">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M5 1V5L7.5 7.5" stroke="#D4A373" strokeWidth="1.2" strokeLinecap="round"/>
+                <circle cx="5" cy="5" r="4" stroke="#D4A373" strokeWidth="1"/>
+              </svg>
+              +2 rollover from July
+            </span>
           </div>
-          <h2 style={{ fontFamily: "Newsreader, Georgia, serif" }} className="text-3xl font-semibold text-[#1A1A1A]">
+          <h2 style={{ fontFamily: "Newsreader, Georgia, serif" }} className="text-2xl md:text-3xl font-semibold text-[#1A1A1A]">
             Your August Matches
           </h2>
           <p className="text-sm text-[#5A6B7C] mt-1.5">
-            6 curated connections based on your tag profile. Next drop: September 1.
+            {sorted.length} curated connections based on your tag profile. Next drop: September 1.
+          </p>
+          <p className="text-xs text-[#5A6B7C] mt-1">
+            {connected.size} connected · {dismissed.size} dismissed · {sorted.length - connected.size} pending
           </p>
         </div>
 
         {/* Sort controls */}
-        <div className="flex items-center gap-1 p-1 border border-[rgba(26,26,26,0.12)] rounded-sm">
+        <div className="flex items-center gap-1 p-1 border border-[rgba(26,26,26,0.12)] rounded-sm flex-shrink-0">
           {([
             ["relevance", "Relevance"],
-            ["responseRate", "Response Rate"],
-            ["connections", "Connections"],
+            ["responseRate", "Response"],
+            ["connections", "Network"],
           ] as [SortKey, string][]).map(([key, label]) => (
             <button
               key={key}
@@ -156,24 +166,41 @@ export default function MatchesTab() {
         </div>
       </div>
 
+      {/* Progress bar */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-[11px] text-[#5A6B7C]">Engagement progress</span>
+          <span className="text-[11px] font-medium text-[#1A1A1A]">{connected.size + dismissed.size}/{matches.length} reviewed</span>
+        </div>
+        <div className="h-1.5 bg-[rgba(26,26,26,0.08)] rounded-full overflow-hidden">
+          <div
+            className="h-full rounded-full transition-all duration-500"
+            style={{
+              width: `${((connected.size + dismissed.size) / matches.length) * 100}%`,
+              background: connected.size > dismissed.size ? "#D4A373" : "#5A6B7C",
+            }}
+          />
+        </div>
+      </div>
+
       {/* Match cards */}
       <div className="flex flex-col gap-4">
         {sorted.map((match, i) => (
           <div
             key={match.id}
-            className={`match-card border border-[rgba(26,26,26,0.12)] rounded-sm bg-white overflow-hidden ${dealt ? "match-card-deal" : "opacity-0"}`}
-            style={
-              dealt
-                ? { animationDelay: `${i * 110}ms` }
-                : {}
-            }
+            className={`match-card border rounded-sm bg-white overflow-hidden ${
+              connected.has(match.id)
+                ? "border-[rgba(212,163,115,0.4)]"
+                : "border-[rgba(26,26,26,0.12)]"
+            } ${dealt ? "match-card-deal" : "opacity-0"}`}
+            style={dealt ? { animationDelay: `${i * 110}ms` } : {}}
           >
-            <div className="p-6 flex gap-6">
+            <div className="p-5 md:p-6 flex flex-col sm:flex-row gap-4 sm:gap-6">
               {/* Avatar */}
               <div className="flex-shrink-0">
                 <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold text-[#F8F6F0]"
-                  style={{ background: "#1A1A1A" }}
+                  className="w-11 h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center text-sm font-bold text-[#F8F6F0]"
+                  style={{ background: connected.has(match.id) ? "#D4A373" : "#1A1A1A" }}
                 >
                   {match.name.split(" ").filter((_, i) => i < 2).map(n => n[0]).join("")}
                 </div>
@@ -181,13 +208,13 @@ export default function MatchesTab() {
 
               {/* Main content */}
               <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex flex-col sm:flex-row items-start justify-between gap-2 sm:gap-4">
                   <div>
-                    <div className="flex items-center gap-2 mb-0.5">
+                    <div className="flex items-center gap-2 mb-0.5 flex-wrap">
                       <h3 className="text-[15px] font-semibold text-[#1A1A1A]">{match.name}</h3>
                       {connected.has(match.id) && (
-                        <span className="text-[10px] font-medium px-2 py-0.5 bg-[#F8F6F0] border border-[rgba(26,26,26,0.15)] text-[#5A6B7C] rounded-full">
-                          Request sent
+                        <span className="text-[10px] font-medium px-2 py-0.5 bg-[rgba(212,163,115,0.12)] border border-[rgba(212,163,115,0.35)] text-[#D4A373] rounded-full">
+                          Connected
                         </span>
                       )}
                     </div>
@@ -198,18 +225,18 @@ export default function MatchesTab() {
                   {/* Stats */}
                   <div className="flex items-center gap-5 flex-shrink-0">
                     <div className="text-right">
-                      <div className="text-[11px] text-[#5A6B7C]">Response rate</div>
+                      <div className="text-[11px] text-[#5A6B7C]">Response</div>
                       <div className="text-sm font-semibold text-[#1A1A1A]">{match.responseRate}%</div>
                     </div>
                     <div className="text-right">
-                      <div className="text-[11px] text-[#5A6B7C]">Shared connections</div>
+                      <div className="text-[11px] text-[#5A6B7C]">Mutual</div>
                       <div className="text-sm font-semibold text-[#1A1A1A]">{match.connections}</div>
                     </div>
                   </div>
                 </div>
 
-                {/* Match logic — the critical transparency element */}
-                <div className="flex items-center gap-2 mt-3 mb-3">
+                {/* Match logic — transparency */}
+                <div className="flex items-center gap-2 mt-3 mb-3 flex-wrap">
                   <span className="text-[11px] font-medium text-[#5A6B7C] tracking-wide">Matched on:</span>
                   {match.tags.map(tag => (
                     <span
@@ -226,10 +253,8 @@ export default function MatchesTab() {
                 <p className="text-sm text-[#5A6B7C] leading-relaxed mb-4">{match.bio}</p>
 
                 {/* Goal badge + Actions */}
-                <div className="flex items-center justify-between">
-                  <span
-                    className="text-[11px] font-medium px-2.5 py-1 rounded-full border border-[rgba(26,26,26,0.15)] text-[#5A6B7C]"
-                  >
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                  <span className="text-[11px] font-medium px-2.5 py-1 rounded-full border border-[rgba(26,26,26,0.15)] text-[#5A6B7C]">
                     Goal: {match.goal}
                   </span>
                   <div className="flex items-center gap-3">
@@ -244,7 +269,7 @@ export default function MatchesTab() {
                       disabled={connected.has(match.id)}
                       className="text-sm px-5 py-2 bg-[#1A1A1A] text-[#F8F6F0] rounded-sm hover:bg-[#2a2a2a] transition-colors disabled:opacity-50 disabled:cursor-default font-medium"
                     >
-                      {connected.has(match.id) ? "Sent ✓" : "Connect"}
+                      {connected.has(match.id) ? "Connected ✓" : "Connect"}
                     </button>
                   </div>
                 </div>
@@ -258,7 +283,10 @@ export default function MatchesTab() {
             <div style={{ fontFamily: "Newsreader, Georgia, serif" }} className="text-2xl font-semibold mb-2 text-[#1A1A1A]">
               All caught up.
             </div>
-            <div className="text-sm">Your next match drop is on September 1.</div>
+            <div className="text-sm mb-4">You have reviewed all matches for this month.</div>
+            <div className="text-xs text-[#5A6B7C]">
+              {connected.size} connected · {dismissed.size} dismissed. Next drop: September 1.
+            </div>
           </div>
         )}
       </div>
