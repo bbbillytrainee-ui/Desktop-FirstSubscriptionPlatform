@@ -1,9 +1,14 @@
 import { useState, Component, type ReactNode } from "react"
+import AppHeader, { AppTab } from "./layout/AppHeader"
+import MobileNav from "./layout/MobileNav"
 import MagazineTab from "./MagazineTab"
 import MatchesTab from "./MatchesTab"
 import ContactsTab from "./ContactsTab"
-
-type Tab = "magazine" | "matches" | "contacts"
+import Modal from "./ui/Modal"
+import Button from "./ui/Button"
+import MagazineFlipbook from "./magazine/MagazineFlipbook"
+import { ISSUES } from "../data/fixtures/issues"
+import { ARTICLES } from "../data/fixtures/articles"
 
 /* ── Error Boundary ── */
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
@@ -13,13 +18,13 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
     if (this.state.hasError) {
       return (
         <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
-          <div style={{ fontFamily: "Newsreader, Georgia, serif" }} className="text-2xl font-semibold text-[#1A1A1A] mb-2">
+          <h2 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-2xl font-semibold text-[var(--color-ink)] mb-2">
             Something went wrong.
-          </div>
-          <p className="text-sm text-[#5A6B7C] mb-6">An unexpected error occurred. Please refresh the page.</p>
+          </h2>
+          <p className="text-sm text-[var(--color-slate-muted)] mb-6">An unexpected error occurred. Please refresh the page.</p>
           <button
             onClick={() => { this.setState({ hasError: false }); window.location.reload() }}
-            className="px-6 py-3 bg-[#1A1A1A] text-[#F8F6F0] text-sm font-medium rounded-sm hover:bg-[#2a2a2a] transition-colors"
+            className="px-6 py-3 bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-sm font-medium rounded-sm hover:bg-[#082833] transition-colors"
           >
             Refresh Page
           </button>
@@ -31,136 +36,97 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
 }
 
 export default function Dashboard() {
-  const [activeTab, setActiveTab] = useState<Tab>("magazine")
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [activeTab, setActiveTab] = useState<AppTab>("magazine")
+  const [showReferralModal, setShowReferralModal] = useState(false)
+  const [showFlipbook, setShowFlipbook] = useState(false)
+  const [copied, setCopied] = useState(false)
 
-  const tabs: { id: Tab; label: string; sub: string }[] = [
-    { id: "magazine", label: "Magazine", sub: "August 2026" },
-    { id: "matches", label: "Matches", sub: "6 new" },
-    { id: "contacts", label: "Contacts", sub: "Directory" },
-  ]
+  const referralLink = "https://mediverse.network/join?ref=SIDDHARTH-RAO-94"
 
-  const handleTabChange = (id: Tab) => {
-    setActiveTab(id)
-    setMobileMenuOpen(false)
+  const currentIssue = ISSUES[0]
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(referralLink)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
   }
 
   return (
-    <div className="binding-line-rail min-h-screen flex flex-col" style={{ background: "#F8F6F0" }}>
-      {/* ── Top nav ── */}
-      <header
-        className="flex items-center justify-between px-4 md:px-16 py-3 md:py-4 border-b border-[rgba(26,26,26,0.1)] bg-[#F8F6F0]/95 backdrop-blur-sm"
-        style={{ position: "sticky", top: 0, zIndex: 20 }}
-      >
-        <div className="flex items-center gap-3 md:gap-4">
-          <div className="w-px h-6 md:h-7 bg-[#1A1A1A] opacity-80" />
-          <span style={{ fontFamily: "Newsreader, Georgia, serif" }} className="text-lg md:text-xl font-semibold tracking-tight text-[#1A1A1A]">
-            Meridian
-          </span>
-          <span className="text-[10px] font-medium tracking-[0.12em] uppercase text-[#5A6B7C] hide-mobile">
-            Life Sciences
-          </span>
-        </div>
-
-        {/* Desktop tab nav */}
-        <nav className="hide-mobile flex items-center gap-1 absolute left-1/2 -translate-x-1/2">
-          {tabs.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => handleTabChange(tab.id)}
-              className="relative px-5 py-2 rounded-sm transition-colors flex items-center gap-2"
-              style={{
-                background: activeTab === tab.id ? "#1A1A1A" : "transparent",
-                color: activeTab === tab.id ? "#F8F6F0" : "#5A6B7C",
-              }}
-            >
-              <span className="text-sm font-medium">{tab.label}</span>
-              {activeTab !== tab.id && (
-                <span
-                  className="text-[10px] px-1.5 py-0.5 rounded-full"
-                  style={{
-                    background: tab.id === "matches" ? "rgba(212,163,115,0.2)" : "rgba(26,26,26,0.06)",
-                    color: tab.id === "matches" ? "#D4A373" : "#5A6B7C",
-                  }}
-                >
-                  {tab.sub}
-                </span>
-              )}
-            </button>
-          ))}
-        </nav>
-
-        {/* Right: User + mobile hamburger */}
-        <div className="flex items-center gap-3 md:gap-5">
-          {/* User info — desktop */}
-          <div className="hide-mobile text-right">
-            <div className="text-[11px] font-medium text-[#1A1A1A]">Siddharth Rao</div>
-            <div className="text-[10px] text-[#5A6B7C]">Tata Elxsi · Regulatory</div>
-          </div>
-          <div
-            className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-[#F8F6F0] flex-shrink-0"
-            style={{ background: "#1A1A1A" }}
-          >
-            SR
-          </div>
-
-          {/* Mobile hamburger */}
-          <button
-            className="show-mobile-only flex flex-col gap-1.5 p-2"
-            onClick={() => setMobileMenuOpen(v => !v)}
-            aria-label="Toggle navigation"
-          >
-            <div className={`w-5 h-px bg-[#1A1A1A] transition-transform ${mobileMenuOpen ? "rotate-45 translate-y-[3.5px]" : ""}`} />
-            <div className={`w-5 h-px bg-[#1A1A1A] transition-transform ${mobileMenuOpen ? "-rotate-45 -translate-y-[3.5px]" : ""}`} />
-          </button>
-        </div>
-      </header>
-
-      {/* Mobile tab drawer */}
-      {mobileMenuOpen && (
-        <div className="show-mobile-only border-b border-[rgba(26,26,26,0.1)] bg-[#F8F6F0] px-4 py-4 flex flex-col gap-1 animate-fade-up z-10">
-          {tabs.map(tab => (
-            <button
-              key={tab.id}
-              onClick={() => handleTabChange(tab.id)}
-              className="flex items-center justify-between px-4 py-3 rounded-sm transition-colors text-left"
-              style={{
-                background: activeTab === tab.id ? "#1A1A1A" : "transparent",
-                color: activeTab === tab.id ? "#F8F6F0" : "#1A1A1A",
-              }}
-            >
-              <span className="text-sm font-medium">{tab.label}</span>
-              <span
-                className="text-[10px] px-1.5 py-0.5 rounded-full"
-                style={{
-                  background: tab.id === "matches" ? "rgba(212,163,115,0.2)" : "rgba(26,26,26,0.06)",
-                  color: tab.id === "matches" ? "#D4A373" : "#5A6B7C",
-                }}
-              >
-                {tab.sub}
-              </span>
-            </button>
-          ))}
-          <div className="mt-3 pt-3 border-t border-[rgba(26,26,26,0.08)]">
-            <div className="text-[11px] font-medium text-[#1A1A1A]">Siddharth Rao</div>
-            <div className="text-[10px] text-[#5A6B7C]">Tata Elxsi · Regulatory</div>
-          </div>
-        </div>
+    <div className="binding-line-rail min-h-screen flex flex-col bg-[var(--color-paper)] text-[var(--color-ink)] pb-16 md:pb-0">
+      
+      {/* 3D Flipbook Reader */}
+      {showFlipbook && (
+        <MagazineFlipbook
+          issue={currentIssue}
+          articles={ARTICLES}
+          onClose={() => setShowFlipbook(false)}
+        />
       )}
 
-      {/* ── Content area ── */}
-      <main className="flex-1 px-4 md:px-16 py-6 md:py-10">
-        {/* Issue marker row */}
-        <div className="flex items-center gap-3 mb-6 md:mb-8">
-          <div className="w-6 h-px bg-[#D4A373]" />
-          <span className="text-[11px] font-medium tracking-[0.14em] uppercase text-[#5A6B7C]">
-            {activeTab === "magazine" && "Editorial · August 2026"}
-            {activeTab === "matches" && "Monthly Drop · August 1, 2026"}
-            {activeTab === "contacts" && "Network Directory · 2,400+ Professionals"}
-          </span>
-        </div>
+      <AppHeader activeTab={activeTab} onTabChange={setActiveTab} />
 
-        {/* Tab panels with error boundary */}
+      {/* Top Colleague Invite Reminder Bar */}
+      <div className="bg-[var(--color-surface)] border-b border-[var(--color-border-subtle)] px-6 py-2">
+        <div className="max-w-[var(--container-max)] mx-auto flex items-center justify-between text-xs flex-wrap gap-2">
+          <div className="flex items-center gap-2">
+            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="bg-[var(--color-brand-coral)] text-white text-[9px] font-semibold px-1.5 py-0.2 rounded-sm uppercase">
+              Referral Reward
+            </span>
+            <span className="text-[var(--color-slate-muted)]">
+              Invite 3 life science colleagues to earn 1 month of Professional access free.
+            </span>
+          </div>
+          <button
+            onClick={() => setShowReferralModal(true)}
+            className="text-[var(--color-brand-teal)] font-semibold hover:text-[var(--color-brand-coral)] underline transition-colors cursor-pointer"
+          >
+            Get Shareable Link →
+          </button>
+        </div>
+      </div>
+
+      {/* Member Executive Tooling Quick Dock */}
+      <div className="bg-[#0A2630] text-white border-b border-[var(--color-brand-teal)]/30 px-6 py-2.5">
+        <div className="max-w-[var(--container-max)] mx-auto flex items-center justify-between gap-4 overflow-x-auto text-xs scrollbar-none">
+          <div className="flex items-center gap-2 shrink-0">
+            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-brand-coral)]">
+              Executive Dock:
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
+            <button
+              onClick={() => setShowFlipbook(true)}
+              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-sm text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1.5"
+            >
+              <span>📖</span> 3D Flipbook Magazine
+            </button>
+            <a
+              href="#/regulatory-navigator"
+              onClick={e => { e.preventDefault(); window.location.hash = "regulatory-navigator" }}
+              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-sm text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1.5"
+            >
+              <span>📋</span> Regulatory Navigator
+            </a>
+            <a
+              href="#/reports"
+              onClick={e => { e.preventDefault(); window.location.hash = "reports" }}
+              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-sm text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1.5"
+            >
+              <span>📊</span> Research Reports
+            </a>
+            <a
+              href="#/vendors"
+              onClick={e => { e.preventDefault(); window.location.hash = "vendors" }}
+              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-sm text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1.5"
+            >
+              <span>🏭</span> CDMO Directory
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <main className="flex-1">
         <ErrorBoundary>
           {activeTab === "magazine" && <MagazineTab />}
           {activeTab === "matches" && <MatchesTab />}
@@ -168,22 +134,35 @@ export default function Dashboard() {
         </ErrorBoundary>
       </main>
 
-      {/* ── Footer ── */}
-      <footer className="px-4 md:px-16 py-6 border-t border-[rgba(26,26,26,0.08)] flex flex-col md:flex-row items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <div className="w-px h-4 bg-[#1A1A1A] opacity-40" />
-          <span style={{ fontFamily: "Newsreader, Georgia, serif" }} className="text-sm font-medium text-[#5A6B7C]">
-            Meridian Life Sciences
-          </span>
+      <MobileNav activeTab={activeTab} onTabChange={setActiveTab} />
+
+      {/* Referral Modal */}
+      <Modal isOpen={showReferralModal} onClose={() => setShowReferralModal(false)} title="Colleague Referral Program">
+        <div className="space-y-4">
+          <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed">
+            Share your private invitation link with colleagues in regulatory affairs, clinical trials, business development, or supply chain.
+          </p>
+          <div className="p-4 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm">
+            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] text-[var(--color-slate-muted)] uppercase block mb-1">
+              Your Personal Referral URL
+            </span>
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                readOnly
+                value={referralLink}
+                className="flex-1 px-3 py-2 text-xs bg-white border border-[var(--color-border-subtle)] rounded-sm font-mono select-all"
+              />
+              <Button variant="coral" size="sm" onClick={handleCopy}>
+                {copied ? "Copied! ✓" : "Copy"}
+              </Button>
+            </div>
+          </div>
+          <div className="text-[11px] text-[var(--color-slate-muted)] border-t border-[var(--color-border-subtle)] pt-3">
+            Reward status: <strong>0 / 3 colleagues joined</strong>. Once 3 colleagues activate their profiles, your account receives an automatic 30-day Professional extension.
+          </div>
         </div>
-        <div className="flex items-center gap-4 md:gap-6 text-[11px] text-[#5A6B7C] flex-wrap justify-center">
-          <a href="#" className="hover:text-[#1A1A1A] transition-colors">Editorial Guidelines</a>
-          <a href="#" className="hover:text-[#1A1A1A] transition-colors">Privacy</a>
-          <a href="#" className="hover:text-[#1A1A1A] transition-colors">Terms</a>
-          <a href="#" className="hover:text-[#1A1A1A] transition-colors">Grievance</a>
-          <span>Vol. 2 Issue 8 · ₹1,999/month</span>
-        </div>
-      </footer>
+      </Modal>
     </div>
   )
 }

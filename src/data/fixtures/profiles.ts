@@ -1,0 +1,142 @@
+export interface Profile {
+  id: string
+  name: string
+  title: string
+  org: string
+  location: string
+  tags: string[]
+  isContributor: boolean
+  isVerified: boolean
+  articlesCount?: number
+  joined: string
+  bio: string
+  email?: string
+}
+
+export const PROFILES: Profile[] = [
+  {
+    id: "prof-1",
+    name: "Dr. Priya Nair",
+    title: "VP Regulatory Affairs",
+    org: "Pfizer India",
+    location: "Mumbai",
+    tags: ["Regulatory Affairs", "AI Diagnostics"],
+    isContributor: true,
+    isVerified: true,
+    articlesCount: 4,
+    joined: "Jun 2025",
+    bio: "20+ years in regulatory strategy for biologics and digital health. Leading Pfizer India's AI-assisted submission framework.",
+  },
+  {
+    id: "prof-2",
+    name: "Marcus Osei-Bonsu",
+    title: "Sr. Director, BD",
+    org: "Medtronic",
+    location: "Hyderabad",
+    tags: ["Surgical Robotics", "IP & Strategy"],
+    isContributor: true,
+    isVerified: true,
+    articlesCount: 2,
+    joined: "Aug 2025",
+    bio: "Focused on licensing strategy for next-gen surgical platforms. Seeking CRO and IP partners in APAC.",
+  },
+  {
+    id: "prof-3",
+    name: "Ananya Krishnamurthy",
+    title: "Director, Regulatory",
+    org: "AstraZeneca",
+    location: "Bangalore",
+    tags: ["Regulatory Affairs", "mRNA Platforms"],
+    isContributor: false,
+    isVerified: true,
+    joined: "Sep 2025",
+    bio: "Navigating supply chain regulatory pathways for mRNA therapeutics across APAC markets.",
+  },
+  {
+    id: "prof-4",
+    name: "Dr. Vikram Malhotra",
+    title: "Chief Medical Officer",
+    org: "Sun Pharma",
+    location: "Mumbai",
+    tags: ["Clinical Operations", "Oncology BD"],
+    isContributor: true,
+    isVerified: true,
+    articlesCount: 6,
+    joined: "Apr 2025",
+    bio: "Leading clinical development programs across oncology and rare disease portfolios.",
+  },
+  {
+    id: "prof-5",
+    name: "Tanvir Hussain",
+    title: "Investment Manager",
+    org: "Sofinnova Partners",
+    location: "Delhi",
+    tags: ["mRNA Platforms", "Gene Therapy"],
+    isContributor: false,
+    isVerified: false,
+    joined: "Jan 2026",
+    bio: "Deploying healthcare funds into pan-Indian biotech. Focused on platform technology companies.",
+  },
+  {
+    id: "prof-6",
+    name: "Dr. Leila Ahmadi",
+    title: "Head, Medical Affairs",
+    org: "Roche Diagnostics India",
+    location: "Pune",
+    tags: ["Companion Diagnostics", "Health Economics"],
+    isContributor: true,
+    isVerified: true,
+    articlesCount: 3,
+    joined: "Nov 2025",
+    bio: "Bridging diagnostics innovation with payer evidence frameworks for the South Asian market.",
+  },
+  {
+    id: "prof-7",
+    name: "Roshni Kapoor",
+    title: "Head of Market Access",
+    org: "Novo Nordisk India",
+    location: "Gurugram",
+    tags: ["Market Access", "Health Economics"],
+    isContributor: false,
+    isVerified: true,
+    joined: "Mar 2026",
+    bio: "Designing payer engagement models for commercial launches in Tier-2 regional hubs.",
+  },
+  {
+    id: "prof-8",
+    name: "Dr. Arun Sharma",
+    title: "Principal Scientist",
+    org: "Biocon Biologics",
+    location: "Bangalore",
+    tags: ["Cell & Gene", "Rare Disease"],
+    isContributor: true,
+    isVerified: true,
+    articlesCount: 5,
+    joined: "Jul 2025",
+    bio: "Pioneering cell and gene therapy manufacturing processes at Biocon's biologics facility.",
+  },
+  {
+    id: "prof-9",
+    name: "Neha Bajaj",
+    title: "Director, Supply Chain",
+    org: "Abbott India",
+    location: "Mumbai",
+    tags: ["Supply Chain", "Manufacturing"],
+    isContributor: false,
+    isVerified: true,
+    joined: "Feb 2026",
+    bio: "Optimizing cold-chain logistics for biologic distribution across India's tier-2/3 markets.",
+  },
+  {
+    id: "prof-10",
+    name: "Siddharth Rao",
+    title: "Associate Director, Pharmacovigilance",
+    org: "Tata Elxsi Health",
+    location: "Bangalore",
+    tags: ["Pharmacovigilance", "Regulatory Affairs"],
+    isContributor: false,
+    isVerified: true,
+    joined: "May 2026",
+    bio: "Building AI-assisted pharmacovigilance signal detection for global pharma clients.",
+  },
+]

@@ -300,8 +300,8 @@ const articles: Article[] = [
     section: "MedTech",
     category: "Interview",
     title: "\"The Operating Room of 2030 Will Be Unrecognizable\" — A Conversation with Dr. Kavita Sharma",
-    byline: "Meridian Editorial Team",
-    authorRole: "Meridian Life Sciences",
+    byline: "Mediverse Editorial Team",
+    authorRole: "Mediverse Life Sciences",
     date: "Aug 14, 2026",
     readTime: "12 min",
     audioTime: "8 min 45s",
@@ -309,7 +309,7 @@ const articles: Article[] = [
     excerpt: "Dr. Kavita Sharma, Chief of Surgical Innovation at Apollo Hospitals, on why autonomous surgical systems are closer than the industry admits — and what that means for the medtech ecosystem.",
     body: [
       "Dr. Kavita Sharma has spent the last fifteen years at the intersection of surgical practice and technology adoption. As Chief of Surgical Innovation at Apollo Hospitals, she oversees one of Asia's largest surgical robotics programs and has personally performed over 800 robotic-assisted procedures.",
-      "Meridian sat down with Dr. Sharma to discuss where surgical robotics is heading, why the operating room of 2030 will look fundamentally different, and what medtech companies need to understand about surgeon adoption dynamics.",
+      "Mediverse sat down with Dr. Sharma to discuss where surgical robotics is heading, why the operating room of 2030 will look fundamentally different, and what medtech companies need to understand about surgeon adoption dynamics.",
       "On the state of current surgical robotics: \"We're still in the teleoperation era. The surgeon is essentially a very expensive joystick operator. The robots are precise, yes, but they have no understanding of the surgical field. That changes with the next generation of systems that incorporate computer vision and real-time tissue characterization.\"",
       "On autonomous surgical capabilities: \"Level 3 autonomy — where the system performs specific surgical tasks under surgeon supervision — will be commercially available within four years. I've seen the prototypes. They can suture more consistently than any human surgeon, and they don't get tired during a 12-hour procedure. The regulatory pathway is the bottleneck, not the technology.\"",
       "On surgeon adoption: \"The biggest barrier isn't technology — it's identity. Surgeons define themselves by their manual skill. Asking them to supervise a robot instead of operating directly is an identity challenge, not a training challenge. The companies that solve this — that make surgeons feel like commanders rather than bystanders — will win the market.\"",
@@ -349,8 +349,8 @@ const contributors = [
 
 const EDITORS_LETTER = {
   title: "The Intelligence Layer",
-  body: "Welcome to Issue 24 of Meridian Life Sciences. This month, we examine the regulatory seismic shifts reshaping AI-enabled diagnostics, the converging patent landscapes in gene editing, and the emerging evidence on where foundation models deliver real value in drug discovery. Our cover story by Dr. Priya Nair dissects the FDA's draft guidance on AI diagnostics — required reading for every regulatory affairs team. We also feature a rare interview with Dr. Kavita Sharma on the future of autonomous surgery. As always, your matches drop on September 1.",
-  signoff: "— The Meridian Editorial Team",
+  body: "Welcome to Issue 24 of Mediverse Life Sciences. This month, we examine the regulatory seismic shifts reshaping AI-enabled diagnostics, the converging patent landscapes in gene editing, and the emerging evidence on where foundation models deliver real value in drug discovery. Our cover story by Dr. Priya Nair dissects the FDA's draft guidance on AI diagnostics — required reading for every regulatory affairs team. We also feature a rare interview with Dr. Kavita Sharma on the future of autonomous surgery. As always, your matches drop on September 1.",
+  signoff: "— The Mediverse Editorial Team",
 }
 
 /* ──────────────────────── BESPOKE DYNAMIC GRAPHICS ──────────────────────── */
@@ -1007,7 +1007,7 @@ function NotebookDrawer({
         </div>
 
         <div className="pt-4 border-t border-black/10 text-[10px] text-black/50 text-center">
-          Meridian Executive Notebook · Issue 24 Sync
+          Mediverse Executive Notebook · Issue 24 Sync
         </div>
       </div>
     </>

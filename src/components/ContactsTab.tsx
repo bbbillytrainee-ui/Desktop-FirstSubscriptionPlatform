@@ -1,38 +1,10 @@
 import { useState } from "react"
+import { PROFILES, type Profile } from "../data/fixtures/profiles"
 
-interface Contact {
-  id: number
-  name: string
-  title: string
-  org: string
-  location: string
-  tags: string[]
-  isContributor: boolean
-  articles?: number
-  joined: string
-  bio?: string
-  email?: string
-}
-
-const contacts: Contact[] = [
-  { id: 1, name: "Dr. Priya Nair", title: "VP Regulatory Affairs", org: "Pfizer India", location: "Mumbai", tags: ["Regulatory Affairs", "AI Diagnostics"], isContributor: true, articles: 4, joined: "Jun 2025", bio: "20+ years in regulatory strategy for biologics and digital health. Leading Pfizer India's AI-assisted submission framework.", email: "p.nair@meridian.example" },
-  { id: 2, name: "Marcus Osei-Bonsu", title: "Sr. Director, BD", org: "Medtronic", location: "Hyderabad", tags: ["Surgical Robotics", "IP & Strategy"], isContributor: true, articles: 2, joined: "Aug 2025", bio: "Focused on licensing strategy for next-gen surgical platforms. Seeking CRO and IP counsel partners in the APAC region.", email: "m.oseibonsu@meridian.example" },
-  { id: 3, name: "Ananya Krishnamurthy", title: "Director, Regulatory", org: "AstraZeneca", location: "Bangalore", tags: ["Regulatory Affairs", "mRNA Platforms"], isContributor: false, joined: "Sep 2025", bio: "Navigating supply chain regulatory pathways for mRNA therapeutics across APAC markets." },
-  { id: 4, name: "Dr. Vikram Malhotra", title: "Chief Medical Officer", org: "Sun Pharma", location: "Mumbai", tags: ["Clinical Operations", "Oncology BD"], isContributor: true, articles: 6, joined: "Apr 2025", bio: "Leading clinical development programs across oncology and rare disease portfolios.", email: "v.malhotra@meridian.example" },
-  { id: 5, name: "Tanvir Hussain", title: "Investment Manager", org: "Sofinnova Partners", location: "Delhi", tags: ["mRNA Platforms", "Gene Therapy"], isContributor: false, joined: "Jan 2026", bio: "Deploying €400M fund into pan-Indian biotech. Particularly interested in platform companies." },
-  { id: 6, name: "Dr. Leila Ahmadi", title: "Head, Medical Affairs", org: "Roche Diagnostics India", location: "Pune", tags: ["Companion Diagnostics", "Health Economics"], isContributor: true, articles: 3, joined: "Nov 2025", bio: "Bridging diagnostics innovation with payer evidence frameworks for the Indian market.", email: "l.ahmadi@meridian.example" },
-  { id: 7, name: "Roshni Kapoor", title: "Head of Market Access", org: "Novo Nordisk India", location: "Gurugram", tags: ["Market Access", "Health Economics"], isContributor: false, joined: "Mar 2026", bio: "Designing payer engagement models for GLP-1 launches in Tier-2 cities." },
-  { id: 8, name: "Dr. Arun Sharma", title: "Principal Scientist", org: "Biocon Biologics", location: "Bangalore", tags: ["Cell & Gene", "Rare Disease"], isContributor: true, articles: 5, joined: "Jul 2025", bio: "Pioneering cell and gene therapy manufacturing processes at Biocon's biologics facility.", email: "a.sharma@meridian.example" },
-  { id: 9, name: "Neha Bajaj", title: "Director, Supply Chain", org: "Abbott India", location: "Mumbai", tags: ["Supply Chain", "Manufacturing"], isContributor: false, joined: "Feb 2026", bio: "Optimizing cold-chain logistics for biologic distribution across India's tier-2/3 markets." },
-  { id: 10, name: "Dr. Johan Van der Berg", title: "VP Clinical Operations", org: "IQVIA", location: "Pune", tags: ["Clinical Operations", "Digital Therapeutics"], isContributor: true, articles: 2, joined: "Oct 2025", bio: "Scaling decentralized trial infrastructure across South Asia.", email: "j.vanderberg@meridian.example" },
-  { id: 11, name: "Siddharth Rao", title: "Associate Director, Pharmacovigilance", org: "Tata Elxsi Health", location: "Bangalore", tags: ["Pharmacovigilance", "Regulatory Affairs"], isContributor: false, joined: "May 2026", bio: "Building AI-assisted pharmacovigilance signal detection for global pharma clients." },
-  { id: 12, name: "Dr. Meera Krishnan", title: "VP, Neurology Pipeline", org: "Lupin Ltd.", location: "Mumbai", tags: ["Neurology Pipeline", "Clinical Operations"], isContributor: true, articles: 3, joined: "Jan 2025", bio: "Leading early-stage neurology pipeline development with focus on CNS disorders.", email: "m.krishnan@meridian.example" },
-]
-
-const ALL_TAGS = Array.from(new Set(contacts.flatMap(c => c.tags))).sort()
+const ALL_TAGS = Array.from(new Set(PROFILES.flatMap(c => c.tags))).sort()
 
 /* ── Contact Detail Drawer ── */
-function ContactDrawer({ contact, onClose }: { contact: Contact; onClose: () => void }) {
+function ContactDrawer({ contact, onClose }: { contact: Profile; onClose: () => void }) {
   return (
     <>
       <div className="backdrop-overlay" onClick={onClose} />
@@ -141,9 +113,9 @@ export default function ContactsTab() {
   const [filterTag, setFilterTag] = useState<string | null>(null)
   const [filterType, setFilterType] = useState<"all" | "contributors" | "members">("all")
   const [searchQuery, setSearchQuery] = useState("")
-  const [selectedContact, setSelectedContact] = useState<Contact | null>(null)
+  const [selectedContact, setSelectedContact] = useState<Profile | null>(null)
 
-  const filtered = contacts.filter(c => {
+  const filtered = PROFILES.filter(c => {
     const matchesTag = filterTag ? c.tags.includes(filterTag) : true
     const matchesType =
       filterType === "contributors" ? c.isContributor :

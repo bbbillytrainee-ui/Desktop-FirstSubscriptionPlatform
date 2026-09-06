@@ -1,41 +1,80 @@
-import { useState } from "react"
+import { useState, KeyboardEvent } from "react"
+import Logo from "./brand/Logo"
+import Button from "./ui/Button"
+import Tag from "./ui/Tag"
 
-interface OnboardingProps {
+export interface OnboardingProps {
   onComplete: () => void
 }
 
 const ROLES = [
-  { id: "student", label: "Student / Early Career", desc: "Building your network and exploring the industry", tier: "Free" },
-  { id: "employee", label: "Industry Employee", desc: "Mid-career professional seeking collaborators and insights", tier: "Professional" },
-  { id: "manager", label: "Manager / Director", desc: "Leading teams, evaluating vendors, and staying ahead", tier: "Professional" },
-  { id: "doctor", label: "Clinician / Researcher", desc: "Bridging clinical practice with industry innovation", tier: "Professional" },
-  { id: "device", label: "Device / MedTech Company", desc: "Sourcing partners, CROs, and commercial opportunities", tier: "Enterprise" },
+  { id: "rnd", track: "In-House & R&D", label: "Scientist & R&D Lead", desc: "Formulation, drug discovery, QC/QA, clinical research", package: "In-House R&D Package (₹999/mo)" },
+  { id: "sales", track: "Commercial & Sales", label: "BD, Licensing & Commercial", desc: "Out-licensing, market access, commercial launches, sales", package: "Sales & Commercial Package (₹1,499/mo)" },
+  { id: "logistics", track: "Supply Chain & Logistics", label: "Supply Chain & Manufacturing", desc: "Cold-chain distribution, CDMO sourcing, packaging, transit", package: "Logistics Package (₹999/mo)" },
+  { id: "clinical", track: "Clinical & Regulatory", label: "Regulatory & Clinical Lead", desc: "CDSCO/FDA submissions, clinical trials, pharmacovigilance", package: "In-House R&D Package (₹999/mo)" },
+  { id: "executive", track: "Executive & Corporate", label: "C-Suite, Founder & Investor", desc: "Enterprise licensing, executive networking, team seats", package: "Enterprise Package" },
+]
+
+const DEPARTMENTS = [
+  "In-House R&D & Formulation",
+  "Sales, BD & Market Access",
+  "Supply Chain, Logistics & Packaging",
+  "Regulatory Affairs & Quality (CDSCO/FDA)",
+  "Clinical Operations & Medical Affairs",
+  "Corporate Leadership & C-Suite",
+  "Other Pharma Function"
+]
+
+const EXPERIENCE_LEVELS = [
+  "0 - 2 Years (Early Career)",
+  "3 - 5 Years (Mid-Level)",
+  "6 - 10 Years (Senior Lead)",
+  "10+ Years (Executive / Director)"
 ]
 
 const TAGS = [
   "Gene Therapy", "AI Diagnostics", "Regulatory Affairs", "Clinical Operations",
   "Oncology BD", "mRNA Platforms", "Surgical Robotics", "Health Economics",
-  "Digital Therapeutics", "Supply Chain", "Medical Affairs", "Companion Diagnostics",
+  "Digital Therapeutics", "Cold Chain Logistics", "Medical Affairs", "Companion Diagnostics",
   "Neurology Pipeline", "Rare Disease", "Cell & Gene", "Market Access",
-  "Pharmacovigilance", "Wearables & Sensors",
+  "Pharmacovigilance", "CDMO Partnerships", "Licensing & IP", "API Sourcing"
 ]
 
 const GOALS = [
-  { id: "collaborators", label: "Find Collaborators", desc: "Cross-functional partners for research, clinical, or commercial projects" },
-  { id: "vendors", label: "Find Vendors", desc: "Vetted service providers, CROs, CDMOs, and technology partners" },
-  { id: "mentors", label: "Find Mentors", desc: "Senior professionals who've navigated the challenges you're facing" },
-  { id: "informed", label: "Stay Informed", desc: "Deep-dive editorial without the networking — pure signal, no noise" },
+  { id: "collaborators", label: "Find Cross-Functional Collaborators", desc: "Connect with peers across R&D, regulatory, or commercial domains" },
+  { id: "vendors", label: "Find Vetted CDMOs & Logistics Partners", desc: "Cold-chain providers, clinical CROs, and packaging specialists" },
+  { id: "commercial", label: "Source Licensing & BD Leads", desc: "Product licensing opportunities and commercial distribution leads" },
+  { id: "informed", label: "Stay Informed With Sector Drops", desc: "High-signal monthly editorial drops and magazine issues" },
 ]
+
+const CITIES = ["Mumbai", "Bangalore", "Hyderabad", "Delhi NCR", "Pune", "Chennai", "Ahmedabad", "Singapore", "Other"]
 
 export default function Onboarding({ onComplete }: OnboardingProps) {
   const [step, setStep] = useState(1)
+  
+  // Form State
   const [selectedRole, setSelectedRole] = useState("")
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
-  const [selectedGoal, setSelectedGoal] = useState("")
-  const [notifyEnabled, setNotifyEnabled] = useState(false)
-  const [consentGiven, setConsentGiven] = useState(false)
+  const [fullName, setFullName] = useState("Siddharth Rao")
+  const [organization, setOrganization] = useState("Tata Elxsi Health")
+  const [department, setDepartment] = useState(DEPARTMENTS[0])
+  const [experience, setExperience] = useState(EXPERIENCE_LEVELS[2])
+  const [jobTitle, setJobTitle] = useState("Associate Director, Pharmacovigilance")
+  const [city, setCity] = useState("Bangalore")
+  const [linkedin, setLinkedin] = useState("linkedin.com/in/siddharth-rao")
+  const [referralCodeInput, setReferralCodeInput] = useState("")
+  const [appliedRefSuccess, setAppliedRefSuccess] = useState(false)
 
-  const totalSteps = 5
+  const [matchingConsentChoice, setMatchingConsentChoice] = useState<"opted_in" | "opted_out" | null>("opted_in")
+  const [selectedTags, setSelectedTags] = useState<string[]>(["Regulatory Affairs", "AI Diagnostics", "Pharmacovigilance"])
+  const [selectedGoal, setSelectedGoal] = useState("collaborators")
+  const [notifyEnabled, setNotifyEnabled] = useState(true)
+  
+  const [copiedReferral, setCopiedReferral] = useState(false)
+  const totalSteps = 7
+
+  const userReferralCode = "MEDIVERSE-REF-" + Math.floor(1000 + Math.random() * 9000)
+  const referralLink = `https://mediverse.network/join?ref=${userReferralCode}`
+
 
   const toggleTag = (tag: string) => {
     setSelectedTags(prev =>
@@ -46,10 +85,12 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
   const canNext = (s: number) => {
     switch (s) {
       case 1: return selectedRole !== ""
-      case 2: return selectedTags.length >= 3
-      case 3: return selectedGoal !== ""
-      case 4: return true
-      case 5: return consentGiven
+      case 2: return fullName.trim() !== "" && organization.trim() !== "" && jobTitle.trim() !== ""
+      case 3: return matchingConsentChoice !== null
+      case 4: return selectedTags.length >= 3
+      case 5: return selectedGoal !== ""
+      case 6: return true
+      case 7: return true
       default: return false
     }
   }
@@ -57,278 +98,422 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
   const next = () => { if (canNext(step) && step < totalSteps) setStep(s => s + 1) }
   const back = () => { if (step > 1) setStep(s => s - 1) }
 
+  const handleApplyReferralCode = () => {
+    if (referralCodeInput.trim().length > 3) {
+      setAppliedRefSuccess(true)
+    }
+  }
+
+  const handleCopyReferral = () => {
+    navigator.clipboard.writeText(referralLink)
+    setCopiedReferral(true)
+    setTimeout(() => setCopiedReferral(false), 2500)
+  }
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === "Enter" && canNext(step) && step < totalSteps) {
+      next()
+    }
+  }
+
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-8" style={{ background: "#F8F6F0" }}>
-      {/* Modal */}
-      <div className="w-full max-w-[700px] bg-white border border-[rgba(26,26,26,0.1)] rounded-sm shadow-[0_8px_40px_rgba(26,26,26,0.08)]">
-
-        {/* Modal header */}
-        <div className="px-6 md:px-10 pt-8 md:pt-10 pb-6 border-b border-[rgba(26,26,26,0.08)]">
+    <div className="min-h-screen bg-[var(--color-paper)] flex items-center justify-center px-4 py-8" onKeyDown={handleKeyDown}>
+      <div className="w-full max-w-[var(--modal-max)] bg-white border border-[var(--color-border-subtle)] rounded-sm shadow-[0_8px_40px_rgba(13,59,74,0.08)] overflow-hidden">
+        
+        {/* Progress Header */}
+        <div className="px-6 md:px-10 pt-8 pb-6 border-b border-[var(--color-border-subtle)]">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <div className="w-px h-5 bg-[#1A1A1A]" />
-              <span className="text-[11px] font-medium tracking-[0.14em] uppercase text-[#5A6B7C]">
-                Meridian Life Sciences
-              </span>
-            </div>
-            <span className="text-[11px] text-[#5A6B7C]">{step} of {totalSteps}</span>
+            <Logo size="sm" />
+            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs text-[var(--color-slate-muted)]">
+              Step {step} of {totalSteps}
+            </span>
           </div>
-          <h2 style={{ fontFamily: "Newsreader, Georgia, serif" }} className="text-2xl md:text-3xl font-semibold text-[#1A1A1A]">
-            {step === 1 && "What's your role?"}
-            {step === 2 && "What do you follow?"}
-            {step === 3 && "What brings you here?"}
-            {step === 4 && "Stay in the loop."}
-            {step === 5 && "Almost there."}
-          </h2>
-          <p className="text-sm text-[#5A6B7C] mt-2">
-            {step === 1 && "Your role shapes your pricing tier, matching priority, and content personalization."}
-            {step === 2 && "Select 3-5 topics to shape your editorial feed and match profile."}
-            {step === 3 && "Your goal shapes who we surface in your monthly match drop."}
-            {step === 4 && "Meridian drops matches once a month. Set your preference."}
-            {step === 5 && "Review your profile and consent to data usage before entering the platform."}
-          </p>
 
-          {/* Step indicator */}
-          <div className="flex items-center gap-1.5 mt-6">
-            {Array.from({ length: totalSteps }, (_, n) => n + 1).map(n => (
+          {/* Segmented Progress Bar */}
+          <div className="grid grid-cols-7 gap-1.5 h-1.5 w-full bg-[var(--color-surface)] rounded-full overflow-hidden mb-6">
+            {Array.from({ length: totalSteps }).map((_, i) => (
               <div
-                key={n}
-                className="h-0.5 flex-1 rounded-full transition-colors duration-300"
-                style={{ background: n <= step ? "#1A1A1A" : "rgba(26,26,26,0.12)" }}
+                key={i}
+                className={`h-full transition-all ${
+                  i + 1 <= step ? "bg-[var(--color-brand-coral)]" : "bg-[var(--color-border-subtle)]"
+                }`}
               />
             ))}
           </div>
+
+          <h2 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-2xl md:text-3xl font-semibold text-[var(--color-ink)]">
+            {step === 1 && "Select your vertical & role"}
+            {step === 2 && "Workplace & Department Details"}
+            {step === 3 && "Matching Consent & DPDP Privacy"}
+            {step === 4 && "Choose 3 to 5 areas of focus"}
+            {step === 5 && "What is your primary goal?"}
+            {step === 6 && "Monthly Drop Notification Cadence"}
+            {step === 7 && "Activation Complete & Referral Code"}
+          </h2>
         </div>
 
-        {/* Step content */}
-        <div className="px-6 md:px-10 py-8" style={{ minHeight: "340px" }}>
-
-          {/* Step 1: Role selection */}
+        {/* Step Body */}
+        <div className="p-6 md:p-10 min-h-[360px] flex flex-col justify-between">
+          
+          {/* STEP 1: ROLE & VERTICAL */}
           {step === 1 && (
-            <div className="flex flex-col gap-3">
-              {ROLES.map(role => (
-                <button
-                  key={role.id}
-                  onClick={() => setSelectedRole(role.id)}
-                  className={`goal-card text-left p-5 border rounded-sm relative ${selectedRole === role.id ? "selected" : "border-[rgba(26,26,26,0.15)]"}`}
-                >
-                  {selectedRole === role.id && (
-                    <div className="absolute top-4 right-4 w-4 h-4 rounded-full bg-[#1A1A1A] flex items-center justify-center">
-                      <div className="w-1.5 h-1.5 rounded-full bg-white" />
+            <div className="space-y-3">
+              <p className="text-xs text-[var(--color-slate-muted)] mb-2">
+                Choose your domain to personalize your monthly intelligence drops and department membership:
+              </p>
+              <div className="grid grid-cols-1 gap-2.5">
+                {ROLES.map(role => (
+                  <div
+                    key={role.id}
+                    onClick={() => setSelectedRole(role.id)}
+                    className={`p-3.5 rounded-sm border cursor-pointer transition-all flex items-center justify-between ${
+                      selectedRole === role.id
+                        ? "border-[var(--color-brand-teal)] bg-[var(--color-brand-teal)]/5 ring-1 ring-[var(--color-brand-teal)]"
+                        : "border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)]/40 hover:bg-[var(--color-surface)]"
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <span className="text-sm font-semibold text-[var(--color-ink)]">{role.label}</span>
+                        <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] bg-[var(--color-surface)] text-[var(--color-brand-teal)] px-1.5 py-0.2 rounded-sm border border-[var(--color-border-subtle)]">
+                          {role.track}
+                        </span>
+                      </div>
+                      <p className="text-xs text-[var(--color-slate-muted)]">{role.desc}</p>
                     </div>
-                  )}
-                  <div className="flex items-center gap-3">
-                    <div style={{ fontFamily: "Newsreader, Georgia, serif" }} className="text-lg font-semibold text-[#1A1A1A]">
-                      {role.label}
-                    </div>
-                    <span className={`tier-badge ${role.tier === "Free" ? "free" : role.tier === "Enterprise" ? "enterprise" : "pro"}`}>
-                      {role.tier}
+                    <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] text-[var(--color-brand-coral)] font-semibold whitespace-nowrap pl-2">
+                      {role.package}
                     </span>
                   </div>
-                  <div className="text-sm text-[#5A6B7C] leading-relaxed mt-1">{role.desc}</div>
-                </button>
-              ))}
-            </div>
-          )}
-
-          {/* Step 2: Tag chips */}
-          {step === 2 && (
-            <div>
-              <div className="flex flex-wrap gap-2">
-                {TAGS.map(tag => (
-                  <button
-                    key={tag}
-                    onClick={() => toggleTag(tag)}
-                    className={`tag-chip text-sm px-4 py-2 border rounded-full ${selectedTags.includes(tag) ? "selected" : "border-[rgba(26,26,26,0.2)] text-[#1A1A1A] bg-transparent"}`}
-                  >
-                    {tag}
-                  </button>
                 ))}
               </div>
-              <div className="mt-6 flex items-center gap-2">
-                <span
-                  className="text-sm font-medium transition-colors"
-                  style={{ color: selectedTags.length >= 3 ? "#D4A373" : "#5A6B7C" }}
-                >
-                  {selectedTags.length}/5 selected
-                </span>
-                {selectedTags.length >= 3 && (
-                  <span className="text-sm text-[#5A6B7C]">— good to go</span>
-                )}
-                {selectedTags.length < 3 && (
-                  <span className="text-sm text-[#5A6B7C]">— pick at least 3</span>
+            </div>
+          )}
+
+          {/* STEP 2: WORKPLACE & PROFESSIONAL DETAILS */}
+          {step === 2 && (
+            <div className="space-y-4">
+              <p className="text-xs text-[var(--color-slate-muted)] mb-1">
+                Tell us about your workplace, department, and experience level to tailor your network matches:
+              </p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-[var(--color-ink)] mb-1">Full Name *</label>
+                  <input
+                    type="text"
+                    value={fullName}
+                    onChange={e => setFullName(e.target.value)}
+                    placeholder="e.g. Dr. Siddharth Rao"
+                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-teal)]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[var(--color-ink)] mb-1">Company / Organization *</label>
+                  <input
+                    type="text"
+                    value={organization}
+                    onChange={e => setOrganization(e.target.value)}
+                    placeholder="e.g. Sun Pharma, Cipla, Biocon, Dr. Reddy's"
+                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-teal)]"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-[var(--color-ink)] mb-1">Department / Function *</label>
+                  <select
+                    value={department}
+                    onChange={e => setDepartment(e.target.value)}
+                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-teal)]"
+                  >
+                    {DEPARTMENTS.map(d => (
+                      <option key={d} value={d}>{d}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[var(--color-ink)] mb-1">Job Title *</label>
+                  <input
+                    type="text"
+                    value={jobTitle}
+                    onChange={e => setJobTitle(e.target.value)}
+                    placeholder="e.g. Head of Supply Chain / Lead Scientist"
+                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-teal)]"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-[var(--color-ink)] mb-1">Years of Experience in Pharma</label>
+                  <select
+                    value={experience}
+                    onChange={e => setExperience(e.target.value)}
+                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-teal)]"
+                  >
+                    {EXPERIENCE_LEVELS.map(exp => (
+                      <option key={exp} value={exp}>{exp}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[var(--color-ink)] mb-1">Primary Location / Hub</label>
+                  <select
+                    value={city}
+                    onChange={e => setCity(e.target.value)}
+                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-teal)]"
+                  >
+                    {CITIES.map(c => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Referral Code Field */}
+              <div className="pt-2 border-t border-gray-100">
+                <label className="block text-xs font-semibold text-[var(--color-ink)] mb-1">Have a Referral Code? (Optional)</label>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={referralCodeInput}
+                    onChange={e => setReferralCodeInput(e.target.value.toUpperCase())}
+                    placeholder="e.g. MERIDIAN-REF-8842"
+                    className="flex-1 px-3 py-1.5 text-xs font-mono border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-coral)] uppercase"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleApplyReferralCode}
+                    className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-xs font-medium rounded-sm transition-colors text-[var(--color-ink)]"
+                  >
+                    Apply Code
+                  </button>
+                </div>
+                {appliedRefSuccess && (
+                  <p className="text-[11px] text-emerald-600 font-medium mt-1">
+                    ✓ Referral code applied! You will get 1 month extra trial upon activation.
+                  </p>
                 )}
               </div>
             </div>
           )}
 
-          {/* Step 3: Goal cards */}
+          {/* STEP 3: MATCHING CONSENT (DPDP COMPLIANCE) */}
           {step === 3 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="space-y-6">
+              <div className="p-5 bg-[var(--color-surface)] border-l-4 border-[var(--color-brand-teal)] rounded-sm">
+                <h4 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-lg font-semibold text-[var(--color-ink)] mb-2">
+                  Transparent Data Usage Notice
+                </h4>
+                <p className="text-sm text-[var(--color-slate-muted)] leading-relaxed mb-3">
+                  Under India's Digital Personal Data Protection (DPDP) Act, 2023, matching consent must be explicitly chosen and separate from Terms of Service.
+                </p>
+                <p className="text-xs text-[var(--color-ink)] font-medium leading-relaxed">
+                  "We use your department ({department}), organization, and selected interest tags to generate monthly introduction drops with verified peers. We never sell your data or share your direct contact details without your explicit permission."
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                <div
+                  onClick={() => setMatchingConsentChoice("opted_in")}
+                  className={`p-4 rounded-sm border cursor-pointer flex items-start gap-3 transition-all ${
+                    matchingConsentChoice === "opted_in"
+                      ? "border-[var(--color-brand-teal)] bg-[var(--color-brand-teal)]/5"
+                      : "border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)]/40"
+                  }`}
+                >
+                  <div className={`consent-check mt-0.5 ${matchingConsentChoice === "opted_in" ? "checked" : ""}`}>
+                    {matchingConsentChoice === "opted_in" && <span className="text-white text-xs">✓</span>}
+                  </div>
+                  <div>
+                    <span className="text-sm font-semibold text-[var(--color-ink)] block">
+                      Opt-in to Monthly Introductions (Recommended)
+                    </span>
+                    <span className="text-xs text-[var(--color-slate-muted)]">
+                      Receive explainable cross-disciplinary introductions on the 1st of every month.
+                    </span>
+                  </div>
+                </div>
+
+                <div
+                  onClick={() => setMatchingConsentChoice("opted_out")}
+                  className={`p-4 rounded-sm border cursor-pointer flex items-start gap-3 transition-all ${
+                    matchingConsentChoice === "opted_out"
+                      ? "border-[var(--color-brand-teal)] bg-[var(--color-brand-teal)]/5"
+                      : "border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)]/40"
+                  }`}
+                >
+                  <div className={`consent-check mt-0.5 ${matchingConsentChoice === "opted_out" ? "checked" : ""}`}>
+                    {matchingConsentChoice === "opted_out" && <span className="text-white text-xs">✓</span>}
+                  </div>
+                  <div>
+                    <span className="text-sm font-semibold text-[var(--color-ink)] block">
+                      Decline Matching (Magazine Access Only)
+                    </span>
+                    <span className="text-xs text-[var(--color-slate-muted)]">
+                      Read monthly intelligence articles without participating in algorithmic network matching.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* STEP 4: TOPICS */}
+          {step === 4 && (
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-xs text-[var(--color-slate-muted)]">
+                  Selected {selectedTags.length} of 5 (minimum 3 required)
+                </span>
+                {selectedTags.length >= 3 && (
+                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs text-[var(--color-brand-coral)] font-semibold">
+                    ✓ Focus threshold met
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-wrap gap-2 max-h-[260px] overflow-y-auto p-1">
+                {TAGS.map(tag => (
+                  <Tag
+                    key={tag}
+                    selected={selectedTags.includes(tag)}
+                    onClick={() => toggleTag(tag)}
+                  >
+                    {tag}
+                  </Tag>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* STEP 5: GOAL */}
+          {step === 5 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {GOALS.map(goal => (
-                <button
+                <div
                   key={goal.id}
                   onClick={() => setSelectedGoal(goal.id)}
-                  className={`goal-card text-left p-5 border rounded-sm relative ${selectedGoal === goal.id ? "selected" : "border-[rgba(26,26,26,0.15)]"}`}
+                  className={`p-5 rounded-sm border cursor-pointer transition-all ${
+                    selectedGoal === goal.id
+                      ? "border-[var(--color-brand-teal)] bg-[var(--color-brand-teal)]/5 ring-1 ring-[var(--color-brand-teal)]"
+                      : "border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)]/40 hover:bg-[var(--color-surface)]"
+                  }`}
                 >
-                  {selectedGoal === goal.id && (
-                    <div className="absolute top-4 right-4 w-4 h-4 rounded-full bg-[#1A1A1A] flex items-center justify-center">
-                      <div className="w-1.5 h-1.5 rounded-full bg-white" />
-                    </div>
-                  )}
-                  <div style={{ fontFamily: "Newsreader, Georgia, serif" }} className="text-lg font-semibold text-[#1A1A1A] mb-2">
-                    {goal.label}
-                  </div>
-                  <div className="text-sm text-[#5A6B7C] leading-relaxed">
-                    {goal.desc}
-                  </div>
-                </button>
+                  <h4 className="text-sm font-semibold text-[var(--color-ink)] mb-1">{goal.label}</h4>
+                  <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed">{goal.desc}</p>
+                </div>
               ))}
             </div>
           )}
 
-          {/* Step 4: Notification toggle */}
-          {step === 4 && (
-            <div className="flex flex-col gap-8">
-              <div className="flex items-start justify-between gap-6 md:gap-8 p-6 border border-[rgba(26,26,26,0.12)] rounded-sm">
-                <div className="flex-1">
-                  <div style={{ fontFamily: "Newsreader, Georgia, serif" }} className="text-xl font-semibold text-[#1A1A1A] mb-2">
-                    Monthly Match Notifications
-                  </div>
-                  <p className="text-sm text-[#5A6B7C] leading-relaxed">
-                    Notify me the day my monthly matches drop.
-                  </p>
-                  <p className="text-xs text-[#5A6B7C] mt-3 opacity-70">
-                    Sent once per month on the 1st. No other emails.
-                  </p>
-                </div>
-                <button
-                  onClick={() => setNotifyEnabled(v => !v)}
-                  className="flex-shrink-0 relative mt-0.5"
-                  role="switch"
-                  aria-checked={notifyEnabled}
-                >
-                  <div
-                    className="toggle-track w-12 h-6 rounded-full"
-                    style={{ background: notifyEnabled ? "#1A1A1A" : "rgba(26,26,26,0.15)" }}
-                  />
-                  <div
-                    className="toggle-thumb absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm transition-transform"
-                    style={{ transform: notifyEnabled ? "translateX(24px)" : "translateX(0)" }}
-                  />
-                </button>
-              </div>
-
-              <div className="flex flex-col gap-3 p-5 bg-[#F8F6F0] rounded-sm border border-[rgba(26,26,26,0.08)]">
-                <div className="text-xs font-medium tracking-[0.08em] uppercase text-[#5A6B7C] mb-1">Your profile summary</div>
-                <div className="text-sm text-[#5A6B7C]">
-                  Role: <span className="text-[#1A1A1A] font-medium">{ROLES.find(r => r.id === selectedRole)?.label}</span>
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {selectedTags.map(t => (
-                    <span key={t} className="text-xs px-2.5 py-1 bg-[#1A1A1A] text-[#F8F6F0] rounded-full">{t}</span>
-                  ))}
-                </div>
-                <div className="text-sm text-[#5A6B7C] mt-1">
-                  Goal: <span className="text-[#1A1A1A] font-medium">{GOALS.find(g => g.id === selectedGoal)?.label}</span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Step 5: Consent */}
-          {step === 5 && (
-            <div className="flex flex-col gap-6">
-              {/* DPDP Consent */}
-              <div className="p-6 border border-[rgba(26,26,26,0.12)] rounded-sm bg-[#F8F6F0]">
-                <div style={{ fontFamily: "Newsreader, Georgia, serif" }} className="text-lg font-semibold text-[#1A1A1A] mb-3">
-                  Data Usage Consent
-                </div>
-                <p className="text-sm text-[#5A6B7C] leading-relaxed mb-5">
-                  We use your role, company, and interest tags to generate monthly matches with other professionals on the platform. Your data is processed in accordance with India's Digital Personal Data Protection Act (DPDP), 2023. You can update or delete this data anytime in Settings.
+          {/* STEP 6: NOTIFICATIONS */}
+          {step === 6 && (
+            <div className="space-y-6">
+              <div className="p-5 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm">
+                <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] font-semibold uppercase text-[var(--color-brand-coral)] tracking-wider block mb-1">
+                  Monthly Cadence
+                </span>
+                <h4 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-lg font-semibold text-[var(--color-ink)] mb-2">
+                  Matches & Editorial Drop on the 1st of Every Month
+                </h4>
+                <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed">
+                  We don&apos;t spam daily notifications. You get one monthly alert when your new introduction drop and magazine issue are released.
                 </p>
-                <button
-                  onClick={() => setConsentGiven(v => !v)}
-                  className="flex items-start gap-3 text-left w-full"
-                >
-                  <div className={`consent-check mt-0.5 ${consentGiven ? "checked" : ""}`}>
-                    {consentGiven && (
-                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                        <path d="M2 6.5L4.5 9L10 3" stroke="#F8F6F0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    )}
-                  </div>
-                  <span className="text-sm text-[#1A1A1A] leading-relaxed">
-                    I consent to Meridian using my professional profile data (role, tags, goals) to generate algorithmic matches. This is separate from the general Terms of Service.
+              </div>
+
+              <div
+                onClick={() => setNotifyEnabled(v => !v)}
+                className="p-4 border border-[var(--color-border-subtle)] rounded-sm flex items-center justify-between cursor-pointer hover:bg-[var(--color-surface)] transition-colors"
+              >
+                <div>
+                  <span className="text-sm font-semibold text-[var(--color-ink)] block">
+                    Notify me when my monthly match drop is ready
                   </span>
-                </button>
+                  <span className="text-xs text-[var(--color-slate-muted)]">
+                    Sent via email on the 1st of every month at 9:00 AM IST.
+                  </span>
+                </div>
+                <input
+                  type="checkbox"
+                  checked={notifyEnabled}
+                  onChange={() => {}}
+                  className="w-4 h-4 accent-[var(--color-brand-coral)] cursor-pointer"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* STEP 7: SUMMARY & REFERRAL REWARD */}
+          {step === 7 && (
+            <div className="space-y-5">
+              <div className="p-4 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm space-y-2 text-xs">
+                <div className="flex justify-between">
+                  <span className="text-[var(--color-slate-muted)]">Member:</span>
+                  <span className="font-semibold text-[var(--color-ink)]">{fullName} ({experience})</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[var(--color-slate-muted)]">Role & Workplace:</span>
+                  <span className="font-semibold text-[var(--color-ink)]">{jobTitle} · {organization} ({department})</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[var(--color-slate-muted)]">Consent:</span>
+                  <span className="font-semibold text-[var(--color-brand-coral)]">
+                    {matchingConsentChoice === "opted_in" ? "Opted In (DPDP Verified)" : "Magazine Access Only"}
+                  </span>
+                </div>
               </div>
 
-              {/* Disclaimer acknowledgment */}
-              <div className="p-5 border border-[rgba(26,26,26,0.08)] rounded-sm">
-                <p className="text-xs text-[#5A6B7C] leading-relaxed">
-                  Meridian Life Sciences is a professional networking and information platform. It does not provide medical advice, clinical decision support, treatment recommendations, or diagnostic guidance of any kind. Content is for professional and informational purposes only.
+              {/* Referral Incentive Widget */}
+              <div className="p-5 bg-white border-2 border-[var(--color-brand-coral)] rounded-sm relative shadow-sm">
+                <span
+                  style={{ fontFamily: "'Geist Mono', monospace" }}
+                  className="text-[10px] font-semibold uppercase bg-[var(--color-brand-coral)] text-white px-2 py-0.5 rounded-sm inline-block mb-2"
+                >
+                  Colleague Referral Program
+                </span>
+                <h4 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-lg font-semibold text-[var(--color-ink)] mb-1">
+                  Invite 3 Life Science Colleagues → Unlock 1 Month Professional Free
+                </h4>
+                <p className="text-xs text-[var(--color-slate-muted)] mb-4">
+                  Share your personal link with peers in regulatory, clinical, BD, or logistics. When 3 join, you automatically receive a free month upgrade.
                 </p>
-              </div>
 
-              {/* Final profile summary */}
-              <div className="p-5 bg-white border border-[rgba(26,26,26,0.1)] rounded-sm">
-                <div className="text-xs font-medium tracking-[0.08em] uppercase text-[#5A6B7C] mb-3">Profile Summary</div>
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-[#5A6B7C]">Role:</span>
-                    <span className="text-sm font-medium text-[#1A1A1A]">{ROLES.find(r => r.id === selectedRole)?.label}</span>
-                    <span className={`tier-badge ${ROLES.find(r => r.id === selectedRole)?.tier === "Free" ? "free" : ROLES.find(r => r.id === selectedRole)?.tier === "Enterprise" ? "enterprise" : "pro"}`}>
-                      {ROLES.find(r => r.id === selectedRole)?.tier}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-[#5A6B7C]">Goal:</span>
-                    <span className="text-sm font-medium text-[#1A1A1A]">{GOALS.find(g => g.id === selectedGoal)?.label}</span>
-                  </div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-sm text-[#5A6B7C]">Tags:</span>
-                    {selectedTags.map(t => (
-                      <span key={t} className="text-[10px] px-2 py-0.5 bg-[#1A1A1A] text-[#F8F6F0] rounded-full">{t}</span>
-                    ))}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-[#5A6B7C]">Notifications:</span>
-                    <span className="text-sm font-medium text-[#1A1A1A]">{notifyEnabled ? "Enabled" : "Disabled"}</span>
-                  </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    readOnly
+                    value={referralLink}
+                    className="flex-1 px-3 py-2 text-xs bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm font-mono select-all"
+                  />
+                  <Button variant="coral" size="sm" onClick={handleCopyReferral}>
+                    {copiedReferral ? "Copied! ✓" : "Copy Link"}
+                  </Button>
                 </div>
               </div>
             </div>
           )}
-        </div>
 
-        {/* Footer */}
-        <div className="px-6 md:px-10 pb-8 md:pb-10 flex items-center justify-between">
-          <button
-            onClick={back}
-            className="text-sm text-[#5A6B7C] hover:text-[#1A1A1A] transition-colors"
-            style={{ visibility: step > 1 ? "visible" : "hidden" }}
-          >
-            ← Back
-          </button>
+          {/* Footer Controls */}
+          <div className="flex items-center justify-between pt-6 mt-6 border-t border-[var(--color-border-subtle)]">
+            <Button variant="ghost" size="sm" onClick={back} disabled={step === 1}>
+              ← Back
+            </Button>
 
-          {step < totalSteps ? (
-            <button
-              onClick={next}
-              disabled={!canNext(step)}
-              className="px-7 py-3 bg-[#1A1A1A] text-[#F8F6F0] text-sm font-medium rounded-sm hover:bg-[#2a2a2a] transition-colors disabled:opacity-35 disabled:cursor-not-allowed"
-            >
-              Continue →
-            </button>
-          ) : (
-            <button
-              onClick={onComplete}
-              disabled={!canNext(step)}
-              className="px-7 py-3 bg-[#1A1A1A] text-[#F8F6F0] text-sm font-medium rounded-sm hover:bg-[#2a2a2a] transition-colors disabled:opacity-35 disabled:cursor-not-allowed"
-            >
-              Enter Platform →
-            </button>
-          )}
+            {step < totalSteps ? (
+              <Button variant="coral" size="sm" onClick={next} disabled={!canNext(step)}>
+                Continue →
+              </Button>
+            ) : (
+              <Button variant="primary" size="md" onClick={onComplete}>
+                Complete Activation & Enter Platform
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </div>
