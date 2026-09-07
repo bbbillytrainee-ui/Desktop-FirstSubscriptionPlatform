@@ -55,7 +55,11 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
       {showFlipbook && (
         <MagazineFlipbook
           issue={currentIssue}
-          articles={ARTICLES}
+          articles={
+            ARTICLES.filter(a => a.issueId === currentIssue.id).length > 0
+              ? ARTICLES.filter(a => a.issueId === currentIssue.id)
+              : ARTICLES
+          }
           onClose={() => setShowFlipbook(false)}
           onJoinPrompt={onJoin}
         />

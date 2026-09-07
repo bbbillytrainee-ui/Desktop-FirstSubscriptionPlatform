@@ -22,7 +22,11 @@ export default function ArchivePage({ onJoin, onNavigate }: ArchivePageProps) {
       {activeFlipbookIssue && (
         <MagazineFlipbook
           issue={activeFlipbookIssue}
-          articles={ARTICLES.filter(a => a.issueId === activeFlipbookIssue.id || a.issueId === "issue-2026-08")}
+          articles={
+            ARTICLES.filter(a => a.issueId === activeFlipbookIssue.id).length > 0
+              ? ARTICLES.filter(a => a.issueId === activeFlipbookIssue.id)
+              : ARTICLES
+          }
           onClose={() => setActiveFlipbookIssue(null)}
           onJoinPrompt={onJoin}
         />
