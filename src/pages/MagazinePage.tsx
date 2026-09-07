@@ -14,6 +14,8 @@ import { ISSUES } from "../data/fixtures/issues"
 
 import { AUTHORS } from "../data/fixtures/authors"
 
+import AddArticleModal from "../components/magazine/AddArticleModal"
+
 export interface MagazinePageProps {
   onJoin?: () => void
   onNavigate?: (route: string) => void
@@ -25,10 +27,12 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
   const [activeArticle, setActiveArticle] = useState<Article | null>(null)
   const [showFlipbook, setShowFlipbook] = useState(false)
   const [activeTaxonomy, setActiveTaxonomy] = useState("All Intelligence")
+  const [articlesList, setArticlesList] = useState<Article[]>(ARTICLES)
+  const [showAddModal, setShowAddModal] = useState(false)
 
   const currentIssue = ISSUES[0]
 
-  const filteredArticles = ARTICLES.filter(art => {
+  const filteredArticles = articlesList.filter(art => {
     const matchesCat = selectedCategory === "all" || art.category === selectedCategory
     const matchesFmt = selectedFormat === "all" || art.format === selectedFormat
     const matchesTaxonomy = activeTaxonomy === "All Intelligence" ||
@@ -178,7 +182,7 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
         </div>
 
         {/* Section Heading for Individual Dossiers */}
-        <div className="pb-4 mb-6 border-b border-[var(--color-border-subtle)] flex items-center justify-between">
+        <div className="pb-4 mb-6 border-b border-[var(--color-border-subtle)] flex flex-wrap items-center justify-between gap-4">
           <div>
             <span
               style={{ fontFamily: "'Geist Mono', monospace" }}
@@ -193,6 +197,14 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
               Articles & Features in this Issue
             </h2>
           </div>
+
+          <button
+            onClick={() => setShowAddModal(true)}
+            className="px-4 py-2 bg-gradient-to-r from-[var(--color-brand-coral)] to-[#B94E2C] text-white text-xs font-semibold rounded-md hover:brightness-110 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
+            style={{ fontFamily: "'Geist Mono', monospace" }}
+          >
+            <span>📷</span> Add Article / Upload Image
+          </button>
         </div>
 
         <BrowseControls
@@ -235,6 +247,15 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
           <span>Launch 3D Book Reader</span>
         </button>
       </div>
+
+      {/* Add Article with Custom Image Modal */}
+      <AddArticleModal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        onAddArticle={newArt => {
+          setArticlesList(prev => [newArt, ...prev])
+        }}
+      />
     </div>
   )
 }

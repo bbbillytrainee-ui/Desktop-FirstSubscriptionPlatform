@@ -15,6 +15,8 @@ export default function ThoughtLeadershipPage({ onJoin, onNavigate }: ThoughtLea
   const [pitchAuthor, setPitchAuthor] = useState("")
   const [pitchTopic, setPitchTopic] = useState("")
   const [pitchAbstract, setPitchAbstract] = useState("")
+  const [pitchImage, setPitchImage] = useState("")
+  const [pitchImagePreview, setPitchImagePreview] = useState("")
 
   const handleSubmitPitch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -216,12 +218,52 @@ export default function ThoughtLeadershipPage({ onJoin, onNavigate }: ThoughtLea
                   <div>
                     <label className="block text-xs font-semibold text-[var(--color-ink)] mb-1">Short Abstract / Core Takeaways (2-3 sentences)</label>
                     <textarea
-                      rows={4}
+                      rows={3}
                       value={pitchAbstract}
                       onChange={e => setPitchAbstract(e.target.value)}
                       placeholder="Summarize the operational problem your piece addresses and key insights for peers."
                       className="w-full px-3 py-2 text-xs border border-[var(--color-border-subtle)] rounded-sm focus:outline-none focus:border-[var(--color-brand-teal)]"
                     />
+                  </div>
+
+                  {/* Custom Image Upload & URL input */}
+                  <div className="p-3 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm space-y-2">
+                    <label className="block text-xs font-bold text-[var(--color-brand-coral)] font-mono uppercase">
+                      📷 Article Cover / Author Photo
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={e => {
+                        const file = e.target.files?.[0]
+                        if (file) {
+                          const reader = new FileReader()
+                          reader.onloadend = () => {
+                            if (typeof reader.result === "string") {
+                              setPitchImagePreview(reader.result)
+                              setPitchImage(reader.result)
+                            }
+                          }
+                          reader.readAsDataURL(file)
+                        }
+                      }}
+                      className="w-full text-xs text-[var(--color-slate-muted)] file:mr-2 file:py-1 file:px-2.5 file:rounded-sm file:border-0 file:text-[11px] file:font-semibold file:bg-[var(--color-brand-teal)] file:text-white hover:file:brightness-110 cursor-pointer"
+                    />
+                    <input
+                      type="url"
+                      value={pitchImage}
+                      onChange={e => {
+                        setPitchImage(e.target.value)
+                        setPitchImagePreview(e.target.value)
+                      }}
+                      placeholder="Or paste image web URL (https://...)"
+                      className="w-full px-2.5 py-1 text-[11px] bg-white border border-[var(--color-border-subtle)] rounded-sm"
+                    />
+                    {pitchImagePreview && (
+                      <div className="h-28 w-full rounded overflow-hidden border border-stone-300 relative bg-stone-100">
+                        <img src={pitchImagePreview} alt="Preview" className="w-full h-full object-cover" />
+                      </div>
+                    )}
                   </div>
 
                   <Button variant="coral" size="md" className="w-full">
