@@ -15,7 +15,7 @@ export const ISSUES: Issue[] = [
     month: "September 2026",
     theme: "Next-Gen Bioprocessing & Commercial CDMO Operations",
     summary: "Exploring continuous manufacturing, single-use bioreactor innovations, and cross-border biopharma partnerships across APAC hubs.",
-    coverImage: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "https://images.unsplash.com/photo-1581093458791-9f3c3250a8b0?auto=format&fit=crop&w=1200&q=80",
     status: "published",
   },
   {

@@ -26,7 +26,7 @@ export const ARTICLES: Article[] = [
     date: "Sep 02, 2026",
     readingTime: "8 min read",
     tags: ["Bioprocessing", "CDMO Operations", "Biologics API"],
-    image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.unsplash.com/photo-1581093458791-9f3c3250a8b0?auto=format&fit=crop&w=1200&q=80",
     body: [
       "As global pharmaceutical developers seek to diversify biomanufacturing supply chains away from single-geography risks, leading Indian Contract Development and Manufacturing Organizations (CDMOs) are investing heavily in continuous bioprocessing facilities.",
       "Perfusion bioreactors and automated downstream purification lines are significantly reducing footprint requirements while enhancing batch-to-batch consistency for complex monoclonal antibodies (mAbs) and biosimilars.",

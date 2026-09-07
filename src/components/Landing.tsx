@@ -46,6 +46,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             article={selectedArticle}
             onClose={() => setSelectedArticle(null)}
             onJoinPrompt={onGetAccess}
+            onOpenFlipbook={() => { setSelectedArticle(null); setShowFlipbook(true); }}
           />
         </main>
         <Footer onNavigate={onNavigate} />
@@ -583,6 +584,19 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
 
       {/* Footer */}
       <Footer onNavigate={onNavigate} />
+
+      {/* Floating Quick-Launch 3D Book Reader Button */}
+      <div className="fixed bottom-6 right-6 z-40">
+        <button
+          onClick={() => setShowFlipbook(true)}
+          className="px-4 py-3 bg-gradient-to-r from-[var(--color-brand-teal)] to-[#164e60] text-white text-xs font-semibold rounded-full shadow-[0_10px_30px_rgba(13,59,74,0.35)] hover:scale-105 active:scale-95 transition-all flex items-center gap-2 border border-white/20 group cursor-pointer"
+          style={{ fontFamily: "'Geist Mono', monospace" }}
+          title="Open interactive 3D page-turning magazine reader"
+        >
+          <span className="text-base group-hover:rotate-12 transition-transform">📖</span>
+          <span>Launch 3D Book Reader</span>
+        </button>
+      </div>
     </div>
   )
 }

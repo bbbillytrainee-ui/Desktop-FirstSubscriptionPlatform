@@ -8,9 +8,10 @@ export interface ArticleReaderProps {
   article: Article
   onClose?: () => void
   onJoinPrompt?: () => void
+  onOpenFlipbook?: () => void
 }
 
-export default function ArticleReader({ article, onClose, onJoinPrompt }: ArticleReaderProps) {
+export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFlipbook }: ArticleReaderProps) {
   const author = AUTHORS.find(a => a.id === article.authorId) || {
     id: "unknown",
     name: "Editorial Staff",
@@ -23,18 +24,29 @@ export default function ArticleReader({ article, onClose, onJoinPrompt }: Articl
     isContributor: false,
   }
 
-
   return (
     <article className="max-w-[var(--article-max)] mx-auto px-4 md:px-6 py-8">
-      {onClose && (
-        <button
-          onClick={onClose}
-          className="mb-6 flex items-center gap-2 text-xs font-medium text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] transition-colors"
-          style={{ fontFamily: "'Geist Mono', monospace" }}
-        >
-          ← Back to Magazine
-        </button>
-      )}
+      <div className="flex items-center justify-between gap-4 mb-6 pb-3 border-b border-[var(--color-border-subtle)]">
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="flex items-center gap-2 text-xs font-medium text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] transition-colors cursor-pointer"
+            style={{ fontFamily: "'Geist Mono', monospace" }}
+          >
+            ← Back to All Articles
+          </button>
+        )}
+
+        {onOpenFlipbook && (
+          <button
+            onClick={onOpenFlipbook}
+            className="px-3 py-1.5 bg-gradient-to-r from-[var(--color-brand-teal)] to-[#164e60] text-white text-xs font-semibold rounded-md shadow-xs hover:brightness-110 transition-all flex items-center gap-1.5 cursor-pointer ml-auto"
+            style={{ fontFamily: "'Geist Mono', monospace" }}
+          >
+            <span>📖</span> Open in 3D Flipbook Reader
+          </button>
+        )}
+      </div>
 
       {/* Metadata Header */}
       <div className="flex items-center gap-2 mb-3">
