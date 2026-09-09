@@ -72,7 +72,7 @@ export default function RssFeedsPage({ onJoin, onNavigate }: RssFeedsPageProps) 
             RSS Feeds & Syndication Hub
           </h1>
           <p className="text-base md:text-lg text-[var(--color-slate-muted)] leading-relaxed">
-            Integrate Meridian&apos;s verified life science intelligence feeds directly into your corporate reader, intranet portal, Slack alerts, or news aggregation pipeline.
+            Integrate Mediverse&apos;s verified life science intelligence feeds directly into your corporate reader, intranet portal, Slack alerts, or news aggregation pipeline.
           </p>
         </div>
 

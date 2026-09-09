@@ -103,7 +103,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = () => {
     setUser(null)
-    localStorage.removeItem("meridian_user")
+    localStorage.removeItem("mediverse_user")
   }
 
   const updateProfile = (updates: Partial<AuthUser>) => {

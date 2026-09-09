@@ -7,9 +7,13 @@ import Badge from "./ui/Badge"
 import ArticleCard from "./magazine/ArticleCard"
 import ArticleReader from "./magazine/ArticleReader"
 import MagazineFlipbook from "./magazine/MagazineFlipbook"
+import LastMonthTrending from "./magazine/LastMonthTrending"
 import LatestNewsSidebar from "./news/LatestNewsSidebar"
+import { BookOpen, Download, Sparkles } from "./ui/Icons"
+import { useToast } from "../lib/toast"
+import SafeImage from "./ui/SafeImage"
 import { ARTICLES, Article } from "../data/fixtures/articles"
-import { ISSUES } from "../data/fixtures/issues"
+import { ISSUES, Issue } from "../data/fixtures/issues"
 import { PROFILES } from "../data/fixtures/profiles"
 import { WEBINARS } from "../data/fixtures/webinars"
 import { RESEARCH_REPORTS } from "../data/fixtures/reports"
@@ -22,9 +26,12 @@ export interface LandingProps {
 export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null)
   const [showFlipbook, setShowFlipbook] = useState(false)
+  const [activeFlipbookIssue, setActiveFlipbookIssue] = useState<Issue>(ISSUES[0])
   const [activeTaxonomy, setActiveTaxonomy] = useState("All Intelligence")
 
   const currentIssue = ISSUES[0]
+  const lastMonthIssue = ISSUES[1]
+  const lastMonthArticles = ARTICLES.filter(a => a.issueId === lastMonthIssue.id)
   const heroArticle = ARTICLES[0]
   const secondaryArticles = ARTICLES.slice(1, 4)
   const nextWebinar = WEBINARS[0]
@@ -36,6 +43,23 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
         a.tags.some(t => t.toLowerCase().includes(activeTaxonomy.toLowerCase()))
       )
 
+  const { success } = useToast()
+
+  const handleDownloadBriefing = () => {
+    const element = document.createElement("a")
+    const file = new Blob([
+      `MEDIVERSE LIFE SCIENCES — ISSUE #${currentIssue.number}\n\nTheme: ${currentIssue.theme}\nDate: ${currentIssue.month}\n\nSummary:\n${currentIssue.summary}\n\nFull edition available at: https://mediverse.network\n`
+    ], { type: "text/plain" })
+    element.href = URL.createObjectURL(file)
+    element.download = `Mediverse_Issue_${currentIssue.number}_Digital_Briefing.txt`
+
+    document.body.appendChild(element)
+    element.click()
+    document.body.removeChild(element)
+
+    success("Executive Briefing Downloaded", `Issue #${currentIssue.number} briefing downloaded.`)
+  }
+
   if (selectedArticle) {
     return (
       <div className="min-h-screen bg-[var(--color-paper)] flex flex-col font-sans">
@@ -46,7 +70,12 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             article={selectedArticle}
             onClose={() => setSelectedArticle(null)}
             onJoinPrompt={onGetAccess}
-            onOpenFlipbook={() => { setSelectedArticle(null); setShowFlipbook(true); }}
+            onOpenFlipbook={() => {
+              const matched = ISSUES.find(i => i.id === selectedArticle.issueId) || currentIssue
+              setActiveFlipbookIssue(matched)
+              setSelectedArticle(null)
+              setShowFlipbook(true)
+            }}
           />
         </main>
         <Footer onNavigate={onNavigate} />
@@ -59,8 +88,12 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       {/* 3D Magazine Flipbook Modal */}
       {showFlipbook && (
         <MagazineFlipbook
-          issue={currentIssue}
-          articles={ARTICLES}
+          issue={activeFlipbookIssue}
+          articles={
+            ARTICLES.filter(a => a.issueId === activeFlipbookIssue.id).length > 0
+              ? ARTICLES.filter(a => a.issueId === activeFlipbookIssue.id)
+              : ARTICLES
+          }
           onClose={() => setShowFlipbook(false)}
           onJoinPrompt={onGetAccess}
         />
@@ -85,19 +118,17 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
         <div className="max-w-[var(--container-max)] mx-auto grid grid-cols-1 lg:grid-cols-[62fr_38fr] gap-10 lg:gap-14 items-center">
           {/* Left Column: Vision & Primary Actions */}
           <div>
-            <div className="mb-3.5">
-              <span
-                style={{ fontFamily: "'Geist Mono', monospace" }}
-                className="text-xs font-semibold tracking-[0.18em] uppercase text-[var(--color-brand-coral)]"
-              >
+            <div className="flex items-center gap-3 mb-3.5 flex-wrap">
+              <span className="font-mono text-xs font-semibold tracking-[0.18em] uppercase text-[var(--color-brand-coral)]">
                 Pharma · MedTech · AI-Health
               </span>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-emerald-50 border border-emerald-200 rounded-full text-[10px] font-mono font-medium text-emerald-800">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span>340+ Leaders Reading Issue #15 Live</span>
+              </div>
             </div>
 
-            <h1
-              style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-              className="text-4xl sm:text-5xl lg:text-[50px] font-semibold text-[var(--color-ink)] leading-[1.08] tracking-tight mb-5"
-            >
+            <h1 className="font-serif text-4xl sm:text-5xl lg:text-[50px] font-semibold text-[var(--color-ink)] leading-[1.08] tracking-tight mb-5">
               A serious publication <span className="font-serif italic font-normal text-[var(--color-brand-coral)] px-0.5 text-[0.95em]">&amp;</span> network for the people building what healthcare becomes next.
             </h1>
 
@@ -105,7 +136,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
               Curated monthly intelligence, deep life science dossiers, and explainable peer introductions for verified healthcare leaders across regulatory, clinical, and commercial tracks.
             </p>
 
-            <div className="flex items-center gap-3.5 flex-wrap">
+            <div className="flex items-center gap-3.5 flex-wrap mb-8">
               <Button variant="coral" size="lg" onClick={onGetAccess}>
                 Join the network
               </Button>
@@ -114,32 +145,37 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                 size="lg"
                 onClick={() => setShowFlipbook(true)}
               >
-                <svg className="w-4 h-4 text-current shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
+                <BookOpen size={16} />
                 <span>Open 3D Reader</span>
               </Button>
               <Button
                 variant="ghost"
                 size="lg"
-                onClick={() => {
-                  const element = document.createElement("a")
-                  const file = new Blob([
-                    `MEDIVERSE LIFE SCIENCES — ISSUE #${currentIssue.number}\n\nTheme: ${currentIssue.theme}\nDate: ${currentIssue.month}\n\nSummary:\n${currentIssue.summary}\n\nFull edition available at: https://mediverse.network`
-                  ], { type: "text/plain" })
-                  element.href = URL.createObjectURL(file)
-                  element.download = `Mediverse_Issue_${currentIssue.number}_Digital_Edition.txt`
-
-                  document.body.appendChild(element)
-                  element.click()
-                  document.body.removeChild(element)
-                }}
+                onClick={handleDownloadBriefing}
               >
-                <svg className="w-4 h-4 text-[var(--color-brand-teal)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
+                <Download size={16} className="text-[var(--color-brand-teal)]" />
                 <span>Download Briefing</span>
               </Button>
+            </div>
+
+            {/* Credibility Credentials Trust Row */}
+            <div className="pt-6 border-t border-[var(--color-border-subtle)] grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div>
+                <div className="font-mono text-base font-bold text-[var(--color-ink)]">34,000+</div>
+                <div className="text-[11px] text-[var(--color-slate-muted)] leading-tight mt-0.5">Verified Leaders</div>
+              </div>
+              <div>
+                <div className="font-mono text-base font-bold text-[var(--color-ink)]">48+</div>
+                <div className="text-[11px] text-[var(--color-slate-muted)] leading-tight mt-0.5">Annual Dossiers</div>
+              </div>
+              <div>
+                <div className="font-mono text-base font-bold text-[var(--color-ink)]">100%</div>
+                <div className="text-[11px] text-[var(--color-slate-muted)] leading-tight mt-0.5">Peer Cited Rigor</div>
+              </div>
+              <div>
+                <div className="font-mono text-base font-bold text-[var(--color-brand-teal)]">Zero Ads</div>
+                <div className="text-[11px] text-[var(--color-slate-muted)] leading-tight mt-0.5">Member Supported</div>
+              </div>
             </div>
           </div>
 
@@ -159,7 +195,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
               className="h-52 rounded-sm overflow-hidden mb-4 relative cursor-pointer group/img"
               onClick={() => setShowFlipbook(true)}
             >
-              <img
+              <SafeImage
                 src={currentIssue.coverImage}
                 alt={currentIssue.theme}
                 className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
@@ -250,7 +286,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
           </div>
 
           {/* Bottom Row: 3 Secondary Feature Cards in a clean 3-column row */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-[var(--color-border-subtle)]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-[var(--color-border-subtle)] mb-12">
             {(filteredArticles.length > 1 ? filteredArticles.slice(1, 4) : secondaryArticles).map(article => (
               <ArticleCard
                 key={article.slug}
@@ -260,6 +296,19 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
               />
             ))}
           </div>
+
+          {/* Dedicated Last Month's Trending Retrospective */}
+          {lastMonthIssue && (
+            <LastMonthTrending
+              lastMonthIssue={lastMonthIssue}
+              lastMonthArticles={lastMonthArticles}
+              onSelectArticle={art => setSelectedArticle(art)}
+              onOpenIssueFlipbook={issue => {
+                setActiveFlipbookIssue(issue)
+                setShowFlipbook(true)
+              }}
+            />
+          )}
 
         </div>
       </section>

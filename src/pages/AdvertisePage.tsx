@@ -109,7 +109,7 @@ export default function AdvertisePage({ onJoin, onNavigate }: AdvertisePageProps
                 Media Kit Dispatched
               </h4>
               <p className="text-xs text-[var(--color-slate-muted)]">
-                Thank you, {sponsorName}. The 2026 Meridian media kit has been sent to {sponsorEmail}.
+                Thank you, {sponsorName}. The 2026 Mediverse media kit has been sent to {sponsorEmail}.
               </p>
             </div>
           ) : (

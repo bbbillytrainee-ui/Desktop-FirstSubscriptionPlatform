@@ -1,8 +1,9 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Header from "../components/layout/Header"
 import Footer from "../components/layout/Footer"
 import Button from "../components/ui/Button"
 import Badge from "../components/ui/Badge"
+import { Play, Pause } from "../components/ui/Icons"
 import { PODCAST_EPISODES, PodcastEpisode } from "../data/fixtures/podcasts"
 
 export interface PodcastsPageProps {
@@ -15,8 +16,29 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(25)
 
+  // Simulation timer for progress when playing
+  useEffect(() => {
+    let interval: NodeJS.Timeout
+    if (isPlaying) {
+      interval = setInterval(() => {
+        setProgress(p => (p >= 100 ? 0 : p + 0.5))
+      }, 1000)
+    }
+    return () => clearInterval(interval)
+  }, [isPlaying])
+
   const togglePlay = () => {
     setIsPlaying(p => !p)
+  }
+
+  // Calculate formatted mm:ss for current progress
+  const formatTimeFromProgress = (pct: number, totalDurationStr: string) => {
+    const totalMinutes = parseInt(totalDurationStr.replace(/[^0-9]/g, "")) || 35
+    const totalSeconds = totalMinutes * 60
+    const currentSeconds = Math.floor((pct / 100) * totalSeconds)
+    const mins = Math.floor(currentSeconds / 60)
+    const secs = currentSeconds % 60
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`
   }
 
   return (
@@ -26,12 +48,11 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
       <main className="flex-1 max-w-[var(--container-max)] mx-auto px-6 md:px-12 py-12 w-full pb-32">
         {/* Header */}
         <div className="border-b border-[var(--color-border-subtle)] pb-8 mb-10 max-w-3xl">
-          <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
+          <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
             Audio Intelligence Series
           </span>
-          <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
             Mediverse Dialogues
-
           </h1>
           <p className="text-base md:text-lg text-[var(--color-slate-muted)] leading-relaxed">
             Unfiltered 35-minute audio conversations with CEOs, VP regulatory strategists, and supply chain architects shaping life sciences in India and APAC.
@@ -44,12 +65,18 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
             <div className="lg:col-span-8 space-y-4">
               <div className="flex items-center gap-3">
                 <Badge type="pro" label={`Episode #${activeEpisode.episodeNumber}`} />
-                <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs text-[var(--color-slate-muted)]">
+                <span className="font-mono text-xs text-[var(--color-slate-muted)]">
                   {activeEpisode.date} · {activeEpisode.duration}
                 </span>
+                {isPlaying && (
+                  <span className="flex items-center gap-1 text-[10px] font-mono text-[var(--color-brand-coral)] bg-orange-50 px-2 py-0.5 rounded border border-orange-200">
+                    <span className="inline-block w-1.5 h-1.5 bg-[var(--color-brand-coral)] rounded-full animate-ping" />
+                    PLAYING NOW
+                  </span>
+                )}
               </div>
 
-              <h2 style={{ fontFamily: "'Fraunces', serif" }} className="text-2xl sm:text-3xl font-semibold text-[var(--color-ink)] leading-snug">
+              <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-[var(--color-ink)] leading-snug">
                 {activeEpisode.title}
               </h2>
 
@@ -59,7 +86,7 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
 
               <div className="flex items-center gap-2 flex-wrap pt-2">
                 {activeEpisode.topics.map(t => (
-                  <span key={t} style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] px-2.5 py-0.5 bg-[var(--color-surface)] text-[var(--color-brand-teal)] font-semibold rounded-sm border border-[var(--color-border-subtle)]">
+                  <span key={t} className="font-mono text-[10px] px-2.5 py-0.5 bg-[var(--color-surface)] text-[var(--color-brand-teal)] font-semibold rounded-sm border border-[var(--color-border-subtle)]">
                     {t}
                   </span>
                 ))}
@@ -74,8 +101,18 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
               <h4 className="text-sm font-semibold text-[var(--color-ink)]">{activeEpisode.guest}</h4>
               <p className="text-xs text-[var(--color-slate-muted)] mb-4">{activeEpisode.guestRole}, {activeEpisode.guestCompany}</p>
               
-              <Button variant="coral" size="md" className="w-full" onClick={togglePlay}>
-                {isPlaying ? "❚❚ Pause Episode" : "▶ Play Episode (" + activeEpisode.duration + ")"}
+              <Button variant="coral" size="md" className="w-full flex items-center justify-center gap-2" onClick={togglePlay}>
+                {isPlaying ? (
+                  <>
+                    <Pause size={14} />
+                    <span>Pause Episode</span>
+                  </>
+                ) : (
+                  <>
+                    <Play size={14} />
+                    <span>Play Episode ({activeEpisode.duration})</span>
+                  </>
+                )}
               </Button>
             </div>
           </div>
@@ -83,7 +120,7 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
 
         {/* Episode Archive List */}
         <div className="space-y-4 mb-16">
-          <h3 style={{ fontFamily: "'Fraunces', serif" }} className="text-xl font-semibold text-[var(--color-ink)] mb-4">
+          <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-4">
             Recent Episodes
           </h3>
 
@@ -98,14 +135,14 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-brand-coral)]">
+                    <span className="font-mono text-[10px] uppercase font-bold text-[var(--color-brand-coral)]">
                       Episode 0{ep.episodeNumber}
                     </span>
-                    <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] text-[var(--color-slate-muted)]">
+                    <span className="font-mono text-[10px] text-[var(--color-slate-muted)]">
                       {ep.duration}
                     </span>
                   </div>
-                  <h4 style={{ fontFamily: "'Fraunces', serif" }} className="text-base font-semibold text-[var(--color-ink)] leading-snug mb-2">
+                  <h4 className="font-serif text-base font-semibold text-[var(--color-ink)] leading-snug mb-2">
                     {ep.title}
                   </h4>
                   <p className="text-xs text-[var(--color-slate-muted)] line-clamp-2 leading-relaxed mb-4">
@@ -115,7 +152,9 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
 
                 <div className="pt-3 border-t border-[var(--color-border-subtle)] flex items-center justify-between text-xs">
                   <span className="font-medium text-[var(--color-ink)]">{ep.guest}</span>
-                  <span className="text-[var(--color-brand-teal)] font-semibold">Listen ▶</span>
+                  <span className="text-[var(--color-brand-teal)] font-semibold flex items-center gap-1">
+                    <Play size={10} /> Listen
+                  </span>
                 </div>
               </div>
             ))}
@@ -125,48 +164,56 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
         {/* Subscribe on Platform Bar */}
         <div className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
-            <h4 style={{ fontFamily: "'Fraunces', serif" }} className="text-lg font-semibold text-[var(--color-ink)] mb-1">
-              Listen to Meridian Dialogues Anywhere
+            <h4 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-1">
+              Listen to Mediverse Dialogues Anywhere
             </h4>
             <p className="text-xs text-[var(--color-slate-muted)]">
-              Available on Apple Podcasts, Spotify, Amazon Music, and RSS.
+              Available on Apple Podcasts, Spotify, Amazon Music, and syndicated RSS.
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <span className="px-3 py-1.5 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] text-xs font-medium rounded-sm">
-              🟢 Spotify
+            <span className="px-3 py-1.5 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] text-xs font-medium rounded-sm flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" /> Spotify
             </span>
-            <span className="px-3 py-1.5 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] text-xs font-medium rounded-sm">
-              🟣 Apple Podcasts
+            <span className="px-3 py-1.5 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] text-xs font-medium rounded-sm flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-purple-500" /> Apple Podcasts
             </span>
           </div>
         </div>
       </main>
 
       {/* Persistent Bottom Audio Player Bar */}
-      <div className="fixed bottom-0 inset-x-0 z-40 bg-[#0A2630] text-white border-t border-[var(--color-brand-teal)]/40 px-6 py-3 shadow-2xl">
+      <div className="fixed bottom-0 inset-x-0 z-40 bg-[var(--color-navy-deep)] text-white border-t border-[var(--color-brand-teal)]/40 px-6 py-3 shadow-2xl">
         <div className="max-w-[var(--container-max)] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <button
               onClick={togglePlay}
-              className="w-10 h-10 rounded-full bg-[var(--color-brand-coral)] hover:bg-[#b84e2e] text-white flex items-center justify-center font-bold text-sm cursor-pointer shadow-md"
+              aria-label={isPlaying ? "Pause episode" : "Play episode"}
+              className="w-10 h-10 rounded-full bg-[var(--color-brand-coral)] hover:bg-[var(--color-brand-coral-hover)] text-white flex items-center justify-center font-bold text-sm cursor-pointer shadow-md transition-transform active:scale-95"
             >
-              {isPlaying ? "❚❚" : "▶"}
+              {isPlaying ? <Pause size={15} /> : <Play size={15} className="translate-x-0.5" />}
             </button>
             <div>
               <span className="text-xs font-semibold text-white block truncate max-w-sm">
                 EP {activeEpisode.episodeNumber}: {activeEpisode.title}
               </span>
-              <span className="text-[10px] text-white/70">
-                Guest: {activeEpisode.guest} ({activeEpisode.guestCompany})
+              <span className="text-[10px] text-white/70 flex items-center gap-1.5">
+                <span>Guest: {activeEpisode.guest} ({activeEpisode.guestCompany})</span>
+                {isPlaying && (
+                  <span className="flex items-center gap-0.5 ml-2">
+                    <span className="w-0.5 h-2 bg-emerald-400 animate-pulse" />
+                    <span className="w-0.5 h-3 bg-emerald-400 animate-bounce" />
+                    <span className="w-0.5 h-1.5 bg-emerald-400 animate-pulse" />
+                  </span>
+                )}
               </span>
             </div>
           </div>
 
           {/* Interactive Progress Slider */}
           <div className="w-full sm:w-80 flex items-center gap-2">
-            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] text-white/60">
-              08:42
+            <span className="font-mono text-[10px] text-white/60">
+              {formatTimeFromProgress(progress, activeEpisode.duration)}
             </span>
             <input
               type="range"
@@ -174,9 +221,10 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
               max="100"
               value={progress}
               onChange={e => setProgress(Number(e.target.value))}
+              aria-label="Audio playback progress"
               className="w-full h-1 bg-white/20 rounded-lg accent-[var(--color-brand-coral)] cursor-pointer"
             />
-            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] text-white/60">
+            <span className="font-mono text-[10px] text-white/60">
               {activeEpisode.duration}
             </span>
           </div>

@@ -7,8 +7,10 @@ import ContactsTab from "./ContactsTab"
 import Modal from "./ui/Modal"
 import Button from "./ui/Button"
 import MagazineFlipbook from "./magazine/MagazineFlipbook"
+import { BookOpen, ClipboardList, BarChart3, Building2 } from "./ui/Icons"
 import { ISSUES } from "../data/fixtures/issues"
 import { ARTICLES } from "../data/fixtures/articles"
+import { useAuth } from "../lib/auth"
 
 /* ── Error Boundary ── */
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
@@ -18,7 +20,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
     if (this.state.hasError) {
       return (
         <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
-          <h2 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-2xl font-semibold text-[var(--color-ink)] mb-2">
+          <h2 className="font-serif text-2xl font-semibold text-[var(--color-ink)] mb-2">
             Something went wrong.
           </h2>
           <p className="text-sm text-[var(--color-slate-muted)] mb-6">An unexpected error occurred. Please refresh the page.</p>
@@ -35,13 +37,20 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
   }
 }
 
-export default function Dashboard() {
+export interface DashboardProps {
+  onNavigate?: (route: string) => void
+}
+
+export default function Dashboard({ onNavigate }: DashboardProps) {
+  const { user } = useAuth()
   const [activeTab, setActiveTab] = useState<AppTab>("magazine")
   const [showReferralModal, setShowReferralModal] = useState(false)
   const [showFlipbook, setShowFlipbook] = useState(false)
   const [copied, setCopied] = useState(false)
 
-  const referralLink = "https://mediverse.network/join?ref=SIDDHARTH-RAO-94"
+  const userName = user?.fullName || "Siddharth Rao"
+  const userCode = userName.toUpperCase().replace(/[^A-Z]/g, "-").slice(0, 14) + "-94"
+  const referralLink = `https://mediverse.network/join?ref=${userCode}`
 
   const currentIssue = ISSUES[0]
 
@@ -49,6 +58,12 @@ export default function Dashboard() {
     navigator.clipboard.writeText(referralLink)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
+  }
+
+  const handleDockNavigate = (targetRoute: string) => {
+    if (onNavigate) {
+      onNavigate(targetRoute)
+    }
   }
 
   return (
@@ -63,13 +78,17 @@ export default function Dashboard() {
         />
       )}
 
-      <AppHeader activeTab={activeTab} onTabChange={setActiveTab} />
+      <AppHeader
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        userName={userName}
+      />
 
       {/* Top Colleague Invite Reminder Bar */}
       <div className="bg-[var(--color-surface)] border-b border-[var(--color-border-subtle)] px-6 py-2">
         <div className="max-w-[var(--container-max)] mx-auto flex items-center justify-between text-xs flex-wrap gap-2">
           <div className="flex items-center gap-2">
-            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="bg-[var(--color-brand-coral)] text-white text-[9px] font-semibold px-1.5 py-0.2 rounded-sm uppercase">
+            <span className="font-mono bg-[var(--color-brand-coral)] text-white text-[9px] font-semibold px-1.5 py-0.2 rounded-sm uppercase">
               Referral Reward
             </span>
             <span className="text-[var(--color-slate-muted)]">
@@ -86,10 +105,10 @@ export default function Dashboard() {
       </div>
 
       {/* Member Executive Tooling Quick Dock */}
-      <div className="bg-[#0A2630] text-white border-b border-[var(--color-brand-teal)]/30 px-6 py-2.5">
+      <div className="bg-[var(--color-navy-deep)] text-white border-b border-[var(--color-brand-teal)]/30 px-6 py-2.5">
         <div className="max-w-[var(--container-max)] mx-auto flex items-center justify-between gap-4 overflow-x-auto text-xs scrollbar-none">
           <div className="flex items-center gap-2 shrink-0">
-            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-brand-coral)]">
+            <span className="font-mono text-[10px] uppercase font-bold text-[var(--color-brand-coral)]">
               Executive Dock:
             </span>
           </div>
@@ -97,31 +116,32 @@ export default function Dashboard() {
           <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
             <button
               onClick={() => setShowFlipbook(true)}
-              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-sm text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1.5"
+              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-sm text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1.5 shrink-0"
             >
-              <span>📖</span> 3D Flipbook Magazine
+              <BookOpen size={13} className="text-amber-300" />
+              <span>3D Flipbook Magazine</span>
             </button>
-            <a
-              href="#/regulatory-navigator"
-              onClick={e => { e.preventDefault(); window.location.hash = "regulatory-navigator" }}
-              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-sm text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1.5"
+            <button
+              onClick={() => handleDockNavigate("regulatory-navigator")}
+              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-sm text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1.5 shrink-0"
             >
-              <span>📋</span> Regulatory Navigator
-            </a>
-            <a
-              href="#/reports"
-              onClick={e => { e.preventDefault(); window.location.hash = "reports" }}
-              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-sm text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1.5"
+              <ClipboardList size={13} className="text-teal-300" />
+              <span>Regulatory Navigator</span>
+            </button>
+            <button
+              onClick={() => handleDockNavigate("reports")}
+              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-sm text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1.5 shrink-0"
             >
-              <span>📊</span> Research Reports
-            </a>
-            <a
-              href="#/vendors"
-              onClick={e => { e.preventDefault(); window.location.hash = "vendors" }}
-              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-sm text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1.5"
+              <BarChart3 size={13} className="text-blue-300" />
+              <span>Research Reports</span>
+            </button>
+            <button
+              onClick={() => handleDockNavigate("vendors")}
+              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-sm text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1.5 shrink-0"
             >
-              <span>🏭</span> CDMO Directory
-            </a>
+              <Building2 size={13} className="text-purple-300" />
+              <span>CDMO Directory</span>
+            </button>
           </div>
         </div>
       </div>
@@ -143,7 +163,7 @@ export default function Dashboard() {
             Share your private invitation link with colleagues in regulatory affairs, clinical trials, business development, or supply chain.
           </p>
           <div className="p-4 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm">
-            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] text-[var(--color-slate-muted)] uppercase block mb-1">
+            <span className="font-mono text-[10px] text-[var(--color-slate-muted)] uppercase block mb-1">
               Your Personal Referral URL
             </span>
             <div className="flex items-center gap-2">

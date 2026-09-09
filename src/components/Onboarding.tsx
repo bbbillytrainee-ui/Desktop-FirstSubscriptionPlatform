@@ -283,7 +283,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                     type="text"
                     value={referralCodeInput}
                     onChange={e => setReferralCodeInput(e.target.value.toUpperCase())}
-                    placeholder="e.g. MERIDIAN-REF-8842"
+                    placeholder="e.g. MEDIVERSE-REF-8842"
                     className="flex-1 px-3 py-1.5 text-xs font-mono border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-coral)] uppercase"
                   />
                   <button

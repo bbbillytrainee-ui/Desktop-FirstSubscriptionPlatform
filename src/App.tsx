@@ -1,4 +1,3 @@
-import { useState } from "react"
 import HomePage from "./pages/HomePage"
 import MagazinePage from "./pages/MagazinePage"
 import AboutPage from "./pages/AboutPage"
@@ -26,195 +25,171 @@ import ReferralPage from "./pages/ReferralPage"
 import Onboarding from "./components/Onboarding"
 import Dashboard from "./components/Dashboard"
 import { AuthProvider } from "./lib/auth"
+import { RouterProvider, useRouter } from "./lib/router"
+import { ToastProvider } from "./lib/toast"
+import { BookmarksProvider } from "./lib/bookmarks"
 
-type Route =
-  | "home"
-  | "magazine"
-  | "about"
-  | "professionals"
-  | "companies"
-  | "webinars"
-  | "thought-leadership"
-  | "interviews"
-  | "press-release"
-  | "advertise"
-  | "subscriptions"
-  | "referral"
-  | "archive"
-  | "newsletter"
-  | "rss-feeds"
-  | "events"
-  | "videos"
-  | "podcasts"
-  | "reports"
-  | "trends"
-  | "talent-intent"
-  | "vendors"
-  | "regulatory-navigator"
-  | "enterprise-workspace"
-  | "onboarding"
-  | "dashboard"
+function AppRoutes() {
+  const { route, navigate } = useRouter()
 
+  const handleNavigate = (target: string) => {
+    navigate(target)
+  }
 
-function AppContent() {
-  const [route, setRoute] = useState<Route>("home")
-
-  const navigate = (r: string) => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-    setRoute(r as Route)
+  const handleJoin = () => {
+    navigate("onboarding")
   }
 
   return (
-    <div className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)]">
-      {route === "home" && (
+    <div key={route} className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] animate-fade-up">
+      {(route === "home" || route === "") && (
         <HomePage
-          onGetAccess={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onGetAccess={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "magazine" && (
         <MagazinePage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "about" && (
         <AboutPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "professionals" && (
         <ProfessionalsPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "companies" && (
         <CompaniesPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "webinars" && (
         <WebinarsPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "thought-leadership" && (
         <ThoughtLeadershipPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "interviews" && (
         <InterviewsPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "press-release" && (
         <PressReleasePage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "advertise" && (
         <AdvertisePage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "subscriptions" && (
         <SubscriptionsPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "referral" && (
         <ReferralPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
-
       {route === "archive" && (
         <ArchivePage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "newsletter" && (
         <NewsletterPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "rss-feeds" && (
         <RssFeedsPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "events" && (
         <EventsPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "videos" && (
         <VideosPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "podcasts" && (
         <PodcastsPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "reports" && (
         <ReportsPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "trends" && (
         <TrendIntelligencePage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "talent-intent" && (
         <TalentIntentPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "vendors" && (
         <VendorsDirectoryPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "regulatory-navigator" && (
         <RegulatoryNavigatorPage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "enterprise-workspace" && (
         <EnterpriseWorkspacePage
-          onJoin={() => navigate("onboarding")}
-          onNavigate={navigate}
+          onJoin={handleJoin}
+          onNavigate={handleNavigate}
         />
       )}
       {route === "onboarding" && (
         <Onboarding onComplete={() => navigate("dashboard")} />
       )}
-      {route === "dashboard" && <Dashboard />}
+      {route === "dashboard" && <Dashboard onNavigate={handleNavigate} />}
     </div>
   )
 }
@@ -222,7 +197,13 @@ function AppContent() {
 export default function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <RouterProvider>
+        <ToastProvider>
+          <BookmarksProvider>
+            <AppRoutes />
+          </BookmarksProvider>
+        </ToastProvider>
+      </RouterProvider>
     </AuthProvider>
   )
 }

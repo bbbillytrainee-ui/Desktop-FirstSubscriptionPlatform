@@ -13,7 +13,7 @@ export default function AboutPage({ onJoin, onNavigate }: AboutPageProps) {
       <Header onJoin={onJoin} onSignIn={onJoin} onNavigate={onNavigate} />
       <main className="flex-1 max-w-[var(--article-max)] mx-auto px-6 py-12 w-full">
         <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-3">
-          About Meridian
+          About Mediverse Life Sciences
         </span>
         <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-6 leading-tight">
           Editorial Judgement Plus Useful Connection

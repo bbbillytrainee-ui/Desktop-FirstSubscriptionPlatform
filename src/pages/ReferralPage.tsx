@@ -3,6 +3,7 @@ import Header from "../components/layout/Header"
 import Footer from "../components/layout/Footer"
 import Button from "../components/ui/Button"
 import Badge from "../components/ui/Badge"
+import { WhatsAppIcon, LinkedInIcon, MailIcon, CheckIcon } from "../components/ui/Icons"
 import { MOCK_REFERRAL_STATS } from "../data/fixtures/referrals"
 
 export interface ReferralPageProps {
@@ -42,18 +43,17 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
         {/* Top Header */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-2">
-            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)]">
+            <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)]">
               Network Growth Program
             </span>
             <Badge type="pro" label={stats.currentTierBadge} />
           </div>
-          <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl font-semibold text-[var(--color-ink)] mb-3">
+          <h1 className="font-serif text-3xl sm:text-4xl font-semibold text-[var(--color-ink)] mb-3">
             Invite Colleagues & Expand Your Network
           </h1>
           <p className="text-sm sm:text-base text-[var(--color-slate-muted)] max-w-3xl leading-relaxed">
             Give your life science colleagues 1 month free access to Mediverse Life Sciences. For every 2 colleagues who sign up, you unlock +1 month of department-pro features and +5 peer introductions.
           </p>
-
         </div>
 
         {/* 4 Stats Cards */}
@@ -67,19 +67,21 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
           <div className="bg-white border border-[var(--color-border-subtle)] p-5 rounded-sm shadow-xs">
             <span className="text-xs text-[var(--color-slate-muted)] block mb-1">Colleagues Joined</span>
             <span className="text-2xl sm:text-3xl font-bold text-[var(--color-brand-teal)]">{stats.totalJoined}</span>
-            <span className="text-[10px] text-emerald-600 block mt-1">✓ Active members</span>
+            <span className="text-[10px] text-emerald-600 font-medium flex items-center gap-1 mt-1">
+              <CheckIcon size={12} /> Active members
+            </span>
           </div>
 
           <div className="bg-white border border-[var(--color-border-subtle)] p-5 rounded-sm shadow-xs">
             <span className="text-xs text-[var(--color-slate-muted)] block mb-1">Bonus Months Earned</span>
             <span className="text-2xl sm:text-3xl font-bold text-[var(--color-brand-coral)]">{stats.bonusMonthsEarned} Mo</span>
-            <span className="text-[10px] text-[var(--color-brand-coral)] block mt-1">Worth ₹2,998</span>
+            <span className="text-[10px] text-[var(--color-brand-coral)] block mt-1">Value ₹2,998</span>
           </div>
 
           <div className="bg-white border border-[var(--color-border-subtle)] p-5 rounded-sm shadow-xs">
             <span className="text-xs text-[var(--color-slate-muted)] block mb-1">Peer Introductions</span>
             <span className="text-2xl sm:text-3xl font-bold text-[var(--color-ink)]">+{stats.peerIntroductionsUnlocked}</span>
-            <span className="text-[10px] text-gray-400 block mt-1">Extra credits</span>
+            <span className="text-[10px] text-gray-400 block mt-1">Extra match credits</span>
           </div>
         </div>
 
@@ -89,7 +91,7 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
           {/* Share Link Card (2 cols) */}
           <div className="lg:col-span-2 bg-white border border-[var(--color-border-subtle)] p-6 rounded-sm shadow-xs flex flex-col justify-between">
             <div>
-              <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-xl font-semibold text-[var(--color-ink)] mb-2">
+              <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-2">
                 Your Personal Referral Link & Code
               </h3>
               <p className="text-xs text-[var(--color-slate-muted)] mb-5">
@@ -120,12 +122,13 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
               <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider block mb-3">Quick Share:</span>
               <div className="flex flex-wrap gap-2">
                 <a
-                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Join me on Mediverse Life Sciences — India's premier B2B pharma intelligence platform. Use my link to get 1 month free access: ${stats.inviteLink}`)}`}
+                  href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Join me on Mediverse Life Sciences — premier B2B pharma intelligence platform. Use my link to get 1 month free access: ${stats.inviteLink}`)}`}
                   target="_blank"
                   rel="noreferrer"
                   className="px-3 py-1.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 text-xs font-medium rounded-sm flex items-center gap-1.5 transition-colors"
                 >
-                  💬 Share on WhatsApp
+                  <WhatsAppIcon size={14} />
+                  <span>Share on WhatsApp</span>
                 </a>
                 <a
                   href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(stats.inviteLink)}`}
@@ -133,26 +136,27 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
                   rel="noreferrer"
                   className="px-3 py-1.5 bg-sky-50 text-sky-700 hover:bg-sky-100 border border-sky-200 text-xs font-medium rounded-sm flex items-center gap-1.5 transition-colors"
                 >
-                  💼 Share on LinkedIn
+                  <LinkedInIcon size={14} />
+                  <span>Share on LinkedIn</span>
                 </a>
                 <a
                   href={`mailto:?subject=${encodeURIComponent("Invitation to Mediverse Life Sciences")}&body=${encodeURIComponent(`Hi,\n\nI wanted to invite you to join Mediverse Life Sciences platform. It provides department-segmented intelligence, 3D magazine flipbooks, and peer networking for pharma leads.\n\nUse my invite link to claim 1 month free: ${stats.inviteLink}\n\nBest regards`)}`}
                   className="px-3 py-1.5 bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200 text-xs font-medium rounded-sm flex items-center gap-1.5 transition-colors"
                 >
-                  ✉️ Email Colleagues
+                  <MailIcon size={14} />
+                  <span>Email Colleagues</span>
                 </a>
               </div>
-
             </div>
           </div>
 
           {/* Direct Email Invite Form (1 col) */}
           <div className="bg-white border border-[var(--color-border-subtle)] p-6 rounded-sm shadow-xs">
-            <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-xl font-semibold text-[var(--color-ink)] mb-2">
+            <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-2">
               Send Direct Invitation
             </h3>
             <p className="text-xs text-[var(--color-slate-muted)] mb-4">
-              Enter your colleague&apos;s email address to send them a personalized invitation from Meridian.
+              Enter your colleague&apos;s email address to send them a personalized invitation from Mediverse.
             </p>
 
             <form onSubmit={handleSendInvite} className="space-y-3">
@@ -184,8 +188,9 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
               </Button>
 
               {sentSuccess && (
-                <p className="text-xs text-emerald-600 font-medium bg-emerald-50 p-2.5 rounded-sm border border-emerald-200">
-                  ✓ Invitation sent successfully to {invitedEmail}!
+                <p className="text-xs text-emerald-600 font-medium bg-emerald-50 p-2.5 rounded-sm border border-emerald-200 flex items-center gap-1.5">
+                  <CheckIcon size={14} />
+                  <span>Invitation sent successfully to {invitedEmail}!</span>
                 </p>
               )}
             </form>
@@ -196,7 +201,7 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
         <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 mb-10 shadow-xs">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
-              <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-xl font-semibold text-[var(--color-ink)]">
+              <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)]">
                 Referred Colleagues & Rewards Tracking
               </h3>
               <p className="text-xs text-[var(--color-slate-muted)]">
@@ -234,7 +239,7 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
                     <td className="py-3.5 px-4">
                       {user.status === "active" ? (
                         <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
-                          ● Joined & Active
+                          <CheckIcon size={10} /> Joined & Active
                         </span>
                       ) : (
                         <span className="bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
@@ -254,7 +259,7 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
 
         {/* Referral Rules & FAQ */}
         <div className="bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm p-6 sm:p-8">
-          <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-xl font-semibold text-[var(--color-ink)] mb-4">
+          <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-4">
             Referral Program Details & FAQ
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-[var(--color-slate-muted)]">
@@ -280,7 +285,7 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
         </div>
 
       </main>
-      <Footer />
+      <Footer onNavigate={onNavigate} />
     </div>
   )
 }

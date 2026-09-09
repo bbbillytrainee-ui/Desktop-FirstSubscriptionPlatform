@@ -180,7 +180,7 @@ export default function NewsletterPage({ onJoin, onNavigate }: NewsletterPagePro
                   <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
                   <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
                   <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
-                  <span className="font-mono text-[11px] ml-2 text-stone-600">From: dispatch@meridian.network</span>
+                  <span className="font-mono text-[11px] ml-2 text-stone-600">From: dispatch@mediverse.network</span>
                 </div>
                 <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px]">
                   {activePreview.date}
@@ -220,7 +220,7 @@ export default function NewsletterPage({ onJoin, onNavigate }: NewsletterPagePro
 
                 <div className="pt-6 border-t border-[var(--color-border-subtle)] flex items-center justify-between">
                   <span className="text-xs text-[var(--color-slate-muted)]">
-                    Published by Meridian Editorial Desk
+                    Published by Mediverse Editorial Desk
                   </span>
                   <Button variant="ghost" size="sm" onClick={() => onNavigate && onNavigate("magazine")}>
                     Read Full Associated Issue →

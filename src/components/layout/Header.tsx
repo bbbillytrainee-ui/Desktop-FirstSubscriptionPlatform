@@ -2,20 +2,27 @@ import { useState, useRef, useEffect } from "react"
 import Logo from "../brand/Logo"
 import Button from "../ui/Button"
 import GlobalSearchModal from "../ui/GlobalSearchModal"
+import BookmarksDrawer from "../modals/BookmarksDrawer"
+import { BookmarkFilled } from "../ui/Icons"
+import { useBookmarks } from "../../lib/bookmarks"
 import { LATEST_NEWS } from "../../data/fixtures/news"
 
 export interface HeaderProps {
   onJoin?: () => void
   onSignIn?: () => void
   onNavigate?: (route: string) => void
+  onSelectArticle?: (article: any) => void
+  onOpen3DReader?: (article: any) => void
 }
 
-export default function Header({ onJoin, onSignIn, onNavigate }: HeaderProps) {
+export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, onOpen3DReader }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [searchOpen, setSearchOpen] = useState(false)
+  const [bookmarksOpen, setBookmarksOpen] = useState(false)
   const [activeNewsIndex, setActiveNewsIndex] = useState(0)
   const navRef = useRef<HTMLDivElement>(null)
+  const { savedCount } = useBookmarks()
 
   const breakingNewsList = LATEST_NEWS.filter(n => n.isBreaking).length > 0
     ? LATEST_NEWS.filter(n => n.isBreaking)
@@ -155,20 +162,11 @@ export default function Header({ onJoin, onSignIn, onNavigate }: HeaderProps) {
           {/* Desktop Navigation */}
           <nav className="hide-mobile flex items-center gap-1 lg:gap-2">
             
-            {/* 1. News */}
-            <button
-              onClick={() => handleNav("home")}
-              className="px-3 py-2 text-sm font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-coral)] transition-all rounded-md hover:bg-stone-100/60 relative group"
-            >
-              News
-              <span className="absolute bottom-1 left-3 right-3 h-0.5 bg-[var(--color-brand-coral)] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left rounded-full" />
-            </button>
-
-            {/* 2. Magazine Dropdown */}
+            {/* 1. Magazine Dropdown (Includes News, Industry, Webinars sub-columns) */}
             <div className="relative">
               <button
                 onClick={() => toggleDropdown("magazine")}
-                className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-all rounded-md hover:bg-stone-100/60 ${
+                className={`flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium transition-all rounded-md hover:bg-stone-100/60 ${
                   openDropdown === "magazine" ? "text-[var(--color-brand-teal)] font-semibold bg-stone-100" : "text-[var(--color-ink)] hover:text-[var(--color-brand-coral)]"
                 }`}
               >
@@ -179,230 +177,257 @@ export default function Header({ onJoin, onSignIn, onNavigate }: HeaderProps) {
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="19 9l-7 7-7-7" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
 
               {/* Rich Mega Menu: Magazine */}
               {openDropdown === "magazine" && (
-                <div className="absolute top-full left-0 mt-2.5 w-80 sm:w-[420px] bg-white border border-stone-200 rounded-xl shadow-[0_20px_50px_rgba(13,59,74,0.14)] p-3.5 z-50 animate-fade-up">
-                  <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
+                <div className="absolute top-full -left-12 mt-2.5 w-[780px] lg:w-[880px] bg-white border border-stone-200 rounded-xl shadow-[0_20px_50px_rgba(13,59,74,0.16)] p-5 z-50 animate-fade-up">
+                  
+                  <div className="grid grid-cols-4 gap-4">
                     
-                    {/* Visual Feature Card (2 cols) */}
-                    <div 
-                      onClick={() => handleNav("magazine")}
-                      className="sm:col-span-2 bg-gradient-to-br from-[#0D3B4A] to-[#164e60] text-white p-3.5 rounded-lg flex flex-col justify-between cursor-pointer group hover:shadow-md transition-all relative overflow-hidden"
-                    >
-                      <div className="absolute -right-4 -bottom-4 w-20 h-20 bg-white/5 rounded-full blur-xl pointer-events-none" />
-                      <div>
+                    {/* Column 1: News & Intelligence */}
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-1.5 pb-2 mb-1 border-b border-stone-100">
+                        <span className="text-base">📰</span>
                         <span 
                           style={{ fontFamily: "'Geist Mono', monospace" }}
-                          className="text-[9px] font-bold uppercase tracking-wider bg-[var(--color-brand-coral)] text-white px-2 py-0.5 rounded-xs inline-block mb-2 shadow-xs"
+                          className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]"
                         >
-                          ISSUE #48
+                          News & Intel
                         </span>
-                        <h4 className="text-xs font-semibold leading-tight text-white group-hover:text-amber-200 transition-colors">
-                          AI Diagnostics & CDSCO Guidance
-                        </h4>
                       </div>
-                      <div className="mt-4 pt-2 border-t border-white/10 flex items-center justify-between text-[10px] text-white/80 font-medium">
-                        <span>3D Book Reader</span>
-                        <span className="group-hover:translate-x-1 transition-transform text-[var(--color-brand-coral)] font-bold">→</span>
-                      </div>
-                    </div>
 
-                    {/* Navigation Items (3 cols) */}
-                    <div className="sm:col-span-3 flex flex-col gap-1">
                       <button
-                        onClick={() => handleNav("magazine")}
+                        onClick={() => handleNav("home")}
                         className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group"
                       >
                         <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
-                          Current Edition
+                          Latest Headlines
                         </span>
                         <span className="text-[11px] text-stone-500 line-clamp-1">
-                          Interactive page-turning digital issue
+                          Breaking pharma & biotech news
                         </span>
                       </button>
 
                       <button
-                        onClick={() => handleNav("archive")}
-                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group border-t border-stone-100"
+                        onClick={() => handleNav("press-release")}
+                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group"
                       >
                         <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
-                          Digital Issue Archive
+                          Press Releases
                         </span>
                         <span className="text-[11px] text-stone-500 line-clamp-1">
-                          Past issues & special supplements
+                          Corporate wire & disclosures
                         </span>
                       </button>
 
                       <button
-                        onClick={() => handleNav("thought-leadership")}
-                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group border-t border-stone-100"
+                        onClick={() => handleNav("newsletter")}
+                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group"
                       >
                         <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
-                          Submit Article Pitch
+                          Editorial Newsletter
                         </span>
                         <span className="text-[11px] text-stone-500 line-clamp-1">
-                          Editorial columns & peer reviews
+                          Curated weekly drops
+                        </span>
+                      </button>
+
+                      <button
+                        onClick={() => handleNav("rss-feeds")}
+                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group"
+                      >
+                        <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
+                          RSS & Live Feeds
+                        </span>
+                        <span className="text-[11px] text-stone-500 line-clamp-1">
+                          Real-time news stream
                         </span>
                       </button>
                     </div>
-                  </div>
-                </div>
-              )}
-            </div>
 
-            {/* 3. Industry Dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => toggleDropdown("industry")}
-                className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-all rounded-md hover:bg-stone-100/60 ${
-                  openDropdown === "industry" ? "text-[var(--color-brand-teal)] font-semibold bg-stone-100" : "text-[var(--color-ink)] hover:text-[var(--color-brand-coral)]"
-                }`}
-              >
-                <span>Industry</span>
-                <svg 
-                  className={`w-3.5 h-3.5 transition-transform duration-200 ${openDropdown === "industry" ? "rotate-180 text-[var(--color-brand-teal)]" : "opacity-60"}`}
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="19 9l-7 7-7-7" />
-                </svg>
-              </button>
-
-              {/* Rich Mega Menu: Industry */}
-              {openDropdown === "industry" && (
-                <div className="absolute top-full left-0 mt-2.5 w-80 sm:w-[480px] bg-white border border-stone-200 rounded-xl shadow-[0_20px_50px_rgba(13,59,74,0.14)] p-4 z-50 animate-fade-up">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    
-                    {/* Column 1: Intelligence & Insights */}
+                    {/* Column 2: Industry Verticals */}
                     <div className="space-y-1">
-                      <span 
-                        style={{ fontFamily: "'Geist Mono', monospace" }}
-                        className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)] px-2 block mb-1.5"
-                      >
-                        Intelligence & Insights
-                      </span>
-                      
+                      <div className="flex items-center gap-1.5 pb-2 mb-1 border-b border-stone-100">
+                        <span className="text-base">🏢</span>
+                        <span 
+                          style={{ fontFamily: "'Geist Mono', monospace" }}
+                          className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]"
+                        >
+                          Industry Verticals
+                        </span>
+                      </div>
+
                       <button
                         onClick={() => handleNav("thought-leadership")}
-                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group flex items-start gap-2.5"
+                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group"
                       >
-                        <div className="w-7 h-7 rounded-md bg-teal-50 text-[var(--color-brand-teal)] flex items-center justify-center shrink-0 mt-0.5">
-                          💡
-                        </div>
-                        <div>
-                          <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
-                            Thought Leadership
-                          </span>
-                          <span className="text-[11px] text-stone-500">C-suite perspectives & columns</span>
-                        </div>
+                        <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
+                          Thought Leadership
+                        </span>
+                        <span className="text-[11px] text-stone-500 line-clamp-1">
+                          C-suite columns & review
+                        </span>
                       </button>
 
                       <button
                         onClick={() => handleNav("interviews")}
-                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group flex items-start gap-2.5"
+                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group"
                       >
-                        <div className="w-7 h-7 rounded-md bg-amber-50 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
-                          🎙️
-                        </div>
-                        <div>
-                          <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
-                            Executive Interviews
-                          </span>
-                          <span className="text-[11px] text-stone-500">One-on-one leadership dialogues</span>
-                        </div>
+                        <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
+                          Executive Interviews
+                        </span>
+                        <span className="text-[11px] text-stone-500 line-clamp-1">
+                          1-on-1 leadership dialogues
+                        </span>
                       </button>
 
                       <button
                         onClick={() => handleNav("reports")}
-                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group flex items-start gap-2.5"
+                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group"
                       >
-                        <div className="w-7 h-7 rounded-md bg-blue-50 text-blue-700 flex items-center justify-center shrink-0 mt-0.5">
-                          📊
-                        </div>
-                        <div>
-                          <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
-                            Research Reports
-                          </span>
-                          <span className="text-[11px] text-stone-500">Market dossiers & analytics</span>
-                        </div>
-                      </button>
-                    </div>
-
-                    {/* Column 2: Market & Enterprise */}
-                    <div className="space-y-1 sm:border-l sm:border-stone-100 sm:pl-3">
-                      <span 
-                        style={{ fontFamily: "'Geist Mono', monospace" }}
-                        className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)] px-2 block mb-1.5"
-                      >
-                        Market & Enterprise
-                      </span>
-
-                      <button
-                        onClick={() => handleNav("press-release")}
-                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group flex items-start gap-2.5"
-                      >
-                        <div className="w-7 h-7 rounded-md bg-orange-50 text-orange-700 flex items-center justify-center shrink-0 mt-0.5">
-                          📰
-                        </div>
-                        <div>
-                          <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
-                            Press Releases
-                          </span>
-                          <span className="text-[11px] text-stone-500">Corporate Wire & disclosures</span>
-                        </div>
+                        <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
+                          Market Dossiers
+                        </span>
+                        <span className="text-[11px] text-stone-500 line-clamp-1">
+                          Deep-dive analytics reports
+                        </span>
                       </button>
 
                       <button
                         onClick={() => handleNav("vendors")}
-                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group flex items-start gap-2.5"
+                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group"
                       >
-                        <div className="w-7 h-7 rounded-md bg-purple-50 text-purple-700 flex items-center justify-center shrink-0 mt-0.5">
-                          🏢
-                        </div>
-                        <div>
-                          <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
-                            CDMO Directory
-                          </span>
-                          <span className="text-[11px] text-stone-500">Verified life science partners</span>
-                        </div>
+                        <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
+                          CDMO Directory
+                        </span>
+                        <span className="text-[11px] text-stone-500 line-clamp-1">
+                          Verified partner network
+                        </span>
+                      </button>
+                    </div>
+
+                    {/* Column 3: Webinars & Sessions */}
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-1.5 pb-2 mb-1 border-b border-stone-100">
+                        <span className="text-base">🎥</span>
+                        <span 
+                          style={{ fontFamily: "'Geist Mono', monospace" }}
+                          className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]"
+                        >
+                          Webinars & Media
+                        </span>
+                      </div>
+
+                      <button
+                        onClick={() => handleNav("webinars")}
+                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group"
+                      >
+                        <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
+                          Upcoming Webinars
+                        </span>
+                        <span className="text-[11px] text-stone-500 line-clamp-1">
+                          Live technical sessions
+                        </span>
+                      </button>
+
+                      <button
+                        onClick={() => handleNav("videos")}
+                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group"
+                      >
+                        <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
+                          Video Symposia
+                        </span>
+                        <span className="text-[11px] text-stone-500 line-clamp-1">
+                          On-demand video keynotes
+                        </span>
+                      </button>
+
+                      <button
+                        onClick={() => handleNav("podcasts")}
+                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group"
+                      >
+                        <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
+                          Pharma Podcasts
+                        </span>
+                        <span className="text-[11px] text-stone-500 line-clamp-1">
+                          Audio leader discussions
+                        </span>
                       </button>
 
                       <button
                         onClick={() => handleNav("events")}
-                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group flex items-start gap-2.5"
+                        className="w-full text-left p-2 rounded-lg hover:bg-stone-100/80 transition-colors group"
                       >
-                        <div className="w-7 h-7 rounded-md bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
-                          🗓️
-                        </div>
-                        <div>
-                          <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
-                            Events & Summits
-                          </span>
-                          <span className="text-[11px] text-stone-500">Regional conclaves & expos</span>
-                        </div>
+                        <span className="block text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)]">
+                          Events & Summits
+                        </span>
+                        <span className="text-[11px] text-stone-500 line-clamp-1">
+                          Regional conclaves & expos
+                        </span>
                       </button>
                     </div>
 
+                    {/* Column 4: Magazine Editions & Feature Card */}
+                    <div className="flex flex-col justify-between space-y-2 bg-stone-50 p-3 rounded-lg border border-stone-200/70">
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <span 
+                            style={{ fontFamily: "'Geist Mono', monospace" }}
+                            className="text-[9px] font-bold uppercase tracking-wider bg-[var(--color-brand-teal)] text-white px-2 py-0.5 rounded-xs"
+                          >
+                            ISSUE #48
+                          </span>
+                          <span className="text-[10px] font-medium text-stone-500">Current Issue</span>
+                        </div>
+
+                        <div 
+                          onClick={() => handleNav("magazine")}
+                          className="cursor-pointer group"
+                        >
+                          <h4 className="text-xs font-bold leading-tight text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)] transition-colors mb-1">
+                            AI Diagnostics & CDSCO Guidance
+                          </h4>
+                          <p className="text-[11px] text-stone-500 leading-snug line-clamp-2">
+                            Explore the 3D interactive flipbook edition with clinical software frameworks.
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="space-y-1 pt-2 border-t border-stone-200/80">
+                        <button
+                          onClick={() => handleNav("magazine")}
+                          className="w-full text-left px-2.5 py-1.5 rounded-md bg-[var(--color-brand-teal)] hover:bg-[#08232D] text-white text-xs font-semibold transition-colors flex items-center justify-between group"
+                        >
+                          <span>Open 3D Reader</span>
+                          <span className="group-hover:translate-x-0.5 transition-transform">→</span>
+                        </button>
+                        <button
+                          onClick={() => handleNav("thought-leadership")}
+                          className="w-full text-left px-2 py-1 text-xs font-semibold text-[var(--color-brand-coral)] hover:text-[#B94E2C] transition-colors flex items-center justify-between"
+                        >
+                          <span>✍️ Write / Submit Article Pitch</span>
+                          <span>→</span>
+                        </button>
+                        <button
+                          onClick={() => handleNav("archive")}
+                          className="w-full text-left px-2 py-1 text-xs font-medium text-stone-600 hover:text-[var(--color-brand-teal)] transition-colors flex items-center justify-between"
+                        >
+                          <span>Digital Archive</span>
+                          <span>📚</span>
+                        </button>
+                      </div>
+                    </div>
+
                   </div>
+
                 </div>
               )}
             </div>
 
-            {/* 4. Webinars */}
-            <button
-              onClick={() => handleNav("webinars")}
-              className="px-3 py-2 text-sm font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-coral)] transition-all rounded-md hover:bg-stone-100/60 relative group"
-            >
-              Webinars
-              <span className="absolute bottom-1 left-3 right-3 h-0.5 bg-[var(--color-brand-coral)] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left rounded-full" />
-            </button>
-
-            {/* 5. Advertise */}
+            {/* 2. Advertise */}
             <button
               onClick={() => handleNav("advertise")}
               className="px-3 py-2 text-sm font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-coral)] transition-all rounded-md hover:bg-stone-100/60 relative group"
@@ -411,7 +436,7 @@ export default function Header({ onJoin, onSignIn, onNavigate }: HeaderProps) {
               <span className="absolute bottom-1 left-3 right-3 h-0.5 bg-[var(--color-brand-coral)] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left rounded-full" />
             </button>
 
-            {/* 6. Subscriptions */}
+            {/* 3. Subscriptions */}
             <button
               onClick={() => handleNav("subscriptions")}
               className="px-3 py-2 text-sm font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-coral)] transition-all rounded-md hover:bg-stone-100/60 relative group flex items-center gap-1.5"
@@ -431,12 +456,21 @@ export default function Header({ onJoin, onSignIn, onNavigate }: HeaderProps) {
               title="Search articles & intelligence (Ctrl+K)"
             >
               <svg className="w-3.5 h-3.5 text-[var(--color-brand-teal)] group-hover:scale-110 transition-transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <span className="text-stone-500 font-normal">Search intelligence...</span>
               <kbd className="text-[10px] font-mono bg-white border border-stone-200 px-1.5 py-0.5 rounded text-stone-500 font-semibold shadow-2xs group-hover:border-stone-300">
                 Ctrl+K
               </kbd>
+            </button>
+
+            <button
+              onClick={() => setBookmarksOpen(true)}
+              className="px-3 py-1.5 text-xs font-semibold text-[var(--color-ink)] hover:text-[var(--color-brand-teal)] hover:bg-stone-100/70 rounded-md transition-colors flex items-center gap-1.5 cursor-pointer relative"
+              title="Open Saved Intelligence Vault"
+            >
+              <BookmarkFilled size={13} className="text-[var(--color-brand-coral)]" />
+              <span>Saved ({savedCount})</span>
             </button>
 
             {onSignIn && (
@@ -467,7 +501,7 @@ export default function Header({ onJoin, onSignIn, onNavigate }: HeaderProps) {
               aria-label="Search"
             >
               <svg className="w-5 h-5 text-[var(--color-brand-teal)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </button>
             
@@ -480,7 +514,7 @@ export default function Header({ onJoin, onSignIn, onNavigate }: HeaderProps) {
                 <span className="text-xl leading-none font-bold text-[var(--color-brand-teal)]">✕</span>
               ) : (
                 <svg className="w-6 h-6 text-[var(--color-brand-teal)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="4 6h16M4 12h16M4 18h16" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               )}
             </button>
@@ -499,7 +533,7 @@ export default function Header({ onJoin, onSignIn, onNavigate }: HeaderProps) {
             >
               <span className="flex items-center gap-2">
                 <svg className="w-4 h-4 text-[var(--color-brand-teal)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 <span>Search articles, CDMOs, news...</span>
               </span>
@@ -597,6 +631,16 @@ export default function Header({ onJoin, onSignIn, onNavigate }: HeaderProps) {
 
           </div>
         )}
+        <BookmarksDrawer
+          isOpen={bookmarksOpen}
+          onClose={() => setBookmarksOpen(false)}
+          onSelectArticle={art => {
+            if (onSelectArticle) onSelectArticle(art)
+          }}
+          onOpen3DReader={art => {
+            if (onOpen3DReader) onOpen3DReader(art)
+          }}
+        />
       </header>
     </>
   )

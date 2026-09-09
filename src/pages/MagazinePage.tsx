@@ -2,19 +2,21 @@ import { useState } from "react"
 import Header from "../components/layout/Header"
 import Footer from "../components/layout/Footer"
 import TaxonomyNav from "../components/layout/TaxonomyNav"
-import IssueHeader from "../components/magazine/IssueHeader"
 import BrowseControls from "../components/magazine/BrowseControls"
 import ArticleCard from "../components/magazine/ArticleCard"
 import ArticleReader from "../components/magazine/ArticleReader"
 import MagazineFlipbook from "../components/magazine/MagazineFlipbook"
+import LastMonthTrending from "../components/magazine/LastMonthTrending"
 import Button from "../components/ui/Button"
 import Badge from "../components/ui/Badge"
+import { BookOpen, Download, Plus } from "../components/ui/Icons"
 import { ARTICLES, Article } from "../data/fixtures/articles"
-import { ISSUES } from "../data/fixtures/issues"
-
+import { ISSUES, Issue } from "../data/fixtures/issues"
 import { AUTHORS } from "../data/fixtures/authors"
-
 import AddArticleModal from "../components/magazine/AddArticleModal"
+import { useToast } from "../lib/toast"
+import SafeImage from "../components/ui/SafeImage"
+import { downloadMagazinePdf } from "../lib/pdfGenerator"
 
 export interface MagazinePageProps {
   onJoin?: () => void
@@ -25,12 +27,15 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [selectedFormat, setSelectedFormat] = useState("all")
   const [activeArticle, setActiveArticle] = useState<Article | null>(null)
-  const [showFlipbook, setShowFlipbook] = useState(false)
+  const [activeFlipbookIssue, setActiveFlipbookIssue] = useState<Issue | null>(null)
   const [activeTaxonomy, setActiveTaxonomy] = useState("All Intelligence")
   const [articlesList, setArticlesList] = useState<Article[]>(ARTICLES)
   const [showAddModal, setShowAddModal] = useState(false)
+  const { success, info } = useToast()
 
-  const currentIssue = ISSUES[0]
+  const currentIssue = ISSUES[0] // Issue #15 (Sep 2026)
+  const lastMonthIssue = ISSUES[1] // Issue #14 (Aug 2026)
+  const lastMonthArticles = articlesList.filter(a => a.issueId === lastMonthIssue.id)
 
   const filteredArticles = articlesList.filter(art => {
     const matchesCat = selectedCategory === "all" || art.category === selectedCategory
@@ -41,6 +46,11 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
     return matchesCat && matchesFmt && matchesTaxonomy
   })
 
+  const handleDownloadPdf = () => {
+    downloadMagazinePdf(currentIssue, articlesList)
+    success("56-Page PDF Generated", `Issue #${currentIssue.number} (56 Pages) executive package generated.`)
+  }
+
   if (activeArticle) {
     return (
       <div className="min-h-screen bg-[var(--color-paper)] flex flex-col font-sans">
@@ -50,7 +60,11 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
             article={activeArticle} 
             onClose={() => setActiveArticle(null)} 
             onJoinPrompt={onJoin} 
-            onOpenFlipbook={() => { setActiveArticle(null); setShowFlipbook(true); }}
+            onOpenFlipbook={() => { 
+              const matchedIssue = ISSUES.find(i => i.id === activeArticle.issueId) || currentIssue
+              setActiveArticle(null)
+              setActiveFlipbookIssue(matchedIssue)
+            }}
           />
         </main>
         <Footer onNavigate={onNavigate} />
@@ -61,15 +75,15 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
   return (
     <div className="min-h-screen bg-[var(--color-paper)] flex flex-col font-sans">
       {/* 3D Flipbook Overlay Reader */}
-      {showFlipbook && (
+      {activeFlipbookIssue && (
         <MagazineFlipbook
-          issue={currentIssue}
+          issue={activeFlipbookIssue}
           articles={
-            ARTICLES.filter(a => a.issueId === currentIssue.id).length > 0
-              ? ARTICLES.filter(a => a.issueId === currentIssue.id)
-              : ARTICLES
+            articlesList.filter(a => a.issueId === activeFlipbookIssue.id).length > 0
+              ? articlesList.filter(a => a.issueId === activeFlipbookIssue.id)
+              : articlesList
           }
-          onClose={() => setShowFlipbook(false)}
+          onClose={() => setActiveFlipbookIssue(null)}
           onJoinPrompt={onJoin}
         />
       )}
@@ -84,18 +98,15 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
             {/* Cover image (4 cols) */}
             <div
               className="lg:col-span-4 h-72 sm:h-80 rounded-sm overflow-hidden relative cursor-pointer group shadow-md"
-              onClick={() => setShowFlipbook(true)}
+              onClick={() => setActiveFlipbookIssue(currentIssue)}
             >
-              <img
+              <SafeImage
                 src={currentIssue.coverImage}
                 alt={currentIssue.theme}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
-                <span
-                  style={{ fontFamily: "'Geist Mono', monospace" }}
-                  className="text-[10px] uppercase font-bold text-white bg-[var(--color-brand-coral)] px-2.5 py-1 rounded-xs inline-block w-max mb-1"
-                >
+                <span className="font-mono text-[10px] uppercase font-bold text-white bg-[var(--color-brand-coral)] px-2.5 py-1 rounded-xs inline-block w-max mb-1">
                   Interactive 3D Reader
                 </span>
                 <span className="text-white text-xs font-semibold">Click to flip pages like a printed book →</span>
@@ -105,20 +116,14 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
             {/* Issue Description & Action Triggers (8 cols) */}
             <div className="lg:col-span-8 flex flex-col justify-between h-full">
               <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <span
-                    style={{ fontFamily: "'Geist Mono', monospace" }}
-                    className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)]"
-                  >
+                <div className="flex items-center gap-3 mb-2 flex-wrap">
+                  <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)]">
                     Issue #{currentIssue.number} · {currentIssue.month}
                   </span>
                   <Badge type="pro" label="Current Edition" />
                 </div>
 
-                <h1
-                  style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                  className="text-3xl sm:text-4xl font-semibold text-[var(--color-ink)] mb-3 leading-tight"
-                >
+                <h1 className="font-serif text-3xl sm:text-4xl font-semibold text-[var(--color-ink)] mb-3 leading-tight">
                   {currentIssue.theme}
                 </h1>
 
@@ -129,10 +134,10 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
                 {/* Table of contents preview chips */}
                 <div className="p-4 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-xs mb-6">
                   <div className="text-[11px] font-mono uppercase tracking-wider text-[var(--color-brand-teal)] font-bold mb-2">
-                    In This Issue ({ARTICLES.length} Dossiers & Interviews):
+                    In This Issue ({articlesList.filter(a => a.issueId === currentIssue.id).length || 4} Dossiers & Features):
                   </div>
                   <ul className="text-xs text-[var(--color-ink)] space-y-1.5 list-disc list-inside">
-                    {ARTICLES.slice(0, 3).map(art => {
+                    {articlesList.filter(a => a.issueId === currentIssue.id).slice(0, 3).map(art => {
                       const author = AUTHORS.find(a => a.id === art.authorId)
                       return (
                         <li key={art.slug} className="truncate">
@@ -145,33 +150,17 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
               </div>
 
               <div className="flex items-center gap-4 flex-wrap pt-4 border-t border-[var(--color-border-subtle)]">
-                <Button variant="coral" size="lg" onClick={() => setShowFlipbook(true)}>
-                  <svg className="w-4 h-4 text-current shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
+                <Button variant="coral" size="lg" onClick={() => setActiveFlipbookIssue(currentIssue)}>
+                  <BookOpen size={16} />
                   <span>Open 3D Reader</span>
                 </Button>
                 <Button
                   variant="secondary"
                   size="lg"
-                  onClick={() => {
-                    const element = document.createElement("a")
-                    const file = new Blob([
-                      `MEDIVERSE LIFE SCIENCES — DIGITAL ISSUE #${currentIssue.number}\n\nTheme: ${currentIssue.theme}\nDate: ${currentIssue.month}\n\nSummary:\n${currentIssue.summary}\n\nArticles Included:\n` +
-                      ARTICLES.map((a, i) => `${i + 1}. ${a.title} (${AUTHORS.find(aut => aut.id === a.authorId)?.name || "Editorial Staff"})`).join("\n")
-                    ], { type: "text/plain" })
-                    element.href = URL.createObjectURL(file)
-                    element.download = `Mediverse_Issue_${currentIssue.number}_PDF_Edition.txt`
-
-                    document.body.appendChild(element)
-                    element.click()
-                    document.body.removeChild(element)
-                  }}
+                  onClick={handleDownloadPdf}
                 >
-                  <svg className="w-4 h-4 text-[var(--color-brand-teal)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  <span>Download PDF Edition</span>
+                  <Download size={16} className="text-[var(--color-brand-teal)]" />
+                  <span>Download 56-Page PDF Edition</span>
                 </Button>
                 <Button variant="ghost" size="lg" onClick={() => onNavigate && onNavigate("archive")}>
                   Past Issues Archive →
@@ -181,29 +170,33 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
           </div>
         </div>
 
+        {/* Dedicated Last Month's Retrospective & Trending Intelligence */}
+        {lastMonthIssue && (
+          <LastMonthTrending
+            lastMonthIssue={lastMonthIssue}
+            lastMonthArticles={lastMonthArticles}
+            onSelectArticle={art => setActiveArticle(art)}
+            onOpenIssueFlipbook={issue => setActiveFlipbookIssue(issue)}
+          />
+        )}
+
         {/* Section Heading for Individual Dossiers */}
         <div className="pb-4 mb-6 border-b border-[var(--color-border-subtle)] flex flex-wrap items-center justify-between gap-4">
           <div>
-            <span
-              style={{ fontFamily: "'Geist Mono', monospace" }}
-              className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-teal)] block mb-1"
-            >
-              Browse Dossiers
+            <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-teal)] block mb-1">
+              Browse All Dossiers & Archives
             </span>
-            <h2
-              style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-              className="text-2xl font-semibold text-[var(--color-ink)]"
-            >
-              Articles & Features in this Issue
+            <h2 className="font-serif text-2xl font-semibold text-[var(--color-ink)]">
+              Articles & Features Catalog
             </h2>
           </div>
 
           <button
             onClick={() => setShowAddModal(true)}
-            className="px-4 py-2 bg-gradient-to-r from-[var(--color-brand-coral)] to-[#B94E2C] text-white text-xs font-semibold rounded-md hover:brightness-110 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
-            style={{ fontFamily: "'Geist Mono', monospace" }}
+            className="font-mono px-4 py-2 bg-gradient-to-r from-[var(--color-brand-coral)] to-[#B94E2C] text-white text-xs font-semibold rounded-md hover:brightness-110 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
           >
-            <span>📷</span> Add Article / Upload Image
+            <Plus size={14} />
+            <span>Add Article / Upload Custom Dossier</span>
           </button>
         </div>
 
@@ -238,12 +231,11 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
       {/* Floating Quick-Launch 3D Book Reader Button */}
       <div className="fixed bottom-6 right-6 z-40">
         <button
-          onClick={() => setShowFlipbook(true)}
-          className="px-4 py-3 bg-gradient-to-r from-[var(--color-brand-teal)] to-[#164e60] text-white text-xs font-semibold rounded-full shadow-[0_10px_30px_rgba(13,59,74,0.35)] hover:scale-105 active:scale-95 transition-all flex items-center gap-2 border border-white/20 group cursor-pointer"
-          style={{ fontFamily: "'Geist Mono', monospace" }}
+          onClick={() => setActiveFlipbookIssue(currentIssue)}
+          className="font-mono px-4 py-3 bg-gradient-to-r from-[var(--color-brand-teal)] to-[#164e60] text-white text-xs font-semibold rounded-full shadow-[0_10px_30px_rgba(13,59,74,0.35)] hover:scale-105 active:scale-95 transition-all flex items-center gap-2 border border-white/20 group cursor-pointer"
           title="Open interactive 3D page-turning magazine reader"
         >
-          <span className="text-base group-hover:rotate-12 transition-transform">📖</span>
+          <BookOpen size={16} className="text-amber-200 group-hover:rotate-12 transition-transform" />
           <span>Launch 3D Book Reader</span>
         </button>
       </div>
@@ -254,6 +246,7 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
         onClose={() => setShowAddModal(false)}
         onAddArticle={newArt => {
           setArticlesList(prev => [newArt, ...prev])
+          info("Custom Dossier Published", `"${newArt.title.slice(0, 36)}..." added to active catalogue.`)
         }}
       />
     </div>
