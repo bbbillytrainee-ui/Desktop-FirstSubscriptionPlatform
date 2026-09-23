@@ -6,7 +6,6 @@ import BookmarksDrawer from "../modals/BookmarksDrawer"
 import { BookmarkFilled } from "../ui/Icons"
 import { useBookmarks } from "../../lib/bookmarks"
 import { useTheme } from "../../lib/theme"
-import { LATEST_NEWS } from "../../data/fixtures/news"
 
 export interface HeaderProps {
   onJoin?: () => void
@@ -22,23 +21,8 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [searchOpen, setSearchOpen] = useState(false)
   const [bookmarksOpen, setBookmarksOpen] = useState(false)
-  const [activeNewsIndex, setActiveNewsIndex] = useState(0)
   const navRef = useRef<HTMLDivElement>(null)
   const { savedCount } = useBookmarks()
-
-  const breakingNewsList = LATEST_NEWS.filter(n => n.isBreaking).length > 0
-    ? LATEST_NEWS.filter(n => n.isBreaking)
-    : LATEST_NEWS
-
-  const currentNews = breakingNewsList[activeNewsIndex % breakingNewsList.length]
-
-  // Auto rotate news ticker
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveNewsIndex(prev => (prev + 1) % breakingNewsList.length)
-    }, 6000)
-    return () => clearInterval(timer)
-  }, [breakingNewsList.length])
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -83,71 +67,6 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
 
       {/* Top Gradient Accent Border */}
       <div className="h-1 bg-gradient-to-r from-[var(--color-brand-teal)] via-[var(--color-brand-coral)] to-[var(--color-brand-teal)] w-full" />
-
-      {/* Top Ticker / Live Intelligence Bar */}
-      <div className="bg-[#0A2E3B] text-[var(--color-paper)] text-xs px-4 sm:px-6 md:px-12 py-1.5 border-b border-white/10 flex items-center justify-between font-sans relative z-30">
-        <div className="max-w-[var(--container-max)] mx-auto w-full flex items-center justify-between gap-4">
-          
-          {/* Ticker Content */}
-          <div className="flex items-center gap-3 overflow-hidden text-[11px] sm:text-xs min-w-0 flex-1">
-            <div className="flex items-center gap-1.5 shrink-0">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-brand-coral)] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-brand-coral)]"></span>
-              </span>
-              <span
-                style={{ fontFamily: "'Geist Mono', monospace" }}
-                className="bg-[var(--color-brand-coral)] text-white text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-xs shrink-0 shadow-xs"
-              >
-                LIVE
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2 truncate min-w-0 flex-1">
-              <span 
-                style={{ fontFamily: "'Geist Mono', monospace" }} 
-                className="text-[9px] uppercase tracking-wider text-white/60 font-semibold hidden sm:inline-block shrink-0"
-              >
-                [{currentNews.category}]
-              </span>
-              <span className="font-medium truncate text-white/95 text-[11px] sm:text-xs">
-                {currentNews.title}
-              </span>
-            </div>
-          </div>
-
-          {/* Ticker Controls & Quick Links */}
-          <div className="hidden md:flex items-center gap-4 text-[11px] text-white/80 font-mono shrink-0">
-            <div className="flex items-center gap-1 bg-white/5 border border-white/10 rounded px-2 py-0.5">
-              <button 
-                onClick={() => setActiveNewsIndex(prev => (prev - 1 + breakingNewsList.length) % breakingNewsList.length)}
-                className="hover:text-white px-1 text-white/60 transition-colors"
-                title="Previous intelligence update"
-              >
-                ‹
-              </button>
-              <span className="text-[10px] text-white/40">{activeNewsIndex + 1}/{breakingNewsList.length}</span>
-              <button 
-                onClick={() => setActiveNewsIndex(prev => (prev + 1) % breakingNewsList.length)}
-                className="hover:text-white px-1 text-white/60 transition-colors"
-                title="Next intelligence update"
-              >
-                ›
-              </button>
-            </div>
-
-            <span className="text-white/30">|</span>
-
-            <button
-              onClick={() => handleNav("magazine")}
-              className="text-white/90 hover:text-[var(--color-brand-coral)] transition-colors flex items-center gap-1 font-sans text-xs font-semibold group"
-            >
-              <span>Read Dossier</span>
-              <span className="group-hover:translate-x-0.5 transition-transform">→</span>
-            </button>
-          </div>
-        </div>
-      </div>
 
       {/* Main Glass Header */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-xl border-b border-[var(--color-border-subtle)] px-4 sm:px-6 md:px-12 py-3 shadow-xs">
