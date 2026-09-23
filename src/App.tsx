@@ -28,6 +28,7 @@ import { AuthProvider } from "./lib/auth"
 import { RouterProvider, useRouter } from "./lib/router"
 import { ToastProvider } from "./lib/toast"
 import { BookmarksProvider } from "./lib/bookmarks"
+import { ThemeProvider } from "./lib/theme"
 
 function AppRoutes() {
   const { route, navigate } = useRouter()
@@ -196,14 +197,16 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <RouterProvider>
-        <ToastProvider>
-          <BookmarksProvider>
-            <AppRoutes />
-          </BookmarksProvider>
-        </ToastProvider>
-      </RouterProvider>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <RouterProvider>
+          <ToastProvider>
+            <BookmarksProvider>
+              <AppRoutes />
+            </BookmarksProvider>
+          </ToastProvider>
+        </RouterProvider>
+      </AuthProvider>
+    </ThemeProvider>
   )
 }

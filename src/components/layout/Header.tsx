@@ -5,6 +5,7 @@ import GlobalSearchModal from "../ui/GlobalSearchModal"
 import BookmarksDrawer from "../modals/BookmarksDrawer"
 import { BookmarkFilled } from "../ui/Icons"
 import { useBookmarks } from "../../lib/bookmarks"
+import { useTheme } from "../../lib/theme"
 import { LATEST_NEWS } from "../../data/fixtures/news"
 
 export interface HeaderProps {
@@ -16,6 +17,7 @@ export interface HeaderProps {
 }
 
 export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, onOpen3DReader }: HeaderProps) {
+  const { theme, toggleTheme } = useTheme()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [searchOpen, setSearchOpen] = useState(false)
@@ -473,6 +475,24 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
               <span>Saved ({savedCount})</span>
             </button>
 
+            {/* Theme Toggle Button */}
+            <button
+              onClick={toggleTheme}
+              className="p-2 rounded-full border border-stone-200/90 hover:border-stone-400 bg-stone-50/80 hover:bg-stone-100 transition-all text-xs flex items-center justify-center cursor-pointer shadow-2xs"
+              title={`Switch to ${theme === "light" ? "Dark" : "Light"} mode`}
+              aria-label="Toggle Theme"
+            >
+              {theme === "light" ? (
+                <svg className="w-4 h-4 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              ) : (
+                <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              )}
+            </button>
+
             {onSignIn && (
               <button
                 onClick={onSignIn}
@@ -493,8 +513,25 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
             )}
           </div>
 
-          {/* Mobile Actions: Search Icon + Hamburger */}
+          {/* Mobile Actions: Search Icon + Theme Toggle + Hamburger */}
           <div className="show-mobile-only flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="p-2 text-[var(--color-ink)] rounded-full hover:bg-stone-100 transition-colors"
+              title={`Switch to ${theme === "light" ? "Dark" : "Light"} mode`}
+              aria-label="Toggle Theme"
+            >
+              {theme === "light" ? (
+                <svg className="w-5 h-5 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              )}
+            </button>
+
             <button
               onClick={() => setSearchOpen(true)}
               className="p-2 text-[var(--color-ink)] rounded-full hover:bg-stone-100 transition-colors"

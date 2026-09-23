@@ -113,37 +113,41 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       />
 
       {/* SECTION 1: Editorial Masthead & Hero */}
-      <section className="border-b border-[var(--color-border-subtle)] py-12 lg:py-16 px-6 md:px-12 bg-[var(--color-paper)]">
-
-        <div className="max-w-[var(--container-max)] mx-auto grid grid-cols-1 lg:grid-cols-[62fr_38fr] gap-10 lg:gap-14 items-center">
+      <section className="border-b border-[var(--color-border-subtle)] py-14 lg:py-20 px-6 md:px-12 hero-radial-bg relative overflow-hidden">
+        
+        <div className="max-w-[var(--container-max)] mx-auto grid grid-cols-1 lg:grid-cols-[62fr_38fr] gap-10 lg:gap-14 items-center relative z-10">
           {/* Left Column: Vision & Primary Actions */}
           <div>
-            <div className="flex items-center gap-3 mb-3.5 flex-wrap">
-              <span className="font-mono text-xs font-semibold tracking-[0.18em] uppercase text-[var(--color-brand-coral)]">
+            <div className="flex items-center gap-3 mb-4 flex-wrap">
+              <span className="font-mono text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-brand-coral)]">
                 Pharma · MedTech · AI-Health
               </span>
-              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-emerald-50 border border-emerald-200 rounded-full text-[10px] font-mono font-medium text-emerald-800">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200/80 rounded-full text-[10px] font-mono font-semibold text-emerald-800 shadow-2xs">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 <span>340+ Leaders Reading Issue #15 Live</span>
               </div>
             </div>
 
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-[50px] font-semibold text-[var(--color-ink)] leading-[1.08] tracking-tight mb-5">
-              A serious publication <span className="font-serif italic font-normal text-[var(--color-brand-coral)] px-0.5 text-[0.95em]">&amp;</span> network for the people building what healthcare becomes next.
+            <h1 
+              style={{ fontSize: "clamp(2.4rem, 4.5vw, 3.8rem)" }}
+              className="font-serif font-bold text-[var(--color-ink)] leading-[1.08] tracking-tight mb-6"
+            >
+              A serious publication <span className="font-serif italic font-normal text-[var(--color-brand-coral)] px-0.5">&amp;</span> network for the people building what healthcare becomes next.
             </h1>
 
-            <p className="text-base sm:text-lg text-[var(--color-slate-muted)] leading-relaxed mb-8 max-w-xl">
+            <p className="text-base sm:text-lg text-[var(--color-slate-muted)] leading-relaxed mb-9 max-w-xl">
               Curated monthly intelligence, deep life science dossiers, and explainable peer introductions for verified healthcare leaders across regulatory, clinical, and commercial tracks.
             </p>
 
-            <div className="flex items-center gap-3.5 flex-wrap mb-8">
-              <Button variant="coral" size="lg" onClick={onGetAccess}>
+            <div className="flex items-center gap-4 flex-wrap mb-10">
+              <Button variant="coral" size="lg" onClick={onGetAccess} className="shadow-[0_4px_16px_rgba(208,96,61,0.28)] hover:shadow-[0_6px_22px_rgba(208,96,61,0.36)] transition-shadow">
                 Join the network
               </Button>
               <Button
                 variant="secondary"
                 size="lg"
                 onClick={() => setShowFlipbook(true)}
+                className="shadow-2xs"
               >
                 <BookOpen size={16} />
                 <span>Open 3D Reader</span>
@@ -159,29 +163,29 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             </div>
 
             {/* Credibility Credentials Trust Row */}
-            <div className="pt-6 border-t border-[var(--color-border-subtle)] grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div className="pt-7 border-t border-[var(--color-border-subtle)] grid grid-cols-2 sm:grid-cols-4 gap-6">
               <div>
-                <div className="font-mono text-base font-bold text-[var(--color-ink)]">34,000+</div>
-                <div className="text-[11px] text-[var(--color-slate-muted)] leading-tight mt-0.5">Verified Leaders</div>
+                <div className="font-mono text-2xl sm:text-3xl font-black text-[var(--color-ink)] leading-none">34,000+</div>
+                <div className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider leading-tight mt-1.5">Verified Leaders</div>
               </div>
               <div>
-                <div className="font-mono text-base font-bold text-[var(--color-ink)]">48+</div>
-                <div className="text-[11px] text-[var(--color-slate-muted)] leading-tight mt-0.5">Annual Dossiers</div>
+                <div className="font-mono text-2xl sm:text-3xl font-black text-[var(--color-ink)] leading-none">48+</div>
+                <div className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider leading-tight mt-1.5">Annual Dossiers</div>
               </div>
               <div>
-                <div className="font-mono text-base font-bold text-[var(--color-ink)]">100%</div>
-                <div className="text-[11px] text-[var(--color-slate-muted)] leading-tight mt-0.5">Peer Cited Rigor</div>
+                <div className="font-mono text-2xl sm:text-3xl font-black text-[var(--color-ink)] leading-none">100%</div>
+                <div className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider leading-tight mt-1.5">Peer Cited Rigor</div>
               </div>
               <div>
-                <div className="font-mono text-base font-bold text-[var(--color-brand-teal)]">Zero Ads</div>
-                <div className="text-[11px] text-[var(--color-slate-muted)] leading-tight mt-0.5">Member Supported</div>
+                <div className="font-mono text-2xl sm:text-3xl font-black text-[var(--color-brand-teal)] leading-none">Zero Ads</div>
+                <div className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider leading-tight mt-1.5">Member Supported</div>
               </div>
             </div>
           </div>
 
           {/* Right Column: Current Issue Spotlight Card */}
-          <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-xs relative group hover:border-[var(--color-brand-teal)] transition-colors">
-            <div className="flex items-center justify-between border-b border-[var(--color-border-subtle)] pb-3 mb-4">
+          <div className="card-tactile p-6 relative group border border-[var(--color-border-subtle)] bg-white">
+            <div className="flex items-center justify-between border-b border-[var(--color-border-subtle)] pb-3.5 mb-4">
               <span
                 style={{ fontFamily: "'Geist Mono', monospace" }}
                 className="text-xs font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider"
@@ -192,7 +196,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             </div>
 
             <div
-              className="h-52 rounded-sm overflow-hidden mb-4 relative cursor-pointer group/img"
+              className="h-56 rounded-lg overflow-hidden mb-4 relative cursor-pointer group/img shadow-2xs"
               onClick={() => setShowFlipbook(true)}
             >
               <SafeImage
@@ -200,10 +204,10 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                 alt={currentIssue.theme}
                 className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end p-4">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover/img:opacity-100 transition-opacity flex items-end p-4">
                 <span
                   style={{ fontFamily: "'Geist Mono', monospace" }}
-                  className="text-xs font-bold text-white bg-[var(--color-brand-teal)] px-3 py-1.5 rounded-xs shadow-md flex items-center gap-1.5"
+                  className="text-xs font-bold text-white bg-[var(--color-brand-teal)] px-3 py-1.5 rounded-sm shadow-md flex items-center gap-1.5"
                 >
                   <span>Launch Interactive Reader</span>
                   <span>→</span>
@@ -221,7 +225,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
               {currentIssue.summary}
             </p>
 
-            <div className="flex items-center justify-between pt-3 border-t border-[var(--color-border-subtle)] text-xs font-mono">
+            <div className="flex items-center justify-between pt-3.5 border-t border-[var(--color-border-subtle)] text-xs font-mono">
               <button
                 onClick={() => setShowFlipbook(true)}
                 className="font-bold text-[var(--color-brand-teal)] hover:text-[var(--color-brand-coral)] transition-colors flex items-center gap-1"
@@ -313,23 +317,23 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
         </div>
       </section>
 
-      {/* SECTION 4: Three-Lane Focus Areas (Pharma, MedTech, AI) */}
-      <section className="py-14 px-6 md:px-12 border-b border-[var(--color-border-subtle)] bg-[var(--color-surface)]">
-        <div className="max-w-[var(--container-max)] mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-10">
+      {/* SECTION 4: Three-Lane Focus Areas (Pharma, MedTech, AI) - Dark Mode Island */}
+      <section className="py-16 px-6 md:px-12 bg-[#0A1F28] text-white border-b border-white/10 relative overflow-hidden">
+        <div className="max-w-[var(--container-max)] mx-auto relative z-10">
+          <div className="text-center max-w-2xl mx-auto mb-12">
             <span
               style={{ fontFamily: "'Geist Mono', monospace" }}
-              className="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-brand-coral)] block mb-2"
+              className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-brand-coral)] block mb-2"
             >
               Core Coverage
             </span>
             <h2
               style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-              className="text-3xl font-semibold text-[var(--color-ink)] mb-2"
+              className="text-3xl sm:text-4xl font-semibold text-white mb-3"
             >
               Three verticals. Focused depth.
             </h2>
-            <p className="text-sm text-[var(--color-slate-muted)]">
+            <p className="text-sm text-stone-300 leading-relaxed">
               Uncompromising monthly analysis written for decision-makers in medicine, biotechnology, and health technology.
             </p>
           </div>
@@ -337,78 +341,78 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div
               onClick={() => { setActiveTaxonomy("Pharma"); const el = document.getElementById("articles-section"); if (el) el.scrollIntoView({ behavior: "smooth" }) }}
-              className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm hover:border-[var(--color-brand-teal)] cursor-pointer transition-colors flex flex-col justify-between"
+              className="p-7 bg-[#071921] border border-white/12 rounded-xl hover:border-[var(--color-brand-coral)] cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-lg flex flex-col justify-between group"
             >
               <div>
                 <span
                   style={{ fontFamily: "'Geist Mono', monospace" }}
-                  className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-brand-coral)] block mb-2"
+                  className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)] block mb-3"
                 >
                   01 / Pharma & Biologics
                 </span>
                 <h3
                   style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                  className="text-lg font-semibold text-[var(--color-ink)] mb-2"
+                  className="text-xl font-semibold text-white mb-3 group-hover:text-[var(--color-brand-coral)] transition-colors"
                 >
                   Drug Discovery & Regulatory Submissions
                 </h3>
-                <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-4">
+                <p className="text-xs text-stone-300 leading-relaxed mb-6">
                   CDSCO clinical guidance, oncology HEOR evidence, biosimilars scale-up, and regional drug pricing dynamics.
                 </p>
               </div>
-              <span className="text-xs font-semibold text-[var(--color-brand-teal)] font-mono">
+              <span className="text-xs font-semibold text-[var(--color-brand-coral)] font-mono group-hover:translate-x-1 transition-transform inline-block">
                 Explore Pharma Coverage →
               </span>
             </div>
 
             <div
               onClick={() => { setActiveTaxonomy("MedTech"); const el = document.getElementById("articles-section"); if (el) el.scrollIntoView({ behavior: "smooth" }) }}
-              className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm hover:border-[var(--color-brand-teal)] cursor-pointer transition-colors flex flex-col justify-between"
+              className="p-7 bg-[#071921] border border-white/12 rounded-xl hover:border-cyan-400 cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-lg flex flex-col justify-between group"
             >
               <div>
                 <span
                   style={{ fontFamily: "'Geist Mono', monospace" }}
-                  className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-brand-teal)] block mb-2"
+                  className="text-[10px] font-bold uppercase tracking-wider text-cyan-400 block mb-3"
                 >
                   02 / MedTech & Diagnostics
                 </span>
                 <h3
                   style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                  className="text-lg font-semibold text-[var(--color-ink)] mb-2"
+                  className="text-xl font-semibold text-white mb-3 group-hover:text-cyan-300 transition-colors"
                 >
                   Device Engineering & Cross-Border IP
                 </h3>
-                <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-4">
+                <p className="text-xs text-stone-300 leading-relaxed mb-6">
                   Surgical robotics licensing, point-of-care diagnostics, precision hardware, and supply chain integrity.
                 </p>
               </div>
-              <span className="text-xs font-semibold text-[var(--color-brand-teal)] font-mono">
+              <span className="text-xs font-semibold text-cyan-400 font-mono group-hover:translate-x-1 transition-transform inline-block">
                 Explore MedTech Coverage →
               </span>
             </div>
 
             <div
               onClick={() => { setActiveTaxonomy("AI-Health"); const el = document.getElementById("articles-section"); if (el) el.scrollIntoView({ behavior: "smooth" }) }}
-              className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm hover:border-[var(--color-brand-teal)] cursor-pointer transition-colors flex flex-col justify-between"
+              className="p-7 bg-[#071921] border border-white/12 rounded-xl hover:border-emerald-400 cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-lg flex flex-col justify-between group"
             >
               <div>
                 <span
                   style={{ fontFamily: "'Geist Mono', monospace" }}
-                  className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-brand-coral)] block mb-2"
+                  className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 block mb-3"
                 >
                   03 / AI & Digital Health
                 </span>
                 <h3
                   style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                  className="text-lg font-semibold text-[var(--color-ink)] mb-2"
+                  className="text-xl font-semibold text-white mb-3 group-hover:text-emerald-300 transition-colors"
                 >
                   SaMD Validation & Automated Safety
                 </h3>
-                <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-4">
+                <p className="text-xs text-stone-300 leading-relaxed mb-6">
                   Clinical AI trial design, NLP pharmacovigilance pipelines, synthetic controls, and health data governance.
                 </p>
               </div>
-              <span className="text-xs font-semibold text-[var(--color-brand-teal)] font-mono">
+              <span className="text-xs font-semibold text-emerald-400 font-mono group-hover:translate-x-1 transition-transform inline-block">
                 Explore AI-Health Coverage →
               </span>
             </div>
@@ -601,30 +605,52 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
         </div>
       </section>
 
-      {/* SECTION 7: Final High-Impact Subscription Callout */}
-      <section className="py-16 px-6 md:px-12 bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-center">
-        <div className="max-w-2xl mx-auto">
+      {/* SECTION 7: Final High-Impact Subscription Callout with Animated Mesh Background */}
+      <section className="py-20 px-6 md:px-12 cta-mesh-bg text-white text-center relative z-10 border-t border-white/10">
+        <div className="max-w-3xl mx-auto relative z-20">
+          <div className="flex items-center justify-center -space-x-2 mb-6">
+            <div className="w-9 h-9 rounded-full border-2 border-white bg-[var(--color-brand-teal)] flex items-center justify-center font-bold text-xs shadow-md">
+              DR
+            </div>
+            <div className="w-9 h-9 rounded-full border-2 border-white bg-[var(--color-brand-coral)] flex items-center justify-center font-bold text-xs shadow-md">
+              AP
+            </div>
+            <div className="w-9 h-9 rounded-full border-2 border-white bg-emerald-700 flex items-center justify-center font-bold text-xs shadow-md">
+              SK
+            </div>
+            <div className="w-9 h-9 rounded-full border-2 border-white bg-cyan-700 flex items-center justify-center font-bold text-xs shadow-md">
+              VS
+            </div>
+            <div className="w-9 h-9 rounded-full border-2 border-white bg-slate-800 flex items-center justify-center text-[10px] font-mono font-bold shadow-md">
+              +34k
+            </div>
+          </div>
+
           <span
             style={{ fontFamily: "'Geist Mono', monospace" }}
-            className="text-xs font-semibold tracking-[0.2em] uppercase text-[var(--color-brand-coral)] block mb-3"
+            className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-brand-coral)] block mb-3.5"
           >
             Join Mediverse Life Sciences
-
           </span>
           <h2
             style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-            className="text-3xl sm:text-4xl font-semibold mb-4 leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5 leading-tight text-white"
           >
-            The publication and network for healthcare decision-makers.
+            The publication &amp; network for healthcare decision-makers.
           </h2>
-          <p className="text-sm md:text-base text-white/80 mb-8 leading-relaxed">
+          <p className="text-sm md:text-base text-stone-200/90 mb-9 leading-relaxed max-w-2xl mx-auto">
             Read curated monthly dossiers, interact with digital 3D flipbook magazines, and receive explainable peer introductions across Pharma, MedTech, and AI-Health.
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            <Button variant="coral" size="lg" onClick={onGetAccess}>
+            <Button 
+              variant="coral" 
+              size="lg" 
+              onClick={onGetAccess}
+              className="shadow-[0_8px_25px_rgba(208,96,61,0.4)] hover:shadow-[0_12px_32px_rgba(208,96,61,0.5)] transition-all hover:scale-105 active:scale-95"
+            >
               Join the network now →
             </Button>
-            <Button variant="ghost" size="lg" onClick={() => onNavigate && onNavigate("subscriptions")}>
+            <Button variant="ghost" size="lg" onClick={() => onNavigate && onNavigate("subscriptions")} className="text-white border border-white/20 hover:bg-white/10">
               View Membership Plans
             </Button>
           </div>

@@ -25,7 +25,7 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
     return (
       <div
         onClick={onClick}
-        className="group cursor-pointer border border-[var(--color-border-subtle)] rounded-sm bg-white overflow-hidden hover:border-[var(--color-brand-teal)]/50 transition-all flex flex-col shadow-2xs hover:shadow-xs relative"
+        className="group cursor-pointer border border-[var(--color-border-subtle)] rounded-xl bg-white overflow-hidden hover:border-[var(--color-brand-teal)]/50 transition-all duration-300 flex flex-col shadow-[0_4px_20px_rgba(13,59,74,0.06)] hover:shadow-[0_16px_40px_rgba(13,59,74,0.16)] hover:-translate-y-1 relative"
       >
         {/* Photo FIRST - prominent cover view */}
         <div className="relative h-64 sm:h-80 md:h-96 w-full bg-[var(--color-surface)] overflow-hidden">
@@ -34,9 +34,9 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
             alt={article.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-70" />
           <div className="absolute top-4 left-4 flex items-center gap-2">
-            <span className="font-mono bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-[10px] font-semibold tracking-[0.14em] uppercase px-2.5 py-1 rounded-sm shadow-sm">
+            <span className="font-mono bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-[10px] font-semibold tracking-[0.14em] uppercase px-2.5 py-1 rounded-md shadow-sm">
               {article.category} · {article.format}
             </span>
           </div>
@@ -89,7 +89,7 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
     return (
       <div
         onClick={onClick}
-        className="group cursor-pointer border border-[var(--color-border-subtle)] rounded-sm bg-white overflow-hidden hover:border-[var(--color-brand-teal)]/40 transition-all flex flex-col justify-between shadow-2xs hover:shadow-xs"
+        className="group cursor-pointer border border-[var(--color-border-subtle)] rounded-xl bg-white overflow-hidden hover:border-[var(--color-brand-teal)]/40 transition-all duration-300 flex flex-col justify-between shadow-[0_2px_10px_rgba(13,59,74,0.05)] hover:shadow-[0_12px_28px_rgba(13,59,74,0.14)] hover:-translate-y-1"
       >
         {/* Photo FIRST */}
         <div className="h-32 w-full bg-[var(--color-surface)] overflow-hidden relative">
@@ -98,7 +98,7 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
             alt={article.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
-          <span className="font-mono absolute top-2 left-2 text-[9px] font-semibold tracking-[0.08em] uppercase bg-black/60 text-white px-1.5 py-0.5 rounded-sm">
+          <span className="font-mono absolute top-2 left-2 text-[9px] font-semibold tracking-[0.08em] uppercase bg-black/65 text-white px-1.5 py-0.5 rounded-sm">
             {article.category}
           </span>
           <button
@@ -141,7 +141,7 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
   return (
     <div
       onClick={onClick}
-      className="group cursor-pointer border border-[var(--color-border-subtle)] rounded-sm bg-white overflow-hidden hover:border-[var(--color-brand-teal)]/40 transition-all flex flex-col shadow-2xs hover:shadow-xs"
+      className="group cursor-pointer border border-[var(--color-border-subtle)] rounded-xl bg-white overflow-hidden hover:border-[var(--color-brand-teal)]/40 transition-all duration-300 flex flex-col shadow-[0_2px_12px_rgba(13,59,74,0.05)] hover:shadow-[0_14px_32px_rgba(13,59,74,0.14)] hover:-translate-y-1"
     >
       {/* Photo FIRST */}
       <div className="h-48 w-full bg-[var(--color-surface)] overflow-hidden relative">
@@ -151,14 +151,14 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         <div className="absolute top-3 left-3">
-          <span className="font-mono text-[10px] font-semibold tracking-[0.12em] uppercase bg-[var(--color-brand-teal)] text-white px-2 py-0.5 rounded-sm shadow-sm">
+          <span className="font-mono text-[10px] font-semibold tracking-[0.12em] uppercase bg-[var(--color-brand-teal)] text-white px-2 py-0.5 rounded-md shadow-sm">
             {article.category} · {article.format}
           </span>
         </div>
 
         <div className="absolute top-3 right-3 flex items-center gap-1.5 z-10">
           {article.isLocked && (
-            <div className="font-mono bg-[var(--color-brand-coral)] text-white text-[10px] font-semibold uppercase px-2 py-0.5 rounded-sm shadow-sm">
+            <div className="font-mono bg-[var(--color-brand-coral)] text-white text-[10px] font-semibold uppercase px-2 py-0.5 rounded-md shadow-sm">
               Pro Issue
             </div>
           )}

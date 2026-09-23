@@ -56,32 +56,32 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
           </p>
         </div>
 
-        {/* 4 Stats Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white border border-[var(--color-border-subtle)] p-5 rounded-sm shadow-xs">
-            <span className="text-xs text-[var(--color-slate-muted)] block mb-1">Invites Sent</span>
-            <span className="text-2xl sm:text-3xl font-bold text-[var(--color-ink)]">{stats.totalInvitesSent}</span>
-            <span className="text-[10px] text-gray-400 block mt-1">Direct & link shares</span>
+        {/* 4 Gamified Stats Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-10">
+          <div className="bg-gradient-to-br from-stone-50 to-white border border-[var(--color-border-subtle)] p-6 rounded-xl shadow-[0_4px_16px_rgba(13,59,74,0.04)] hover:-translate-y-1 transition-transform">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-slate-muted)] block mb-1">Invites Sent</span>
+            <span className="text-3xl sm:text-4xl font-black text-[var(--color-ink)] font-mono">{stats.totalInvitesSent}</span>
+            <span className="text-[11px] text-stone-500 block mt-1 font-medium">Direct &amp; link shares</span>
           </div>
 
-          <div className="bg-white border border-[var(--color-border-subtle)] p-5 rounded-sm shadow-xs">
-            <span className="text-xs text-[var(--color-slate-muted)] block mb-1">Colleagues Joined</span>
-            <span className="text-2xl sm:text-3xl font-bold text-[var(--color-brand-teal)]">{stats.totalJoined}</span>
-            <span className="text-[10px] text-emerald-600 font-medium flex items-center gap-1 mt-1">
+          <div className="bg-gradient-to-br from-emerald-50/80 via-white to-white border border-emerald-200/70 p-6 rounded-xl shadow-[0_4px_16px_rgba(16,185,129,0.08)] hover:-translate-y-1 transition-transform">
+            <span className="text-xs font-semibold uppercase tracking-wider text-emerald-800 block mb-1">Colleagues Joined</span>
+            <span className="text-3xl sm:text-4xl font-black text-emerald-600 font-mono">{stats.totalJoined}</span>
+            <span className="text-[11px] text-emerald-700 font-semibold flex items-center gap-1 mt-1">
               <CheckIcon size={12} /> Active members
             </span>
           </div>
 
-          <div className="bg-white border border-[var(--color-border-subtle)] p-5 rounded-sm shadow-xs">
-            <span className="text-xs text-[var(--color-slate-muted)] block mb-1">Bonus Months Earned</span>
-            <span className="text-2xl sm:text-3xl font-bold text-[var(--color-brand-coral)]">{stats.bonusMonthsEarned} Mo</span>
-            <span className="text-[10px] text-[var(--color-brand-coral)] block mt-1">Value ₹2,998</span>
+          <div className="bg-gradient-to-br from-[var(--color-brand-coral-light)]/60 via-white to-white border border-[var(--color-brand-coral)]/30 p-6 rounded-xl shadow-[0_4px_16px_rgba(208,96,61,0.08)] hover:-translate-y-1 transition-transform">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-brand-coral)] block mb-1">Bonus Months Earned</span>
+            <span className="text-3xl sm:text-4xl font-black text-[var(--color-brand-coral)] font-mono">{stats.bonusMonthsEarned} Mo</span>
+            <span className="text-[11px] text-[var(--color-brand-coral)] font-semibold block mt-1">Value ₹2,998 Unlocked</span>
           </div>
 
-          <div className="bg-white border border-[var(--color-border-subtle)] p-5 rounded-sm shadow-xs">
-            <span className="text-xs text-[var(--color-slate-muted)] block mb-1">Peer Introductions</span>
-            <span className="text-2xl sm:text-3xl font-bold text-[var(--color-ink)]">+{stats.peerIntroductionsUnlocked}</span>
-            <span className="text-[10px] text-gray-400 block mt-1">Extra match credits</span>
+          <div className="bg-gradient-to-br from-cyan-50/70 via-white to-white border border-cyan-200/60 p-6 rounded-xl shadow-[0_4px_16px_rgba(13,59,74,0.06)] hover:-translate-y-1 transition-transform">
+            <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-brand-teal)] block mb-1">Peer Introductions</span>
+            <span className="text-3xl sm:text-4xl font-black text-[var(--color-brand-teal)] font-mono">+{stats.peerIntroductionsUnlocked}</span>
+            <span className="text-[11px] text-cyan-800 font-medium block mt-1">Priority match credits</span>
           </div>
         </div>
 
