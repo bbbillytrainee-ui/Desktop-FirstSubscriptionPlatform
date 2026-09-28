@@ -81,6 +81,8 @@ export function pathToRoute(pathname: string): string {
     clean = "/" + clean.slice(1)
   }
 
+  // Query/hash belong to the page (e.g. ?topic=), not the route
+  clean = clean.split(/[?#]/)[0]
   if (clean === "" || clean === "/") return "home"
   return clean.replace(/^\//, "")
 }
@@ -103,7 +105,8 @@ export function RouterProvider({ children }: { children: ReactNode }) {
   const [path, setPath] = useState<string>(getInitialPath)
 
   const updateTitle = (currentPath: string) => {
-    const formatted = currentPath === "" || currentPath === "/" ? "/" : "/" + currentPath.replace(/^\//, "")
+    const bare = currentPath.split(/[?#]/)[0]
+    const formatted = bare === "" || bare === "/" ? "/" : "/" + bare.replace(/^\//, "")
     const title = ROUTE_TITLES[formatted] || "Mediverse Life Sciences"
     document.title = title
   }
@@ -172,3 +175,6 @@ export const Link: React.FC<LinkProps> = ({ to, children, replace = false, class
     </a>
   )
 }
+
+/** Route for an article reader page, e.g. navigate(articleRoute(slug)) */
+export const articleRoute = (slug: string) => `article/${encodeURIComponent(slug)}`

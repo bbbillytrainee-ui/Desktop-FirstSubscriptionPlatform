@@ -1,4 +1,5 @@
-import { Article } from "../../data/fixtures/articles"
+import { useRef, useState } from "react"
+import { Article, ARTICLES } from "../../data/fixtures/articles"
 import { AUTHORS } from "../../data/fixtures/authors"
 import AuthorByline from "./AuthorByline"
 import Tag from "../ui/Tag"
@@ -7,18 +8,50 @@ import { BookOpen, Bookmark, BookmarkFilled, Share2, ExternalLink } from "../ui/
 import { useToast } from "../../lib/toast"
 import { useBookmarks } from "../../lib/bookmarks"
 import SafeImage from "../ui/SafeImage"
+import ArticleCard from "./ArticleCard"
+import { getSavedProgress, scrollToProgress, useReadingProgress } from "../../lib/readingProgress"
+import { prefersReducedMotion } from "../../lib/motion"
+
+/** Related = most shared tags, then same category. */
+const relatedTo = (article: Article, limit = 3) =>
+  ARTICLES.filter(a => a.slug !== article.slug)
+    .map(a => ({
+      a,
+      score: a.tags.filter(t => article.tags.includes(t)).length * 2 + (a.category === article.category ? 1 : 0),
+    }))
+    .filter(x => x.score > 0)
+    .sort((x, y) => y.score - x.score)
+    .slice(0, limit)
+    .map(x => x.a)
+
+const nextAfter = (article: Article) => {
+  const i = ARTICLES.findIndex(a => a.slug === article.slug)
+  return ARTICLES[(i + 1) % ARTICLES.length]
+}
 
 export interface ArticleReaderProps {
   article: Article
   onClose?: () => void
   onJoinPrompt?: () => void
   onOpenFlipbook?: () => void
+  /** Enables "Next up" and "Related dossiers" at the end of the article */
+  onOpenArticle?: (article: Article) => void
 }
 
-export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFlipbook }: ArticleReaderProps) {
+export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFlipbook, onOpenArticle }: ArticleReaderProps) {
   const { isBookmarked: checkIsBookmarked, toggleBookmark } = useBookmarks()
   const isBookmarked = checkIsBookmarked(article.slug)
-  const { copy } = useToast()
+  const { copy, info } = useToast()
+
+  const bodyRef = useRef<HTMLDivElement>(null)
+  const progress = useReadingProgress(article.slug, bodyRef)
+  // Resume point captured once on open (before this visit starts overwriting it)
+  const [resumeAt] = useState(() => getSavedProgress(article.slug))
+  const [resumeDismissed, setResumeDismissed] = useState(false)
+  const showResume = !resumeDismissed && resumeAt > 0.08 && resumeAt < 0.95 && progress < resumeAt - 0.05
+
+  const related = relatedTo(article)
+  const nextUp = nextAfter(article)
 
   const author = AUTHORS.find(a => a.id === article.authorId) || {
     id: "unknown",
@@ -36,15 +69,65 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
     toggleBookmark(article)
   }
 
-  const handleShare = () => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(window.location.href)
+  const handleShare = async () => {
+    const url = window.location.href
+    // Native share sheet on touch devices; clipboard elsewhere
+    if (navigator.share && window.matchMedia("(pointer: coarse)").matches) {
+      try {
+        await navigator.share({ title: article.title, text: article.dek, url })
+        return
+      } catch {
+        return // user cancelled
+      }
     }
-    copy("Link Copied to Clipboard", "Direct link to this intelligence dossier is ready to share.")
+    try {
+      await navigator.clipboard.writeText(url)
+      copy("Link copied", "Anyone with the link can open this dossier.")
+    } catch {
+      info("Couldn't copy the link", url)
+    }
   }
 
   return (
     <article className="max-w-[var(--article-max)] mx-auto px-4 md:px-6 py-8">
+      {/* Reading progress (transform only) */}
+      <div
+        role="progressbar"
+        aria-label="Reading progress"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={Math.round(progress * 100)}
+        className="fixed top-0 inset-x-0 z-50 h-[3px] bg-transparent pointer-events-none"
+      >
+        <div
+          className="h-full w-full origin-left bg-[var(--color-brand-coral-fill)]"
+          style={{ transform: `scaleX(${progress})` }}
+        />
+      </div>
+
+      {showResume && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 toast-enter flex items-center gap-1 pl-4 pr-1.5 py-1.5 rounded-full bg-[var(--color-section-dark)] text-white shadow-overlay text-sm">
+          <button
+            type="button"
+            onClick={() => {
+              if (bodyRef.current) scrollToProgress(bodyRef.current, resumeAt, !prefersReducedMotion())
+              setResumeDismissed(true)
+            }}
+            className="font-medium hover:underline underline-offset-2"
+          >
+            Continue where you left off · {Math.round(resumeAt * 100)}%
+          </button>
+          <button
+            type="button"
+            aria-label="Dismiss"
+            onClick={() => setResumeDismissed(true)}
+            className="w-8 h-8 rounded-full flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10"
+          >
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* Reader Action Bar */}
       <div className="flex items-center justify-between gap-4 mb-6 pb-4 border-b border-[var(--color-border-subtle)] flex-wrap">
         {onClose && (
@@ -52,7 +135,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
             onClick={onClose}
             className="flex items-center gap-2 text-xs font-medium font-mono text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] transition-colors cursor-pointer"
           >
-            ← Back to All Articles
+            ← Back
           </button>
         )}
 
@@ -115,7 +198,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
       </div>
 
       {/* Body paragraphs with drop-cap */}
-      <div className="space-y-6 text-base md:text-lg text-[var(--color-ink)] leading-relaxed">
+      <div ref={bodyRef} className="max-w-[65ch] mx-auto space-y-6 text-[1.0625rem] md:text-lg text-[var(--color-ink)] leading-[1.75]">
         {article.body.map((paragraph, index) => (
           <p key={index} className={index === 0 ? "drop-cap" : ""}>
             {paragraph}
@@ -195,6 +278,36 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
       <div className="my-8 p-4 bg-[var(--color-surface)] border-l-2 border-[var(--color-brand-teal)] text-xs text-[var(--color-slate-muted)] leading-relaxed">
         <strong className="text-[var(--color-ink)]">Professional Intelligence Disclaimer:</strong> Mediverse Life Sciences is a professional networking and intelligence publication. Articles, interviews, and commentary are published strictly for informational and professional decision-support purposes and do not constitute clinical guidance, regulatory endorsement, or medical advice.
       </div>
+      {onOpenArticle && (
+        <section aria-labelledby="next-up-title" className="mt-12 pt-8 border-t border-[var(--color-border-subtle)]">
+          <span className="block mb-2 font-mono text-eyebrow font-semibold uppercase text-[var(--color-brand-coral)]">Next up</span>
+          <button
+            id="next-up-title"
+            type="button"
+            onClick={() => onOpenArticle(nextUp)}
+            className="group w-full text-left flex items-center justify-between gap-6 p-5 rounded-card border border-[var(--color-border-subtle)] bg-card hover:border-[var(--color-slate-muted)]/40 hover:shadow-raised transition-[border-color,box-shadow]"
+          >
+            <span>
+              <span className="block font-serif text-h3 font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)] transition-colors">
+                {nextUp.title}
+              </span>
+              <span className="block mt-1 text-sm text-[var(--color-slate-muted)] line-clamp-2">{nextUp.dek}</span>
+            </span>
+            <span aria-hidden="true" className="text-xl text-[var(--color-brand-teal)] transition-transform group-hover:translate-x-1">→</span>
+          </button>
+
+          {related.length > 0 && (
+            <>
+              <h2 className="mt-10 mb-4 font-serif text-h3 font-semibold text-[var(--color-ink)]">Related dossiers</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {related.map(r => (
+                  <ArticleCard key={r.slug} article={r} variant="standard" onClick={() => onOpenArticle(r)} />
+                ))}
+              </div>
+            </>
+          )}
+        </section>
+      )}
     </article>
   )
 }

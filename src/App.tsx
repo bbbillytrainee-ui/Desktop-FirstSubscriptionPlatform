@@ -23,6 +23,7 @@ import RegulatoryNavigatorPage from "./pages/RegulatoryNavigatorPage"
 import EnterpriseWorkspacePage from "./pages/EnterpriseWorkspacePage"
 import ReferralPage from "./pages/ReferralPage"
 import NotFoundPage from "./pages/NotFoundPage"
+import ArticlePage from "./pages/ArticlePage"
 import Onboarding from "./components/Onboarding"
 import Dashboard from "./components/Dashboard"
 import ErrorBoundary from "./components/ui/ErrorBoundary"
@@ -42,6 +43,8 @@ const KNOWN_ROUTES = new Set([
 function AppRoutes() {
   const { route, navigate } = useRouter()
 
+  const articleSlug = route.startsWith("article/") ? decodeURIComponent(route.slice("article/".length)) : null
+
   const handleNavigate = (target: string) => {
     navigate(target)
   }
@@ -53,7 +56,8 @@ function AppRoutes() {
   return (
     <div key={route} className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] animate-fade-up">
       <ErrorBoundary onReset={() => navigate("home")}>
-      {!KNOWN_ROUTES.has(route) && <NotFoundPage onJoin={handleJoin} onNavigate={handleNavigate} />}
+      {articleSlug && <ArticlePage slug={articleSlug} onJoin={handleJoin} onNavigate={handleNavigate} />}
+      {!articleSlug && !KNOWN_ROUTES.has(route) && <NotFoundPage onJoin={handleJoin} onNavigate={handleNavigate} />}
       {(route === "home" || route === "") && (
         <HomePage
           onGetAccess={handleJoin}

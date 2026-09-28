@@ -131,7 +131,7 @@ export default function GlobalSearchModal({ isOpen, onClose, onNavigate }: Globa
                     {matchedArticles.map(art => (
                       <div
                         key={art.slug}
-                        onClick={() => handleSelect("magazine")}
+                        onClick={() => handleSelect(`article/${art.slug}`)}
                         className="p-2.5 rounded hover:bg-[var(--color-surface)] cursor-pointer flex items-center justify-between group transition-colors"
                       >
                         <div>

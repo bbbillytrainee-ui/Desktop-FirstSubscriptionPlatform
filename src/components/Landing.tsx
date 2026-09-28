@@ -5,7 +5,6 @@ import TaxonomyNav from "./layout/TaxonomyNav"
 import Button from "./ui/Button"
 import Badge from "./ui/Badge"
 import ArticleCard from "./magazine/ArticleCard"
-import ArticleReader from "./magazine/ArticleReader"
 import MagazineFlipbook from "./magazine/MagazineFlipbook"
 import LastMonthTrending from "./magazine/LastMonthTrending"
 import LatestNewsSidebar from "./news/LatestNewsSidebar"
@@ -25,6 +24,7 @@ import { WEBINARS } from "../data/fixtures/webinars"
 import { RESEARCH_REPORTS } from "../data/fixtures/reports"
 import { TOPICS, ALL_TOPIC_ID, filterByTopic, getTopic, readTopicFromUrl, writeTopicToUrl } from "../data/topics"
 import { withViewTransition, prefersReducedMotion } from "../lib/motion"
+import { articleRoute } from "../lib/router"
 
 const VERTICALS = [
   {
@@ -56,7 +56,6 @@ export interface LandingProps {
 }
 
 export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
-  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null)
   const [showFlipbook, setShowFlipbook] = useState(false)
   const [activeFlipbookIssue, setActiveFlipbookIssue] = useState<Issue>(ISSUES[0])
   const [activeTopic, setActiveTopic] = useState(readTopicFromUrl)
@@ -72,36 +71,12 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
     []
   )
 
+  const openArticle = (article: Article) => onNavigate?.(articleRoute(article.slug))
+
   const selectTopic = (topicId: string, { scroll = true } = {}) => {
     writeTopicToUrl(topicId)
-    withViewTransition(() => {
-      setSelectedArticle(null)
-      setActiveTopic(topicId)
-    })
+    withViewTransition(() => setActiveTopic(topicId))
     if (scroll) document.getElementById("articles-section")?.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth" })
-  }
-
-  if (selectedArticle) {
-    return (
-      <div className="min-h-screen bg-[var(--color-paper)] flex flex-col font-sans">
-        <Header onJoin={onGetAccess} onSignIn={onGetAccess} onNavigate={onNavigate} />
-        <TaxonomyNav activeTopic={activeTopic} counts={topicCounts} onSelectTopic={id => selectTopic(id, { scroll: false })} />
-        <main className="flex-1 py-8">
-          <ArticleReader
-            article={selectedArticle}
-            onClose={() => setSelectedArticle(null)}
-            onJoinPrompt={onGetAccess}
-            onOpenFlipbook={() => {
-              const matched = ISSUES.find(i => i.id === selectedArticle.issueId) || currentIssue
-              setActiveFlipbookIssue(matched)
-              setSelectedArticle(null)
-              setShowFlipbook(true)
-            }}
-          />
-        </main>
-        <Footer onNavigate={onNavigate} />
-      </div>
-    )
   }
 
   return (
@@ -239,7 +214,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                 <ArticleCard
                   article={filteredArticles[0]}
                   variant="hero"
-                  onClick={() => setSelectedArticle(filteredArticles[0])}
+                  onClick={() => openArticle(filteredArticles[0])}
                 />
               ) : (
                 <EmptyState
@@ -264,7 +239,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-[var(--color-border-subtle)] mb-12">
               {filteredArticles.slice(1, 4).map((article, i) => (
                 <Reveal key={article.slug} delay={i * 70} className="h-full">
-                  <ArticleCard article={article} variant="standard" onClick={() => setSelectedArticle(article)} />
+                  <ArticleCard article={article} variant="standard" onClick={() => openArticle(article)} />
                 </Reveal>
               ))}
             </div>
@@ -276,7 +251,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             <LastMonthTrending
               lastMonthIssue={lastMonthIssue}
               lastMonthArticles={lastMonthArticles}
-              onSelectArticle={art => setSelectedArticle(art)}
+              onSelectArticle={openArticle}
               onOpenIssueFlipbook={issue => {
                 setActiveFlipbookIssue(issue)
                 setShowFlipbook(true)

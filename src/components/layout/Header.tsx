@@ -601,7 +601,9 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
           isOpen={bookmarksOpen}
           onClose={() => setBookmarksOpen(false)}
           onSelectArticle={art => {
+            setBookmarksOpen(false)
             if (onSelectArticle) onSelectArticle(art)
+            else handleNav(`article/${art.slug}`)
           }}
           onOpen3DReader={art => {
             if (onOpen3DReader) onOpen3DReader(art)

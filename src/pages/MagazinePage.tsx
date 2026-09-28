@@ -19,6 +19,7 @@ import SafeImage from "../components/ui/SafeImage"
 import { downloadMagazinePdf } from "../lib/pdfGenerator"
 import { TOPICS, getTopic, readTopicFromUrl, writeTopicToUrl } from "../data/topics"
 import { withViewTransition } from "../lib/motion"
+import { articleRoute } from "../lib/router"
 
 export interface MagazinePageProps {
   onJoin?: () => void
@@ -49,6 +50,12 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
     () => Object.fromEntries(TOPICS.map(t => [t.id, articlesList.filter(t.matches).length])),
     [articlesList]
   )
+
+  // Published articles get a shareable URL; user-added drafts (not in ARTICLES) open in place
+  const openArticle = (art: Article) => {
+    if (onNavigate && ARTICLES.some(a => a.slug === art.slug)) onNavigate(articleRoute(art.slug))
+    else setActiveArticle(art)
+  }
 
   const selectTopic = (topicId: string) => {
     writeTopicToUrl(topicId)
@@ -184,7 +191,7 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
           <LastMonthTrending
             lastMonthIssue={lastMonthIssue}
             lastMonthArticles={lastMonthArticles}
-            onSelectArticle={art => setActiveArticle(art)}
+            onSelectArticle={openArticle}
             onOpenIssueFlipbook={issue => setActiveFlipbookIssue(issue)}
           />
         )}
@@ -219,7 +226,7 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
         {filteredArticles.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {filteredArticles.map(art => (
-              <ArticleCard key={art.slug} article={art} onClick={() => setActiveArticle(art)} />
+              <ArticleCard key={art.slug} article={art} onClick={() => openArticle(art)} />
             ))}
           </div>
         ) : (
