@@ -118,7 +118,7 @@
 
   /* ── Type scale (fluid) → text-display, text-h1..h4, text-deck, text-body, text-caption, text-label ──
      Hierarchy per block: kicker (text-label, accent) → headline (serif) → deck (text-deck, muted) → meta (mono caption) */
-  --text-display: clamp(2.5rem, 1.6rem + 3.6vw, 4.25rem);
+  --text-display: clamp(2.5rem, 1.6rem + 3vw, 3.875rem);
   --text-display--line-height: 1.02;
   --text-display--letter-spacing: -0.025em;
   --text-h1: clamp(2rem, 1.5rem + 2vw, 3rem);
@@ -567,6 +567,164 @@ body {
     radial-gradient(ellipse 70% 55% at 5% 5%, rgba(13, 59, 74, 0.08) 0%, transparent 65%),
     radial-gradient(ellipse 55% 45% at 95% 95%, rgba(208, 96, 61, 0.06) 0%, transparent 65%),
     var(--color-paper);
+}
+
+/* ── Hero (components/home/Hero.tsx) ─────────────────────────────────────────
+   Layers: page colour + two soft glows (background) → molecular lattice (::before, masked
+   toward the cover, away from the headline) → grain (::after). All decorative, behind z-10 content. */
+@layer components {
+  .hero-backdrop {
+    background:
+      radial-gradient(ellipse 45% 55% at 82% 40%, rgba(208, 96, 61, 0.11) 0%, transparent 70%),
+      radial-gradient(ellipse 55% 60% at 0% 100%, rgba(13, 59, 74, 0.08) 0%, transparent 70%),
+      var(--surface-page);
+  }
+  .hero-backdrop::before,
+  .hero-backdrop::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .hero-backdrop::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%230D3B4A' stroke-width='0.8'%3E%3Cpath d='M0 36L36 0L72 36L36 72Z M36 0V72 M0 36H72'/%3E%3C/g%3E%3Cg fill='%230D3B4A'%3E%3Ccircle cx='36' cy='0' r='2'/%3E%3Ccircle cx='0' cy='36' r='2'/%3E%3Ccircle cx='72' cy='36' r='2'/%3E%3Ccircle cx='36' cy='72' r='2'/%3E%3Ccircle cx='36' cy='36' r='2.6'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 72px 72px;
+    opacity: 0.07;
+    -webkit-mask-image: radial-gradient(ellipse 45% 65% at 80% 45%, #000 0%, transparent 72%);
+    mask-image: radial-gradient(ellipse 45% 65% at 80% 45%, #000 0%, transparent 72%);
+  }
+  .hero-backdrop::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.24 0 0 0 0 0.15 0 0 0 0 0.09 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.16; /* texture, not tint: higher greys the warm paper */
+    mix-blend-mode: multiply;
+  }
+  @media (max-width: 1023px) {
+    /* stacked layout: lattice sits behind the cover, below the text */
+    .hero-backdrop::before {
+      -webkit-mask-image: radial-gradient(ellipse 80% 35% at 50% 82%, #000 0%, transparent 75%);
+      mask-image: radial-gradient(ellipse 80% 35% at 50% 82%, #000 0%, transparent 75%);
+    }
+  }
+  html.dark .hero-backdrop {
+    background:
+      radial-gradient(ellipse 45% 55% at 82% 40%, rgba(232, 135, 106, 0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 55% 60% at 0% 100%, rgba(95, 179, 196, 0.10) 0%, transparent 70%),
+      var(--surface-page);
+  }
+  html.dark .hero-backdrop::before {
+    filter: invert(1);
+    opacity: 0.06;
+  }
+  html.dark .hero-backdrop::after {
+    mix-blend-mode: soft-light;
+    opacity: 0.5;
+  }
+
+  /* "&": rises in, then a single sheen passes across it (background-position) */
+  .hero-amp {
+    display: inline-block;
+    padding: 0 0.04em;
+    background: linear-gradient(100deg, var(--accent-decor) 40%, var(--color-terracotta-200) 50%, var(--accent-decor) 60%);
+    background-size: 250% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--accent-decor);
+    animation:
+      heroAmpIn 700ms var(--ease-out) 150ms both,
+      heroAmpSheen 1600ms var(--ease-in-out) 750ms both;
+  }
+
+  /* Hand-drawn underline: drawn in with scaleX; non-scaling stroke keeps the weight even */
+  .hero-underline {
+    position: relative;
+    white-space: nowrap;
+  }
+  .hero-underline-stroke {
+    position: absolute;
+    left: -2%;
+    bottom: -0.1em;
+    width: 104%;
+    height: 0.3em;
+    overflow: visible;
+    transform-origin: left center;
+    transform: scaleX(0);
+    animation: heroUnderline 800ms var(--ease-out) 950ms forwards;
+  }
+  .hero-underline-stroke path {
+    fill: none;
+    stroke: var(--accent-decor);
+    stroke-width: 4px;
+    stroke-linecap: round;
+  }
+
+  /* Magazine cover + stacked paper */
+  .cover {
+    z-index: 1;
+    overflow: hidden;
+    border-radius: var(--radius-overlay);
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--elev-3);
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+  .cover-sheet {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-overlay);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--elev-1);
+    transition: transform var(--duration-slow) var(--ease-out), rotate var(--duration-slow) var(--ease-out), translate var(--duration-slow) var(--ease-out);
+  }
+  .cover-sheet-back { background: var(--surface-sunken); rotate: 4.5deg; translate: 14px 10px; }
+  .cover-sheet-mid  { background: var(--surface-card);   rotate: -2.5deg; translate: -8px 8px; }
+  /* hovering the cover fans the sheets out a little */
+  div:has(> .cover:hover) > .cover-sheet-back { rotate: 6.5deg; translate: 20px 12px; }
+  div:has(> .cover:hover) > .cover-sheet-mid  { rotate: -4deg; translate: -14px 10px; }
+
+  .cover-ribbon {
+    position: absolute;
+    z-index: 2;
+    top: 22px;
+    right: -46px;
+    width: 180px;
+    rotate: 45deg;
+    padding: 6px 0;
+    text-align: center;
+    background: var(--accent-fill);
+    color: #fff;
+    font: 600 11px/1 var(--font-mono);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    box-shadow: var(--elev-1);
+    pointer-events: none;
+  }
+  .cover-duotone {
+    position: absolute;
+    inset: 0;
+    background: var(--color-teal-700);
+    mix-blend-mode: color;
+    opacity: 0.85;
+    transition: opacity var(--duration-slow) var(--ease-out);
+  }
+  .cover:hover .cover-duotone,
+  .cover:focus-within .cover-duotone { opacity: 0; }
+  @media (hover: none) {
+    .cover-duotone { opacity: 0.55; }
+  }
+}
+
+@keyframes heroAmpIn {
+  from { opacity: 0; transform: translateY(0.12em) rotate(-8deg); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes heroAmpSheen {
+  from { background-position: 100% 0; }
+  to   { background-position: 0 0; }
+}
+@keyframes heroUnderline {
+  to { transform: scaleX(1); }
 }
 
 /* ── CTA Animated Mesh Gradient ── */

@@ -14,8 +14,8 @@ import TextLink from "./ui/TextLink"
 import Avatar from "./ui/Avatar"
 import EmptyState from "./ui/EmptyState"
 import Reveal from "./ui/Reveal"
+import Hero from "./home/Hero"
 import CountUp from "./ui/CountUp"
-import { BookOpen } from "./ui/Icons"
 import SafeImage from "./ui/SafeImage"
 import { ARTICLES, Article } from "../data/fixtures/articles"
 import { ISSUES, Issue } from "../data/fixtures/issues"
@@ -102,94 +102,13 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       <TaxonomyNav activeTopic={activeTopic} counts={topicCounts} onSelectTopic={id => selectTopic(id)} />
 
       <main id="main-content">
-      {/* SECTION 1: Editorial Masthead & Hero */}
-      <section className="border-b border-[var(--color-border-subtle)] py-14 lg:py-20 px-6 md:px-12 hero-radial-bg relative overflow-hidden">
-        
-        <div className="max-w-[var(--container-max)] mx-auto grid grid-cols-1 lg:grid-cols-[62fr_38fr] gap-10 lg:gap-14 items-center relative z-10">
-          {/* Left Column: Vision & Primary Actions */}
-          <div>
-            <span className="block mb-4 font-mono text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-brand-coral)]">
-              Pharma · MedTech · AI-Health
-            </span>
-
-            <h1 
-              style={{ fontSize: "clamp(2.4rem, 4.5vw, 3.8rem)" }}
-              className="font-serif font-bold text-[var(--color-ink)] leading-[1.08] tracking-tight mb-6"
-            >
-              A serious publication <span className="font-serif italic font-normal text-[var(--color-brand-coral)] px-0.5">&amp;</span> network for the people building what healthcare becomes next.
-            </h1>
-
-            <p className="text-base sm:text-lg text-[var(--color-slate-muted)] leading-relaxed mb-9 max-w-xl">
-              Curated monthly intelligence, deep life science dossiers, and explainable peer introductions for verified healthcare leaders across regulatory, clinical, and commercial tracks.
-            </p>
-
-            <div className="flex items-center gap-4 flex-wrap mb-10">
-              <Button variant="coral" size="lg" onClick={onGetAccess}>
-                Join the network
-              </Button>
-              <Button variant="secondary" size="lg" onClick={() => setShowFlipbook(true)}>
-                <BookOpen size={16} />
-                <span>Read Issue #{currentIssue.number}</span>
-              </Button>
-            </div>
-
-            {/* Credibility Credentials Trust Row */}
-            <dl className="pt-7 border-t border-[var(--color-border-subtle)] grid grid-cols-2 sm:grid-cols-4 gap-6">
-              {[
-                { value: 34000, suffix: "+", label: "Verified Leaders" },
-                { value: 48, suffix: "+", label: "Annual Dossiers" },
-                { value: 100, suffix: "%", label: "Peer Cited Rigor" },
-                { value: currentIssue.number, label: "Issues Published" },
-              ].map(stat => (
-                <div key={stat.label} className="flex flex-col-reverse">
-                  <dt className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider leading-tight mt-1.5">
-                    {stat.label}
-                  </dt>
-                  <dd className="font-mono text-2xl sm:text-3xl font-semibold text-[var(--color-ink)] leading-none">
-                    <CountUp value={stat.value} suffix={stat.suffix} />
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-
-          {/* Right Column: Current Issue Spotlight Card */}
-          <Card padding="lg" interactive className="group">
-            <div className="flex items-center justify-between pb-4 mb-4 border-b border-[var(--color-border-subtle)]">
-              <span className="font-mono text-meta font-semibold uppercase tracking-wider text-[var(--color-slate-muted)]">
-                Issue #{currentIssue.number} · {currentIssue.month}
-              </span>
-              <Badge type="pro" label="Current Issue" />
-            </div>
-
-            <button
-              type="button"
-              aria-label={`Read Issue #${currentIssue.number}: ${currentIssue.theme}`}
-              className="block w-full h-56 rounded-control overflow-hidden mb-4 cursor-pointer"
-              onClick={() => setShowFlipbook(true)}
-            >
-              <SafeImage
-                src={currentIssue.coverImage}
-                alt={currentIssue.theme}
-                className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
-              />
-            </button>
-
-            <h3 className="font-serif text-h3 font-semibold text-[var(--color-ink)] mb-2">
-              {currentIssue.theme}
-            </h3>
-            <p className="text-sm text-[var(--color-slate-muted)] leading-relaxed mb-4 line-clamp-2">
-              {currentIssue.summary}
-            </p>
-
-            <div className="flex items-center justify-end pt-4 border-t border-[var(--color-border-subtle)]">
-              <TextLink tone="muted" onClick={() => onNavigate?.("archive")}>
-                Past editions
-              </TextLink>
-            </div>
-          </Card>
-        </div>
-      </section>
+      {/* SECTION 1: Hero */}
+      <Hero
+        issue={currentIssue}
+        onJoin={onGetAccess}
+        onOpenIssue={() => setShowFlipbook(true)}
+        onArchive={() => onNavigate?.("archive")}
+      />
 
       {/* SECTION 3: Newspaper Editorial Grid (Lead Dossier + Live Breaking Sidebar + 3 Sub-Features) */}
 
