@@ -13,6 +13,7 @@ import Card from "./ui/Card"
 import SectionHeader from "./ui/SectionHeader"
 import TextLink from "./ui/TextLink"
 import Avatar from "./ui/Avatar"
+import EmptyState from "./ui/EmptyState"
 import { BookOpen } from "./ui/Icons"
 import SafeImage from "./ui/SafeImage"
 import { ARTICLES, Article } from "../data/fixtures/articles"
@@ -56,8 +57,6 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
   const currentIssue = ISSUES[0]
   const lastMonthIssue = ISSUES[1]
   const lastMonthArticles = ARTICLES.filter(a => a.issueId === lastMonthIssue.id)
-  const heroArticle = ARTICLES[0]
-  const secondaryArticles = ARTICLES.slice(1, 4)
   const nextWebinar = WEBINARS[0]
 
   const filteredArticles = activeTaxonomy === "All Intelligence"
@@ -229,11 +228,23 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
           {/* Top Row: Hero Article (7 cols) + Live Breaking Feed Sidebar (5 cols) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10">
             <div className="lg:col-span-8">
-              <ArticleCard
-                article={filteredArticles[0] || heroArticle}
-                variant="hero"
-                onClick={() => setSelectedArticle(filteredArticles[0] || heroArticle)}
-              />
+              {filteredArticles.length > 0 ? (
+                <ArticleCard
+                  article={filteredArticles[0]}
+                  variant="hero"
+                  onClick={() => setSelectedArticle(filteredArticles[0])}
+                />
+              ) : (
+                <EmptyState
+                  className="h-full"
+                  title={`No ${activeTaxonomy} dossiers yet`}
+                  description="We haven't published in this topic this month. Browse everything we cover, or check the archive for past editions."
+                  actionLabel="Show all topics"
+                  onAction={() => setActiveTaxonomy("All Intelligence")}
+                  secondaryActionLabel="Browse the archive"
+                  onSecondaryAction={() => onNavigate?.("archive")}
+                />
+              )}
             </div>
 
             <div className="lg:col-span-4">
@@ -242,16 +253,18 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
           </div>
 
           {/* Bottom Row: 3 Secondary Feature Cards in a clean 3-column row */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-[var(--color-border-subtle)] mb-12">
-            {(filteredArticles.length > 1 ? filteredArticles.slice(1, 4) : secondaryArticles).map(article => (
-              <ArticleCard
-                key={article.slug}
-                article={article}
-                variant="standard"
-                onClick={() => setSelectedArticle(article)}
-              />
-            ))}
-          </div>
+          {filteredArticles.length > 1 && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-[var(--color-border-subtle)] mb-12">
+              {filteredArticles.slice(1, 4).map(article => (
+                <ArticleCard
+                  key={article.slug}
+                  article={article}
+                  variant="standard"
+                  onClick={() => setSelectedArticle(article)}
+                />
+              ))}
+            </div>
+          )}
 
           {/* Dedicated Last Month's Trending Retrospective */}
           {lastMonthIssue && (

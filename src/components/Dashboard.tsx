@@ -1,4 +1,4 @@
-import { useState, Component, type ReactNode } from "react"
+import { useState } from "react"
 import AppHeader, { AppTab } from "./layout/AppHeader"
 import MobileNav from "./layout/MobileNav"
 import MagazineTab from "./MagazineTab"
@@ -6,36 +6,12 @@ import MatchesTab from "./MatchesTab"
 import ContactsTab from "./ContactsTab"
 import Modal from "./ui/Modal"
 import Button from "./ui/Button"
+import ErrorBoundary from "./ui/ErrorBoundary"
 import MagazineFlipbook from "./magazine/MagazineFlipbook"
 import { BookOpen, ClipboardList, BarChart3, Building2 } from "./ui/Icons"
 import { ISSUES } from "../data/fixtures/issues"
 import { ARTICLES } from "../data/fixtures/articles"
 import { useAuth } from "../lib/auth"
-
-/* ── Error Boundary ── */
-class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
-  state = { hasError: false }
-  static getDerivedStateFromError() { return { hasError: true } }
-  render() {
-    if (this.state.hasError) {
-      return (
-        <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
-          <h2 className="font-serif text-2xl font-semibold text-[var(--color-ink)] mb-2">
-            Something went wrong.
-          </h2>
-          <p className="text-sm text-[var(--color-slate-muted)] mb-6">An unexpected error occurred. Please refresh the page.</p>
-          <button
-            onClick={() => { this.setState({ hasError: false }); window.location.reload() }}
-            className="px-6 py-3 bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-sm font-medium rounded-sm hover:bg-[#082833] transition-colors"
-          >
-            Refresh Page
-          </button>
-        </div>
-      )
-    }
-    return this.props.children
-  }
-}
 
 export interface DashboardProps {
   onNavigate?: (route: string) => void
@@ -115,7 +91,7 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
       </div>
 
       <main className="flex-1">
-        <ErrorBoundary>
+        <ErrorBoundary key={activeTab} onReset={() => onNavigate?.("home")}>
           {activeTab === "magazine" && <MagazineTab />}
           {activeTab === "matches" && <MatchesTab />}
           {activeTab === "contacts" && <ContactsTab />}

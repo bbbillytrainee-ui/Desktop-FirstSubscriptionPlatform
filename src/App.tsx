@@ -22,13 +22,22 @@ import VendorsDirectoryPage from "./pages/VendorsDirectoryPage"
 import RegulatoryNavigatorPage from "./pages/RegulatoryNavigatorPage"
 import EnterpriseWorkspacePage from "./pages/EnterpriseWorkspacePage"
 import ReferralPage from "./pages/ReferralPage"
+import NotFoundPage from "./pages/NotFoundPage"
 import Onboarding from "./components/Onboarding"
 import Dashboard from "./components/Dashboard"
+import ErrorBoundary from "./components/ui/ErrorBoundary"
 import { AuthProvider } from "./lib/auth"
 import { RouterProvider, useRouter } from "./lib/router"
 import { ToastProvider } from "./lib/toast"
 import { BookmarksProvider } from "./lib/bookmarks"
 import { ThemeProvider } from "./lib/theme"
+
+const KNOWN_ROUTES = new Set([
+  "home", "", "magazine", "about", "professionals", "companies", "webinars", "thought-leadership",
+  "interviews", "press-release", "advertise", "subscriptions", "referral", "archive", "newsletter",
+  "rss-feeds", "events", "videos", "podcasts", "reports", "trends", "talent-intent", "vendors",
+  "regulatory-navigator", "enterprise-workspace", "onboarding", "dashboard",
+])
 
 function AppRoutes() {
   const { route, navigate } = useRouter()
@@ -43,6 +52,8 @@ function AppRoutes() {
 
   return (
     <div key={route} className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] animate-fade-up">
+      <ErrorBoundary onReset={() => navigate("home")}>
+      {!KNOWN_ROUTES.has(route) && <NotFoundPage onJoin={handleJoin} onNavigate={handleNavigate} />}
       {(route === "home" || route === "") && (
         <HomePage
           onGetAccess={handleJoin}
@@ -191,6 +202,7 @@ function AppRoutes() {
         <Onboarding onComplete={() => navigate("dashboard")} />
       )}
       {route === "dashboard" && <Dashboard onNavigate={handleNavigate} />}
+      </ErrorBoundary>
     </div>
   )
 }
