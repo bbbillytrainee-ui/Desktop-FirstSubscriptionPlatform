@@ -59,12 +59,12 @@ export default function InterviewsPage({ onJoin, onNavigate }: InterviewsPagePro
           {interviewees.map((item, idx) => (
             <div
               key={idx}
-              className="bg-card border border-[var(--color-border-subtle)] rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)] transition-all group shadow-sm"
+              className="bg-card border border-[var(--color-border-subtle)] rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)] transition group shadow-sm"
             >
               <div>
                 {/* Photo First Container */}
                 <div className="h-64 w-full overflow-hidden relative">
-                  <img
+                  <img loading="lazy" decoding="async"
                     src={item.author.photo}
                     alt={item.author.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

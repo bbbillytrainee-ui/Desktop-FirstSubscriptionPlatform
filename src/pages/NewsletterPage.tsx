@@ -117,7 +117,7 @@ export default function NewsletterPage({ onJoin, onNavigate }: NewsletterPagePro
                     ].map(item => (
                       <label
                         key={item.id}
-                        className={`p-3 rounded-sm border flex items-start gap-2.5 cursor-pointer transition-all ${
+                        className={`p-3 rounded-sm border flex items-start gap-2.5 cursor-pointer transition ${
                           selectedEditions.includes(item.id)
                             ? "border-[var(--color-brand-teal)] bg-[var(--color-brand-teal)]/5"
                             : "border-[var(--color-border-subtle)] hover:bg-[var(--color-surface)]"

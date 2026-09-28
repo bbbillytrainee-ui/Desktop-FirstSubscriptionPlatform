@@ -39,7 +39,7 @@ export default function WebinarsPage({ onJoin, onNavigate }: WebinarsPageProps) 
         {/* Webinars Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {WEBINARS.map((webinar: Webinar) => (
-            <div key={webinar.id} className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 flex flex-col justify-between hover:border-[var(--color-brand-teal)]/40 transition-all">
+            <div key={webinar.id} className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 flex flex-col justify-between hover:border-[var(--color-brand-teal)]/40 transition">
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <Badge type="verified" label={webinar.category} />

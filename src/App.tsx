@@ -56,6 +56,21 @@ function AppRoutes() {
   // Keyed by full path (incl. ?topic=) so in-app links to a filtered Home remount it
   return (
     <div key={path} className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] animate-route-in">
+      {/* Skip link: first Tab stop on every page; moves focus to the page's <main> */}
+      <a
+        href="#main-content"
+        onClick={e => {
+          const main = document.querySelector("main")
+          if (!main) return
+          e.preventDefault()
+          main.setAttribute("tabindex", "-1")
+          main.focus({ preventScroll: true })
+          main.scrollIntoView()
+        }}
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:px-4 focus:py-3 focus:rounded-control focus:bg-[var(--color-section-dark)] focus:text-white focus:text-sm focus:font-semibold focus:shadow-overlay"
+      >
+        Skip to content
+      </a>
       <ErrorBoundary onReset={() => navigate("home")}>
       {articleSlug && <ArticlePage slug={articleSlug} onJoin={handleJoin} onNavigate={handleNavigate} />}
       {!articleSlug && !KNOWN_ROUTES.has(route) && <NotFoundPage onJoin={handleJoin} onNavigate={handleNavigate} />}

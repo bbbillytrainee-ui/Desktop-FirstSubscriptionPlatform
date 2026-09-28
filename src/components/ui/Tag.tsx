@@ -22,7 +22,7 @@ export default function Tag({
   return (
     <span
       onClick={onClick}
-      className={`font-mono inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-sm border transition-all ${
+      className={`font-mono inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-sm border transition ${
         selected
           ? "bg-[var(--color-brand-teal)] text-[var(--color-paper)] border-[var(--color-brand-teal)]"
           : "bg-card text-[var(--color-ink)] border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)]/40 hover:bg-[var(--color-surface)]"

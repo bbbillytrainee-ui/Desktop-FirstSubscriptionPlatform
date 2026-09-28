@@ -30,7 +30,7 @@ export default function AuthorProfileModal({
 
           {/* Photo */}
           <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-white/30 shrink-0 shadow-md bg-stone-700">
-            <img src={author.photo} alt={author.name} className="w-full h-full object-cover" />
+            <img loading="lazy" decoding="async" src={author.photo} alt={author.name} className="w-full h-full object-cover" />
           </div>
 
           {/* Identity Info */}
@@ -92,7 +92,7 @@ export default function AuthorProfileModal({
               href={author.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="px-3 py-1 bg-[#0A66C2] text-white text-[11px] font-semibold rounded hover:brightness-110 transition-all flex items-center gap-1"
+              className="px-3 py-1 bg-[#0A66C2] text-white text-[11px] font-semibold rounded hover:brightness-110 transition flex items-center gap-1"
             >
               <span>in</span> LinkedIn Profile →
             </a>
@@ -116,7 +116,7 @@ export default function AuthorProfileModal({
                     onClose()
                     if (onSelectArticle) onSelectArticle(art)
                   }}
-                  className="p-3 bg-card border border-[var(--color-border-subtle)] rounded-lg hover:border-[var(--color-brand-teal)]/60 cursor-pointer transition-all flex items-center justify-between gap-3 group"
+                  className="p-3 bg-card border border-[var(--color-border-subtle)] rounded-lg hover:border-[var(--color-brand-teal)]/60 cursor-pointer transition flex items-center justify-between gap-3 group"
                 >
                   <div className="min-w-0 flex-1">
                     <span className="font-mono text-[11px] font-bold uppercase text-[var(--color-brand-coral)] block mb-0.5">

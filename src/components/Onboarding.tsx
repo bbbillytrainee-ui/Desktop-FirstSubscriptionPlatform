@@ -117,7 +117,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--color-paper)] flex items-center justify-center px-4 py-8" onKeyDown={handleKeyDown}>
+    <main className="min-h-screen bg-[var(--color-paper)] flex items-center justify-center px-4 py-8" onKeyDown={handleKeyDown}>
       <div className="w-full max-w-[var(--modal-max)] bg-card border border-[var(--color-border-subtle)] rounded-sm shadow-[0_8px_40px_rgba(13,59,74,0.08)] overflow-hidden">
         
         {/* Progress Header */}
@@ -134,7 +134,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
             {Array.from({ length: totalSteps }).map((_, i) => (
               <div
                 key={i}
-                className={`h-full transition-all ${
+                className={`h-full transition ${
                   i + 1 <= step ? "bg-[var(--color-brand-coral-fill)]" : "bg-[var(--color-border-subtle)]"
                 }`}
               />
@@ -166,7 +166,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                   <div
                     key={role.id}
                     onClick={() => setSelectedRole(role.id)}
-                    className={`p-3.5 rounded-sm border cursor-pointer transition-all flex items-center justify-between ${
+                    className={`p-3.5 rounded-sm border cursor-pointer transition flex items-center justify-between ${
                       selectedRole === role.id
                         ? "border-[var(--color-brand-teal)] bg-[var(--color-brand-teal)]/5 ring-1 ring-[var(--color-brand-teal)]"
                         : "border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)]/40 hover:bg-[var(--color-surface)]"
@@ -321,7 +321,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
               <div className="space-y-3">
                 <div
                   onClick={() => setMatchingConsentChoice("opted_in")}
-                  className={`p-4 rounded-sm border cursor-pointer flex items-start gap-3 transition-all ${
+                  className={`p-4 rounded-sm border cursor-pointer flex items-start gap-3 transition ${
                     matchingConsentChoice === "opted_in"
                       ? "border-[var(--color-brand-teal)] bg-[var(--color-brand-teal)]/5"
                       : "border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)]/40"
@@ -342,7 +342,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
 
                 <div
                   onClick={() => setMatchingConsentChoice("opted_out")}
-                  className={`p-4 rounded-sm border cursor-pointer flex items-start gap-3 transition-all ${
+                  className={`p-4 rounded-sm border cursor-pointer flex items-start gap-3 transition ${
                     matchingConsentChoice === "opted_out"
                       ? "border-[var(--color-brand-teal)] bg-[var(--color-brand-teal)]/5"
                       : "border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)]/40"
@@ -398,7 +398,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                 <div
                   key={goal.id}
                   onClick={() => setSelectedGoal(goal.id)}
-                  className={`p-5 rounded-sm border cursor-pointer transition-all ${
+                  className={`p-5 rounded-sm border cursor-pointer transition ${
                     selectedGoal === goal.id
                       ? "border-[var(--color-brand-teal)] bg-[var(--color-brand-teal)]/5 ring-1 ring-[var(--color-brand-teal)]"
                       : "border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)]/40 hover:bg-[var(--color-surface)]"
@@ -515,6 +515,6 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }

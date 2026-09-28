@@ -141,12 +141,12 @@ export default function ReportsPage({ onJoin, onNavigate }: ReportsPageProps) {
               <div
                 key={rep.id}
                 onClick={() => { setSelectedReport(rep); window.scrollTo({ top: 240, behavior: "smooth" }) }}
-                className={`bg-card border rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition-all shadow-sm cursor-pointer ${
+                className={`bg-card border rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition shadow-sm cursor-pointer ${
                   selectedReport.id === rep.id ? "ring-2 ring-[var(--color-brand-teal)]" : "border-[var(--color-border-subtle)]"
                 }`}
               >
                 <div className="h-44 bg-stone-900 relative overflow-hidden">
-                  <img src={rep.coverImage} alt={rep.title} className="w-full h-full object-cover opacity-75" />
+                  <img loading="lazy" decoding="async" src={rep.coverImage} alt={rep.title} className="w-full h-full object-cover opacity-75" />
                   <span className="font-mono absolute top-2 left-2 bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-[11px] uppercase font-bold px-2 py-0.5 rounded-sm">
                     {rep.category}
                   </span>

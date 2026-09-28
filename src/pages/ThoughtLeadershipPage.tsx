@@ -83,12 +83,12 @@ export default function ThoughtLeadershipPage({ onJoin, onNavigate }: ThoughtLea
             {columns.map((col, idx) => (
               <div
                 key={idx}
-                className="bg-card border border-[var(--color-border-subtle)] rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)] transition-all group"
+                className="bg-card border border-[var(--color-border-subtle)] rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)] transition group"
               >
                 <div>
                   {/* Author Portrait Photo (Photo First) */}
                   <div className="h-48 w-full overflow-hidden relative">
-                    <img
+                    <img loading="lazy" decoding="async"
                       src={col.author.photo}
                       alt={col.author.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -260,7 +260,7 @@ export default function ThoughtLeadershipPage({ onJoin, onNavigate }: ThoughtLea
                     />
                     {pitchImagePreview && (
                       <div className="h-28 w-full rounded overflow-hidden border border-[var(--color-border-subtle)] relative bg-[var(--color-surface)]">
-                        <img src={pitchImagePreview} alt="Preview" className="w-full h-full object-cover" />
+                        <img loading="lazy" decoding="async" src={pitchImagePreview} alt="Preview" className="w-full h-full object-cover" />
                       </div>
                     )}
                   </div>

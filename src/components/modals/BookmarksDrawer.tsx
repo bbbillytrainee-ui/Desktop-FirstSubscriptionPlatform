@@ -118,7 +118,7 @@ export default function BookmarksDrawer({
                 {savedArticles.map(article => (
                   <div
                     key={article.slug}
-                    className="p-3.5 bg-white/5 hover:bg-white/10 border border-stone-700/70 hover:border-[var(--color-brand-teal)] rounded-md transition-all group relative"
+                    className="p-3.5 bg-white/5 hover:bg-white/10 border border-stone-700/70 hover:border-[var(--color-brand-teal)] rounded-md transition group relative"
                   >
                     <div className="flex gap-3 items-start">
                       <div className="w-20 h-16 rounded-xs overflow-hidden border border-stone-700 shrink-0 relative bg-stone-900">

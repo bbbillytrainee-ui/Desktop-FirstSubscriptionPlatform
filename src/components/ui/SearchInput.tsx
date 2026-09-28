@@ -16,7 +16,7 @@ export default function SearchInput({ value, onChange, onClear, placeholder = "S
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full pl-9 pr-8 py-2 bg-card border border-[var(--color-border-subtle)] rounded-sm text-sm text-[var(--color-ink)] placeholder-[var(--color-slate-muted)] focus:outline-none focus:border-[var(--color-brand-teal)] focus:ring-1 focus:ring-[var(--color-brand-teal)] transition-all"
+        className="w-full pl-9 pr-8 py-2 bg-card border border-[var(--color-border-subtle)] rounded-sm text-sm text-[var(--color-ink)] placeholder-[var(--color-slate-muted)] focus:outline-none focus:border-[var(--color-brand-teal)] focus:ring-1 focus:ring-[var(--color-brand-teal)] transition"
         {...props}
       />
       {value && onClear && (

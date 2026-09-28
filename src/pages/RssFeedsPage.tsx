@@ -81,7 +81,7 @@ export default function RssFeedsPage({ onJoin, onNavigate }: RssFeedsPageProps) 
           {FEEDS.map(feed => (
             <div
               key={feed.id}
-              className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 flex flex-col justify-between hover:border-[var(--color-brand-teal)]/50 transition-all shadow-sm"
+              className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 flex flex-col justify-between hover:border-[var(--color-brand-teal)]/50 transition shadow-sm"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">

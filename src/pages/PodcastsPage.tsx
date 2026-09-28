@@ -129,7 +129,7 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
               <div
                 key={ep.id}
                 onClick={() => { setActiveEpisode(ep); setIsPlaying(true) }}
-                className={`p-5 bg-card border rounded-sm flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition-all shadow-sm cursor-pointer ${
+                className={`p-5 bg-card border rounded-sm flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition shadow-sm cursor-pointer ${
                   activeEpisode.id === ep.id ? "border-[var(--color-brand-teal)] ring-1 ring-[var(--color-brand-teal)]" : "border-[var(--color-border-subtle)]"
                 }`}
               >

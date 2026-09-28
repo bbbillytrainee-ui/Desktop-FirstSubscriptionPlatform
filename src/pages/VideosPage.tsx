@@ -40,7 +40,7 @@ export default function VideosPage({ onJoin, onNavigate }: VideosPageProps) {
         {/* Featured Video Player View */}
         <div className="bg-black rounded-sm overflow-hidden shadow-2xl mb-12 border border-stone-800">
           <div className="relative aspect-video max-h-[500px] w-full bg-stone-900 flex items-center justify-center group">
-            <img
+            <img loading="lazy" decoding="async"
               src={activeVideo.thumbnail}
               alt={activeVideo.title}
               className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700"
@@ -50,7 +50,7 @@ export default function VideosPage({ onJoin, onNavigate }: VideosPageProps) {
             {/* Play Button Overlay */}
             <button
               onClick={() => setIsPlaying(v => !v)}
-              className="relative z-10 w-20 h-20 rounded-full bg-[var(--color-brand-coral-fill)] hover:bg-[#b84e2e] text-white flex items-center justify-center text-3xl shadow-[0_0_40px_rgba(208,96,61,0.6)] cursor-pointer transition-all hover:scale-110"
+              className="relative z-10 w-20 h-20 rounded-full bg-[var(--color-brand-coral-fill)] hover:bg-[#b84e2e] text-white flex items-center justify-center text-3xl shadow-[0_0_40px_rgba(208,96,61,0.6)] cursor-pointer transition hover:scale-110"
               aria-label="Play Video"
             >
               {isPlaying ? "❚❚" : "▶"}
@@ -105,12 +105,12 @@ export default function VideosPage({ onJoin, onNavigate }: VideosPageProps) {
             <div
               key={video.id}
               onClick={() => { setActiveVideo(video); window.scrollTo({ top: 260, behavior: "smooth" }) }}
-              className={`bg-card border rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition-all shadow-sm group cursor-pointer ${
+              className={`bg-card border rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition shadow-sm group cursor-pointer ${
                 activeVideo.id === video.id ? "ring-2 ring-[var(--color-brand-teal)]" : "border-[var(--color-border-subtle)]"
               }`}
             >
               <div className="relative h-48 bg-stone-900 overflow-hidden">
-                <img
+                <img loading="lazy" decoding="async"
                   src={video.thumbnail}
                   alt={video.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

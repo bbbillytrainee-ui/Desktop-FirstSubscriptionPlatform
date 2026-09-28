@@ -19,11 +19,11 @@ export default function AuthorByline({ author, date, readingTime, size = "md" }:
       <div className="flex items-center justify-between flex-wrap gap-4 py-3 border-y border-[var(--color-border-subtle)] my-6">
         <div 
           onClick={() => setShowProfile(true)}
-          className="flex items-center gap-3 cursor-pointer group hover:opacity-90 transition-all"
+          className="flex items-center gap-3 cursor-pointer group hover:opacity-90 transition"
           title="Click to view writer's professional profile & credentials"
         >
           {author.photo ? (
-            <img 
+            <img loading="lazy" decoding="async" 
               src={author.photo} 
               alt={author.name} 
               className={`${avatarSize} rounded-full object-cover border border-[var(--color-border-subtle)] shrink-0 group-hover:scale-105 transition-transform`} 

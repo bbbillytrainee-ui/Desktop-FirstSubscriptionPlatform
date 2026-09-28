@@ -78,7 +78,8 @@ export function DesktopToc({ sections, active, visible }: { sections: ArticleSec
   return (
     <nav
       aria-label="On this page"
-      aria-hidden={!visible}
+      // inert (not just aria-hidden): hidden TOC must not take Tab focus
+      inert={!visible}
       className={`hidden xl:block fixed top-28 w-56 left-[max(1.5rem,calc(50%-370px-16rem))] transition-opacity duration-[var(--duration-base)] ${
         visible ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}

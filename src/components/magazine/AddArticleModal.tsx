@@ -202,7 +202,7 @@ export default function AddArticleModal({ isOpen, onClose, onAddArticle }: AddAr
                 Image Live Preview:
               </span>
               <div className="h-36 w-full rounded overflow-hidden border border-[var(--color-border-subtle)] relative bg-[var(--color-surface)]">
-                <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                <img loading="lazy" decoding="async" src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
                 <button
                   type="button"
                   onClick={() => { setImagePreview(""); setImageUrl("") }}

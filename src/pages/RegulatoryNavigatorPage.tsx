@@ -43,7 +43,7 @@ export default function RegulatoryNavigatorPage({ onJoin, onNavigate }: Regulato
             <button
               key={p.id}
               onClick={() => setActivePathway(p)}
-              className={`p-5 text-left border rounded-sm transition-all cursor-pointer ${
+              className={`p-5 text-left border rounded-sm transition cursor-pointer ${
                 activePathway.id === p.id
                   ? "border-2 border-[var(--color-brand-teal)] bg-card shadow-md ring-1 ring-[var(--color-brand-teal)]"
                   : "border-[var(--color-border-subtle)] bg-card/70 hover:bg-card"

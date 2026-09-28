@@ -378,7 +378,7 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
             <button
               key={idx}
               onClick={(e) => { e.stopPropagation(); setActiveStep(idx); }}
-              className={`p-2 rounded text-left transition-all border ${
+              className={`p-2 rounded text-left transition border ${
                 activeStep === idx
                   ? "bg-[var(--color-brand-coral-on-dark)]/20 border-[var(--color-brand-coral-on-dark)] text-[var(--color-brand-coral-on-dark)]"
                   : "bg-white/5 border-white/10 text-white/70 hover:bg-white/10"
@@ -1248,7 +1248,7 @@ export default function MagazineTab() {
                 {filteredArticles.filter((a) => a.id !== heroArticle?.id).map((article) => (
                   <article
                     key={article.id}
-                    className="p-5 border border-[var(--color-border-subtle)] rounded bg-card hover:border-[var(--color-slate-muted)]/50 transition-all flex flex-col justify-between group cursor-pointer shadow-sm"
+                    className="p-5 border border-[var(--color-border-subtle)] rounded bg-card hover:border-[var(--color-slate-muted)]/50 transition flex flex-col justify-between group cursor-pointer shadow-sm"
                     onClick={() => setSelectedArticle(article)}
                   >
                     <div>

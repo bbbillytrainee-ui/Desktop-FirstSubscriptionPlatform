@@ -60,7 +60,7 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
             return (
               <div
                 key={tier.id}
-                className={`bg-card border rounded-lg p-7 flex flex-col justify-between relative transition-all duration-300 ${
+                className={`bg-card border rounded-lg p-7 flex flex-col justify-between relative transition duration-300 ${
                   tier.popular
                     ? "border-2 border-[var(--color-brand-coral)] shadow-xl transform -translate-y-1.5"
                     : tier.departmentCode === "rnd"

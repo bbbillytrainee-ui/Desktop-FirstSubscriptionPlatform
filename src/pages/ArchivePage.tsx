@@ -57,7 +57,7 @@ export default function ArchivePage({ onJoin, onNavigate }: ArchivePageProps) {
             return (
               <div
                 key={issue.id}
-                className={`bg-card border rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)]/50 transition-all shadow-sm group ${
+                className={`bg-card border rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)]/50 transition shadow-sm group ${
                   isLatest ? "border-[var(--color-brand-teal)] ring-1 ring-[var(--color-brand-teal)]" : "border-[var(--color-border-subtle)]"
                 }`}
               >

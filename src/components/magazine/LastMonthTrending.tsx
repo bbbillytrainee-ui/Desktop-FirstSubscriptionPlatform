@@ -64,7 +64,7 @@ export default function LastMonthTrending({
 
         <button
           onClick={() => onOpenIssueFlipbook(lastMonthIssue)}
-          className="font-mono min-h-11 px-4 py-2.5 bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-xs font-semibold rounded-sm hover:bg-[var(--color-brand-teal-dark)] transition-all flex items-center gap-2 shrink-0 cursor-pointer shadow-xs"
+          className="font-mono min-h-11 px-4 py-2.5 bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-xs font-semibold rounded-sm hover:bg-[var(--color-brand-teal-dark)] transition flex items-center gap-2 shrink-0 cursor-pointer shadow-xs"
         >
           <BookOpen size={14} className="text-amber-200" />
           <span>Launch {lastMonthIssue.month.split(" ")[0]} Issue (3D)</span>
@@ -135,7 +135,7 @@ export default function LastMonthTrending({
               <div
                 key={article.slug}
                 onClick={() => onSelectArticle(article)}
-                className="group p-4 bg-card border border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)] rounded-sm transition-all shadow-2xs hover:shadow-xs cursor-pointer flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between"
+                className="group p-4 bg-card border border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)] rounded-sm transition shadow-2xs hover:shadow-xs cursor-pointer flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between"
               >
                 <div className="flex items-start gap-3.5 flex-1 min-w-0">
                   {/* Rank Number */}

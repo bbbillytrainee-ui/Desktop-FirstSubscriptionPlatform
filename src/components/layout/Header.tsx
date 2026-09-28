@@ -102,7 +102,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
             <div className="relative">
               <button
                 onClick={() => toggleDropdown("magazine")}
-                className={`flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium transition-all rounded-md hover:bg-[var(--color-surface)] ${
+                className={`flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium transition rounded-md hover:bg-[var(--color-surface)] ${
                   openDropdown === "magazine" ? "text-[var(--color-brand-teal)] font-semibold bg-[var(--color-surface)]" : "text-[var(--color-ink)] hover:text-[var(--color-brand-coral)]"
                 }`}
               >
@@ -362,7 +362,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
             {/* 2. Advertise */}
             <button
               onClick={() => handleNav("advertise")}
-              className="px-3 py-2 text-sm font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-coral)] transition-all rounded-md hover:bg-[var(--color-surface)] relative group"
+              className="px-3 py-2 text-sm font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-coral)] transition rounded-md hover:bg-[var(--color-surface)] relative group"
             >
               Advertise
               <span className="absolute bottom-1 left-3 right-3 h-0.5 bg-[var(--color-brand-coral-fill)] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left rounded-full" />
@@ -371,7 +371,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
             {/* 3. Subscriptions */}
             <button
               onClick={() => handleNav("subscriptions")}
-              className="px-3 py-2 text-sm font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-coral)] transition-all rounded-md hover:bg-[var(--color-surface)]"
+              className="px-3 py-2 text-sm font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-coral)] transition rounded-md hover:bg-[var(--color-surface)]"
             >
               Subscriptions
             </button>
@@ -410,7 +410,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
             {/* Theme Toggle Button */}
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full border border-[var(--color-border-subtle)] hover:border-stone-400 bg-[var(--color-surface)] hover:bg-[var(--color-surface)] transition-all text-xs flex items-center justify-center cursor-pointer shadow-2xs"
+              className="p-2 rounded-full border border-[var(--color-border-subtle)] hover:border-stone-400 bg-[var(--color-surface)] hover:bg-[var(--color-surface)] transition text-xs flex items-center justify-center cursor-pointer shadow-2xs"
               title={`Switch to ${theme === "light" ? "Dark" : "Light"} mode`}
               aria-label="Toggle Theme"
             >

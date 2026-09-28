@@ -78,7 +78,7 @@ export default function EventsPage({ onJoin, onNavigate }: EventsPageProps) {
           {filteredEvents.map(event => (
             <div
               key={event.id}
-              className={`bg-card border rounded-sm p-6 flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition-all shadow-sm ${
+              className={`bg-card border rounded-sm p-6 flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition shadow-sm ${
                 event.isFeatured ? "border-2 border-[var(--color-brand-coral)]" : "border-[var(--color-border-subtle)]"
               }`}
             >

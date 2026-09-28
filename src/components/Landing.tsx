@@ -101,6 +101,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       {/* Taxonomy Filter Bar (Top Sub-Nav) */}
       <TaxonomyNav activeTopic={activeTopic} counts={topicCounts} onSelectTopic={id => selectTopic(id)} />
 
+      <main id="main-content">
       {/* SECTION 1: Editorial Masthead & Hero */}
       <section className="border-b border-[var(--color-border-subtle)] py-14 lg:py-20 px-6 md:px-12 hero-radial-bg relative overflow-hidden">
         
@@ -473,6 +474,8 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
           </div>
         </div>
       </section>
+
+      </main>
 
       {/* Footer */}
       <Footer onNavigate={onNavigate} />

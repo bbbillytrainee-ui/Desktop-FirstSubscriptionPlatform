@@ -38,7 +38,7 @@ export default function AppHeader({
               <button
                 key={tab.id}
                 onClick={() => onTabChange(tab.id)}
-                className={`relative px-5 py-1.5 rounded-sm transition-all flex items-center gap-2 text-sm font-medium ${
+                className={`relative px-5 py-1.5 rounded-sm transition flex items-center gap-2 text-sm font-medium ${
                   isActive
                     ? "bg-[var(--color-brand-teal)] text-[var(--color-paper)] shadow-sm"
                     : "text-[var(--color-slate-muted)] hover:text-[var(--color-ink)]"
