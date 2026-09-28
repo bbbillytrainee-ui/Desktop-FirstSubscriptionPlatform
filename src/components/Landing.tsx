@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import Header from "./layout/Header"
 import Footer from "./layout/Footer"
 import TaxonomyNav from "./layout/TaxonomyNav"
@@ -21,22 +21,27 @@ import { ISSUES, Issue } from "../data/fixtures/issues"
 import { PROFILES } from "../data/fixtures/profiles"
 import { WEBINARS } from "../data/fixtures/webinars"
 import { RESEARCH_REPORTS } from "../data/fixtures/reports"
+import { TOPICS, ALL_TOPIC_ID, filterByTopic, getTopic, readTopicFromUrl, writeTopicToUrl } from "../data/topics"
+import { withViewTransition, prefersReducedMotion } from "../lib/motion"
 
 const VERTICALS = [
   {
-    taxonomy: "Pharma",
+    topicId: "pharma",
+    short: "Pharma",
     label: "Pharma & Biologics",
     title: "Drug Discovery & Regulatory Submissions",
     description: "CDSCO clinical guidance, oncology HEOR evidence, biosimilars scale-up, and regional drug pricing dynamics.",
   },
   {
-    taxonomy: "MedTech",
+    topicId: "medtech",
+    short: "MedTech",
     label: "MedTech & Diagnostics",
     title: "Device Engineering & Cross-Border IP",
     description: "Surgical robotics licensing, point-of-care diagnostics, precision hardware, and supply chain integrity.",
   },
   {
-    taxonomy: "AI-Health",
+    topicId: "ai-health",
+    short: "AI-Health",
     label: "AI & Digital Health",
     title: "SaMD Validation & Automated Safety",
     description: "Clinical AI trial design, NLP pharmacovigilance pipelines, synthetic controls, and health data governance.",
@@ -52,25 +57,33 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null)
   const [showFlipbook, setShowFlipbook] = useState(false)
   const [activeFlipbookIssue, setActiveFlipbookIssue] = useState<Issue>(ISSUES[0])
-  const [activeTaxonomy, setActiveTaxonomy] = useState("All Intelligence")
+  const [activeTopic, setActiveTopic] = useState(readTopicFromUrl)
 
   const currentIssue = ISSUES[0]
   const lastMonthIssue = ISSUES[1]
   const lastMonthArticles = ARTICLES.filter(a => a.issueId === lastMonthIssue.id)
   const nextWebinar = WEBINARS[0]
 
-  const filteredArticles = activeTaxonomy === "All Intelligence"
-    ? ARTICLES
-    : ARTICLES.filter(a =>
-        a.category.toLowerCase().includes(activeTaxonomy.toLowerCase()) ||
-        a.tags.some(t => t.toLowerCase().includes(activeTaxonomy.toLowerCase()))
-      )
+  const filteredArticles = filterByTopic(ARTICLES, activeTopic)
+  const topicCounts = useMemo(
+    () => Object.fromEntries(TOPICS.map(t => [t.id, filterByTopic(ARTICLES, t.id).length])),
+    []
+  )
+
+  const selectTopic = (topicId: string, { scroll = true } = {}) => {
+    writeTopicToUrl(topicId)
+    withViewTransition(() => {
+      setSelectedArticle(null)
+      setActiveTopic(topicId)
+    })
+    if (scroll) document.getElementById("articles-section")?.scrollIntoView({ behavior: prefersReducedMotion() ? "auto" : "smooth" })
+  }
 
   if (selectedArticle) {
     return (
       <div className="min-h-screen bg-[var(--color-paper)] flex flex-col font-sans">
         <Header onJoin={onGetAccess} onSignIn={onGetAccess} onNavigate={onNavigate} />
-        <TaxonomyNav activeTaxonomy={activeTaxonomy} onSelectTaxonomy={setActiveTaxonomy} />
+        <TaxonomyNav activeTopic={activeTopic} counts={topicCounts} onSelectTopic={id => selectTopic(id, { scroll: false })} />
         <main className="flex-1 py-8">
           <ArticleReader
             article={selectedArticle}
@@ -109,14 +122,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       <Header onJoin={onGetAccess} onSignIn={onGetAccess} onNavigate={onNavigate} />
 
       {/* Taxonomy Filter Bar (Top Sub-Nav) */}
-      <TaxonomyNav
-        activeTaxonomy={activeTaxonomy}
-        onSelectTaxonomy={t => {
-          setActiveTaxonomy(t)
-          const el = document.getElementById("articles-section")
-          if (el) el.scrollIntoView({ behavior: "smooth" })
-        }}
-      />
+      <TaxonomyNav activeTopic={activeTopic} counts={topicCounts} onSelectTopic={id => selectTopic(id)} />
 
       {/* SECTION 1: Editorial Masthead & Hero */}
       <section className="border-b border-[var(--color-border-subtle)] py-14 lg:py-20 px-6 md:px-12 hero-radial-bg relative overflow-hidden">
@@ -217,8 +223,8 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             eyebrow="Editorial Exclusives"
             title="Latest Life Science Dossiers"
             action={
-              activeTaxonomy !== "All Intelligence" && (
-                <TextLink tone="muted" arrow={false} onClick={() => setActiveTaxonomy("All Intelligence")}>
+              activeTopic !== ALL_TOPIC_ID && (
+                <TextLink tone="muted" arrow={false} onClick={() => selectTopic(ALL_TOPIC_ID, { scroll: false })}>
                   Show all topics
                 </TextLink>
               )
@@ -237,10 +243,10 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
               ) : (
                 <EmptyState
                   className="h-full"
-                  title={`No ${activeTaxonomy} dossiers yet`}
+                  title={`No ${getTopic(activeTopic).label} dossiers yet`}
                   description="We haven't published in this topic this month. Browse everything we cover, or check the archive for past editions."
                   actionLabel="Show all topics"
-                  onAction={() => setActiveTaxonomy("All Intelligence")}
+                  onAction={() => selectTopic(ALL_TOPIC_ID, { scroll: false })}
                   secondaryActionLabel="Browse the archive"
                   onSecondaryAction={() => onNavigate?.("archive")}
                 />
@@ -297,12 +303,9 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {VERTICALS.map((v, i) => (
               <button
-                key={v.taxonomy}
+                key={v.topicId}
                 type="button"
-                onClick={() => {
-                  setActiveTaxonomy(v.taxonomy)
-                  document.getElementById("articles-section")?.scrollIntoView({ behavior: "smooth" })
-                }}
+                onClick={() => selectTopic(v.topicId)}
                 className="group text-left p-6 bg-[var(--color-navy-deep)] border border-white/10 rounded-card hover:border-[var(--color-brand-coral-on-dark)]/60 transition-colors flex flex-col justify-between"
               >
                 <div>
@@ -313,7 +316,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                   <p className="text-sm text-stone-300 leading-relaxed mb-6">{v.description}</p>
                 </div>
                 <span className="inline-flex items-center gap-1 text-meta font-semibold text-[var(--color-brand-coral-on-dark)] group-hover:text-white transition-colors">
-                  Explore {v.taxonomy} coverage
+                  Explore {v.short} coverage
                   <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
                 </span>
               </button>

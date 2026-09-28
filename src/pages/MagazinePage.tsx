@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import Header from "../components/layout/Header"
 import Footer from "../components/layout/Footer"
 import TaxonomyNav from "../components/layout/TaxonomyNav"
@@ -17,6 +17,8 @@ import AddArticleModal from "../components/magazine/AddArticleModal"
 import { useToast } from "../lib/toast"
 import SafeImage from "../components/ui/SafeImage"
 import { downloadMagazinePdf } from "../lib/pdfGenerator"
+import { TOPICS, getTopic, readTopicFromUrl, writeTopicToUrl } from "../data/topics"
+import { withViewTransition } from "../lib/motion"
 
 export interface MagazinePageProps {
   onJoin?: () => void
@@ -28,7 +30,7 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
   const [selectedFormat, setSelectedFormat] = useState("all")
   const [activeArticle, setActiveArticle] = useState<Article | null>(null)
   const [activeFlipbookIssue, setActiveFlipbookIssue] = useState<Issue | null>(null)
-  const [activeTaxonomy, setActiveTaxonomy] = useState("All Intelligence")
+  const [activeTopic, setActiveTopic] = useState(readTopicFromUrl)
   const [articlesList, setArticlesList] = useState<Article[]>(ARTICLES)
   const [showAddModal, setShowAddModal] = useState(false)
   const { success, info } = useToast()
@@ -40,11 +42,18 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
   const filteredArticles = articlesList.filter(art => {
     const matchesCat = selectedCategory === "all" || art.category === selectedCategory
     const matchesFmt = selectedFormat === "all" || art.format === selectedFormat
-    const matchesTaxonomy = activeTaxonomy === "All Intelligence" ||
-      art.category.toLowerCase().includes(activeTaxonomy.toLowerCase()) ||
-      art.tags.some(t => t.toLowerCase().includes(activeTaxonomy.toLowerCase()))
-    return matchesCat && matchesFmt && matchesTaxonomy
+    return matchesCat && matchesFmt && getTopic(activeTopic).matches(art)
   })
+
+  const topicCounts = useMemo(
+    () => Object.fromEntries(TOPICS.map(t => [t.id, articlesList.filter(t.matches).length])),
+    [articlesList]
+  )
+
+  const selectTopic = (topicId: string) => {
+    writeTopicToUrl(topicId)
+    withViewTransition(() => setActiveTopic(topicId))
+  }
 
   const handleDownloadPdf = () => {
     downloadMagazinePdf(currentIssue, articlesList)
@@ -89,7 +98,7 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
       )}
 
       <Header onJoin={onJoin} onSignIn={onJoin} onNavigate={onNavigate} />
-      <TaxonomyNav activeTaxonomy={activeTaxonomy} onSelectTaxonomy={setActiveTaxonomy} />
+      <TaxonomyNav activeTopic={activeTopic} counts={topicCounts} onSelectTopic={selectTopic} />
 
       <main className="flex-1 max-w-[var(--container-max)] mx-auto px-6 md:px-12 py-10 w-full">
         {/* Magazine Cover Hero Banner */}
@@ -217,7 +226,7 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
           <div className="py-16 text-center text-[var(--color-slate-muted)]">
             <p className="text-base font-serif mb-2 text-[var(--color-ink)]">No articles found in this filter combination.</p>
             <button
-              onClick={() => { setSelectedCategory("all"); setSelectedFormat("all"); setActiveTaxonomy("All Intelligence") }}
+              onClick={() => { setSelectedCategory("all"); setSelectedFormat("all"); selectTopic("all") }}
               className="text-xs font-mono underline text-[var(--color-brand-coral)]"
             >
               Reset Filters

@@ -38,6 +38,10 @@
   --drawer-max: 420px;
 
   /* ── Motion & Animation Timing ── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 220ms;
+  --duration-slow: 300ms;
   --motion-ui: 150ms cubic-bezier(0.16, 1, 0.3, 1);
   --motion-card: 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }

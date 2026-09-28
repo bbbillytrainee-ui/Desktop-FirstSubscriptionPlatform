@@ -1,28 +1,20 @@
-import { useState, useRef } from "react"
+import { useState } from "react"
+import { TOPICS, ALL_TOPIC_ID } from "../../data/topics"
 
 export interface TaxonomyNavProps {
-  activeTaxonomy?: string
-  onSelectTaxonomy?: (taxonomy: string) => void
+  activeTopic?: string
+  onSelectTopic?: (topicId: string) => void
+  /** Article count per topic id, shown as a badge on each chip */
+  counts?: Record<string, number>
   breakingNewsText?: string
 }
 
-const TAXONOMIES = [
-  { name: "All Intelligence", badge: null },
-  { name: "Pharma & Biologics", badge: null },
-  { name: "Regulatory & CDSCO", badge: "UPDATED" },
-  { name: "MedTech & Robotics", badge: null },
-  { name: "AI & Digital Health", badge: "HOT" },
-  { name: "Clinical Operations", badge: null },
-  { name: "Supply Chain & Logistics", badge: null },
-  { name: "Market Access & HEOR", badge: null },
-]
-
 export default function TaxonomyNav({
-  activeTaxonomy = "All Intelligence",
-  onSelectTaxonomy,
+  activeTopic = ALL_TOPIC_ID,
+  onSelectTopic,
+  counts,
   breakingNewsText = "CDSCO issues revised clinical evaluation guidance for AI diagnostic software",
 }: TaxonomyNavProps) {
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
   const [isPaused, setIsPaused] = useState(false)
 
   return (
@@ -58,32 +50,34 @@ export default function TaxonomyNav({
         <div className="relative min-w-0 flex-1 flex items-center justify-start lg:justify-end">
           {/* Scrollable pill container */}
           <div
-            ref={scrollContainerRef}
-            className="flex items-center gap-1.5 overflow-x-auto py-1.5 scrollbar-none no-scrollbar min-w-0 w-full lg:w-auto scroll-smooth"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+            role="group"
+            aria-label="Filter by topic"
+            className="flex items-center gap-1.5 overflow-x-auto py-1.5 min-w-0 w-full lg:w-auto snap-x snap-mandatory scroll-px-4"
+            style={{ scrollbarWidth: "none" }}
           >
-            {TAXONOMIES.map(item => {
-              const isSelected = activeTaxonomy === item.name
+            {TOPICS.map(topic => {
+              const isSelected = activeTopic === topic.id
+              const count = counts?.[topic.id]
               return (
                 <button
-                  key={item.name}
-                  onClick={() => onSelectTaxonomy && onSelectTaxonomy(item.name)}
-                  className={`px-3 py-1 whitespace-nowrap text-[11px] font-medium transition-all duration-200 rounded-full cursor-pointer shrink-0 flex items-center gap-1.5 group ${
+                  key={topic.id}
+                  type="button"
+                  aria-pressed={isSelected}
+                  onClick={() => onSelectTopic?.(topic.id)}
+                  className={`snap-start px-3 py-1.5 whitespace-nowrap text-xs font-medium transition-colors duration-200 rounded-full cursor-pointer shrink-0 flex items-center gap-1.5 border ${
                     isSelected
-                      ? "bg-card text-[var(--color-brand-teal)] font-bold shadow-sm ring-1 ring-white"
-                      : "text-white/80 hover:text-white hover:bg-white/15 bg-white/5 border border-white/10"
+                      ? "bg-white text-[#0D3B4A] font-semibold border-white"
+                      : "text-white/85 hover:text-white hover:bg-white/15 bg-white/5 border-white/10"
                   }`}
                 >
-                  <span>{item.name}</span>
-                  {item.badge && (
+                  <span>{topic.label}</span>
+                  {count !== undefined && (
                     <span
-                      className={`font-mono text-[11px] font-bold px-1.5 py-0.2 rounded-full uppercase tracking-wider ${
-                        isSelected
-                          ? "bg-[var(--color-brand-coral)] text-white"
-                          : "bg-[var(--color-brand-coral)]/90 text-white group-hover:bg-[var(--color-brand-coral)]"
+                      className={`font-mono text-[11px] tabular-nums px-1.5 rounded-full ${
+                        isSelected ? "bg-[#0D3B4A]/10 text-[#0D3B4A]" : "bg-white/10 text-white/70"
                       }`}
                     >
-                      {item.badge}
+                      {count}
                     </span>
                   )}
                 </button>
