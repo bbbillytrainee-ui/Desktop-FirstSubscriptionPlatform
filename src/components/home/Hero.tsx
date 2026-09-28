@@ -3,7 +3,7 @@ import Button from "../ui/Button"
 import TextLink from "../ui/TextLink"
 import SafeImage from "../ui/SafeImage"
 import CountUp from "../ui/CountUp"
-import { BookOpen } from "../ui/Icons"
+import { Award, BookOpen, FileText, Users } from "../ui/Icons"
 import { prefersReducedMotion } from "../../lib/motion"
 import type { Issue } from "../../data/fixtures/issues"
 
@@ -94,16 +94,23 @@ export default function Hero({ issue, onJoin, onOpenIssue, onArchive }: HeroProp
             </Button>
           </div>
 
-          <dl className="pt-7 border-t border-[var(--border-subtle)] grid grid-cols-2 sm:grid-cols-4 gap-6">
+          {/* Stat strip: hairline dividers (2×2 on phones, 1×4 from sm); hovering one dims the rest */}
+          <dl className="stat-strip grid grid-cols-2 sm:grid-cols-4 border-y border-[var(--border-subtle)]">
             {[
-              { value: 34000, suffix: "+", label: "Verified leaders" },
-              { value: 48, suffix: "+", label: "Annual dossiers" },
-              { value: 100, suffix: "%", label: "Peer-cited rigor" },
-              { value: issue.number, label: "Issues published" },
-            ].map(stat => (
-              <div key={stat.label} className="flex flex-col-reverse">
-                <dt className="mt-1.5 font-mono text-label font-semibold uppercase text-[var(--text-muted)]">{stat.label}</dt>
-                <dd className="font-mono text-2xl sm:text-3xl font-semibold text-[var(--text-primary)] leading-none">
+              { value: 34000, suffix: "+", label: "Verified leaders", Icon: Users },
+              { value: 48, suffix: "+", label: "Annual dossiers", Icon: FileText },
+              { value: 100, suffix: "%", label: "Peer-cited rigor", Icon: Award },
+              { value: issue.number, label: "Issues published", Icon: BookOpen },
+            ].map(({ Icon, ...stat }, i) => (
+              <div
+                key={stat.label}
+                className={`stat flex flex-col-reverse py-5 pr-3 ${i % 2 ? "pl-4 sm:pl-5 border-l" : ""} ${i === 2 ? "sm:pl-5 sm:border-l" : ""} ${i >= 2 ? "border-t sm:border-t-0" : ""} border-[var(--border-subtle)]`}
+              >
+                <dt className="mt-2 flex items-start gap-1.5 font-mono text-label font-semibold uppercase text-[var(--text-muted)]">
+                  <Icon size={13} aria-hidden="true" className="stat-icon shrink-0 mt-px" />
+                  {stat.label}
+                </dt>
+                <dd className="stat-value font-serif text-[1.75rem] sm:text-[2.125rem] font-semibold tracking-[-0.02em] text-[var(--text-primary)] leading-none">
                   <CountUp value={stat.value} suffix={stat.suffix} />
                 </dd>
               </div>

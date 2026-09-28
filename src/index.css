@@ -715,6 +715,41 @@ body {
   }
 }
 
+/* ── Stat strip (Hero) ──
+   Hover lifts one stat: accent rule draws across its top edge, icon takes the accent,
+   the others dim. Pointer devices only; touch sees the static strip. */
+@layer components {
+  .stat {
+    position: relative;
+    transition: opacity var(--duration-base) var(--ease-out);
+  }
+  .stat::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--accent-decor);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+  .stat-value {
+    font-variant-numeric: tabular-nums lining-nums;
+    font-variation-settings: "opsz" 72;
+  }
+  .stat-icon {
+    color: var(--text-muted);
+    transition: color var(--duration-base) var(--ease-out);
+  }
+  @media (hover: hover) {
+    .stat-strip:hover .stat:not(:hover) { opacity: 0.45; }
+    .stat:hover::before { transform: scaleX(1); }
+    .stat:hover .stat-icon { color: var(--accent-text); }
+  }
+}
+
 @keyframes heroAmpIn {
   from { opacity: 0; transform: translateY(0.12em) rotate(-8deg); }
   to   { opacity: 1; transform: none; }
