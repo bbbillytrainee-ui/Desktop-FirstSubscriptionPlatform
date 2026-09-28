@@ -14,20 +14,20 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
       case "FlaskConical":
         return (
           <svg className="w-5 h-5 text-[var(--color-brand-teal)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.12a2 2 0 00-1.023.547l-1.2 1.2A2 2 0 004.793 20.3h14.414a2 2 0 001.414-3.414l-1.2-1.2z" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 3v5.2m4-5.2v5.2M8 3h8" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.12a2 2 0 00-1.023.547l-1.2 1.2A2 2 0 004.793 20.3h14.414a2 2 0 001.414-3.414l-1.2-1.2z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 3v5.2m4-5.2v5.2M8 3h8" />
           </svg>
         )
       case "Building2":
         return (
           <svg className="w-5 h-5 text-[var(--color-brand-coral)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0V11m0 0h4" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0V11m0 0h4" />
           </svg>
         )
       default:
         return (
           <svg className="w-5 h-5 text-[var(--color-brand-teal)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
           </svg>
         )
     }
@@ -154,7 +154,7 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
           <div className="flex items-start gap-4">
             <div className="p-3 bg-card rounded-full border border-[var(--color-brand-teal)]/20 shadow-xs hidden sm:block shrink-0">
               <svg className="w-6 h-6 text-[var(--color-brand-teal)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
               </svg>
             </div>
             <div>

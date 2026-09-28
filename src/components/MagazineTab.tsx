@@ -411,16 +411,16 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
             <line x1="60" y1="60" x2="150" y2="90" stroke="var(--color-teal-300)" strokeWidth="1.5" />
             <line x1="240" y1="60" x2="150" y2="90" stroke="var(--color-teal-300)" strokeWidth="1.5" />
 
-            <circle cx="60" cy="60" r="22" fill="var(--color-teal-800)" stroke="var(--color-terracotta-300)" strokeWidth="2" />
+            <circle cx="60" cy="60" r="22" fill="var(--color-teal-800)" stroke="var(--color-terracotta-300)" strokeWidth="1.5" />
             <text x="60" y="64" textAnchor="middle" fill="var(--color-terracotta-300)" fontSize="9" fontWeight="bold">Broad</text>
 
-            <circle cx="240" cy="60" r="22" fill="var(--color-teal-800)" stroke="var(--color-terracotta-300)" strokeWidth="2" />
+            <circle cx="240" cy="60" r="22" fill="var(--color-teal-800)" stroke="var(--color-terracotta-300)" strokeWidth="1.5" />
             <text x="240" y="64" textAnchor="middle" fill="var(--color-terracotta-300)" fontSize="9" fontWeight="bold">Berkeley</text>
 
-            <circle cx="150" cy="30" r="24" fill="var(--color-terracotta-300)" stroke="var(--color-sand-0)" strokeWidth="2" />
+            <circle cx="150" cy="30" r="24" fill="var(--color-terracotta-300)" stroke="var(--color-sand-0)" strokeWidth="1.5" />
             <text x="150" y="34" textAnchor="middle" fill="var(--color-sand-900)" fontSize="9" fontWeight="bold">Base Editing</text>
 
-            <circle cx="150" cy="90" r="20" fill="var(--color-teal-800)" stroke="var(--color-teal-300)" strokeWidth="2" />
+            <circle cx="150" cy="90" r="20" fill="var(--color-teal-800)" stroke="var(--color-teal-300)" strokeWidth="1.5" />
             <text x="150" y="94" textAnchor="middle" fill="var(--color-sand-200)" fontSize="8">Intellia Delivery</text>
           </svg>
         </div>

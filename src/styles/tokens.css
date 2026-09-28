@@ -52,6 +52,9 @@
   --elev-3: 0 4px 12px rgba(40, 25, 15, 0.08), 0 28px 60px -18px rgba(40, 25, 15, 0.32);
   --glow-accent: 0 8px 24px -8px rgba(180, 73, 42, 0.45);
   --spotlight: rgba(208, 96, 61, 0.08);
+  --selection-bg: var(--color-terracotta-100);
+  --scroll-thumb: var(--color-sand-300);
+  --scroll-thumb-hover: var(--color-sand-400);
 
   /* ── Print palette: 3D flipbook pages always render as paper, in both themes ── */
   --print-paper: var(--color-sand-50);
@@ -147,6 +150,9 @@ html.dark {
   --elev-2: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 14px 32px -10px rgba(0, 0, 0, 0.55);
   --elev-3: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 30px 70px -18px rgba(0, 0, 0, 0.7);
   --spotlight: rgba(232, 135, 106, 0.09);
+  --selection-bg: rgba(232, 135, 106, 0.38);
+  --scroll-thumb: rgba(255, 255, 255, 0.18);
+  --scroll-thumb-hover: rgba(255, 255, 255, 0.3);
 
   --color-card: var(--surface-card);
   --color-brand-teal: var(--brand-text);

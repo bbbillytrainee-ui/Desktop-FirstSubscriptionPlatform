@@ -71,11 +71,12 @@ export function useToast() {
   return context
 }
 
-const TOAST_STYLES: Record<ToastType, { icon: ReactNode; tint: string }> = {
-  success: { icon: <CheckIcon size={16} className="text-[var(--color-success)]" />, tint: "bg-[var(--color-success)]/12" },
-  bookmark: { icon: <BookmarkFilled size={16} className="text-[var(--color-brand-coral)]" />, tint: "bg-[var(--color-brand-coral)]/12" },
-  copy: { icon: <Share2 size={16} className="text-[var(--color-brand-teal)]" />, tint: "bg-[var(--color-brand-teal)]/12" },
-  info: { icon: <Info size={16} className="text-[var(--color-brand-teal)]" />, tint: "bg-[var(--color-brand-teal)]/12" },
+/* rail = 3px left edge in the type's colour, so a toast reads at a glance */
+const TOAST_STYLES: Record<ToastType, { icon: ReactNode; tint: string; rail: string }> = {
+  success: { icon: <CheckIcon size={16} className="text-[var(--color-success)]" />, tint: "bg-[var(--color-success)]/12", rail: "before:bg-[var(--color-success)]" },
+  bookmark: { icon: <BookmarkFilled size={16} className="text-[var(--color-brand-coral)]" />, tint: "bg-[var(--color-brand-coral)]/12", rail: "before:bg-[var(--accent-decor)]" },
+  copy: { icon: <Share2 size={16} className="text-[var(--color-brand-teal)]" />, tint: "bg-[var(--color-brand-teal)]/12", rail: "before:bg-[var(--topic-pharma-rail)]" },
+  info: { icon: <Info size={16} className="text-[var(--color-brand-teal)]" />, tint: "bg-[var(--color-brand-teal)]/12", rail: "before:bg-[var(--topic-pharma-rail)]" },
 }
 
 function ToastContainer({ toasts, onDismiss }: { toasts: ToastMessage[]; onDismiss: (id: string) => void }) {
@@ -87,11 +88,11 @@ function ToastContainer({ toasts, onDismiss }: { toasts: ToastMessage[]; onDismi
       className="fixed bottom-24 md:bottom-6 right-0 sm:right-6 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0"
     >
       {toasts.map(toast => {
-        const { icon, tint } = TOAST_STYLES[toast.type]
+        const { icon, tint, rail } = TOAST_STYLES[toast.type]
         return (
           <div
             key={toast.id}
-            className="toast-enter pointer-events-auto bg-card border border-[var(--color-border-subtle)] rounded-card p-3.5 shadow-overlay flex items-start gap-3 relative"
+            className={`toast-enter pointer-events-auto bg-card border border-[var(--border-subtle)] rounded-card p-3.5 pl-4 shadow-overlay flex items-start gap-3 relative overflow-hidden before:absolute before:inset-y-0 before:left-0 before:w-[3px] before:content-[''] ${rail}`}
           >
             <div className={`p-2 rounded-full shrink-0 ${tint}`}>{icon}</div>
 

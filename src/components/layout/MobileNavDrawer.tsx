@@ -118,7 +118,7 @@ export default function MobileNavDrawer(props: MobileNavDrawerProps) {
             className="w-11 h-11 flex items-center justify-center rounded-full text-[var(--color-ink)] hover:bg-[var(--color-surface)]"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
@@ -128,7 +128,7 @@ export default function MobileNavDrawer(props: MobileNavDrawerProps) {
             <button type="button" onClick={() => { onClose(); props.onSearch() }} className={`${ROW} bg-[var(--color-surface)]`}>
               <span className="flex items-center gap-3">
                 <svg className="w-5 h-5 text-[var(--color-brand-teal)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
                 Search articles, CDMOs, news
               </span>

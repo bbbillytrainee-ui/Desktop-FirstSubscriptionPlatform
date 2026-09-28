@@ -12,7 +12,7 @@ export const BookOpen: React.FC<IconProps> = ({ size = 16, className = "", ...pr
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -30,7 +30,7 @@ export const ClipboardList: React.FC<IconProps> = ({ size = 16, className = "", 
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -52,7 +52,7 @@ export const BarChart3: React.FC<IconProps> = ({ size = 16, className = "", ...p
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -72,7 +72,7 @@ export const Building2: React.FC<IconProps> = ({ size = 16, className = "", ...p
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -130,7 +130,7 @@ export const WhatsAppIcon: React.FC<IconProps> = ({ size = 16, className = "", .
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -147,7 +147,7 @@ export const LinkedInIcon: React.FC<IconProps> = ({ size = 16, className = "", .
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -166,7 +166,7 @@ export const MailIcon: React.FC<IconProps> = ({ size = 16, className = "", ...pr
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -184,7 +184,7 @@ export const CheckIcon: React.FC<IconProps> = ({ size = 16, className = "", ...p
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -201,7 +201,7 @@ export const Share2: React.FC<IconProps> = ({ size = 16, className = "", ...prop
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -239,7 +239,7 @@ export const TrendingUp: React.FC<IconProps> = ({ size = 16, className = "", ...
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -257,7 +257,7 @@ export const Sparkles: React.FC<IconProps> = ({ size = 16, className = "", ...pr
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -278,7 +278,7 @@ export const Bookmark: React.FC<IconProps> = ({ size = 16, className = "", ...pr
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -295,7 +295,7 @@ export const BookmarkFilled: React.FC<IconProps> = ({ size = 16, className = "",
     viewBox="0 0 24 24"
     fill="currentColor"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -312,7 +312,7 @@ export const Download: React.FC<IconProps> = ({ size = 16, className = "", ...pr
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -331,7 +331,7 @@ export const ExternalLink: React.FC<IconProps> = ({ size = 16, className = "", .
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -350,7 +350,7 @@ export const Plus: React.FC<IconProps> = ({ size = 16, className = "", ...props 
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -368,7 +368,7 @@ export const Award: React.FC<IconProps> = ({ size = 16, className = "", ...props
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -386,7 +386,7 @@ export const Info: React.FC<IconProps> = ({ size = 16, className = "", ...props 
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -405,7 +405,7 @@ export const X: React.FC<IconProps> = ({ size = 16, className = "", ...props }) 
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -423,7 +423,7 @@ export const Search: React.FC<IconProps> = ({ size = 16, className = "", ...prop
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -441,7 +441,7 @@ export const PenTool: React.FC<IconProps> = ({ size = 16, className = "", ...pro
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -461,7 +461,7 @@ export const FileText: React.FC<IconProps> = ({ size = 16, className = "", ...pr
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -482,7 +482,7 @@ export const ZoomIn: React.FC<IconProps> = ({ size = 16, className = "", ...prop
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -502,7 +502,7 @@ export const ZoomOut: React.FC<IconProps> = ({ size = 16, className = "", ...pro
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -521,7 +521,7 @@ export const Trash2: React.FC<IconProps> = ({ size = 16, className = "", ...prop
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -542,7 +542,7 @@ export const Users: React.FC<IconProps> = ({ size = 16, className = "", ...props
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -562,7 +562,7 @@ export const ChevronDown: React.FC<IconProps> = ({ size = 16, className = "", ..
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
@@ -579,7 +579,7 @@ export const BadgeCheck: React.FC<IconProps> = ({ size = 16, className = "", ...
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}

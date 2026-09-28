@@ -4,11 +4,12 @@ import Button from "../ui/Button"
 import GlobalSearchModal from "../ui/GlobalSearchModal"
 import BookmarksDrawer from "../modals/BookmarksDrawer"
 import MobileNavDrawer from "./MobileNavDrawer"
-import { BookmarkFilled } from "../ui/Icons"
+import { BookmarkFilled, BookOpen, Building2, FileText, PenTool, Play } from "../ui/Icons"
 import { useBookmarks } from "../../lib/bookmarks"
 import { useTheme } from "../../lib/theme"
 import { useScrollHeader } from "../../lib/useScrollHeader"
 import { useRouter } from "../../lib/router"
+import { ISSUES } from "../../data/fixtures/issues"
 import { useSlidingIndicator } from "../../lib/useSlidingIndicator"
 
 /** Routes that live under the Magazine menu: the nav underline rests on "Magazine" for these */
@@ -141,7 +142,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
                   stroke="currentColor" 
                   viewBox="0 0 24 24"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
 
@@ -154,7 +155,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
                     {/* Column 1: News & Intelligence */}
                     <div className="space-y-1">
                       <div className="flex items-center gap-1.5 pb-2 mb-1 border-b border-[var(--color-border-subtle)]">
-                        <span className="text-base">📰</span>
+                        <FileText size={15} aria-hidden="true" className="text-[var(--accent-text)]" />
                         <span
                           className="font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]"
                         >
@@ -214,7 +215,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
                     {/* Column 2: Industry Verticals */}
                     <div className="space-y-1">
                       <div className="flex items-center gap-1.5 pb-2 mb-1 border-b border-[var(--color-border-subtle)]">
-                        <span className="text-base">🏢</span>
+                        <Building2 size={15} aria-hidden="true" className="text-[var(--accent-text)]" />
                         <span
                           className="font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]"
                         >
@@ -274,7 +275,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
                     {/* Column 3: Webinars & Sessions */}
                     <div className="space-y-1">
                       <div className="flex items-center gap-1.5 pb-2 mb-1 border-b border-[var(--color-border-subtle)]">
-                        <span className="text-base">🎥</span>
+                        <Play size={15} aria-hidden="true" className="text-[var(--accent-text)]" />
                         <span
                           className="font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]"
                         >
@@ -338,7 +339,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
                           <span
                             className="font-mono text-[11px] font-bold uppercase tracking-wider bg-[var(--color-brand-teal)] text-[var(--color-paper)] px-2 py-0.5 rounded-xs"
                           >
-                            ISSUE #48
+                            Issue #{ISSUES[0].number}
                           </span>
                           <span className="text-[11px] font-medium text-[var(--color-slate-muted)]">Current Issue</span>
                         </div>
@@ -348,10 +349,10 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
                           className="cursor-pointer group"
                         >
                           <h4 className="text-xs font-bold leading-tight text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)] transition-colors mb-1">
-                            AI Diagnostics & CDSCO Guidance
+                            {ISSUES[0].theme}
                           </h4>
                           <p className="text-[11px] text-[var(--color-slate-muted)] leading-snug line-clamp-2">
-                            Explore the 3D interactive flipbook edition with clinical software frameworks.
+                            {ISSUES[0].summary}
                           </p>
                         </div>
                       </div>
@@ -368,7 +369,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
                           onClick={() => handleNav("thought-leadership")}
                           className="w-full text-left px-2 py-1 text-xs font-semibold text-[var(--color-brand-coral)] hover:text-[var(--color-terracotta-700)] transition-colors flex items-center justify-between"
                         >
-                          <span>✍️ Write / Submit Article Pitch</span>
+                          <span className="inline-flex items-center gap-1.5"><PenTool size={13} aria-hidden="true" />Write / submit an article pitch</span>
                           <span>→</span>
                         </button>
                         <button
@@ -376,7 +377,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
                           className="w-full text-left px-2 py-1 text-xs font-medium text-[var(--color-slate-muted)] hover:text-[var(--color-brand-teal)] transition-colors flex items-center justify-between"
                         >
                           <span>Digital Archive</span>
-                          <span>📚</span>
+                          <BookOpen size={13} aria-hidden="true" />
                         </button>
                       </div>
                     </div>
@@ -419,7 +420,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
               title="Search articles & intelligence (Ctrl+K)"
             >
               <svg className="w-4 h-4 text-[var(--color-brand-teal)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <span className="hidden xl:inline text-[var(--color-slate-muted)] font-normal">Search intelligence…</span>
               <kbd className="hidden xl:inline text-[11px] font-mono bg-card border border-[var(--color-border-subtle)] px-1.5 py-0.5 rounded text-[var(--color-slate-muted)] font-semibold">
@@ -447,11 +448,11 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
             >
               {theme === "light" ? (
                 <svg className="w-4 h-4 text-sand-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                 </svg>
               ) : (
                 <svg className="w-4 h-4 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
               )}
             </button>
@@ -486,11 +487,11 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
             >
               {theme === "light" ? (
                 <svg className="w-5 h-5 text-sand-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                 </svg>
               ) : (
                 <svg className="w-5 h-5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
               )}
             </button>
@@ -501,7 +502,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
               aria-label="Search"
             >
               <svg className="w-5 h-5 text-[var(--color-brand-teal)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </button>
             
@@ -515,7 +516,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
               aria-expanded={mobileMenuOpen}
             >
               <svg className="w-6 h-6 text-[var(--color-brand-teal)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
           </div>
