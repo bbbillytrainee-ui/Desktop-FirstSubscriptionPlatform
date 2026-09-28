@@ -50,8 +50,10 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
                   : "bg-black/40 text-white/80 hover:text-white hover:bg-black/60"
               }`}
               title={isSaved ? "Saved" : "Save article"}
+              aria-pressed={isSaved}
+              aria-label={isSaved ? `Remove "${article.title}" from saved` : `Save "${article.title}"`}
             >
-              {isSaved ? <BookmarkFilled size={14} /> : <Bookmark size={14} />}
+              <span key={String(isSaved)} className={isSaved ? "bookmark-pop inline-flex" : "inline-flex"}>{isSaved ? <BookmarkFilled size={14} /> : <Bookmark size={14} />}</span>
             </button>
           </div>
 
@@ -109,8 +111,10 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
                 : "bg-black/40 text-white/80 hover:text-white"
             }`}
             title={isSaved ? "Saved" : "Save article"}
+              aria-pressed={isSaved}
+              aria-label={isSaved ? `Remove "${article.title}" from saved` : `Save "${article.title}"`}
           >
-            {isSaved ? <BookmarkFilled size={11} /> : <Bookmark size={11} />}
+            <span key={String(isSaved)} className={isSaved ? "bookmark-pop inline-flex" : "inline-flex"}>{isSaved ? <BookmarkFilled size={11} /> : <Bookmark size={11} />}</span>
           </button>
         </div>
 
@@ -170,8 +174,10 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
                 : "bg-black/40 text-white/80 hover:text-white hover:bg-black/60"
             }`}
             title={isSaved ? "Saved" : "Save article"}
+              aria-pressed={isSaved}
+              aria-label={isSaved ? `Remove "${article.title}" from saved` : `Save "${article.title}"`}
           >
-            {isSaved ? <BookmarkFilled size={12} /> : <Bookmark size={12} />}
+            <span key={String(isSaved)} className={isSaved ? "bookmark-pop inline-flex" : "inline-flex"}>{isSaved ? <BookmarkFilled size={12} /> : <Bookmark size={12} />}</span>
           </button>
         </div>
       </div>

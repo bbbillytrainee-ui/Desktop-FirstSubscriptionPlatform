@@ -3,21 +3,29 @@ import { CheckIcon, Info, BookmarkFilled, Share2, X } from "../components/ui/Ico
 
 export type ToastType = "success" | "info" | "bookmark" | "copy"
 
+export interface ToastAction {
+  label: string
+  onClick: () => void
+}
+
 export interface ToastMessage {
   id: string
   type: ToastType
   title: string
   message?: string
   durationMs?: number
+  action?: ToastAction
 }
+
+type ToastInput = Omit<ToastMessage, "id">
 
 interface ToastContextType {
   toasts: ToastMessage[]
-  showToast: (toast: Omit<ToastMessage, "id">) => void
+  showToast: (toast: ToastInput) => void
   removeToast: (id: string) => void
   success: (title: string, message?: string) => void
   info: (title: string, message?: string) => void
-  bookmark: (title: string, message?: string) => void
+  bookmark: (title: string, message?: string, action?: ToastAction) => void
   copy: (title: string, message?: string) => void
 }
 
@@ -30,33 +38,22 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     setToasts(prev => prev.filter(t => t.id !== id))
   }, [])
 
-  const showToast = useCallback((toast: Omit<ToastMessage, "id">) => {
+  const showToast = useCallback((toast: ToastInput) => {
     const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`
-    const duration = toast.durationMs || 3500
-    const newToast: ToastMessage = { ...toast, id }
+    // Toasts with an action (e.g. Undo) stay long enough to be used
+    const duration = toast.durationMs || (toast.action ? 6000 : 3500)
 
-    setToasts(prev => [...prev.slice(-3), newToast]) // keep at most 4 visible
-
-    setTimeout(() => {
-      removeToast(id)
-    }, duration)
+    setToasts(prev => [...prev.slice(-3), { ...toast, id }]) // keep at most 4 visible
+    setTimeout(() => removeToast(id), duration)
   }, [removeToast])
 
-  const success = useCallback((title: string, message?: string) => {
-    showToast({ type: "success", title, message })
-  }, [showToast])
-
-  const info = useCallback((title: string, message?: string) => {
-    showToast({ type: "info", title, message })
-  }, [showToast])
-
-  const bookmark = useCallback((title: string, message?: string) => {
-    showToast({ type: "bookmark", title, message })
-  }, [showToast])
-
-  const copy = useCallback((title: string, message?: string) => {
-    showToast({ type: "copy", title, message })
-  }, [showToast])
+  const success = useCallback((title: string, message?: string) => showToast({ type: "success", title, message }), [showToast])
+  const info = useCallback((title: string, message?: string) => showToast({ type: "info", title, message }), [showToast])
+  const bookmark = useCallback(
+    (title: string, message?: string, action?: ToastAction) => showToast({ type: "bookmark", title, message, action }),
+    [showToast]
+  )
+  const copy = useCallback((title: string, message?: string) => showToast({ type: "copy", title, message }), [showToast])
 
   return (
     <ToastContext.Provider value={{ toasts, showToast, removeToast, success, info, bookmark, copy }}>
@@ -74,53 +71,54 @@ export function useToast() {
   return context
 }
 
+const TOAST_STYLES: Record<ToastType, { icon: ReactNode; tint: string }> = {
+  success: { icon: <CheckIcon size={16} className="text-[var(--color-success)]" />, tint: "bg-[var(--color-success)]/12" },
+  bookmark: { icon: <BookmarkFilled size={16} className="text-[var(--color-brand-coral)]" />, tint: "bg-[var(--color-brand-coral)]/12" },
+  copy: { icon: <Share2 size={16} className="text-[var(--color-brand-teal)]" />, tint: "bg-[var(--color-brand-teal)]/12" },
+  info: { icon: <Info size={16} className="text-[var(--color-brand-teal)]" />, tint: "bg-[var(--color-brand-teal)]/12" },
+}
+
 function ToastContainer({ toasts, onDismiss }: { toasts: ToastMessage[]; onDismiss: (id: string) => void }) {
-  if (toasts.length === 0) return null
-
+  // Always mounted: screen readers only announce changes inside a live region that already exists
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0">
+    <div
+      role="status"
+      aria-live="polite"
+      className="fixed bottom-6 right-6 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none px-4 sm:px-0"
+    >
       {toasts.map(toast => {
-        let icon = <CheckIcon size={16} className="text-emerald-600 shrink-0" />
-        let borderColor = "border-emerald-500/30"
-        let bgAccent = "bg-emerald-50"
-
-        if (toast.type === "bookmark") {
-          icon = <BookmarkFilled size={16} className="text-[var(--color-brand-coral)] shrink-0" />
-          borderColor = "border-orange-500/30"
-          bgAccent = "bg-orange-50"
-        } else if (toast.type === "copy") {
-          icon = <Share2 size={16} className="text-[var(--color-brand-teal)] shrink-0" />
-          borderColor = "border-[var(--color-brand-teal)]/30"
-          bgAccent = "bg-teal-50"
-        } else if (toast.type === "info") {
-          icon = <Info size={16} className="text-sky-600 shrink-0" />
-          borderColor = "border-sky-500/30"
-          bgAccent = "bg-sky-50"
-        }
-
+        const { icon, tint } = TOAST_STYLES[toast.type]
         return (
           <div
             key={toast.id}
-            className={`pointer-events-auto bg-card border ${borderColor} rounded-md p-3.5 shadow-xl transition-all duration-300 animate-slide-in flex items-start gap-3 relative overflow-hidden`}
+            className="toast-enter pointer-events-auto bg-card border border-[var(--color-border-subtle)] rounded-card p-3.5 shadow-overlay flex items-start gap-3 relative"
           >
-            <div className={`p-2 rounded-full ${bgAccent} shrink-0`}>
-              {icon}
-            </div>
+            <div className={`p-2 rounded-full shrink-0 ${tint}`}>{icon}</div>
 
-            <div className="flex-1 min-w-0 pr-4">
-              <h5 className="font-sans font-semibold text-xs text-[var(--color-ink)] leading-snug">
-                {toast.title}
-              </h5>
+            <div className="flex-1 min-w-0 pr-6">
+              <p className="font-semibold text-sm text-[var(--color-ink)] leading-snug">{toast.title}</p>
               {toast.message && (
-                <p className="text-[11px] text-[var(--color-slate-muted)] mt-0.5 leading-relaxed">
-                  {toast.message}
-                </p>
+                <p className="text-xs text-[var(--color-slate-muted)] mt-0.5 leading-relaxed">{toast.message}</p>
+              )}
+              {toast.action && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    toast.action!.onClick()
+                    onDismiss(toast.id)
+                  }}
+                  className="mt-2 text-xs font-semibold text-[var(--color-brand-teal)] hover:text-[var(--color-brand-coral)] underline underline-offset-2"
+                >
+                  {toast.action.label}
+                </button>
               )}
             </div>
 
             <button
+              type="button"
               onClick={() => onDismiss(toast.id)}
-              className="text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] p-1 transition-colors absolute top-2 right-2 cursor-pointer"
+              aria-label="Dismiss notification"
+              className="absolute top-1.5 right-1.5 w-8 h-8 flex items-center justify-center rounded-full text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] hover:bg-[var(--color-surface)] transition-colors"
             >
               <X size={12} />
             </button>

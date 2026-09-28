@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from "react"
+import React, { createContext, useContext, useState, useEffect, useCallback, useRef } from "react"
 import { Article, ARTICLES } from "../data/fixtures/articles"
 import { useToast } from "./toast"
 
@@ -14,21 +14,33 @@ export interface BookmarksContextType {
 
 const BookmarksContext = createContext<BookmarksContextType | undefined>(undefined)
 
-const LOCAL_STORAGE_KEY = "mediverse_user_bookmarks_v1"
+// v2: v1 was pre-seeded with demo bookmarks, so every visitor started with "Saved (2)"
+const LOCAL_STORAGE_KEY = "mediverse_user_bookmarks_v2"
+
+const shortTitle = (title: string) => (title.length > 48 ? `${title.slice(0, 46)}…` : title)
+
+const readStored = (): string[] => {
+  try {
+    const stored = localStorage.getItem(LOCAL_STORAGE_KEY)
+    const parsed = stored ? JSON.parse(stored) : []
+    return Array.isArray(parsed) ? parsed.filter((s): s is string => typeof s === "string") : []
+  } catch {
+    return []
+  }
+}
+
+/** Re-inserts a slug at its previous position (used by Undo). */
+const insertAt = (list: string[], slug: string, index: number) =>
+  list.includes(slug) ? list : [...list.slice(0, index), slug, ...list.slice(index)]
 
 export const BookmarksProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { bookmark } = useToast()
+  const [savedSlugs, setSavedSlugs] = useState<string[]>(readStored)
 
-  const [savedSlugs, setSavedSlugs] = useState<string[]>(() => {
-    try {
-      const stored = localStorage.getItem(LOCAL_STORAGE_KEY)
-      return stored ? JSON.parse(stored) : ["continuous-biomanufacturing-cdmo-scaleup-2026", "cdsco-samd-ai-regulatory-framework"]
-    } catch {
-      return ["continuous-biomanufacturing-cdmo-scaleup-2026"]
-    }
-  })
+  // Latest list for event handlers, so toasts are decided outside state updaters
+  const slugsRef = useRef(savedSlugs)
+  slugsRef.current = savedSlugs
 
-  // Sync to localStorage
   useEffect(() => {
     try {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(savedSlugs))
@@ -37,39 +49,44 @@ export const BookmarksProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
   }, [savedSlugs])
 
-  const isBookmarked = useCallback((slug: string) => {
-    return savedSlugs.includes(slug)
-  }, [savedSlugs])
-
-  const toggleBookmark = useCallback((article: Article) => {
-    setSavedSlugs(prev => {
-      const exists = prev.includes(article.slug)
-      if (exists) {
-        bookmark("Removed from Dossier Vault", `"${article.title.slice(0, 36)}..." removed from saved library.`)
-        return prev.filter(s => s !== article.slug)
-      } else {
-        bookmark("Saved to Dossier Vault", `"${article.title.slice(0, 36)}..." added to saved reading list.`)
-        return [article.slug, ...prev]
-      }
-    })
-  }, [bookmark])
+  const isBookmarked = useCallback((slug: string) => savedSlugs.includes(slug), [savedSlugs])
 
   const removeBookmark = useCallback((slug: string) => {
-    setSavedSlugs(prev => {
-      const art = ARTICLES.find(a => a.slug === slug)
-      if (art) {
-        bookmark("Bookmark Removed", `"${art.title.slice(0, 36)}..." removed from library.`)
-      }
-      return prev.filter(s => s !== slug)
+    const index = slugsRef.current.indexOf(slug)
+    if (index === -1) return
+    setSavedSlugs(prev => prev.filter(s => s !== slug))
+    const article = ARTICLES.find(a => a.slug === slug)
+    bookmark("Removed from saved", article ? shortTitle(article.title) : undefined, {
+      label: "Undo",
+      onClick: () => setSavedSlugs(prev => insertAt(prev, slug, index)),
     })
   }, [bookmark])
 
+  const toggleBookmark = useCallback((article: Article) => {
+    if (slugsRef.current.includes(article.slug)) {
+      removeBookmark(article.slug)
+      return
+    }
+    setSavedSlugs(prev => (prev.includes(article.slug) ? prev : [article.slug, ...prev]))
+    bookmark("Saved for later", shortTitle(article.title), {
+      label: "Undo",
+      onClick: () => setSavedSlugs(prev => prev.filter(s => s !== article.slug)),
+    })
+  }, [bookmark, removeBookmark])
+
   const clearAllBookmarks = useCallback(() => {
+    const previous = slugsRef.current
+    if (previous.length === 0) return
     setSavedSlugs([])
-    bookmark("Vault Cleared", "All saved article bookmarks have been cleared.")
+    bookmark("Cleared saved articles", `${previous.length} article${previous.length === 1 ? "" : "s"} removed.`, {
+      label: "Undo",
+      onClick: () => setSavedSlugs(previous),
+    })
   }, [bookmark])
 
-  const savedArticles = ARTICLES.filter(a => savedSlugs.includes(a.slug))
+  const savedArticles = savedSlugs
+    .map(slug => ARTICLES.find(a => a.slug === slug))
+    .filter((a): a is Article => Boolean(a))
 
   return (
     <BookmarksContext.Provider
