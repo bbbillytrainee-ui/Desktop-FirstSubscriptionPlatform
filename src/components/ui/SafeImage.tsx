@@ -7,6 +7,8 @@ export interface SafeImageProps extends Omit<React.ImgHTMLAttributes<HTMLImageEl
   fallbackSrc?: string
   /** Rendered CSS width in px; Unsplash images are requested at this size (1x/2x srcset) */
   width?: number
+  /** Show a blurred 24px copy underneath until the full image loads (Unsplash only; parent must be relative) */
+  blurUp?: boolean
 }
 
 const DEFAULT_FALLBACKS = [
@@ -40,6 +42,7 @@ export default function SafeImage({
   fallbackSrc = DEFAULT_FALLBACKS[0],
   width,
   loading = "lazy",
+  blurUp = false,
   ...props
 }: SafeImageProps) {
   const [currentSrc, setCurrentSrc] = useState(src)
@@ -68,7 +71,9 @@ export default function SafeImage({
     ? { src: sized(currentSrc, width), srcSet: `${sized(currentSrc, width)} 1x, ${sized(currentSrc, width * 2)} 2x` }
     : { src: currentSrc }
 
-  return (
+  const placeholder = blurUp && sized(currentSrc, 24) !== currentSrc ? sized(currentSrc, 24) : null
+
+  const image = (
     <img
       ref={ref}
       {...responsive}
@@ -77,8 +82,22 @@ export default function SafeImage({
       decoding="async"
       onLoad={() => setLoaded(true)}
       onError={handleError}
-      className={`transition-opacity duration-[var(--duration-slow)] ${loaded ? "opacity-100" : "opacity-0"} ${className}`}
+      className={`transition-opacity duration-[var(--duration-slow)] ${loaded ? "opacity-100" : "opacity-0"} ${placeholder ? "relative" : ""} ${className}`}
       {...props}
     />
+  )
+
+  if (!placeholder) return image
+  return (
+    <>
+      <img
+        src={placeholder}
+        alt=""
+        aria-hidden="true"
+        decoding="async"
+        className={`absolute inset-0 w-full h-full object-cover scale-110 blur-xl transition-opacity duration-[var(--duration-slow)] ${loaded ? "opacity-0" : "opacity-100"}`}
+      />
+      {image}
+    </>
   )
 }

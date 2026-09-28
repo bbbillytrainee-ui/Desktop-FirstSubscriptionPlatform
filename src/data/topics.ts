@@ -21,7 +21,24 @@ export const TOPICS: Topic[] = [
   { id: "market-access", label: "Market Access & HEOR", matches: tagMatch(/heor|reimbursement|market access|pricing|commercial|licensing/i) },
 ]
 
-export const getTopic = (id: string | null | undefined): Topic =>
+/** Colour family for chips and feed rails (tokens: --topic-<tone>-fg/bg/bg-strong/rail) */
+export type TopicTone = "pharma" | "regulatory" | "medtech" | "ai"
+
+const CATEGORY_TONES: Record<string, TopicTone> = {
+  Pharma: "pharma",
+  MedTech: "medtech",
+  "AI-Health": "ai",
+  // Speed Feed categories
+  "Drug Approvals": "regulatory",
+  "CDSCO & Policy": "regulatory",
+  Biotech: "pharma",
+  "Commercial BD": "pharma",
+  "Cold Chain": "medtech",
+}
+
+export const toneFor = (category: string): TopicTone => CATEGORY_TONES[category] ?? "pharma"
+
+export const getTopic =(id: string | null | undefined): Topic =>
   TOPICS.find(t => t.id === id) ?? TOPICS[0]
 
 export const filterByTopic = (articles: Article[], topicId: string) =>

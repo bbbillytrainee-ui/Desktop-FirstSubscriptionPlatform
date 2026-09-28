@@ -154,15 +154,25 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             </div>
           </div>
 
-          {/* Bottom Row: 3 Secondary Feature Cards in a clean 3-column row */}
+          {/* Hierarchy: 1 featured (above) → 2 medium, horizontal from sm → compact thumbnail rows */}
           {filteredArticles.length > 1 && (
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-[var(--color-border-subtle)] mb-12">
-              {filteredArticles.slice(1, 4).map((article, i) => (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-8 border-t border-[var(--color-border-subtle)] mb-8">
+              {filteredArticles.slice(1, 3).map((article, i) => (
                 <Reveal key={article.slug} delay={i * 70} className="h-full">
-                  <ArticleCard article={article} variant="standard" onClick={() => openArticle(article)} />
+                  <ArticleCard article={article} variant="medium" onClick={() => openArticle(article)} />
                 </Reveal>
               ))}
             </div>
+          )}
+
+          {filteredArticles.length > 3 && (
+            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 mb-12 border-t border-[var(--color-border-subtle)]">
+              {filteredArticles.slice(3, 7).map(article => (
+                <li key={article.slug} className="py-3 border-b border-[var(--color-border-subtle)]">
+                  <ArticleCard article={article} variant="compact" onClick={() => openArticle(article)} />
+                </li>
+              ))}
+            </ul>
           )}
 
           {/* Dedicated Last Month's Trending Retrospective */}

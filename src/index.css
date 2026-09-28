@@ -85,16 +85,6 @@
   --color-danger-50: #FDF0EE;
   --color-danger-400: #E8796A;
   --color-danger-600: #B42318;
-
-  /* Topic accents (chip text on tint ≥ 6.6:1 light, ≥ 5.2:1 dark) */
-  --color-topic-pharma: #134B59;
-  --color-topic-pharma-tint: #EFF6F7;
-  --color-topic-regulatory: #923A22;
-  --color-topic-regulatory-tint: #FCF1EC;
-  --color-topic-medtech: #3E4C7A;
-  --color-topic-medtech-tint: #EEF0F7;
-  --color-topic-ai: #4F5A22;
-  --color-topic-ai-tint: #F2F4E6;
 }
 
 @theme {
@@ -739,14 +729,85 @@ body {
     font-variant-numeric: tabular-nums lining-nums;
     font-variation-settings: "opsz" 72;
   }
-  .stat-icon {
-    color: var(--text-muted);
-    transition: color var(--duration-base) var(--ease-out);
-  }
+  .stat-icon { color: var(--text-muted); }
   @media (hover: hover) {
     .stat-strip:hover .stat:not(:hover) { opacity: 0.45; }
     .stat:hover::before { transform: scaleX(1); }
     .stat:hover .stat-icon { color: var(--accent-text); }
+  }
+}
+
+/* ── Topic tones: [data-tone] maps a family onto --tone-* (tokens.css holds both themes) ── */
+[data-tone="pharma"]     { --tone-fg: var(--topic-pharma-fg);     --tone-bg: var(--topic-pharma-bg);     --tone-bg-strong: var(--topic-pharma-bg-strong);     --tone-rail: var(--topic-pharma-rail); }
+[data-tone="regulatory"] { --tone-fg: var(--topic-regulatory-fg); --tone-bg: var(--topic-regulatory-bg); --tone-bg-strong: var(--topic-regulatory-bg-strong); --tone-rail: var(--topic-regulatory-rail); }
+[data-tone="medtech"]    { --tone-fg: var(--topic-medtech-fg);    --tone-bg: var(--topic-medtech-bg);    --tone-bg-strong: var(--topic-medtech-bg-strong);    --tone-rail: var(--topic-medtech-rail); }
+[data-tone="ai"]         { --tone-fg: var(--topic-ai-fg);         --tone-bg: var(--topic-ai-bg);         --tone-bg-strong: var(--topic-ai-bg-strong);         --tone-rail: var(--topic-ai-rail); }
+
+/* ── Cards (ArticleCard) ── */
+@layer components {
+  /* Pill; the stronger fill is a pre-painted layer that fades in, so only opacity animates */
+  .topic-chip {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    padding: 3px 9px 3px 7px;
+    border-radius: 999px;
+    background: var(--tone-bg);
+    color: var(--tone-fg);
+    font: 600 11px/1rem var(--font-mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .topic-chip::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--tone-bg-strong);
+    opacity: 0;
+    transition: opacity var(--duration-base) var(--ease-out);
+  }
+  .topic-chip-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--tone-rail);
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+  .group:hover .topic-chip::before,
+  .group:focus-within .topic-chip::before { opacity: 1; }
+  .group:hover .topic-chip-dot,
+  .group:focus-within .topic-chip-dot { transform: scale(1.4); }
+
+  /* Soft warm light that follows the mouse (--mx/--my set in ArticleCard); sits above the
+     card background, below its content */
+  .card-spotlight {
+    position: absolute;
+    inset: 0;
+    z-index: -5;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 0%), var(--spotlight), transparent 70%);
+    opacity: 0;
+    transition: opacity var(--duration-slow) var(--ease-out);
+  }
+  @media (hover: hover) {
+    .card-surface:hover .card-spotlight { opacity: 1; }
+  }
+
+  .read-arrow-glyph {
+    display: inline-block;
+    transition: transform var(--duration-base) var(--ease-out), opacity var(--duration-base) var(--ease-out);
+  }
+  @media (hover: hover) {
+    .read-arrow-glyph { opacity: 0; transform: translateX(-6px); }
+    .group:hover .read-arrow-glyph,
+    .group:focus-within .read-arrow-glyph { opacity: 1; transform: translateX(2px); }
   }
 }
 

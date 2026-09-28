@@ -39,11 +39,19 @@
   --accent-tint: var(--color-terracotta-50);
   --brand-text: var(--color-teal-800);
 
+  /* ── Semantic: topic tones (chips, feed rails) ──
+     fg on bg ≥ 6.6:1, fg on bg-strong ≥ 5.7:1; rail is non-text (≥ 3:1 on card) */
+  --topic-pharma-fg: #134B59;     --topic-pharma-bg: #EFF6F7;     --topic-pharma-bg-strong: #D6E9ED;     --topic-pharma-rail: #2A7A8C;
+  --topic-regulatory-fg: #923A22; --topic-regulatory-bg: #FCF1EC; --topic-regulatory-bg-strong: #F8DED3; --topic-regulatory-rail: #D0603D;
+  --topic-medtech-fg: #3E4C7A;    --topic-medtech-bg: #EEF0F7;    --topic-medtech-bg-strong: #DDE1EF;    --topic-medtech-rail: #5B6AA0;
+  --topic-ai-fg: #4F5A22;         --topic-ai-bg: #F2F4E6;         --topic-ai-bg-strong: #E3E8C8;         --topic-ai-rail: #7A8638;
+
   /* ── Elevation: warm-tinted (umber), never grey-black ── */
   --elev-1: 0 1px 2px rgba(60, 38, 22, 0.05), 0 1px 3px rgba(60, 38, 22, 0.06);
   --elev-2: 0 2px 6px rgba(60, 38, 22, 0.06), 0 12px 28px -10px rgba(60, 38, 22, 0.20);
   --elev-3: 0 4px 12px rgba(40, 25, 15, 0.08), 0 28px 60px -18px rgba(40, 25, 15, 0.32);
   --glow-accent: 0 8px 24px -8px rgba(180, 73, 42, 0.45);
+  --spotlight: rgba(208, 96, 61, 0.08);
 
   /* ── Print palette: 3D flipbook pages always render as paper, in both themes ── */
   --print-paper: var(--color-sand-50);
@@ -128,10 +136,17 @@ html.dark {
   --accent-tint: rgba(232, 135, 106, 0.14);
   --brand-text: var(--color-teal-400);            /* 7.1:1 on page */
 
+  /* fg on bg ≥ 6.0:1, on bg-strong ≥ 4.7:1; solid (not alpha) so chips read the same over photos */
+  --topic-pharma-fg: #8CC5D1;     --topic-pharma-bg: #123F4B;     --topic-pharma-bg-strong: #17505E;     --topic-pharma-rail: #5FB3C4;
+  --topic-regulatory-fg: #F0BBA6; --topic-regulatory-bg: #3A2723; --topic-regulatory-bg-strong: #4A2F28; --topic-regulatory-rail: #E8876A;
+  --topic-medtech-fg: #B7C0E6;    --topic-medtech-bg: #232B45;    --topic-medtech-bg-strong: #2C3656;    --topic-medtech-rail: #8E9BD4;
+  --topic-ai-fg: #C9D38F;         --topic-ai-bg: #2A3020;         --topic-ai-bg-strong: #343C26;         --topic-ai-rail: #AAB65E;
+
   /* Deeper, cooler shadows plus a faint top highlight so raised surfaces separate on dark */
   --elev-1: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 1px 3px rgba(0, 0, 0, 0.35);
   --elev-2: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 14px 32px -10px rgba(0, 0, 0, 0.55);
   --elev-3: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 30px 70px -18px rgba(0, 0, 0, 0.7);
+  --spotlight: rgba(232, 135, 106, 0.09);
 
   --color-card: var(--surface-card);
   --color-brand-teal: var(--brand-text);
