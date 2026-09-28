@@ -27,15 +27,17 @@ export default function SectionHeader({
   return (
     <div
       className={`flex gap-4 mb-8 ${
-        centered ? "flex-col items-center text-center max-w-2xl mx-auto" : "items-end justify-between"
+        centered ? "flex-col items-center text-center max-w-2xl mx-auto" : "flex-col sm:flex-row sm:items-end justify-between"
       } ${className}`}
     >
       <div>
+        {/* kicker → serif title → deck; the action sits on the baseline at the right */}
         <span
-          className={`block mb-2 font-mono text-eyebrow font-semibold uppercase ${
+          className={`flex items-center gap-2.5 mb-2.5 font-mono text-label font-semibold uppercase ${centered ? "justify-center " : ""}${
             isDark ? "text-[var(--color-brand-coral-on-dark)]" : "text-[var(--color-brand-coral)]"
           }`}
         >
+          <span aria-hidden="true" className={`h-px w-6 ${isDark ? "bg-[var(--accent-on-inverse)]" : "bg-[var(--accent-decor)]"}`} />
           {eyebrow}
         </span>
         <Heading
@@ -46,7 +48,7 @@ export default function SectionHeader({
           {title}
         </Heading>
         {description && (
-          <p className={`mt-3 text-sm leading-relaxed ${isDark ? "text-sand-300" : "text-[var(--color-slate-muted)]"}`}>
+          <p className={`mt-3 text-deck max-w-[58ch] ${centered ? "mx-auto " : ""}${isDark ? "text-[var(--text-inverse-muted)]" : "text-[var(--text-muted)]"}`}>
             {description}
           </p>
         )}

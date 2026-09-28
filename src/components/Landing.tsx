@@ -50,6 +50,19 @@ const VERTICALS = [
   },
 ]
 
+const JOIN_BENEFITS = [
+  { title: "The monthly issue", body: "Dossiers, columns and the 3D flipbook edition, the first week of every month." },
+  { title: "The morning dispatch", body: "Regulatory and deal alerts at 8:00 AM, with sources you can cite." },
+  { title: "Explainable introductions", body: "Peer matches with the reason shown, made only with both sides' consent." },
+]
+
+const JOIN_AVATARS = [
+  { initials: "DR", bg: "bg-teal-600" },
+  { initials: "AP", bg: "bg-terracotta-600" },
+  { initials: "SK", bg: "bg-teal-500" },
+  { initials: "VS", bg: "bg-sand-700" },
+]
+
 export interface LandingProps {
   onGetAccess: () => void
   onNavigate?: (route: string) => void
@@ -118,18 +131,22 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
 
       {/* SECTION 3: Newspaper Editorial Grid (Lead Dossier + Live Breaking Sidebar + 3 Sub-Features) */}
 
-      <section id="articles-section" className="py-14 px-6 md:px-12 border-b border-[var(--color-border-subtle)] bg-card">
+      <section id="articles-section" className="py-[var(--section-y)] px-6 md:px-12 border-b border-[var(--border-subtle)] bg-card">
         <div className="max-w-[var(--container-max)] mx-auto">
           
           <SectionHeader
             eyebrow="Editorial Exclusives"
             title="Latest Life Science Dossiers"
+            description="Long-form analysis from this month's issue, plus the wire as it lands."
             action={
-              activeTopic !== ALL_TOPIC_ID && (
-                <TextLink tone="muted" arrow={false} onClick={() => selectTopic(ALL_TOPIC_ID, { scroll: false })}>
-                  Show all topics
-                </TextLink>
-              )
+              <span className="flex items-center gap-5">
+                {activeTopic !== ALL_TOPIC_ID && (
+                  <TextLink tone="muted" arrow={false} onClick={() => selectTopic(ALL_TOPIC_ID, { scroll: false })}>
+                    Show all topics
+                  </TextLink>
+                )}
+                <TextLink onClick={() => onNavigate?.("magazine")}>View all dossiers</TextLink>
+              </span>
             }
           />
 
@@ -200,7 +217,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       </section>
 
       {/* SECTION 4: Three-Lane Focus Areas (Pharma, MedTech, AI) - Dark Mode Island */}
-      <section className="py-16 px-6 md:px-12 bg-[var(--color-section-dark)] text-white border-b border-white/10 relative overflow-hidden">
+      <section className="py-[var(--section-y)] px-6 md:px-12 bg-[var(--color-section-dark)] text-white relative overflow-hidden">
         <div className="max-w-[var(--container-max)] mx-auto relative z-10">
           <Reveal>
           <SectionHeader
@@ -239,8 +256,8 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
         </div>
       </section>
 
-      {/* SECTION 5: Webinar Spotlight + Verified Network Teaser */}
-      <section className="py-14 px-6 md:px-12 border-b border-[var(--color-border-subtle)] bg-card">
+      {/* SECTION 5: Webinar Spotlight + Verified Network Teaser (page tone: rhythm is page / white / teal) */}
+      <section className="py-[var(--section-y)] px-6 md:px-12 border-b border-[var(--border-subtle)] bg-[var(--surface-page)]">
         <div className="max-w-[var(--container-max)] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
@@ -330,12 +347,13 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       </section>
 
       {/* SECTION 6: Institutional Dossiers / Research Reports */}
-      <section className="py-14 px-6 md:px-12 border-b border-[var(--color-border-subtle)] bg-[var(--color-surface)]">
+      <section className="py-[var(--section-y)] px-6 md:px-12 bg-card">
         <div className="max-w-[var(--container-max)] mx-auto">
           <SectionHeader
             eyebrow="Institutional Intelligence"
             title="Deep Industry Briefings & Dossiers"
-            action={<TextLink onClick={() => onNavigate?.("reports")}>Browse all reports</TextLink>}
+            description="Board-ready research with executive summaries, sourced data and regulatory timelines."
+            action={<TextLink onClick={() => onNavigate?.("reports")}>View all reports</TextLink>}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -365,48 +383,63 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
         </div>
       </section>
 
-      {/* SECTION 7: Final High-Impact Subscription Callout with Animated Mesh Background */}
-      <section className="py-20 px-6 md:px-12 cta-mesh-bg text-white text-center relative z-10 border-t border-white/10">
-        <div className="max-w-3xl mx-auto relative z-20">
-          <div className="flex items-center justify-center -space-x-2 mb-6">
-            <div className="w-9 h-9 rounded-full border-2 border-white bg-[var(--color-brand-teal)] flex items-center justify-center font-bold text-xs shadow-md">
-              DR
+      {/* SECTION 7: Join the network — deep teal band, split layout (pitch left, what you get right) */}
+      <section aria-labelledby="join-title" className="join-band relative overflow-hidden px-6 md:px-12 py-[var(--section-y)] text-[var(--text-inverse)]">
+        <div className="relative z-10 max-w-[var(--container-max)] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-12 lg:gap-16 items-center">
+          <div>
+            <p className="mb-5 flex items-center gap-3 font-mono text-label font-semibold uppercase text-[var(--accent-on-inverse)]">
+              <span aria-hidden="true" className="h-px w-8 bg-[var(--accent-on-inverse)]" />
+              Join Mediverse Life Sciences
+            </p>
+            <h2 id="join-title" className="font-serif text-h1 font-semibold text-white mb-5 [text-wrap:balance]">
+              The publication <span className="font-normal italic text-[var(--accent-on-inverse)]">&amp;</span> network for healthcare decision-makers.
+            </h2>
+            <p className="text-deck text-[var(--text-inverse-muted)] mb-8 max-w-[52ch]">
+              Curated monthly dossiers, interactive 3D editions, and explainable peer introductions across Pharma, MedTech, and AI-Health.
+            </p>
+            <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
+              <Button variant="coral" size="lg" arrow onClick={onGetAccess}>
+                Join the network
+              </Button>
+              <Button
+                variant="ghost"
+                size="lg"
+                onClick={() => onNavigate?.("subscriptions")}
+                className="text-white border border-white/25 hover:bg-white/10"
+              >
+                View membership plans
+              </Button>
             </div>
-            <div className="w-9 h-9 rounded-full border-2 border-white bg-[var(--color-brand-coral-fill)] flex items-center justify-center font-bold text-xs shadow-md">
-              AP
-            </div>
-            <div className="w-9 h-9 rounded-full border-2 border-white bg-success-700 flex items-center justify-center font-bold text-xs shadow-md">
-              SK
-            </div>
-            <div className="w-9 h-9 rounded-full border-2 border-white bg-teal-800 flex items-center justify-center font-bold text-xs shadow-md">
-              VS
-            </div>
-            <div className="w-9 h-9 rounded-full border-2 border-white bg-sand-800 flex items-center justify-center text-[11px] font-mono font-bold shadow-md">
-              +34k
+
+            <div className="mt-10 flex items-center gap-4">
+              <div className="flex -space-x-2" aria-hidden="true">
+                {JOIN_AVATARS.map(a => (
+                  <span
+                    key={a.initials}
+                    className={`w-9 h-9 rounded-full border-2 border-[var(--surface-inverse)] flex items-center justify-center font-mono text-[11px] font-semibold text-white ${a.bg}`}
+                  >
+                    {a.initials}
+                  </span>
+                ))}
+              </div>
+              <p className="text-caption text-[var(--text-inverse-muted)]">
+                <span className="font-semibold text-white tabular-nums">34,000+</span> verified leaders read every issue
+              </p>
             </div>
           </div>
 
-          <span
-            className="font-mono text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-brand-coral-on-dark)] block mb-3.5"
-          >
-            Join Mediverse Life Sciences
-          </span>
-          <h2
-            className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-5 leading-tight text-white"
-          >
-            The publication &amp; network for healthcare decision-makers.
-          </h2>
-          <p className="text-sm md:text-base text-sand-200/90 mb-9 leading-relaxed max-w-2xl mx-auto">
-            Read curated monthly dossiers, interact with digital 3D flipbook magazines, and receive explainable peer introductions across Pharma, MedTech, and AI-Health.
-          </p>
-          <div className="flex items-center justify-center gap-4 flex-wrap">
-            <Button variant="coral" size="lg" onClick={onGetAccess}>
-              Join the network
-            </Button>
-            <Button variant="ghost" size="lg" onClick={() => onNavigate && onNavigate("subscriptions")} className="text-white border border-white/20 hover:bg-white/10">
-              View Membership Plans
-            </Button>
-          </div>
+          {/* What membership includes: numbered list on a raised inverse panel */}
+          <ol className="rounded-overlay border border-[var(--border-inverse)] bg-[var(--surface-inverse-raised)] divide-y divide-[var(--border-inverse)] shadow-overlay">
+            {JOIN_BENEFITS.map((item, i) => (
+              <li key={item.title} className="flex gap-5 p-6">
+                <span className="font-mono text-label font-semibold text-[var(--accent-on-inverse)] pt-1 tabular-nums">0{i + 1}</span>
+                <div>
+                  <h3 className="font-serif text-h4 font-semibold text-white mb-1">{item.title}</h3>
+                  <p className="text-sm leading-relaxed text-[var(--text-inverse-muted)]">{item.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
