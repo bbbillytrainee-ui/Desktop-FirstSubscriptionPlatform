@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Article, ARTICLES } from "../../data/fixtures/articles"
 import { AUTHORS } from "../../data/fixtures/authors"
 import AuthorByline from "./AuthorByline"
@@ -11,6 +11,10 @@ import SafeImage from "../ui/SafeImage"
 import ArticleCard from "./ArticleCard"
 import { getSavedProgress, scrollToProgress, useReadingProgress } from "../../lib/readingProgress"
 import { prefersReducedMotion } from "../../lib/motion"
+import { READER_SIZE_CLASSES, useReaderPrefs } from "../../lib/readerPrefs"
+import { ARTICLE_SECTIONS } from "../../data/fixtures/articleSections"
+import ReaderControls from "./ReaderControls"
+import { ARTICLE_BODY_ID, DesktopToc, MobileTocSheet, sectionId, useActiveSection } from "./TableOfContents"
 
 /** Related = most shared tags, then same category. */
 const relatedTo = (article: Article, limit = 3) =>
@@ -49,6 +53,20 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
   const [resumeAt] = useState(() => getSavedProgress(article.slug))
   const [resumeDismissed, setResumeDismissed] = useState(false)
   const showResume = !resumeDismissed && resumeAt > 0.08 && resumeAt < 0.95 && progress < resumeAt - 0.05
+
+  const [prefs, setPrefs] = useReaderPrefs()
+  const sections = ARTICLE_SECTIONS[article.slug] ?? []
+  const sectionAt = new Map(sections.map((s, i) => [s.start, { ...s, index: i }]))
+  const { active, inBody } = useActiveSection(sections.length)
+  const [tocOpen, setTocOpen] = useState(false)
+
+  // Escape leaves focus mode
+  useEffect(() => {
+    if (!prefs.focus) return
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setPrefs({ focus: false })
+    document.addEventListener("keydown", onKey)
+    return () => document.removeEventListener("keydown", onKey)
+  }, [prefs.focus, setPrefs])
 
   const related = relatedTo(article)
   const nextUp = nextAfter(article)
@@ -105,6 +123,23 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
         />
       </div>
 
+      {sections.length > 1 && (
+        <>
+          <DesktopToc sections={sections} active={active} visible={inBody} />
+          <MobileTocSheet sections={sections} active={active} open={tocOpen} onClose={() => setTocOpen(false)} />
+        </>
+      )}
+
+      {prefs.focus && (
+        <button
+          type="button"
+          onClick={() => setPrefs({ focus: false })}
+          className="fixed top-4 right-4 z-40 toast-enter h-10 px-4 rounded-full bg-[var(--color-section-dark)] text-white text-sm font-medium shadow-overlay"
+        >
+          Exit focus <span className="ml-1 font-mono text-xs text-white/60">Esc</span>
+        </button>
+      )}
+
       {showResume && (
         <div className="fixed bottom-24 md:bottom-6 left-1/2 -translate-x-1/2 z-40 toast-enter flex items-center gap-1 pl-4 pr-1.5 py-1.5 rounded-full bg-[var(--color-section-dark)] text-white shadow-overlay text-sm">
           <button
@@ -140,6 +175,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
         )}
 
         <div className="flex items-center gap-2.5 ml-auto">
+          <ReaderControls />
           <button
             onClick={handleBookmarkToggle}
             className={`max-md:hidden font-mono px-3 py-1.5 text-xs font-semibold rounded-sm border transition-all flex items-center gap-1.5 cursor-pointer ${
@@ -198,12 +234,24 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
       </div>
 
       {/* Body paragraphs with drop-cap */}
-      <div ref={bodyRef} className="max-w-[65ch] mx-auto space-y-6 text-[1.0625rem] md:text-lg text-[var(--color-ink)] leading-[1.75]">
-        {article.body.map((paragraph, index) => (
-          <p key={index} className={index === 0 ? "drop-cap" : ""}>
-            {paragraph}
-          </p>
-        ))}
+      <div
+        ref={bodyRef}
+        id={ARTICLE_BODY_ID}
+        className={`max-w-[65ch] mx-auto space-y-6 text-[var(--color-ink)] ${READER_SIZE_CLASSES[prefs.size]} ${prefs.family === "serif" ? "font-serif" : "font-sans"}`}
+      >
+        {article.body.map((paragraph, index) => {
+          const section = sections.length > 1 ? sectionAt.get(index) : undefined
+          return (
+            <div key={index} className="space-y-4">
+              {section && (
+                <h2 id={sectionId(section.index)} className="font-serif text-h3 font-semibold text-[var(--color-ink)] scroll-mt-24 pt-2">
+                  {section.title}
+                </h2>
+              )}
+              <p className={index === 0 ? "drop-cap" : ""}>{paragraph}</p>
+            </div>
+          )
+        })}
       </div>
 
       {/* Academic & Regulatory Citations / Reference Section */}
@@ -280,7 +328,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
       </div>
       {/* Mobile: sticky thumb-reach actions */}
       <div className="md:hidden fixed inset-x-0 bottom-0 z-40 bg-card/95 backdrop-blur-md border-t border-[var(--color-border-subtle)] pb-[env(safe-area-inset-bottom)]">
-        <div className="grid grid-cols-3">
+        <div className={sections.length > 1 ? "grid grid-cols-4" : "grid grid-cols-3"}>
           {onClose && (
             <button type="button" onClick={onClose} className="h-14 flex flex-col items-center justify-center gap-0.5 text-xs font-medium text-[var(--color-slate-muted)]">
               <span aria-hidden="true" className="text-base leading-none">←</span>
@@ -302,6 +350,18 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
             <Share2 size={18} />
             Share
           </button>
+          {sections.length > 1 && (
+            <button
+              type="button"
+              onClick={() => setTocOpen(true)}
+              aria-haspopup="dialog"
+              aria-expanded={tocOpen}
+              className="h-14 flex flex-col items-center justify-center gap-0.5 text-xs font-medium text-[var(--color-slate-muted)]"
+            >
+              <span aria-hidden="true" className="text-base leading-none">≡</span>
+              Contents
+            </button>
+          )}
         </div>
       </div>
 

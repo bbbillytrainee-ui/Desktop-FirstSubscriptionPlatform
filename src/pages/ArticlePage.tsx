@@ -7,6 +7,7 @@ import NotFoundPage from "./NotFoundPage"
 import { ARTICLES } from "../data/fixtures/articles"
 import { ISSUES } from "../data/fixtures/issues"
 import { articleRoute } from "../lib/router"
+import { useReaderPrefs } from "../lib/readerPrefs"
 
 export interface ArticlePageProps {
   slug: string
@@ -18,6 +19,10 @@ export interface ArticlePageProps {
 export default function ArticlePage({ slug, onJoin, onNavigate }: ArticlePageProps) {
   const article = ARTICLES.find(a => a.slug === slug)
   const [showFlipbook, setShowFlipbook] = useState(false)
+  const [{ focus }, setPrefs] = useReaderPrefs()
+
+  // Leaving the page always leaves focus mode
+  useEffect(() => () => setPrefs({ focus: false }), [setPrefs])
 
   useEffect(() => {
     if (article) document.title = `${article.title} · Mediverse`
@@ -44,7 +49,7 @@ export default function ArticlePage({ slug, onJoin, onNavigate }: ArticlePagePro
           onJoinPrompt={onJoin}
         />
       )}
-      <Header onJoin={onJoin} onSignIn={onJoin} onNavigate={onNavigate} />
+      {!focus && <Header onJoin={onJoin} onSignIn={onJoin} onNavigate={onNavigate} />}
       <main className="flex-1 py-8">
         <ArticleReader
           key={article.slug}
@@ -55,7 +60,7 @@ export default function ArticlePage({ slug, onJoin, onNavigate }: ArticlePagePro
           onOpenArticle={next => onNavigate(articleRoute(next.slug))}
         />
       </main>
-      <Footer onNavigate={onNavigate} />
+      {!focus && <Footer onNavigate={onNavigate} />}
     </div>
   )
 }

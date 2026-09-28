@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react"
+import { useReaderPrefs } from "../lib/readerPrefs"
 
 /* ──────────────────────── TYPES & DATA ──────────────────────── */
 
@@ -717,11 +718,14 @@ function ArticleModal({
   isBookmarked: boolean
   onToggleBookmark: (article: Article) => void
 }) {
-  const [fontSize, setFontSize] = useState<"normal" | "large" | "xl">("normal")
+  // Text size is shared with the main ArticleReader (A = medium, A+ = large)
+  const [readerPrefs, setReaderPrefs] = useReaderPrefs()
+  const fontSize: "normal" | "large" = readerPrefs.size === "lg" ? "large" : "normal"
+  const setFontSize = (v: "normal" | "large") => setReaderPrefs({ size: v === "large" ? "lg" : "md" })
   const [theme, setTheme] = useState<"warm" | "dark" | "sepia">("warm")
   const [toastMsg, setToastMsg] = useState("")
 
-  const fontClass = fontSize === "large" ? "text-[18px]" : fontSize === "xl" ? "text-[20px]" : "text-[16px]"
+  const fontClass = fontSize === "large" ? "text-[18px]" : "text-[16px]"
   const themeClass = theme === "dark" ? "theme-dark" : theme === "sepia" ? "theme-sepia" : "theme-warm"
 
   const triggerToast = (msg: string) => {
