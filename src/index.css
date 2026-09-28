@@ -257,6 +257,16 @@ body {
   transform: none;
 }
 
+/* ── Live feed arrival (LatestNewsSidebar) ── */
+@keyframes feedItemIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.feed-item-enter {
+  animation: feedItemIn var(--duration-slow) var(--ease-out) both;
+}
+
 /* ── Toast entrance ── */
 @keyframes toastIn {
   from { opacity: 0; transform: translateY(8px) scale(0.98); }

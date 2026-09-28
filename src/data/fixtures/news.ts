@@ -79,3 +79,61 @@ export const LATEST_NEWS: NewsItem[] = [
     readTime: "3 min",
   },
 ]
+
+/**
+ * Items that "arrive" while the page is open (simulated live feed).
+ * Replace with a Supabase realtime subscription / polling when the backend is wired.
+ * `timestamp` and `timeAgo` are assigned on arrival.
+ */
+export const INCOMING_NEWS: Omit<NewsItem, "timestamp" | "timeAgo">[] = [
+  {
+    id: "news-in-1",
+    title: "DCGI grants accelerated approval pathway for two indigenous CAR-T candidates",
+    category: "Drug Approvals",
+    source: "DCGI Notice",
+    summary: "Conditional approvals hinge on 24-month real-world follow-up and a registry shared with the ICMR cell therapy network.",
+    isBreaking: true,
+    readTime: "2 min",
+  },
+  {
+    id: "news-in-2",
+    title: "Biocon Biologics closes US$300M facility expansion for insulin aspart in Bengaluru",
+    category: "Biotech",
+    source: "Company Filing",
+    summary: "The expansion adds 40% fill-finish capacity and targets EU GMP inspection readiness by Q2 2027.",
+    readTime: "2 min",
+  },
+  {
+    id: "news-in-3",
+    title: "CDSCO opens consultation on algorithm change-control plans for SaMD",
+    category: "CDSCO & Policy",
+    source: "CDSCO Gazette",
+    summary: "Draft mirrors FDA PCCP guidance; manufacturers must pre-declare retraining triggers and validation datasets.",
+    isBreaking: true,
+    readTime: "3 min",
+  },
+  {
+    id: "news-in-4",
+    title: "Cold-chain consortium reports 18% drop in vaccine excursions across Tier-2 depots",
+    category: "Cold Chain",
+    source: "Logistics Council",
+    summary: "IoT telemetry pilots across 140 depots cut temperature excursions and shortened incident response to under 40 minutes.",
+    readTime: "2 min",
+  },
+  {
+    id: "news-in-5",
+    title: "Apollo and a Singapore AI lab sign radiology triage validation partnership",
+    category: "AI-Health",
+    source: "Press Release",
+    summary: "Federated validation across six hospitals will benchmark chest X-ray triage models without moving patient data.",
+    readTime: "3 min",
+  },
+  {
+    id: "news-in-6",
+    title: "Sun Pharma out-licenses dermatology asset to Japanese partner in US$120M deal",
+    category: "Commercial BD",
+    source: "Deal Wire",
+    summary: "Upfront of US$25M with milestones tied to PMDA approval and first commercial sale in Japan.",
+    readTime: "2 min",
+  },
+]
