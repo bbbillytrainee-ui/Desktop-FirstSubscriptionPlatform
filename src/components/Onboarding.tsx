@@ -135,7 +135,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
               <div
                 key={i}
                 className={`h-full transition-all ${
-                  i + 1 <= step ? "bg-[var(--color-brand-coral)]" : "bg-[var(--color-border-subtle)]"
+                  i + 1 <= step ? "bg-[var(--color-brand-coral-fill)]" : "bg-[var(--color-border-subtle)]"
                 }`}
               />
             ))}
@@ -471,7 +471,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
               {/* Referral Incentive Widget */}
               <div className="p-5 bg-card border-2 border-[var(--color-brand-coral)] rounded-sm relative shadow-sm">
                 <span
-                  className="font-mono text-[11px] font-semibold uppercase bg-[var(--color-brand-coral)] text-white px-2 py-0.5 rounded-sm inline-block mb-2"
+                  className="font-mono text-[11px] font-semibold uppercase bg-[var(--color-brand-coral-fill)] text-white px-2 py-0.5 rounded-sm inline-block mb-2"
                 >
                   Colleague Referral Program
                 </span>

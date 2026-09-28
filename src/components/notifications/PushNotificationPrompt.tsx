@@ -42,7 +42,7 @@ export default function PushNotificationPrompt({ onOptIn }: PushNotificationProm
     <div className="fixed bottom-5 right-5 z-40 max-w-sm w-full bg-card border-2 border-[var(--color-brand-teal)] rounded-sm shadow-[0_12px_40px_rgba(13,59,74,0.18)] p-4 animate-fade-up">
       <div className="flex items-start justify-between gap-3 mb-2">
         <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-brand-coral)] animate-ping" />
+          <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-brand-coral-fill)] animate-ping" />
           <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]">
             Instant Regulatory Alerts
           </span>

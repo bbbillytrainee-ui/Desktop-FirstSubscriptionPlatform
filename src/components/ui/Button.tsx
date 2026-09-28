@@ -27,7 +27,7 @@ export default function Button({
     ghost:
       "text-[var(--color-ink)] hover:text-[var(--color-brand-teal)] hover:bg-[var(--color-surface)] border border-[var(--color-border-subtle)] hover:border-[var(--color-slate-muted)]/40 font-medium bg-transparent",
     coral:
-      "bg-[var(--color-brand-coral)] text-white hover:bg-[var(--color-brand-coral-hover)] active:bg-[var(--color-brand-coral-hover)] shadow-xs font-semibold",
+      "bg-[var(--color-brand-coral-fill)] text-white hover:bg-[var(--color-brand-coral-hover)] active:bg-[var(--color-brand-coral-hover)] shadow-xs font-semibold",
   }
 
   const sizeStyles = {

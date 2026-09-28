@@ -25,7 +25,7 @@ export default function LatestNewsSidebar({ onSubscribe }: LatestNewsSidebarProp
       <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-5 shadow-sm">
         <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--color-border-subtle)]">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[var(--color-brand-coral)] animate-ping" />
+            <span className="w-2 h-2 rounded-full bg-[var(--color-brand-coral-fill)] animate-ping" />
             <h3
               className="font-serif text-lg font-semibold text-[var(--color-ink)]"
             >

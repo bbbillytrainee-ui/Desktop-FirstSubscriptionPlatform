@@ -461,7 +461,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             <div className="w-9 h-9 rounded-full border-2 border-white bg-[var(--color-brand-teal)] flex items-center justify-center font-bold text-xs shadow-md">
               DR
             </div>
-            <div className="w-9 h-9 rounded-full border-2 border-white bg-[var(--color-brand-coral)] flex items-center justify-center font-bold text-xs shadow-md">
+            <div className="w-9 h-9 rounded-full border-2 border-white bg-[var(--color-brand-coral-fill)] flex items-center justify-center font-bold text-xs shadow-md">
               AP
             </div>
             <div className="w-9 h-9 rounded-full border-2 border-white bg-emerald-700 flex items-center justify-center font-bold text-xs shadow-md">

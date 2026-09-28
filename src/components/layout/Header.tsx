@@ -362,7 +362,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
               className="px-3 py-2 text-sm font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-coral)] transition-all rounded-md hover:bg-[var(--color-surface)] relative group"
             >
               Advertise
-              <span className="absolute bottom-1 left-3 right-3 h-0.5 bg-[var(--color-brand-coral)] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left rounded-full" />
+              <span className="absolute bottom-1 left-3 right-3 h-0.5 bg-[var(--color-brand-coral-fill)] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left rounded-full" />
             </button>
 
             {/* 3. Subscriptions */}
@@ -434,7 +434,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
             {onJoin && (
               <button
                 onClick={onJoin}
-                className="h-9 px-4 text-xs font-semibold text-white bg-[var(--color-brand-coral)] hover:bg-[var(--color-brand-coral-hover)] rounded-md transition-colors flex items-center gap-1.5 group cursor-pointer whitespace-nowrap"
+                className="h-9 px-4 text-xs font-semibold text-white bg-[var(--color-brand-coral-fill)] hover:bg-[var(--color-brand-coral-hover)] rounded-md transition-colors flex items-center gap-1.5 group cursor-pointer whitespace-nowrap"
               >
                 <span>Join the network</span>
                 <span aria-hidden="true" className="group-hover:translate-x-0.5 transition-transform">→</span>

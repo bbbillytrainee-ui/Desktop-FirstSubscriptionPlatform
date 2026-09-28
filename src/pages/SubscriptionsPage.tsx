@@ -72,7 +72,7 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
                 {tier.badge && (
                   <div className="absolute -top-3.5 right-6">
                     <span className={`text-[11px] font-bold px-3 py-1 rounded-full text-white tracking-wide uppercase font-mono shadow-xs ${
-                      tier.popular ? "bg-[var(--color-brand-coral)]" : "bg-[var(--color-brand-teal)]"
+                      tier.popular ? "bg-[var(--color-brand-coral-fill)]" : "bg-[var(--color-brand-teal)]"
                     }`}>
                       {tier.badge}
                     </span>

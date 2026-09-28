@@ -683,7 +683,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
               key={i}
               onClick={() => goToSpread(i)}
               className={`h-2 rounded-full transition-all cursor-pointer ${
-                i === currentSpread ? "w-6 bg-[var(--color-brand-coral)]" : "w-2 bg-white/40 hover:bg-white/70"
+                i === currentSpread ? "w-6 bg-[var(--color-brand-coral-fill)]" : "w-2 bg-white/40 hover:bg-white/70"
               }`}
               aria-label={`Go to spread ${i + 1}`}
             />

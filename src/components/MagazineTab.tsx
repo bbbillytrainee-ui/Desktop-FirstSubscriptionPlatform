@@ -750,7 +750,7 @@ function ArticleModal({
               {/* Audio Listen */}
               <button
                 onClick={() => onPlayAudio(article)}
-                className="flex items-center gap-1.5 px-3 py-1 bg-[var(--color-brand-coral)] text-white rounded text-xs font-semibold hover:bg-[var(--color-brand-coral-hover)] transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1 bg-[var(--color-brand-coral-fill)] text-white rounded text-xs font-semibold hover:bg-[var(--color-brand-coral-hover)] transition-colors"
               >
                 <span>🔊 Listen ({article.audioTime})</span>
               </button>
@@ -1111,7 +1111,7 @@ export default function MagazineTab() {
           >
             <span>📓 Notebook</span>
             {savedArticles.length > 0 && (
-              <span className="w-4 h-4 rounded-full bg-[var(--color-brand-coral)] text-white font-bold text-[11px] flex items-center justify-center">
+              <span className="w-4 h-4 rounded-full bg-[var(--color-brand-coral-fill)] text-white font-bold text-[11px] flex items-center justify-center">
                 {savedArticles.length}
               </span>
             )}
@@ -1158,7 +1158,7 @@ export default function MagazineTab() {
             key={cat}
             onClick={() => setActiveCategory(cat)}
             className={`px-3 py-1 text-xs rounded-full border transition-colors ${
-              activeCategory === cat ? "bg-[var(--color-brand-coral)] text-white font-semibold border-[var(--color-brand-coral)]" : "border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:border-[var(--color-brand-teal)]"
+              activeCategory === cat ? "bg-[var(--color-brand-coral-fill)] text-white font-semibold border-[var(--color-brand-coral)]" : "border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:border-[var(--color-brand-teal)]"
             }`}
           >
             {cat}
@@ -1229,7 +1229,7 @@ export default function MagazineTab() {
                         </div>
                         <button
                           onClick={(e) => { e.stopPropagation(); setActiveAudioArticle(heroArticle); }}
-                          className="px-2.5 py-1 bg-[var(--color-brand-coral)]/20 text-[var(--color-ink)] rounded font-semibold text-[11px] hover:bg-[var(--color-brand-coral)]"
+                          className="px-2.5 py-1 bg-[var(--color-brand-coral)]/20 text-[var(--color-ink)] rounded font-semibold text-[11px] hover:bg-[var(--color-brand-coral-fill)]"
                         >
                           🔊 Listen
                         </button>
@@ -1267,7 +1267,7 @@ export default function MagazineTab() {
                       <span className="text-[11px] font-medium text-[var(--color-ink)]">{article.byline}</span>
                       <button
                         onClick={(e) => { e.stopPropagation(); setActiveAudioArticle(article); }}
-                        className="text-[11px] px-2 py-0.5 bg-[var(--color-surface)] hover:bg-[var(--color-brand-coral)] rounded font-medium transition-colors"
+                        className="text-[11px] px-2 py-0.5 bg-[var(--color-surface)] hover:bg-[var(--color-brand-coral-fill)] rounded font-medium transition-colors"
                       >
                         🔊 Brief
                       </button>
@@ -1315,7 +1315,7 @@ export default function MagazineTab() {
           {/* Digests Briefings */}
           <div className="p-5 border border-[var(--color-border-subtle)] rounded bg-card shadow-sm">
             <div className="flex items-center gap-2 mb-4 pb-2 border-b border-[var(--color-border-subtle)]">
-              <div className="w-3 h-px bg-[var(--color-brand-coral)]" />
+              <div className="w-3 h-px bg-[var(--color-brand-coral-fill)]" />
               <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-ink)]">Curated Digests</span>
             </div>
             <div className="space-y-2">
@@ -1326,7 +1326,7 @@ export default function MagazineTab() {
                     <div className="text-[11px] text-[var(--color-slate-muted)]">{d.date} · {d.items} briefings</div>
                   </div>
                   {d.unread > 0 && (
-                    <span className="w-5 h-5 rounded-full bg-[var(--color-brand-coral)] text-white text-[11px] font-bold flex items-center justify-center">
+                    <span className="w-5 h-5 rounded-full bg-[var(--color-brand-coral-fill)] text-white text-[11px] font-bold flex items-center justify-center">
                       {d.unread}
                     </span>
                   )}
@@ -1338,7 +1338,7 @@ export default function MagazineTab() {
           {/* Top Industry Contributors */}
           <div className="p-5 border border-[var(--color-border-subtle)] rounded bg-card shadow-sm">
             <div className="flex items-center gap-2 mb-4 pb-2 border-b border-[var(--color-border-subtle)]">
-              <div className="w-3 h-px bg-[var(--color-brand-coral)]" />
+              <div className="w-3 h-px bg-[var(--color-brand-coral-fill)]" />
               <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-ink)]">Top Key Contributors</span>
             </div>
             <div className="space-y-3">

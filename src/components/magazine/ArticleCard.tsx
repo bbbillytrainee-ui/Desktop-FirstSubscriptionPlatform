@@ -46,7 +46,7 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
               onClick={handleBookmark}
               className={`p-2 rounded-full backdrop-blur-md transition-all cursor-pointer ${
                 isSaved
-                  ? "bg-[var(--color-brand-coral)] text-white shadow-md"
+                  ? "bg-[var(--color-brand-coral-fill)] text-white shadow-md"
                   : "bg-black/40 text-white/80 hover:text-white hover:bg-black/60"
               }`}
               title={isSaved ? "Saved" : "Save article"}
@@ -105,7 +105,7 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
             onClick={handleBookmark}
             className={`absolute top-2 right-2 p-1.5 rounded-full backdrop-blur-md transition-all cursor-pointer z-10 ${
               isSaved
-                ? "bg-[var(--color-brand-coral)] text-white"
+                ? "bg-[var(--color-brand-coral-fill)] text-white"
                 : "bg-black/40 text-white/80 hover:text-white"
             }`}
             title={isSaved ? "Saved" : "Save article"}
@@ -158,7 +158,7 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
 
         <div className="absolute top-3 right-3 flex items-center gap-1.5 z-10">
           {article.isLocked && (
-            <div className="font-mono bg-[var(--color-brand-coral)] text-white text-[11px] font-semibold uppercase px-2 py-0.5 rounded-md shadow-sm">
+            <div className="font-mono bg-[var(--color-brand-coral-fill)] text-white text-[11px] font-semibold uppercase px-2 py-0.5 rounded-md shadow-sm">
               Pro Issue
             </div>
           )}
@@ -166,7 +166,7 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
             onClick={handleBookmark}
             className={`p-1.5 rounded-full backdrop-blur-md transition-all cursor-pointer ${
               isSaved
-                ? "bg-[var(--color-brand-coral)] text-white shadow-xs"
+                ? "bg-[var(--color-brand-coral-fill)] text-white shadow-xs"
                 : "bg-black/40 text-white/80 hover:text-white hover:bg-black/60"
             }`}
             title={isSaved ? "Saved" : "Save article"}

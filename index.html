@@ -10,6 +10,19 @@
     <meta property="og:description" content="Curated intelligence dossiers, 3D flipbook magazine editions, and verified peer introductions across Indian and APAC Life Sciences." />
     <meta property="og:type" content="website" />
     <meta name="theme-color" content="#0D3B4A" />
+    <!-- Apply the saved/system theme before first paint so dark mode never flashes light.
+         Keep the storage key in sync with src/lib/theme.tsx. -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("mediverse_theme")
+          if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+          var root = document.documentElement
+          if (t === "dark") root.classList.add("dark")
+          root.setAttribute("data-theme", t)
+        } catch (e) {}
+      })()
+    </script>
   </head>
   <body>
     <!-- figma:body-start -->

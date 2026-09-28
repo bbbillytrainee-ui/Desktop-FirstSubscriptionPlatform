@@ -76,14 +76,14 @@ export default function ArchivePage({ onJoin, onNavigate }: ArchivePageProps) {
                       {issue.month}
                     </span>
                     {isLastMonth && (
-                      <span className="font-mono text-[11px] font-bold bg-[var(--color-brand-coral)] text-white px-2 py-0.5 rounded-sm flex items-center gap-1 shadow-sm">
+                      <span className="font-mono text-[11px] font-bold bg-[var(--color-brand-coral-fill)] text-white px-2 py-0.5 rounded-sm flex items-center gap-1 shadow-sm">
                         <Flame size={10} /> Last Month&apos;s Hit
                       </span>
                     )}
                   </div>
 
                   <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white">
-                    <span className="font-mono text-[11px] font-semibold flex items-center gap-1.5 bg-[var(--color-brand-coral)] px-2.5 py-1 rounded-sm shadow-md">
+                    <span className="font-mono text-[11px] font-semibold flex items-center gap-1.5 bg-[var(--color-brand-coral-fill)] px-2.5 py-1 rounded-sm shadow-md">
                       <BookOpen size={13} /> Open 3D Flipbook Reader
                     </span>
                   </div>

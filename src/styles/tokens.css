@@ -8,7 +8,8 @@
   --color-brand-teal-mid: #1A5C72;
   --color-brand-teal-light: #2A8FA8;
   --color-brand-teal-glow: rgba(13, 59, 74, 0.12);
-  --color-brand-coral: #D0603D;
+  --color-brand-coral: #D0603D;       /* text, borders, tints — lightens in dark mode */
+  --color-brand-coral-fill: #D0603D;  /* solid fills under white text (4.95:1) — same in both themes */
   --color-brand-coral-hover: #B84E2E;
   --color-brand-coral-light: #FAE8E2;
   --color-brand-coral-glow: rgba(208, 96, 61, 0.10);
@@ -53,7 +54,8 @@ html.dark {
   --color-card: #0D323E;
   --color-border-subtle: rgba(255, 255, 255, 0.12);
   --color-slate-muted: #94A3B8;
-  --color-brand-teal: #38BDF8;
+  --color-brand-teal: #5FB3C4;   /* brand teal lifted for dark bg (7.2:1), not generic sky blue */
+  --color-brand-coral: #E8876A;  /* coral text/borders on dark bg (6.5:1); fills keep --color-brand-coral-fill */
   --color-brand-coral-light: rgba(208, 96, 61, 0.2);
 }
 

@@ -29,11 +29,11 @@ export default function TaxonomyNav({
         >
           <div className="flex items-center gap-2 shrink-0">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-brand-coral)] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-brand-coral)]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-brand-coral-fill)] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-brand-coral-fill)]"></span>
             </span>
             <span
-              className="font-mono text-[11px] font-bold uppercase tracking-widest bg-[var(--color-brand-coral)] text-white px-2 py-0.5 rounded-xs shrink-0 shadow-xs"
+              className="font-mono text-[11px] font-bold uppercase tracking-widest bg-[var(--color-brand-coral-fill)] text-white px-2 py-0.5 rounded-xs shrink-0 shadow-xs"
             >
               DISPATCH
             </span>

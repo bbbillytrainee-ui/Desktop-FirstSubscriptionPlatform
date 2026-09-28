@@ -50,7 +50,7 @@ export default function VideosPage({ onJoin, onNavigate }: VideosPageProps) {
             {/* Play Button Overlay */}
             <button
               onClick={() => setIsPlaying(v => !v)}
-              className="relative z-10 w-20 h-20 rounded-full bg-[var(--color-brand-coral)] hover:bg-[#b84e2e] text-white flex items-center justify-center text-3xl shadow-[0_0_40px_rgba(208,96,61,0.6)] cursor-pointer transition-all hover:scale-110"
+              className="relative z-10 w-20 h-20 rounded-full bg-[var(--color-brand-coral-fill)] hover:bg-[#b84e2e] text-white flex items-center justify-center text-3xl shadow-[0_0_40px_rgba(208,96,61,0.6)] cursor-pointer transition-all hover:scale-110"
               aria-label="Play Video"
             >
               {isPlaying ? "❚❚" : "▶"}
@@ -119,7 +119,7 @@ export default function VideosPage({ onJoin, onNavigate }: VideosPageProps) {
                 <span className="font-mono absolute bottom-2 right-2 bg-black/80 text-white text-[11px] px-2 py-0.5 rounded-sm">
                   {video.duration}
                 </span>
-                <span className="absolute top-2 left-2 bg-[var(--color-brand-coral)] text-white text-[11px] uppercase font-bold px-1.5 py-0.2 rounded-sm">
+                <span className="absolute top-2 left-2 bg-[var(--color-brand-coral-fill)] text-white text-[11px] uppercase font-bold px-1.5 py-0.2 rounded-sm">
                   {video.category}
                 </span>
               </div>

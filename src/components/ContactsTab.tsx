@@ -39,7 +39,7 @@ function ContactDrawer({ contact, onClose }: { contact: Profile; onClose: () => 
             {/* Badge */}
             <div className="flex items-center gap-2 mb-6">
               {contact.isContributor ? (
-                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full" style={{ background: "var(--color-brand-coral)", color: "#FFFFFF" }}>
+                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full" style={{ background: "var(--color-brand-coral-fill)", color: "#FFFFFF" }}>
                   Contributor
                 </span>
               ) : (
@@ -188,7 +188,7 @@ export default function ContactsTab() {
           <div className="flex items-center gap-2">
             <span
               className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full"
-              style={{ background: "var(--color-brand-coral)", color: "#FFFFFF" }}
+              style={{ background: "var(--color-brand-coral-fill)", color: "#FFFFFF" }}
             >
               Contributor
             </span>
@@ -231,7 +231,7 @@ export default function ContactsTab() {
                 {contact.isContributor ? (
                   <span
                     className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full flex-shrink-0"
-                    style={{ background: "var(--color-brand-coral)", color: "#FFFFFF" }}
+                    style={{ background: "var(--color-brand-coral-fill)", color: "#FFFFFF" }}
                   >
                     Contributor
                   </span>

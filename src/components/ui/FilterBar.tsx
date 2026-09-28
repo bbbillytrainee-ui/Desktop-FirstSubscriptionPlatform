@@ -21,7 +21,7 @@ export default function FilterBar({ options, activeId, onChange, className = "" 
             onClick={() => onChange(option.id)}
             className={`font-mono text-xs px-3 py-1.5 rounded-sm whitespace-nowrap transition-colors select-none ${
               isActive
-                ? "bg-[var(--color-brand-coral)] text-white font-medium"
+                ? "bg-[var(--color-brand-coral-fill)] text-white font-medium"
                 : "bg-card text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] border border-[var(--color-border-subtle)]"
             }`}
           >

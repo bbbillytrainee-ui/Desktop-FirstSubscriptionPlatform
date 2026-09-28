@@ -70,7 +70,7 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
                 </span>
                 {isPlaying && (
                   <span className="flex items-center gap-1 text-[11px] font-mono text-[var(--color-brand-coral)] bg-orange-50 px-2 py-0.5 rounded border border-orange-200">
-                    <span className="inline-block w-1.5 h-1.5 bg-[var(--color-brand-coral)] rounded-full animate-ping" />
+                    <span className="inline-block w-1.5 h-1.5 bg-[var(--color-brand-coral-fill)] rounded-full animate-ping" />
                     PLAYING NOW
                   </span>
                 )}
@@ -189,7 +189,7 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
             <button
               onClick={togglePlay}
               aria-label={isPlaying ? "Pause episode" : "Play episode"}
-              className="w-10 h-10 rounded-full bg-[var(--color-brand-coral)] hover:bg-[var(--color-brand-coral-hover)] text-white flex items-center justify-center font-bold text-sm cursor-pointer shadow-md transition-transform active:scale-95"
+              className="w-10 h-10 rounded-full bg-[var(--color-brand-coral-fill)] hover:bg-[var(--color-brand-coral-hover)] text-white flex items-center justify-center font-bold text-sm cursor-pointer shadow-md transition-transform active:scale-95"
             >
               {isPlaying ? <Pause size={15} /> : <Play size={15} className="translate-x-0.5" />}
             </button>
