@@ -64,7 +64,7 @@ export default function EventsPage({ onJoin, onNavigate }: EventsPageProps) {
               onClick={() => setSelectedType(type)}
               className={`px-4 py-2 text-xs font-medium rounded-sm whitespace-nowrap transition-colors cursor-pointer ${
                 selectedType === type
-                  ? "bg-[var(--color-brand-teal)] text-white font-semibold"
+                  ? "bg-[var(--color-brand-teal)] text-[var(--color-paper)] font-semibold"
                   : "bg-card border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)]"
               }`}
             >

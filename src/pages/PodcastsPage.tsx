@@ -95,7 +95,7 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
 
             {/* Guest Profile Card & Big Play Trigger */}
             <div className="lg:col-span-4 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm p-6 flex flex-col items-center text-center">
-              <div className="w-16 h-16 rounded-full bg-[var(--color-brand-teal)] text-white flex items-center justify-center font-bold text-lg mb-3 shadow-md">
+              <div className="w-16 h-16 rounded-full bg-[var(--color-brand-teal)] text-[var(--color-paper)] flex items-center justify-center font-bold text-lg mb-3 shadow-md">
                 {activeEpisode.guest.split(" ").map(n => n[0]).join("")}
               </div>
               <h4 className="text-sm font-semibold text-[var(--color-ink)]">{activeEpisode.guest}</h4>

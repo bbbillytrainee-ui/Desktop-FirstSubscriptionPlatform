@@ -64,7 +64,7 @@ export default function LastMonthTrending({
 
         <button
           onClick={() => onOpenIssueFlipbook(lastMonthIssue)}
-          className="font-mono px-4 py-2.5 bg-[var(--color-brand-teal)] text-white text-xs font-semibold rounded-sm hover:bg-[var(--color-brand-teal-dark)] transition-all flex items-center gap-2 shrink-0 cursor-pointer shadow-xs"
+          className="font-mono min-h-11 px-4 py-2.5 bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-xs font-semibold rounded-sm hover:bg-[var(--color-brand-teal-dark)] transition-all flex items-center gap-2 shrink-0 cursor-pointer shadow-xs"
         >
           <BookOpen size={14} className="text-amber-200" />
           <span>Launch {lastMonthIssue.month.split(" ")[0]} Issue (3D)</span>
@@ -139,7 +139,7 @@ export default function LastMonthTrending({
               >
                 <div className="flex items-start gap-3.5 flex-1 min-w-0">
                   {/* Rank Number */}
-                  <div className="w-9 h-9 rounded-sm bg-[var(--color-surface)] group-hover:bg-[var(--color-brand-teal)] group-hover:text-white transition-colors flex items-center justify-center font-mono font-bold text-sm text-[var(--color-slate-muted)] shrink-0">
+                  <div className="w-9 h-9 rounded-sm bg-[var(--color-surface)] group-hover:bg-[var(--color-brand-teal)] group-hover:text-[var(--color-paper)] transition-colors flex items-center justify-center font-mono font-bold text-sm text-[var(--color-slate-muted)] shrink-0">
                     {meta.rank}
                   </div>
 

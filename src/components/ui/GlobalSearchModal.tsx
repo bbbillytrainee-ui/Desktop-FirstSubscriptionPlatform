@@ -99,7 +99,7 @@ export default function GlobalSearchModal({ isOpen, onClose, onNavigate }: Globa
               onClick={() => setActiveFilter(f)}
               className={`px-2.5 py-1 rounded-sm capitalize transition-colors ${
                 activeFilter === f
-                  ? "bg-[var(--color-brand-teal)] text-white font-semibold"
+                  ? "bg-[var(--color-brand-teal)] text-[var(--color-paper)] font-semibold"
                   : "text-[var(--color-slate-muted)] hover:bg-[var(--color-surface)]"
               }`}
             >

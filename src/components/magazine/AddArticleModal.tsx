@@ -177,7 +177,7 @@ export default function AddArticleModal({ isOpen, onClose, onAddArticle }: AddAr
               ref={fileInputRef}
               accept="image/*"
               onChange={handleFileChange}
-              className="w-full text-xs text-[var(--color-slate-muted)] file:mr-3 file:py-1.5 file:px-3 file:rounded-sm file:border-0 file:text-xs file:font-semibold file:bg-[var(--color-brand-teal)] file:text-white hover:file:brightness-110 cursor-pointer"
+              className="w-full text-xs text-[var(--color-slate-muted)] file:mr-3 file:py-1.5 file:px-3 file:rounded-sm file:border-0 file:text-xs file:font-semibold file:bg-[var(--color-brand-teal)] file:text-[var(--color-paper)] hover:file:brightness-110 cursor-pointer"
             />
           </div>
 

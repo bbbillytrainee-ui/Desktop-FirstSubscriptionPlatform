@@ -52,7 +52,8 @@ export default function TaxonomyNav({
           <div
             role="group"
             aria-label="Filter by topic"
-            className="flex items-center gap-1.5 overflow-x-auto py-1.5 min-w-0 w-full lg:w-auto snap-x snap-mandatory scroll-px-4"
+            // Right-edge fade signals the row scrolls; pr-8 lets the last chip clear the fade
+            className="flex items-center gap-1.5 overflow-x-auto py-2 pr-8 min-w-0 w-full lg:w-auto snap-x snap-mandatory scroll-px-4 [mask-image:linear-gradient(to_right,#000_calc(100%-40px),transparent)]"
             style={{ scrollbarWidth: "none" }}
           >
             {TOPICS.map(topic => {
@@ -64,7 +65,7 @@ export default function TaxonomyNav({
                   type="button"
                   aria-pressed={isSelected}
                   onClick={() => onSelectTopic?.(topic.id)}
-                  className={`snap-start px-3 py-1.5 whitespace-nowrap text-xs font-medium transition-colors duration-200 rounded-full cursor-pointer shrink-0 flex items-center gap-1.5 border ${
+                  className={`relative snap-start px-3 min-h-9 whitespace-nowrap before:absolute before:inset-x-0 before:-inset-y-1.5 before:content-[''] text-xs font-medium transition-colors duration-200 rounded-full cursor-pointer shrink-0 flex items-center gap-1.5 border ${
                     isSelected
                       ? "bg-white text-[#0D3B4A] font-semibold border-white"
                       : "text-white/85 hover:text-white hover:bg-white/15 bg-white/5 border-white/10"

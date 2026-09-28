@@ -44,19 +44,19 @@ export default function Footer({ onNavigate }: FooterProps) {
             >
               Magazine & Editorial
             </span>
-            <button onClick={() => handleNav("magazine")} className="text-left text-xs text-stone-400 hover:text-white transition-colors">
+            <button onClick={() => handleNav("magazine")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Current Issue (Flipbook Reader)
             </button>
-            <button onClick={() => handleNav("archive")} className="text-left text-xs text-stone-400 hover:text-white transition-colors">
+            <button onClick={() => handleNav("archive")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Digital Issue Archive
             </button>
-            <button onClick={() => handleNav("thought-leadership")} className="text-left text-xs text-stone-400 hover:text-white transition-colors">
+            <button onClick={() => handleNav("thought-leadership")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Thought Leadership Columns
             </button>
-            <button onClick={() => handleNav("interviews")} className="text-left text-xs text-stone-400 hover:text-white transition-colors">
+            <button onClick={() => handleNav("interviews")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Special Executive Interviews
             </button>
-            <button onClick={() => handleNav("press-release")} className="text-left text-xs text-stone-400 hover:text-white transition-colors">
+            <button onClick={() => handleNav("press-release")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Submit Press Release
             </button>
           </div>
@@ -68,19 +68,19 @@ export default function Footer({ onNavigate }: FooterProps) {
             >
               Industry & Events
             </span>
-            <button onClick={() => handleNav("reports")} className="text-left text-xs text-stone-400 hover:text-white transition-colors">
+            <button onClick={() => handleNav("reports")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Research Reports
             </button>
-            <button onClick={() => handleNav("webinars")} className="text-left text-xs text-stone-400 hover:text-white transition-colors">
+            <button onClick={() => handleNav("webinars")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Webinars & Masterclasses
             </button>
-            <button onClick={() => handleNav("events")} className="text-left text-xs text-stone-400 hover:text-white transition-colors">
+            <button onClick={() => handleNav("events")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Events & Conclaves
             </button>
-            <button onClick={() => handleNav("regulatory-navigator")} className="text-left text-xs text-stone-400 hover:text-white transition-colors">
+            <button onClick={() => handleNav("regulatory-navigator")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Regulatory Navigator
             </button>
-            <button onClick={() => handleNav("trends")} className="text-left text-xs text-stone-400 hover:text-white transition-colors">
+            <button onClick={() => handleNav("trends")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Trend Telemetry
             </button>
           </div>
@@ -92,26 +92,26 @@ export default function Footer({ onNavigate }: FooterProps) {
             >
               Network & Corporate
             </span>
-            <button onClick={() => handleNav("subscriptions")} className="text-left text-xs font-semibold text-white hover:text-[var(--color-brand-coral)] transition-colors">
+            <button onClick={() => handleNav("subscriptions")} className="inline-flex items-center min-h-11 md:min-h-0 text-left text-sm md:text-xs font-semibold text-white hover:text-[var(--color-brand-coral)] transition-colors">
               Subscriptions & Packages →
             </button>
-            <button onClick={() => handleNav("referral")} className="text-left text-xs text-[var(--color-brand-coral)] font-semibold hover:underline transition-colors">
+            <button onClick={() => handleNav("referral")} className="inline-flex items-center min-h-11 md:min-h-0 text-left text-sm md:text-xs text-[var(--color-brand-coral)] font-semibold hover:underline transition-colors">
               🎁 Colleague Referral Program
             </button>
 
-            <button onClick={() => handleNav("professionals")} className="text-left text-xs text-stone-400 hover:text-white transition-colors">
+            <button onClick={() => handleNav("professionals")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               For Verified Professionals
             </button>
-            <button onClick={() => handleNav("companies")} className="text-left text-xs text-stone-400 hover:text-white transition-colors">
+            <button onClick={() => handleNav("companies")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               For Enterprise Teams
             </button>
-            <button onClick={() => handleNav("vendors")} className="text-left text-xs text-stone-400 hover:text-white transition-colors">
+            <button onClick={() => handleNav("vendors")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               CDMO & Partner Directory
             </button>
-            <button onClick={() => handleNav("advertise")} className="text-left text-xs text-stone-400 hover:text-white transition-colors">
+            <button onClick={() => handleNav("advertise")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Advertise / Media Kit
             </button>
-            <button onClick={() => handleNav("about")} className="text-left text-xs text-stone-400 hover:text-white transition-colors">
+            <button onClick={() => handleNav("about")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               About Mediverse Life Sciences
             </button>
           </div>

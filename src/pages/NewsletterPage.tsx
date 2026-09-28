@@ -162,7 +162,7 @@ export default function NewsletterPage({ onJoin, onNavigate }: NewsletterPagePro
                   onClick={() => setActivePreview(ed)}
                   className={`px-3 py-1.5 text-xs font-medium rounded-sm whitespace-nowrap transition-colors ${
                     activePreview.id === ed.id
-                      ? "bg-[var(--color-brand-teal)] text-white font-semibold"
+                      ? "bg-[var(--color-brand-teal)] text-[var(--color-paper)] font-semibold"
                       : "bg-card border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)]"
                   }`}
                 >

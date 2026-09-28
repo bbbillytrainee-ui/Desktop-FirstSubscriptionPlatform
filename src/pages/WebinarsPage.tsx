@@ -57,7 +57,7 @@ export default function WebinarsPage({ onJoin, onNavigate }: WebinarsPageProps) 
 
               <div className="pt-4 border-t border-[var(--color-border-subtle)]">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-[var(--color-brand-teal)] text-white flex items-center justify-center font-bold text-xs">
+                  <div className="w-10 h-10 rounded-full bg-[var(--color-brand-teal)] text-[var(--color-paper)] flex items-center justify-center font-bold text-xs">
                     {webinar.speaker.split(" ").map(n => n[0]).join("")}
                   </div>
                   <div>

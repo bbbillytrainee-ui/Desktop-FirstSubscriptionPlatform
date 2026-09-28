@@ -11,7 +11,7 @@ export default function Badge({ type, label, className = "" }: BadgeProps) {
     member: "bg-transparent text-[var(--color-slate-muted)] border-[var(--color-slate-muted)]/40 font-normal",
     pro: "bg-[var(--color-brand-coral)]/15 text-[var(--color-brand-coral)] border-[var(--color-brand-coral)]/40 font-semibold",
     free: "bg-[var(--color-slate-muted)]/10 text-[var(--color-slate-muted)] border-transparent font-normal",
-    enterprise: "bg-[var(--color-brand-teal)] text-white border-transparent font-semibold",
+    enterprise: "bg-[var(--color-brand-teal)] text-[var(--color-paper)] border-transparent font-semibold",
   }
 
   const defaultLabels = {

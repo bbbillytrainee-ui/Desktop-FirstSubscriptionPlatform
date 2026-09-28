@@ -89,7 +89,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
   }
 
   return (
-    <article className="max-w-[var(--article-max)] mx-auto px-4 md:px-6 py-8">
+    <article className="max-w-[var(--article-max)] mx-auto px-4 md:px-6 pt-8 pb-28 md:pb-8">
       {/* Reading progress (transform only) */}
       <div
         role="progressbar"
@@ -106,7 +106,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
       </div>
 
       {showResume && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 toast-enter flex items-center gap-1 pl-4 pr-1.5 py-1.5 rounded-full bg-[var(--color-section-dark)] text-white shadow-overlay text-sm">
+        <div className="fixed bottom-24 md:bottom-6 left-1/2 -translate-x-1/2 z-40 toast-enter flex items-center gap-1 pl-4 pr-1.5 py-1.5 rounded-full bg-[var(--color-section-dark)] text-white shadow-overlay text-sm">
           <button
             type="button"
             onClick={() => {
@@ -133,7 +133,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
         {onClose && (
           <button
             onClick={onClose}
-            className="flex items-center gap-2 text-xs font-medium font-mono text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] transition-colors cursor-pointer"
+            className="hidden md:flex items-center gap-2 text-xs font-medium font-mono text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] transition-colors cursor-pointer"
           >
             ← Back
           </button>
@@ -142,7 +142,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
         <div className="flex items-center gap-2.5 ml-auto">
           <button
             onClick={handleBookmarkToggle}
-            className={`font-mono px-3 py-1.5 text-xs font-semibold rounded-sm border transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`max-md:hidden font-mono px-3 py-1.5 text-xs font-semibold rounded-sm border transition-all flex items-center gap-1.5 cursor-pointer ${
               isBookmarked
                 ? "bg-orange-50 border-[var(--color-brand-coral)] text-[var(--color-brand-coral)]"
                 : "bg-card border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] hover:border-[var(--color-ink)]"
@@ -155,7 +155,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
 
           <button
             onClick={handleShare}
-            className="font-mono px-3 py-1.5 bg-card border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] hover:border-[var(--color-ink)] text-xs font-semibold rounded-sm transition-all flex items-center gap-1.5 cursor-pointer"
+            className="max-md:hidden font-mono px-3 py-1.5 bg-card border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] hover:border-[var(--color-ink)] text-xs font-semibold rounded-sm transition-all flex items-center gap-1.5 cursor-pointer"
             title="Share or copy direct link"
           >
             <Share2 size={14} />
@@ -165,7 +165,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
           {onOpenFlipbook && (
             <button
               onClick={onOpenFlipbook}
-              className="font-mono px-3 py-1.5 bg-[var(--color-brand-teal)] text-white text-xs font-semibold rounded-sm shadow-xs hover:bg-[var(--color-brand-teal-dark)] transition-all flex items-center gap-1.5 cursor-pointer"
+              className="font-mono min-h-11 px-3 py-1.5 bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-xs font-semibold rounded-sm shadow-xs hover:bg-[var(--color-brand-teal-dark)] transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <BookOpen size={14} className="text-amber-200" />
               <span>Open in 3D Reader</span>
@@ -278,6 +278,33 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
       <div className="my-8 p-4 bg-[var(--color-surface)] border-l-2 border-[var(--color-brand-teal)] text-xs text-[var(--color-slate-muted)] leading-relaxed">
         <strong className="text-[var(--color-ink)]">Professional Intelligence Disclaimer:</strong> Mediverse Life Sciences is a professional networking and intelligence publication. Articles, interviews, and commentary are published strictly for informational and professional decision-support purposes and do not constitute clinical guidance, regulatory endorsement, or medical advice.
       </div>
+      {/* Mobile: sticky thumb-reach actions */}
+      <div className="md:hidden fixed inset-x-0 bottom-0 z-40 bg-card/95 backdrop-blur-md border-t border-[var(--color-border-subtle)] pb-[env(safe-area-inset-bottom)]">
+        <div className="grid grid-cols-3">
+          {onClose && (
+            <button type="button" onClick={onClose} className="h-14 flex flex-col items-center justify-center gap-0.5 text-xs font-medium text-[var(--color-slate-muted)]">
+              <span aria-hidden="true" className="text-base leading-none">←</span>
+              Back
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={handleBookmarkToggle}
+            aria-pressed={isBookmarked}
+            className={`h-14 flex flex-col items-center justify-center gap-0.5 text-xs font-medium ${isBookmarked ? "text-[var(--color-brand-coral)]" : "text-[var(--color-slate-muted)]"}`}
+          >
+            <span key={String(isBookmarked)} className={isBookmarked ? "bookmark-pop inline-flex" : "inline-flex"}>
+              {isBookmarked ? <BookmarkFilled size={18} /> : <Bookmark size={18} />}
+            </span>
+            {isBookmarked ? "Saved" : "Save"}
+          </button>
+          <button type="button" onClick={handleShare} className="h-14 flex flex-col items-center justify-center gap-0.5 text-xs font-medium text-[var(--color-slate-muted)]">
+            <Share2 size={18} />
+            Share
+          </button>
+        </div>
+      </div>
+
       {onOpenArticle && (
         <section aria-labelledby="next-up-title" className="mt-12 pt-8 border-t border-[var(--color-border-subtle)]">
           <span className="block mb-2 font-mono text-eyebrow font-semibold uppercase text-[var(--color-brand-coral)]">Next up</span>

@@ -16,7 +16,7 @@ export default function TextLink({ tone = "brand", arrow = true, className = "",
   return (
     <button
       type="button"
-      className={`group inline-flex items-center gap-1 text-meta font-semibold transition-colors ${toneStyles[tone]} ${className}`}
+      className={`group relative inline-flex items-center gap-1 text-meta font-semibold transition-colors before:absolute before:-inset-x-1 before:-inset-y-3.5 before:content-[''] ${toneStyles[tone]} ${className}`}
       {...props}
     >
       <span>{children}</span>

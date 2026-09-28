@@ -60,7 +60,7 @@ export default function VideosPage({ onJoin, onNavigate }: VideosPageProps) {
             <div className="absolute bottom-6 left-6 right-6 z-10 text-white flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="font-mono bg-[var(--color-brand-teal)] text-white text-[11px] font-semibold uppercase px-2 py-0.5 rounded-sm">
+                  <span className="font-mono bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-[11px] font-semibold uppercase px-2 py-0.5 rounded-sm">
                     {activeVideo.category}
                   </span>
                   <span className="font-mono text-xs text-stone-300">
@@ -90,7 +90,7 @@ export default function VideosPage({ onJoin, onNavigate }: VideosPageProps) {
               onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 text-xs font-medium rounded-sm whitespace-nowrap transition-colors cursor-pointer ${
                 selectedCategory === cat
-                  ? "bg-[var(--color-brand-teal)] text-white font-semibold"
+                  ? "bg-[var(--color-brand-teal)] text-[var(--color-paper)] font-semibold"
                   : "bg-card border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)]"
               }`}
             >

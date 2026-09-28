@@ -1,8 +1,9 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useCallback } from "react"
 import Logo from "../brand/Logo"
 import Button from "../ui/Button"
 import GlobalSearchModal from "../ui/GlobalSearchModal"
 import BookmarksDrawer from "../modals/BookmarksDrawer"
+import MobileNavDrawer from "./MobileNavDrawer"
 import { BookmarkFilled } from "../ui/Icons"
 import { useBookmarks } from "../../lib/bookmarks"
 import { useTheme } from "../../lib/theme"
@@ -19,6 +20,8 @@ export interface HeaderProps {
 export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, onOpen3DReader }: HeaderProps) {
   const { theme, toggleTheme } = useTheme()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const closeMobileMenu = useCallback(() => setMobileMenuOpen(false), [])
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [searchOpen, setSearchOpen] = useState(false)
   const [bookmarksOpen, setBookmarksOpen] = useState(false)
@@ -87,7 +90,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
             type="button"
             onClick={() => handleNav("home")}
             aria-label="Mediverse home"
-            className="cursor-pointer shrink-0"
+            className="cursor-pointer shrink-0 min-h-11 flex items-center"
           >
             <Logo size="md" />
           </button>
@@ -305,7 +308,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
                       <div>
                         <div className="flex items-center justify-between mb-2">
                           <span
-                            className="font-mono text-[11px] font-bold uppercase tracking-wider bg-[var(--color-brand-teal)] text-white px-2 py-0.5 rounded-xs"
+                            className="font-mono text-[11px] font-bold uppercase tracking-wider bg-[var(--color-brand-teal)] text-[var(--color-paper)] px-2 py-0.5 rounded-xs"
                           >
                             ISSUE #48
                           </span>
@@ -328,7 +331,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
                       <div className="space-y-1 pt-2 border-t border-[var(--color-border-subtle)]">
                         <button
                           onClick={() => handleNav("magazine")}
-                          className="w-full text-left px-2.5 py-1.5 rounded-md bg-[var(--color-brand-teal)] hover:bg-[#08232D] text-white text-xs font-semibold transition-colors flex items-center justify-between group"
+                          className="w-full text-left px-2.5 py-1.5 rounded-md bg-[var(--color-brand-teal)] hover:bg-[#08232D] text-[var(--color-paper)] text-xs font-semibold transition-colors flex items-center justify-between group"
                         >
                           <span>Open 3D Reader</span>
                           <span className="group-hover:translate-x-0.5 transition-transform">→</span>
@@ -443,10 +446,10 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
           </div>
 
           {/* Mobile Actions: Search Icon + Theme Toggle + Hamburger */}
-          <div className="show-mobile-only flex items-center gap-2">
+          <div className="show-mobile-only flex items-center gap-0.5 -mr-2">
             <button
               onClick={toggleTheme}
-              className="p-2 text-[var(--color-ink)] rounded-full hover:bg-[var(--color-surface)] transition-colors"
+              className="w-11 h-11 flex items-center justify-center text-[var(--color-ink)] rounded-full hover:bg-[var(--color-surface)] transition-colors"
               title={`Switch to ${theme === "light" ? "Dark" : "Light"} mode`}
               aria-label="Toggle Theme"
             >
@@ -463,7 +466,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
 
             <button
               onClick={() => setSearchOpen(true)}
-              className="p-2 text-[var(--color-ink)] rounded-full hover:bg-[var(--color-surface)] transition-colors"
+              className="w-11 h-11 flex items-center justify-center text-[var(--color-ink)] rounded-full hover:bg-[var(--color-surface)] transition-colors"
               aria-label="Search"
             >
               <svg className="w-5 h-5 text-[var(--color-brand-teal)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -472,144 +475,51 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
             </button>
             
             <button
-              className="p-2 text-[var(--color-ink)] rounded-lg hover:bg-[var(--color-surface)] transition-colors flex items-center justify-center"
-              onClick={() => setMobileMenuOpen(v => !v)}
-              aria-label="Toggle Navigation Menu"
+              ref={menuButtonRef}
+              type="button"
+              className="w-11 h-11 text-[var(--color-ink)] rounded-full hover:bg-[var(--color-surface)] transition-colors flex items-center justify-center"
+              onClick={() => setMobileMenuOpen(true)}
+              aria-label="Open menu"
+              aria-haspopup="dialog"
+              aria-expanded={mobileMenuOpen}
             >
-              {mobileMenuOpen ? (
-                <span className="text-xl leading-none font-bold text-[var(--color-brand-teal)]">✕</span>
-              ) : (
-                <svg className="w-6 h-6 text-[var(--color-brand-teal)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
+              <svg className="w-6 h-6 text-[var(--color-brand-teal)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
             </button>
           </div>
 
         </div>
 
-        {/* Mobile Slide-down Menu Drawer */}
-        {mobileMenuOpen && (
-          <div className="show-mobile-only border-t border-[var(--color-border-subtle)] bg-card px-5 py-5 flex flex-col gap-5 animate-fade-up shadow-xl rounded-b-2xl mt-3">
-            
-            {/* Quick Search Button in Mobile Drawer */}
-            <button
-              onClick={() => { setSearchOpen(true); setMobileMenuOpen(false); }}
-              className="w-full py-2.5 px-3 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border-subtle)] flex items-center justify-between text-xs text-[var(--color-slate-muted)] font-medium"
-            >
-              <span className="flex items-center gap-2">
-                <svg className="w-4 h-4 text-[var(--color-brand-teal)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-                <span>Search articles, CDMOs, news...</span>
-              </span>
-              <kbd className="text-[11px] font-mono bg-card px-1.5 py-0.5 rounded border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] font-bold">⌘K</kbd>
-            </button>
 
-            {/* Editorial Intelligence */}
-            <div className="space-y-2">
-              <span className="text-[11px] font-mono uppercase tracking-wider font-bold text-[var(--color-brand-coral)] block">
-                Editorial & Magazine
-              </span>
-              <div className="grid grid-cols-2 gap-2">
-                <button 
-                  onClick={() => handleNav("magazine")} 
-                  className="text-left p-2 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border-subtle)] text-xs font-semibold text-[var(--color-ink)] hover:bg-[var(--color-surface)]"
-                >
-                  📖 Current Issue (3D)
-                </button>
-                <button 
-                  onClick={() => handleNav("archive")} 
-                  className="text-left p-2 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border-subtle)] text-xs font-medium text-[var(--color-ink)] hover:bg-[var(--color-surface)]"
-                >
-                  📚 Digital Archive
-                </button>
-                <button 
-                  onClick={() => handleNav("thought-leadership")} 
-                  className="text-left p-2 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border-subtle)] text-xs font-medium text-[var(--color-ink)] hover:bg-[var(--color-surface)]"
-                >
-                  ✍️ Submit Pitch
-                </button>
-                <button 
-                  onClick={() => handleNav("reports")} 
-                  className="text-left p-2 bg-[var(--color-surface)] rounded-lg border border-[var(--color-border-subtle)] text-xs font-medium text-[var(--color-ink)] hover:bg-[var(--color-surface)]"
-                >
-                  📊 Research Dossiers
-                </button>
-              </div>
-            </div>
-
-            {/* Industry Verticals */}
-            <div className="space-y-2 pt-3 border-t border-[var(--color-border-subtle)]">
-              <span className="text-[11px] font-mono uppercase tracking-wider font-bold text-[var(--color-brand-coral)] block">
-                Industry & Enterprise
-              </span>
-              <div className="grid grid-cols-2 gap-2">
-                <button onClick={() => handleNav("webinars")} className="text-left py-1.5 px-2 text-xs font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-teal)]">
-                  🎥 Webinars
-                </button>
-                <button onClick={() => handleNav("events")} className="text-left py-1.5 px-2 text-xs font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-teal)]">
-                  🗓️ Events & Conclaves
-                </button>
-                <button onClick={() => handleNav("press-release")} className="text-left py-1.5 px-2 text-xs font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-teal)]">
-                  📰 Press Releases
-                </button>
-                <button onClick={() => handleNav("vendors")} className="text-left py-1.5 px-2 text-xs font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-teal)]">
-                  🏢 CDMO Directory
-                </button>
-              </div>
-            </div>
-
-            {/* Network & Account */}
-            <div className="space-y-2 pt-3 border-t border-[var(--color-border-subtle)]">
-              <span className="text-[11px] font-mono uppercase tracking-wider font-bold text-[var(--color-brand-coral)] block">
-                Network Membership
-              </span>
-              <div className="flex flex-col gap-1.5">
-                <button onClick={() => handleNav("subscriptions")} className="w-full text-left py-1.5 px-2 text-xs font-semibold text-[var(--color-brand-teal)]">
-                  ✨ Subscriptions & Corporate Pricing
-                </button>
-                <button onClick={() => handleNav("advertise")} className="w-full text-left py-1.5 px-2 text-xs text-[var(--color-slate-muted)]">
-                  📢 Advertise With Us
-                </button>
-              </div>
-            </div>
-
-            {/* Buttons */}
-            <div className="pt-3 border-t border-[var(--color-border-subtle)] flex flex-col gap-2">
-              {onSignIn && (
-                <button 
-                  onClick={() => { setMobileMenuOpen(false); onSignIn() }}
-                  className="w-full py-2 text-xs font-semibold text-[var(--color-ink)] bg-[var(--color-surface)] rounded-lg text-center"
-                >
-                  Sign In
-                </button>
-              )}
-              {onJoin && (
-                <button 
-                  onClick={() => { setMobileMenuOpen(false); onJoin() }}
-                  className="w-full py-2.5 text-xs font-semibold text-white bg-gradient-to-r from-[var(--color-brand-coral)] to-[#B94E2C] rounded-lg text-center shadow-xs"
-                >
-                  Join the Network →
-                </button>
-              )}
-            </div>
-
-          </div>
-        )}
-        <BookmarksDrawer
-          isOpen={bookmarksOpen}
-          onClose={() => setBookmarksOpen(false)}
-          onSelectArticle={art => {
-            setBookmarksOpen(false)
-            if (onSelectArticle) onSelectArticle(art)
-            else handleNav(`article/${art.slug}`)
-          }}
-          onOpen3DReader={art => {
-            if (onOpen3DReader) onOpen3DReader(art)
-          }}
-        />
       </header>
+
+      {/* Rendered outside <header>: its backdrop-filter would become the containing block for these fixed panels */}
+      <BookmarksDrawer
+        isOpen={bookmarksOpen}
+        onClose={() => setBookmarksOpen(false)}
+        onSelectArticle={art => {
+          setBookmarksOpen(false)
+          if (onSelectArticle) onSelectArticle(art)
+          else handleNav(`article/${art.slug}`)
+        }}
+        onOpen3DReader={art => {
+          if (onOpen3DReader) onOpen3DReader(art)
+        }}
+      />
+      <MobileNavDrawer
+        open={mobileMenuOpen}
+        onClose={closeMobileMenu}
+        onNavigate={handleNav}
+        onSearch={() => setSearchOpen(true)}
+        onOpenSaved={() => setBookmarksOpen(true)}
+        savedCount={savedCount}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        onSignIn={onSignIn}
+        onJoin={onJoin}
+        triggerRef={menuButtonRef}
+      />
     </>
   )
 }

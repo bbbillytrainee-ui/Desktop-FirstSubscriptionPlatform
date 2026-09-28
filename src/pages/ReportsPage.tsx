@@ -147,7 +147,7 @@ export default function ReportsPage({ onJoin, onNavigate }: ReportsPageProps) {
               >
                 <div className="h-44 bg-stone-900 relative overflow-hidden">
                   <img src={rep.coverImage} alt={rep.title} className="w-full h-full object-cover opacity-75" />
-                  <span className="font-mono absolute top-2 left-2 bg-[var(--color-brand-teal)] text-white text-[11px] uppercase font-bold px-2 py-0.5 rounded-sm">
+                  <span className="font-mono absolute top-2 left-2 bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-[11px] uppercase font-bold px-2 py-0.5 rounded-sm">
                     {rep.category}
                   </span>
                   <span className="font-mono absolute bottom-2 right-2 bg-black/80 text-white text-[11px] px-2 py-0.5 rounded-sm">
