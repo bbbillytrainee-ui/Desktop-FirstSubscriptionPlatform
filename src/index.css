@@ -1,6 +1,9 @@
 @import './styles/tokens.css';
 @import 'tailwindcss';
 
+/* dark: follows the app's theme class (html.dark), not the OS preference */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @font-face {
   font-family: 'Fraunces';
   src: url('../ilearn-cri-brand-kit/fonts/Fraunces.subset.woff2') format('woff2'),
