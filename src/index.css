@@ -166,6 +166,8 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  /* side-entering reveals start 40px off-canvas; clip (not hidden) keeps position: sticky working */
+  overflow-x: clip;
 }
 
 /* Text selection in brand terracotta (terracotta-100 light; translucent terracotta-300 dark) */
@@ -352,19 +354,26 @@ html { scrollbar-color: var(--scroll-thumb) var(--surface-page); }
 .theme-sepia { background-color: #F4ECD8; color: #3B2F20; --reader-accent: #A6452A; }
 .theme-dark  { background-color: #121417; color: #E8E4DE; --reader-accent: #E8876A; }
 
-/* ── Scroll reveal (components/ui/Reveal.tsx) ── */
-.reveal {
+/* ── Scroll reveal (lib/useScrollReveal.ts) ──
+   [data-reveal] elements start offset + transparent and settle when they enter the viewport.
+   Hidden states exist only under html.reveal-ready (JS on, motion allowed). Stagger with --i
+   (× 90ms, capped) or an explicit --reveal-delay. Put data-reveal on wrappers, not on elements
+   that animate their own transform (cards lift on hover). */
+html.reveal-ready [data-reveal] {
   opacity: 0;
-  transform: translateY(14px);
   transition:
-    opacity var(--duration-slow) var(--ease-out) var(--reveal-delay, 0ms),
-    transform var(--duration-slow) var(--ease-out) var(--reveal-delay, 0ms);
+    opacity var(--duration-reveal) var(--ease-out),
+    transform var(--duration-reveal) var(--ease-out);
+  transition-delay: var(--reveal-delay, calc(min(var(--i, 0), 8) * 90ms));
 }
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
-}
+html.reveal-ready [data-reveal="up"]    { transform: translate3d(0, 32px, 0); }
+html.reveal-ready [data-reveal="left"]  { transform: translate3d(-40px, 0, 0); }
+html.reveal-ready [data-reveal="right"] { transform: translate3d(40px, 0, 0); }
+html.reveal-ready [data-reveal="scale"] { transform: translate3d(0, 24px, 0) scale(0.96); }
+html.reveal-ready [data-reveal="rise"]  { transform: translate3d(0, 48px, 0) rotate(-1.5deg); }
+/* hairline rules draw across instead of fading */
+html.reveal-ready [data-reveal="rule"]  { opacity: 1; transform: scaleX(0); transform-origin: left center; }
+html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
 
 /* ── Live feed arrival (LatestNewsSidebar) ── */
 @keyframes feedItemIn {
@@ -501,6 +510,70 @@ html { scrollbar-color: var(--scroll-thumb) var(--surface-page); }
   }
 }
 
+/* ── Reading progress bar (layout/ScrollProgress.tsx) ── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  height: 2px;
+  background: var(--accent-decor);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+/* ── Scroll-linked drift (scroll-driven animations; static where unsupported or reduced) ── */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Hero: as it scrolls away the cover lifts faster than the page, the lattice slower */
+    .hero-cover-drift {
+      animation: driftUp linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+    .hero-backdrop::before {
+      animation: latticeDrift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+    /* Teal bands: the glow travels across while the band is on screen */
+    .band-glow::before {
+      animation: glowTravel linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+    .join-band::before {
+      animation: latticeDrift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+    /* Footer wordmark rises into its slot as the footer arrives */
+    .footer-wordmark {
+      animation: wordmarkRise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+}
+
+@keyframes driftUp      { to { transform: translate3d(0, -60px, 0); } }
+@keyframes latticeDrift { from { transform: translate3d(0, 36px, 0); } to { transform: translate3d(0, -36px, 0); } }
+@keyframes glowTravel   { from { transform: translate3d(-18%, 10%, 0); } to { transform: translate3d(18%, -10%, 0); } }
+@keyframes wordmarkRise { from { transform: translate3d(0, 45%, 0); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* Glow layer for the teal "Core coverage" band */
+.band-glow::before {
+  content: "";
+  position: absolute;
+  inset: -20% -10%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 35% 45% at 70% 30%, rgba(208, 96, 61, 0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 50% at 25% 80%, rgba(95, 179, 196, 0.12) 0%, transparent 70%);
+}
+
 /* ── View transitions (topic filtering) ── */
 ::view-transition-old(root),
 ::view-transition-new(root) {
@@ -522,7 +595,7 @@ html { scrollbar-color: var(--scroll-thumb) var(--surface-page); }
   .match-card-deal,
   .animate-fade-up,
   .animate-slide-in-right,
-  .reveal {
+  [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
   }

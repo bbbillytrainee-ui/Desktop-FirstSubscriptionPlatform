@@ -8,6 +8,7 @@ import { RouterProvider, useRouter } from "./lib/router"
 import { ToastProvider } from "./lib/toast"
 import { BookmarksProvider } from "./lib/bookmarks"
 import { ThemeProvider } from "./lib/theme"
+import { useScrollReveal } from "./lib/useScrollReveal"
 
 // Home + 404 ship in the main bundle; every other screen is split into its own chunk
 const MagazinePage = lazy(() => import("./pages/MagazinePage"))
@@ -69,6 +70,8 @@ const KNOWN_ROUTES = new Set([
 
 function AppRoutes() {
   const { route, path, navigate } = useRouter()
+  // Scroll reveals for every page (data-reveal elements)
+  useScrollReveal()
 
   const articleSlug = route.startsWith("article/") ? decodeURIComponent(route.slice("article/".length)) : null
 

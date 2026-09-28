@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react"
 import Logo from "../brand/Logo"
 import { ISSUES } from "../../data/fixtures/issues"
 
@@ -52,11 +53,11 @@ export default function Footer({ onNavigate }: FooterProps) {
   const issue = ISSUES[0]
 
   return (
-    <footer className="relative overflow-hidden mt-auto bg-[var(--color-footer-dark)] text-[var(--text-inverse-muted)] border-t border-[var(--border-inverse)] px-6 md:px-12 pt-16">
+    <footer className="relative overflow-clip mt-auto bg-[var(--color-footer-dark)] text-[var(--text-inverse-muted)] border-t border-[var(--border-inverse)] px-6 md:px-12 pt-16">
       <div className="max-w-[var(--container-max)] mx-auto">
         {/* Masthead row: brand + mission, current issue */}
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] gap-10 pb-12 border-b border-[var(--border-inverse)]">
-          <div>
+          <div data-reveal="up">
             <button type="button" onClick={() => go("home")} aria-label="Mediverse home" className="min-h-11 inline-flex items-center">
               <Logo size="md" inverse />
             </button>
@@ -65,10 +66,11 @@ export default function Footer({ onNavigate }: FooterProps) {
             </p>
           </div>
 
+          <div data-reveal="right" style={{ "--i": 1 } as CSSProperties} className="self-start">
           <button
             type="button"
             onClick={() => go("magazine")}
-            className="group self-start text-left rounded-card border border-[var(--border-inverse)] bg-white/[0.03] p-5 transition-transform duration-[var(--duration-slow)] ease-[var(--ease-out)] hover:-translate-y-0.5"
+            className="group w-full text-left rounded-card border border-[var(--border-inverse)] bg-white/[0.03] p-5 transition-transform duration-[var(--duration-slow)] ease-[var(--ease-out)] hover:-translate-y-0.5"
           >
             <span className="flex items-center justify-between font-mono text-label font-semibold uppercase">
               <span className="text-[var(--accent-on-inverse)]">Issue #{issue.number}</span>
@@ -80,12 +82,13 @@ export default function Footer({ onNavigate }: FooterProps) {
               <span aria-hidden="true" className="transition-transform duration-[var(--duration-base)] group-hover:translate-x-1">→</span>
             </span>
           </button>
+          </div>
         </div>
 
         {/* Link columns: 2-up on phones, 4-up from md */}
         <nav aria-label="Footer" className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10 py-12">
-          {COLUMNS.map(col => (
-            <div key={col.title}>
+          {COLUMNS.map((col, i) => (
+            <div key={col.title} data-reveal="up" style={{ "--i": i } as CSSProperties}>
               <h2 className="mb-3 font-mono text-label font-semibold uppercase text-[var(--accent-on-inverse)]">{col.title}</h2>
               <ul className="space-y-0.5 md:space-y-2">
                 {col.links.map(link => (
@@ -106,7 +109,7 @@ export default function Footer({ onNavigate }: FooterProps) {
         </nav>
 
         {/* Compliance bar */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 py-6 border-t border-[var(--border-inverse)] font-mono text-[11px] uppercase tracking-[0.08em]">
+        <div data-reveal="fade" className="flex flex-col md:flex-row md:items-center justify-between gap-3 py-6 border-t border-[var(--border-inverse)] font-mono text-[11px] uppercase tracking-[0.08em]">
           <p>© 2026 Mediverse Life Sciences</p>
           <p className="flex flex-wrap gap-x-3 gap-y-1">
             <span>DPDP Act 2023 compliant</span>

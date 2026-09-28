@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useMemo, useState, type CSSProperties } from "react"
 import Header from "./layout/Header"
 import Footer from "./layout/Footer"
 import TaxonomyNav from "./layout/TaxonomyNav"
@@ -152,7 +152,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
 
           {/* Top Row: Hero Article (7 cols) + Live Breaking Feed Sidebar (5 cols) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10">
-            <div className="lg:col-span-8">
+            <div data-reveal="up" className="lg:col-span-8">
               {filteredArticles.length > 0 ? (
                 <ArticleCard
                   article={filteredArticles[0]}
@@ -172,7 +172,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
               )}
             </div>
 
-            <div className="lg:col-span-4">
+            <div data-reveal="right" style={{ "--i": 2 } as CSSProperties} className="lg:col-span-4">
               <LatestNewsSidebar onSubscribe={onGetAccess} />
             </div>
           </div>
@@ -181,7 +181,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
           {filteredArticles.length > 1 && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-8 border-t border-[var(--color-border-subtle)] mb-8">
               {filteredArticles.slice(1, 3).map((article, i) => (
-                <Reveal key={article.slug} delay={i * 70} className="h-full">
+                <Reveal key={article.slug} delay={i * 120} className="h-full">
                   <ArticleCard article={article} variant="medium" onClick={() => openArticle(article)} />
                 </Reveal>
               ))}
@@ -190,8 +190,8 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
 
           {filteredArticles.length > 3 && (
             <ul className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 mb-12 border-t border-[var(--color-border-subtle)]">
-              {filteredArticles.slice(3, 7).map(article => (
-                <li key={article.slug} className="py-3 border-b border-[var(--color-border-subtle)]">
+              {filteredArticles.slice(3, 7).map((article, i) => (
+                <li key={article.slug} data-reveal="up" style={{ "--i": i } as CSSProperties} className="py-3 border-b border-[var(--color-border-subtle)]">
                   <ArticleCard article={article} variant="compact" onClick={() => openArticle(article)} />
                 </li>
               ))}
@@ -200,7 +200,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
 
           {/* Dedicated Last Month's Trending Retrospective */}
           {lastMonthIssue && (
-            <Reveal>
+            <Reveal variant="scale">
             <LastMonthTrending
               lastMonthIssue={lastMonthIssue}
               lastMonthArticles={lastMonthArticles}
@@ -217,9 +217,8 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       </section>
 
       {/* SECTION 4: Three-Lane Focus Areas (Pharma, MedTech, AI) - Dark Mode Island */}
-      <section className="py-[var(--section-y)] px-6 md:px-12 bg-[var(--color-section-dark)] text-white relative overflow-hidden">
+      <section className="band-glow py-[var(--section-y)] px-6 md:px-12 bg-[var(--color-section-dark)] text-white relative overflow-clip">
         <div className="max-w-[var(--container-max)] mx-auto relative z-10">
-          <Reveal>
           <SectionHeader
             eyebrow="Core Coverage"
             title="Three verticals. Focused depth."
@@ -228,11 +227,10 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             tone="dark"
             className="mb-12"
           />
-          </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {VERTICALS.map((v, i) => (
-              <Reveal key={v.topicId} delay={i * 70} className="h-full">
+              <Reveal key={v.topicId} delay={120 + i * 120} className="h-full">
               <button
                 type="button"
                 onClick={() => selectTopic(v.topicId)}
@@ -262,7 +260,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
             {/* Left Col (5 cols): Upcoming Webinar */}
-            <Reveal className="lg:col-span-5">
+            <Reveal variant="left" className="lg:col-span-5">
             <Card variant="muted" padding="lg" className="flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--color-border-subtle)]">
@@ -298,7 +296,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             </Reveal>
 
             {/* Right Col (7 cols): Verified Network Introductions */}
-            <Reveal delay={80} className="lg:col-span-7">
+            <Reveal variant="right" delay={120} className="lg:col-span-7">
               <SectionHeader
                 as="h3"
                 eyebrow="Verified Network"
@@ -358,7 +356,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {RESEARCH_REPORTS.map((rep, i) => (
-              <Reveal key={rep.id} delay={i * 70} className="h-full">
+              <Reveal key={rep.id} variant="scale" delay={i * 120} className="h-full">
               <Card padding="lg" interactive className="flex flex-col justify-between h-full">
                 <div>
                   <div className="flex items-center justify-between font-mono text-meta text-[var(--color-slate-muted)] mb-2">
@@ -384,20 +382,20 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       </section>
 
       {/* SECTION 7: Join the network — deep teal band, split layout (pitch left, what you get right) */}
-      <section aria-labelledby="join-title" className="join-band relative overflow-hidden px-6 md:px-12 py-[var(--section-y)] text-[var(--text-inverse)]">
+      <section aria-labelledby="join-title" className="join-band relative overflow-clip px-6 md:px-12 py-[var(--section-y)] text-[var(--text-inverse)]">
         <div className="relative z-10 max-w-[var(--container-max)] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-12 lg:gap-16 items-center">
           <div>
-            <p className="mb-5 flex items-center gap-3 font-mono text-label font-semibold uppercase text-[var(--accent-on-inverse)]">
-              <span aria-hidden="true" className="h-px w-8 bg-[var(--accent-on-inverse)]" />
+            <p data-reveal="up" className="mb-5 flex items-center gap-3 font-mono text-label font-semibold uppercase text-[var(--accent-on-inverse)]">
+              <span aria-hidden="true" data-reveal="rule" style={{ "--i": 2 } as CSSProperties} className="h-px w-8 bg-[var(--accent-on-inverse)]" />
               Join Mediverse Life Sciences
             </p>
-            <h2 id="join-title" className="font-serif text-h1 font-semibold text-white mb-5 [text-wrap:balance]">
+            <h2 id="join-title" data-reveal="up" style={{ "--i": 1 } as CSSProperties} className="font-serif text-h1 font-semibold text-white mb-5 [text-wrap:balance]">
               The publication <span className="font-normal italic text-[var(--accent-on-inverse)]">&amp;</span> network for healthcare decision-makers.
             </h2>
-            <p className="text-deck text-[var(--text-inverse-muted)] mb-8 max-w-[52ch]">
+            <p data-reveal="up" style={{ "--i": 2 } as CSSProperties} className="text-deck text-[var(--text-inverse-muted)] mb-8 max-w-[52ch]">
               Curated monthly dossiers, interactive 3D editions, and explainable peer introductions across Pharma, MedTech, and AI-Health.
             </p>
-            <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
+            <div data-reveal="up" style={{ "--i": 3 } as CSSProperties} className="flex items-center gap-3 sm:gap-4 flex-wrap">
               <Button variant="coral" size="lg" arrow onClick={onGetAccess}>
                 Join the network
               </Button>
@@ -411,7 +409,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
               </Button>
             </div>
 
-            <div className="mt-10 flex items-center gap-4">
+            <div data-reveal="up" style={{ "--i": 4 } as CSSProperties} className="mt-10 flex items-center gap-4">
               <div className="flex -space-x-2" aria-hidden="true">
                 {JOIN_AVATARS.map(a => (
                   <span
@@ -429,9 +427,9 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
           </div>
 
           {/* What membership includes: numbered list on a raised inverse panel */}
-          <ol className="rounded-overlay border border-[var(--border-inverse)] bg-[var(--surface-inverse-raised)] divide-y divide-[var(--border-inverse)] shadow-overlay">
+          <ol data-reveal="right" style={{ "--i": 1 } as CSSProperties} className="rounded-overlay border border-[var(--border-inverse)] bg-[var(--surface-inverse-raised)] divide-y divide-[var(--border-inverse)] shadow-overlay">
             {JOIN_BENEFITS.map((item, i) => (
-              <li key={item.title} className="flex gap-5 p-6">
+              <li key={item.title} data-reveal="up" style={{ "--i": i + 3 } as CSSProperties} className="flex gap-5 p-6">
                 <span className="font-mono text-label font-semibold text-[var(--accent-on-inverse)] pt-1 tabular-nums">0{i + 1}</span>
                 <div>
                   <h3 className="font-serif text-h4 font-semibold text-white mb-1">{item.title}</h3>

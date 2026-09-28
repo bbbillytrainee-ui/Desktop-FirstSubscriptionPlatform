@@ -4,6 +4,7 @@ import Button from "../ui/Button"
 import GlobalSearchModal from "../ui/GlobalSearchModal"
 import BookmarksDrawer from "../modals/BookmarksDrawer"
 import MobileNavDrawer from "./MobileNavDrawer"
+import ScrollProgress from "./ScrollProgress"
 import { BookmarkFilled, BookOpen, Building2, FileText, PenTool, Play } from "../ui/Icons"
 import { useBookmarks } from "../../lib/bookmarks"
 import { useTheme } from "../../lib/theme"
@@ -80,6 +81,8 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
 
   return (
     <>
+      <ScrollProgress />
+
       {/* Global Search Modal */}
       <GlobalSearchModal
         isOpen={searchOpen}

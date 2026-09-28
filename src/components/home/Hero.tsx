@@ -59,16 +59,16 @@ export default function Hero({ issue, onJoin, onOpenIssue, onArchive }: HeroProp
   const sectionRef = usePointerParallax<HTMLElement>()
 
   return (
-    <section ref={sectionRef} className="hero-backdrop relative overflow-hidden border-b border-[var(--border-subtle)] px-6 md:px-12 py-14 lg:py-24">
+    <section ref={sectionRef} className="hero-backdrop relative overflow-clip border-b border-[var(--border-subtle)] px-6 md:px-12 py-14 lg:py-24">
       <div className="relative z-10 max-w-[var(--container-max)] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,25rem)] gap-14 lg:gap-16 items-center">
         {/* ── Left: kicker → headline → deck → actions → stats ── */}
         <div>
-          <p className="mb-5 flex items-center gap-3 font-mono text-label font-semibold uppercase text-[var(--accent-text)]">
+          <p data-reveal="up" style={{ "--i": 0 } as CSSProperties} className="mb-5 flex items-center gap-3 font-mono text-label font-semibold uppercase text-[var(--accent-text)]">
             <span aria-hidden="true" className="h-px w-8 bg-[var(--accent-decor)]" />
             Pharma · MedTech · AI-Health
           </p>
 
-          <h1 className="font-serif text-display font-semibold text-[var(--text-primary)] mb-6 [text-wrap:balance]">
+          <h1 data-reveal="up" style={{ "--i": 1 } as CSSProperties} className="font-serif text-display font-semibold text-[var(--text-primary)] mb-6 [text-wrap:balance]">
             {/* inline-block "&" allows a break before it even after a no-break space, so bind it with nowrap */}
             A serious <span className="whitespace-nowrap">publication <span className="hero-amp font-normal italic">&amp;</span></span> network for the people building what{" "}
             <span className="hero-underline">
@@ -80,11 +80,11 @@ export default function Hero({ issue, onJoin, onOpenIssue, onArchive }: HeroProp
             becomes next.
           </h1>
 
-          <p className="text-deck text-[var(--text-muted)] mb-9 max-w-[52ch]">
+          <p data-reveal="up" style={{ "--i": 2 } as CSSProperties} className="text-deck text-[var(--text-muted)] mb-9 max-w-[52ch]">
             Curated monthly intelligence, deep life science dossiers, and explainable peer introductions for verified healthcare leaders across regulatory, clinical, and commercial tracks.
           </p>
 
-          <div className="flex items-center gap-3 sm:gap-4 flex-wrap mb-12">
+          <div data-reveal="up" style={{ "--i": 3 } as CSSProperties} className="flex items-center gap-3 sm:gap-4 flex-wrap mb-12">
             <Button variant="coral" size="lg" arrow onClick={onJoin}>
               Join the network
             </Button>
@@ -95,7 +95,7 @@ export default function Hero({ issue, onJoin, onOpenIssue, onArchive }: HeroProp
           </div>
 
           {/* Stat strip: hairline dividers (2×2 on phones, 1×4 from sm); hovering one dims the rest */}
-          <dl className="stat-strip grid grid-cols-2 sm:grid-cols-4 border-y border-[var(--border-subtle)]">
+          <dl data-reveal="up" style={{ "--i": 4 } as CSSProperties} className="stat-strip grid grid-cols-2 sm:grid-cols-4 border-y border-[var(--border-subtle)]">
             {[
               { value: 34000, suffix: "+", label: "Verified leaders", Icon: Users },
               { value: 48, suffix: "+", label: "Annual dossiers", Icon: FileText },
@@ -119,7 +119,9 @@ export default function Hero({ issue, onJoin, onOpenIssue, onArchive }: HeroProp
         </div>
 
         {/* ── Right: the current issue as a magazine cover ── */}
-        <div className="relative mx-auto w-full max-w-[26rem] lg:max-w-none">
+        <div data-reveal="rise" style={{ "--i": 2 } as CSSProperties} className="relative mx-auto w-full max-w-[26rem] lg:max-w-none">
+          {/* scroll drift lives on its own layer so it never fights the pointer parallax or the entrance */}
+          <div className="hero-cover-drift relative">
           {/* stacked paper behind the cover (moves opposite the cover for depth) */}
           <div aria-hidden="true" className="cover-sheet cover-sheet-back" style={parallax(-4)} />
           <div aria-hidden="true" className="cover-sheet cover-sheet-mid" style={parallax(-2)} />
@@ -163,6 +165,7 @@ export default function Hero({ issue, onJoin, onOpenIssue, onArchive }: HeroProp
               </div>
             </div>
           </article>
+          </div>
         </div>
       </div>
     </section>

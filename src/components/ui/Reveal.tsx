@@ -1,44 +1,21 @@
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react"
-import { prefersReducedMotion } from "../../lib/motion"
+import type { CSSProperties, ReactNode } from "react"
 
 export interface RevealProps {
   children: ReactNode
-  /** Stagger offset in ms, e.g. index * 60 */
+  /** Stagger offset in ms, e.g. index * 90 */
   delay?: number
+  /** Entrance direction (see useScrollReveal) */
+  variant?: "up" | "left" | "right" | "scale" | "rise" | "fade"
   className?: string
 }
 
-/** Fades + lifts its content into place the first time it scrolls into view. */
-export default function Reveal({ children, delay = 0, className = "" }: RevealProps) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    if (prefersReducedMotion() || !("IntersectionObserver" in window)) {
-      setVisible(true)
-      return
-    }
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true)
-          observer.disconnect()
-        }
-      },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
-
+/**
+ * Wrapper that animates its content in the first time it scrolls into view.
+ * Driven by the app-wide useScrollReveal (mounted in App); renders as a plain div without it.
+ */
+export default function Reveal({ children, delay = 0, variant = "up", className = "" }: RevealProps) {
   return (
-    <div
-      ref={ref}
-      className={`reveal ${visible ? "is-visible" : ""} ${className}`}
-      style={{ "--reveal-delay": `${Math.min(delay, 400)}ms` } as CSSProperties}
-    >
+    <div data-reveal={variant} className={className} style={{ "--reveal-delay": `${Math.min(delay, 500)}ms` } as CSSProperties}>
       {children}
     </div>
   )

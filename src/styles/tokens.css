@@ -113,6 +113,7 @@
   --duration-fast: 150ms;
   --duration-base: 220ms;
   --duration-slow: 300ms;
+  --duration-reveal: 650ms;   /* scroll entrances only: longer travel reads as settling, not snapping */
   --motion-ui: 150ms cubic-bezier(0.16, 1, 0.3, 1);
   --motion-card: 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
