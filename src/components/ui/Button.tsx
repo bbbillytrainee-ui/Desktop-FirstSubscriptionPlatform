@@ -21,13 +21,13 @@ export default function Button({
 
   const variantStyles = {
     primary:
-      "bg-[var(--color-brand-teal)] text-[var(--color-paper)] hover:bg-[#082833] active:bg-[#051c24] shadow-xs font-semibold",
+      "bg-[var(--color-brand-teal)] text-[var(--color-paper)] hover:bg-[var(--color-brand-teal)]/90 active:bg-[var(--color-brand-teal)]/80 shadow-xs font-semibold",
     secondary:
-      "border border-[var(--color-brand-teal)] text-[var(--color-brand-teal)] hover:bg-[var(--color-brand-teal)]/5 active:bg-[var(--color-brand-teal)]/10 font-semibold bg-white/60",
+      "border border-[var(--color-brand-teal)] text-[var(--color-brand-teal)] hover:bg-[var(--color-brand-teal)]/5 active:bg-[var(--color-brand-teal)]/10 font-semibold bg-transparent",
     ghost:
-      "text-[var(--color-ink)] hover:text-[var(--color-brand-teal)] hover:bg-[var(--color-surface)] border border-[var(--color-border-subtle)] hover:border-stone-300 font-medium bg-white/40",
+      "text-[var(--color-ink)] hover:text-[var(--color-brand-teal)] hover:bg-[var(--color-surface)] border border-[var(--color-border-subtle)] hover:border-[var(--color-slate-muted)]/40 font-medium bg-transparent",
     coral:
-      "bg-[var(--color-brand-coral)] text-white hover:bg-[#B85231] active:bg-[#A04527] shadow-xs font-semibold",
+      "bg-[var(--color-brand-coral)] text-white hover:bg-[var(--color-brand-coral-hover)] active:bg-[var(--color-brand-coral-hover)] shadow-xs font-semibold",
   }
 
   const sizeStyles = {

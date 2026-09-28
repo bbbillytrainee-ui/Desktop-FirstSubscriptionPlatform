@@ -28,7 +28,7 @@ export default function Modal({ isOpen, onClose, title, children, className = ""
   return (
     <>
       <div className="backdrop-overlay animate-fade-up" onClick={onClose} />
-      <div className="modal-panel">
+      <div className="modal-panel" onClick={onClose}>
         <div
           role="dialog"
           aria-modal="true"

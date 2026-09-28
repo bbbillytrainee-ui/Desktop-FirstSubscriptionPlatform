@@ -54,13 +54,13 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
   
   // Form State
   const [selectedRole, setSelectedRole] = useState("")
-  const [fullName, setFullName] = useState("Siddharth Rao")
-  const [organization, setOrganization] = useState("Tata Elxsi Health")
+  const [fullName, setFullName] = useState("")
+  const [organization, setOrganization] = useState("")
   const [department, setDepartment] = useState(DEPARTMENTS[0])
   const [experience, setExperience] = useState(EXPERIENCE_LEVELS[2])
-  const [jobTitle, setJobTitle] = useState("Associate Director, Pharmacovigilance")
+  const [jobTitle, setJobTitle] = useState("")
   const [city, setCity] = useState("Bangalore")
-  const [linkedin, setLinkedin] = useState("linkedin.com/in/siddharth-rao")
+  const [linkedin, setLinkedin] = useState("")
   const [referralCodeInput, setReferralCodeInput] = useState("")
   const [appliedRefSuccess, setAppliedRefSuccess] = useState(false)
 

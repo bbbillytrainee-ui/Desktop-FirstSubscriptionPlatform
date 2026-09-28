@@ -9,8 +9,7 @@ import ArticleReader from "./magazine/ArticleReader"
 import MagazineFlipbook from "./magazine/MagazineFlipbook"
 import LastMonthTrending from "./magazine/LastMonthTrending"
 import LatestNewsSidebar from "./news/LatestNewsSidebar"
-import { BookOpen, Download, Sparkles } from "./ui/Icons"
-import { useToast } from "../lib/toast"
+import { BookOpen } from "./ui/Icons"
 import SafeImage from "./ui/SafeImage"
 import { ARTICLES, Article } from "../data/fixtures/articles"
 import { ISSUES, Issue } from "../data/fixtures/issues"
@@ -42,23 +41,6 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
         a.category.toLowerCase().includes(activeTaxonomy.toLowerCase()) ||
         a.tags.some(t => t.toLowerCase().includes(activeTaxonomy.toLowerCase()))
       )
-
-  const { success } = useToast()
-
-  const handleDownloadBriefing = () => {
-    const element = document.createElement("a")
-    const file = new Blob([
-      `MEDIVERSE LIFE SCIENCES — ISSUE #${currentIssue.number}\n\nTheme: ${currentIssue.theme}\nDate: ${currentIssue.month}\n\nSummary:\n${currentIssue.summary}\n\nFull edition available at: https://mediverse.network\n`
-    ], { type: "text/plain" })
-    element.href = URL.createObjectURL(file)
-    element.download = `Mediverse_Issue_${currentIssue.number}_Digital_Briefing.txt`
-
-    document.body.appendChild(element)
-    element.click()
-    document.body.removeChild(element)
-
-    success("Executive Briefing Downloaded", `Issue #${currentIssue.number} briefing downloaded.`)
-  }
 
   if (selectedArticle) {
     return (
@@ -118,15 +100,9 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
         <div className="max-w-[var(--container-max)] mx-auto grid grid-cols-1 lg:grid-cols-[62fr_38fr] gap-10 lg:gap-14 items-center relative z-10">
           {/* Left Column: Vision & Primary Actions */}
           <div>
-            <div className="flex items-center gap-3 mb-4 flex-wrap">
-              <span className="font-mono text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-brand-coral)]">
-                Pharma · MedTech · AI-Health
-              </span>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 border border-emerald-200/80 rounded-full text-[10px] font-mono font-semibold text-emerald-800 shadow-2xs">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>340+ Leaders Reading Issue #15 Live</span>
-              </div>
-            </div>
+            <span className="block mb-4 font-mono text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-brand-coral)]">
+              Pharma · MedTech · AI-Health
+            </span>
 
             <h1 
               style={{ fontSize: "clamp(2.4rem, 4.5vw, 3.8rem)" }}
@@ -140,25 +116,12 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             </p>
 
             <div className="flex items-center gap-4 flex-wrap mb-10">
-              <Button variant="coral" size="lg" onClick={onGetAccess} className="shadow-[0_4px_16px_rgba(208,96,61,0.28)] hover:shadow-[0_6px_22px_rgba(208,96,61,0.36)] transition-shadow">
+              <Button variant="coral" size="lg" onClick={onGetAccess}>
                 Join the network
               </Button>
-              <Button
-                variant="secondary"
-                size="lg"
-                onClick={() => setShowFlipbook(true)}
-                className="shadow-2xs"
-              >
+              <Button variant="secondary" size="lg" onClick={() => setShowFlipbook(true)}>
                 <BookOpen size={16} />
-                <span>Open 3D Reader</span>
-              </Button>
-              <Button
-                variant="ghost"
-                size="lg"
-                onClick={handleDownloadBriefing}
-              >
-                <Download size={16} className="text-[var(--color-brand-teal)]" />
-                <span>Download Briefing</span>
+                <span>Read Issue #{currentIssue.number}</span>
               </Button>
             </div>
 
@@ -177,8 +140,8 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                 <div className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider leading-tight mt-1.5">Peer Cited Rigor</div>
               </div>
               <div>
-                <div className="font-mono text-2xl sm:text-3xl font-black text-[var(--color-brand-teal)] leading-none">Zero Ads</div>
-                <div className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider leading-tight mt-1.5">Member Supported</div>
+                <div className="font-mono text-2xl sm:text-3xl font-black text-[var(--color-ink)] leading-none">{currentIssue.number}</div>
+                <div className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider leading-tight mt-1.5">Issues Published</div>
               </div>
             </div>
           </div>
@@ -195,25 +158,18 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
               <Badge type="pro" label="Current Issue" />
             </div>
 
-            <div
-              className="h-56 rounded-lg overflow-hidden mb-4 relative cursor-pointer group/img shadow-2xs"
+            <button
+              type="button"
+              aria-label={`Read Issue #${currentIssue.number}: ${currentIssue.theme}`}
+              className="block w-full h-56 rounded-lg overflow-hidden mb-4 cursor-pointer"
               onClick={() => setShowFlipbook(true)}
             >
               <SafeImage
                 src={currentIssue.coverImage}
                 alt={currentIssue.theme}
-                className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
+                className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover/img:opacity-100 transition-opacity flex items-end p-4">
-                <span
-                  style={{ fontFamily: "'Geist Mono', monospace" }}
-                  className="text-xs font-bold text-white bg-[var(--color-brand-teal)] px-3 py-1.5 rounded-sm shadow-md flex items-center gap-1.5"
-                >
-                  <span>Launch Interactive Reader</span>
-                  <span>→</span>
-                </span>
-              </div>
-            </div>
+            </button>
 
             <h3
               style={{ fontFamily: "'Fraunces', Georgia, serif" }}
@@ -225,14 +181,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
               {currentIssue.summary}
             </p>
 
-            <div className="flex items-center justify-between pt-3.5 border-t border-[var(--color-border-subtle)] text-xs font-mono">
-              <button
-                onClick={() => setShowFlipbook(true)}
-                className="font-bold text-[var(--color-brand-teal)] hover:text-[var(--color-brand-coral)] transition-colors flex items-center gap-1"
-              >
-                <span>Read 3D Flipbook</span>
-                <span>→</span>
-              </button>
+            <div className="flex items-center justify-end pt-3.5 border-t border-[var(--color-border-subtle)] text-xs font-mono">
               <button
                 onClick={() => onNavigate && onNavigate("archive")}
                 className="text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] hover:underline"
@@ -323,7 +272,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span
               style={{ fontFamily: "'Geist Mono', monospace" }}
-              className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-brand-coral)] block mb-2"
+              className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-brand-coral-on-dark)] block mb-2"
             >
               Core Coverage
             </span>
@@ -346,7 +295,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
               <div>
                 <span
                   style={{ fontFamily: "'Geist Mono', monospace" }}
-                  className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)] block mb-3"
+                  className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-coral-on-dark)] block mb-3"
                 >
                   01 / Pharma & Biologics
                 </span>
@@ -360,7 +309,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                   CDSCO clinical guidance, oncology HEOR evidence, biosimilars scale-up, and regional drug pricing dynamics.
                 </p>
               </div>
-              <span className="text-xs font-semibold text-[var(--color-brand-coral)] font-mono group-hover:translate-x-1 transition-transform inline-block">
+              <span className="text-xs font-semibold text-[var(--color-brand-coral-on-dark)] font-mono group-hover:translate-x-1 transition-transform inline-block">
                 Explore Pharma Coverage →
               </span>
             </div>
@@ -497,7 +446,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                   onClick={onGetAccess}
                   className="text-xs font-semibold text-[var(--color-brand-coral)] font-mono hover:underline hidden sm:block"
                 >
-                  Explore 2,400+ Members →
+                  Explore the member directory →
                 </button>
               </div>
 
@@ -628,7 +577,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
 
           <span
             style={{ fontFamily: "'Geist Mono', monospace" }}
-            className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-brand-coral)] block mb-3.5"
+            className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-brand-coral-on-dark)] block mb-3.5"
           >
             Join Mediverse Life Sciences
           </span>
@@ -642,13 +591,8 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             Read curated monthly dossiers, interact with digital 3D flipbook magazines, and receive explainable peer introductions across Pharma, MedTech, and AI-Health.
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            <Button 
-              variant="coral" 
-              size="lg" 
-              onClick={onGetAccess}
-              className="shadow-[0_8px_25px_rgba(208,96,61,0.4)] hover:shadow-[0_12px_32px_rgba(208,96,61,0.5)] transition-all hover:scale-105 active:scale-95"
-            >
-              Join the network now →
+            <Button variant="coral" size="lg" onClick={onGetAccess}>
+              Join the network
             </Button>
             <Button variant="ghost" size="lg" onClick={() => onNavigate && onNavigate("subscriptions")} className="text-white border border-white/20 hover:bg-white/10">
               View Membership Plans
@@ -659,19 +603,6 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
 
       {/* Footer */}
       <Footer onNavigate={onNavigate} />
-
-      {/* Floating Quick-Launch 3D Book Reader Button */}
-      <div className="fixed bottom-6 right-6 z-40">
-        <button
-          onClick={() => setShowFlipbook(true)}
-          className="px-4 py-3 bg-gradient-to-r from-[var(--color-brand-teal)] to-[#164e60] text-white text-xs font-semibold rounded-full shadow-[0_10px_30px_rgba(13,59,74,0.35)] hover:scale-105 active:scale-95 transition-all flex items-center gap-2 border border-white/20 group cursor-pointer"
-          style={{ fontFamily: "'Geist Mono', monospace" }}
-          title="Open interactive 3D page-turning magazine reader"
-        >
-          <span className="text-base group-hover:rotate-12 transition-transform">📖</span>
-          <span>Launch 3D Book Reader</span>
-        </button>
-      </div>
     </div>
   )
 }

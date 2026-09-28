@@ -47,8 +47,8 @@ function ContactDrawer({ contact, onClose }: { contact: Profile; onClose: () => 
                   Member
                 </span>
               )}
-              {contact.isContributor && contact.articles && (
-                <span className="text-[10px] text-[#5A6B7C]">{contact.articles} published articles</span>
+              {contact.isContributor && !!contact.articlesCount && (
+                <span className="text-[10px] text-[#5A6B7C]">{contact.articlesCount} published articles</span>
               )}
             </div>
 
@@ -178,7 +178,7 @@ export default function ContactsTab() {
               className="w-full sm:w-56 text-sm px-4 py-2 border border-[rgba(26,26,26,0.12)] rounded-sm bg-white text-[#1A1A1A] placeholder-[#5A6B7C] focus:outline-none focus:border-[rgba(26,26,26,0.4)]"
             />
             <div className="text-xs text-[#5A6B7C] flex-shrink-0">
-              {filtered.length} of {contacts.length}
+              {filtered.length} of {PROFILES.length}
             </div>
           </div>
         </div>
@@ -268,8 +268,8 @@ export default function ContactsTab() {
               <div className="flex items-center justify-between mt-1 pt-3 border-t border-[rgba(26,26,26,0.06)]">
                 <span className="text-[11px] text-[#5A6B7C]">
                   Since {contact.joined}
-                  {contact.isContributor && contact.articles && (
-                    <span className="ml-2 font-medium text-[#1A1A1A]">· {contact.articles} articles</span>
+                  {contact.isContributor && !!contact.articlesCount && (
+                    <span className="ml-2 font-medium text-[#1A1A1A]">· {contact.articlesCount} articles</span>
                   )}
                 </span>
                 <button

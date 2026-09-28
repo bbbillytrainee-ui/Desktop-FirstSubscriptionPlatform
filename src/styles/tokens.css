@@ -18,7 +18,8 @@
   --color-ink: #1A1D1F;
   --color-surface: #F2EFE9;
   --color-border-subtle: #E8E4DE;
-  --color-slate-muted: #6B7073;
+  --color-slate-muted: #5E6366; /* 5.3:1 on surface — WCAG AA */
+  --color-brand-coral-on-dark: #E8876A; /* coral for small text on dark sections, 6.5:1 */
   --color-success: #10B981;
   --color-success-bg: #ECFDF5;
   --color-navy-deep: #0A2630;

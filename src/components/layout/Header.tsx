@@ -65,20 +65,19 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
         onNavigate={handleNav}
       />
 
-      {/* Top Gradient Accent Border */}
-      <div className="h-1 bg-gradient-to-r from-[var(--color-brand-teal)] via-[var(--color-brand-coral)] to-[var(--color-brand-teal)] w-full" />
-
       {/* Main Glass Header */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-xl border-b border-[var(--color-border-subtle)] px-4 sm:px-6 md:px-12 py-3 shadow-xs">
         <div className="max-w-[var(--container-max)] mx-auto flex items-center justify-between gap-4" ref={navRef}>
           
           {/* Brand Logo */}
-          <div 
-            onClick={() => handleNav("home")} 
-            className="cursor-pointer transition-transform hover:scale-[1.01] active:scale-[0.99] shrink-0"
+          <button
+            type="button"
+            onClick={() => handleNav("home")}
+            aria-label="Mediverse home"
+            className="cursor-pointer shrink-0"
           >
             <Logo size="md" />
-          </div>
+          </button>
 
           {/* Desktop Navigation */}
           <nav className="hide-mobile flex items-center gap-1 lg:gap-2">
@@ -360,10 +359,9 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
             {/* 3. Subscriptions */}
             <button
               onClick={() => handleNav("subscriptions")}
-              className="px-3 py-2 text-sm font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-coral)] transition-all rounded-md hover:bg-stone-100/60 relative group flex items-center gap-1.5"
+              className="px-3 py-2 text-sm font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-coral)] transition-all rounded-md hover:bg-stone-100/60"
             >
-              <span>Subscriptions</span>
-              <span className="w-2 h-2 rounded-full bg-[var(--color-brand-coral)] animate-pulse" />
+              Subscriptions
             </button>
           </nav>
 

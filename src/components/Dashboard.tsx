@@ -84,65 +84,33 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
         userName={userName}
       />
 
-      {/* Top Colleague Invite Reminder Bar */}
+      {/* Member toolbar: quick links + referral invite */}
       <div className="bg-[var(--color-surface)] border-b border-[var(--color-border-subtle)] px-6 py-2">
-        <div className="max-w-[var(--container-max)] mx-auto flex items-center justify-between text-xs flex-wrap gap-2">
-          <div className="flex items-center gap-2">
-            <span className="font-mono bg-[var(--color-brand-coral)] text-white text-[9px] font-semibold px-1.5 py-0.2 rounded-sm uppercase">
-              Referral Reward
-            </span>
-            <span className="text-[var(--color-slate-muted)]">
-              Invite 3 life science colleagues to earn 1 month of Professional access free.
-            </span>
-          </div>
+        <div className="max-w-[var(--container-max)] mx-auto flex items-center justify-between gap-4 text-xs">
+          <nav aria-label="Member tools" className="flex items-center gap-1 overflow-x-auto scrollbar-none">
+            {[
+              { label: "Read this issue", icon: BookOpen, onClick: () => setShowFlipbook(true) },
+              { label: "Regulatory Navigator", icon: ClipboardList, onClick: () => handleDockNavigate("regulatory-navigator") },
+              { label: "Research Reports", icon: BarChart3, onClick: () => handleDockNavigate("reports") },
+              { label: "CDMO Directory", icon: Building2, onClick: () => handleDockNavigate("vendors") },
+            ].map(({ label, icon: Icon, onClick }) => (
+              <button
+                key={label}
+                onClick={onClick}
+                className="px-2.5 py-1.5 rounded-sm text-[var(--color-ink)] hover:bg-[var(--color-paper)] font-medium transition-colors flex items-center gap-1.5 shrink-0"
+              >
+                <Icon size={14} className="text-[var(--color-brand-teal)]" />
+                <span>{label}</span>
+              </button>
+            ))}
+          </nav>
           <button
             onClick={() => setShowReferralModal(true)}
-            className="text-[var(--color-brand-teal)] font-semibold hover:text-[var(--color-brand-coral)] underline transition-colors cursor-pointer"
+            className="shrink-0 text-[var(--color-brand-teal)] font-semibold hover:text-[var(--color-brand-coral)] transition-colors"
           >
-            Get Shareable Link →
+            <span className="sm:hidden">Invite →</span>
+            <span className="hidden sm:inline">Invite colleagues, get a free month →</span>
           </button>
-        </div>
-      </div>
-
-      {/* Member Executive Tooling Quick Dock */}
-      <div className="bg-[var(--color-navy-deep)] text-white border-b border-[var(--color-brand-teal)]/30 px-6 py-2.5">
-        <div className="max-w-[var(--container-max)] mx-auto flex items-center justify-between gap-4 overflow-x-auto text-xs scrollbar-none">
-          <div className="flex items-center gap-2 shrink-0">
-            <span className="font-mono text-[10px] uppercase font-bold text-[var(--color-brand-coral)]">
-              Executive Dock:
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
-            <button
-              onClick={() => setShowFlipbook(true)}
-              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-sm text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1.5 shrink-0"
-            >
-              <BookOpen size={13} className="text-amber-300" />
-              <span>3D Flipbook Magazine</span>
-            </button>
-            <button
-              onClick={() => handleDockNavigate("regulatory-navigator")}
-              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-sm text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1.5 shrink-0"
-            >
-              <ClipboardList size={13} className="text-teal-300" />
-              <span>Regulatory Navigator</span>
-            </button>
-            <button
-              onClick={() => handleDockNavigate("reports")}
-              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-sm text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1.5 shrink-0"
-            >
-              <BarChart3 size={13} className="text-blue-300" />
-              <span>Research Reports</span>
-            </button>
-            <button
-              onClick={() => handleDockNavigate("vendors")}
-              className="px-3 py-1 bg-white/10 hover:bg-white/20 text-white rounded-sm text-[11px] font-medium transition-colors cursor-pointer flex items-center gap-1.5 shrink-0"
-            >
-              <Building2 size={13} className="text-purple-300" />
-              <span>CDMO Directory</span>
-            </button>
-          </div>
         </div>
       </div>
 
