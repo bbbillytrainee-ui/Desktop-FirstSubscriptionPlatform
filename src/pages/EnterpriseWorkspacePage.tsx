@@ -106,7 +106,7 @@ export default function EnterpriseWorkspacePage({ onJoin, onNavigate }: Enterpri
                   </div>
                   <div className="text-right">
                     <span className="text-[var(--color-ink)] block">{m.role}</span>
-                    <span className={`font-mono text-[11px] font-semibold ${m.status === "Active" ? "text-[var(--color-brand-teal)]" : "text-amber-600"}`}>
+                    <span className={`font-mono text-[11px] font-semibold ${m.status === "Active" ? "text-[var(--color-brand-teal)]" : "text-gold-600"}`}>
                       ● {m.status}
                     </span>
                   </div>

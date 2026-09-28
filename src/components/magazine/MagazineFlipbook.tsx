@@ -186,10 +186,10 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
   }
 
   return (
-    <div className="fixed inset-0 h-screen max-h-screen z-50 bg-[#05161C] flex flex-col justify-between p-2 sm:p-4 overflow-hidden font-sans">
+    <div className="fixed inset-0 h-screen max-h-screen z-50 bg-[var(--print-cover)] flex flex-col justify-between p-2 sm:p-4 overflow-hidden font-sans">
       
       {/* Top Bar Controls */}
-      <div className="flex items-center justify-between text-white border-b border-white/20 pb-3 z-30 gap-2 flex-wrap bg-[#05161C]">
+      <div className="flex items-center justify-between text-white border-b border-white/20 pb-3 z-30 gap-2 flex-wrap bg-[var(--print-cover)]">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <span className="font-serif font-bold text-lg text-white">
@@ -224,11 +224,11 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
           <Button
             variant="secondary"
             size="sm"
-            className="text-xs flex items-center gap-1.5 bg-amber-500/20 text-amber-200 hover:bg-amber-500/30 border border-amber-400/40"
+            className="text-xs flex items-center gap-1.5 bg-gold-400/20 text-gold-200 hover:bg-gold-400/30 border border-gold-400/40"
             onClick={() => setShowNotesDrawer(!showNotesDrawer)}
             title="Write margin notes and research takeaways for this issue"
           >
-            <PenTool size={13} className="text-amber-300" />
+            <PenTool size={13} className="text-gold-200" />
             <span>Write Notes {Object.keys(notes).length > 0 ? `(${Object.keys(notes).length})` : ""}</span>
           </Button>
 
@@ -255,7 +255,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
           </Button>
 
           <Button variant="ghost" size="sm" className="text-white hover:bg-white/10 text-xs flex items-center gap-1.5" onClick={handleDownloadPdf}>
-            <Download size={14} className="text-amber-200" />
+            <Download size={14} className="text-gold-200" />
             <span className="hidden md:inline">Download PDF</span>
           </Button>
           
@@ -280,7 +280,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
         
         {/* Book Container with Pure High-Contrast White/Cream Background */}
         <div
-          className={`relative w-full max-w-5xl h-full max-h-[540px] sm:max-h-[620px] bg-[#FAF7F2] text-[#1A1D1F] rounded-md shadow-[0_30px_90px_rgba(0,0,0,0.9)] border border-[var(--color-border-subtle)] grid grid-cols-1 md:grid-cols-2 overflow-hidden transition-transform duration-300 transform-gpu z-20 ${
+          className={`relative w-full max-w-5xl h-full max-h-[540px] sm:max-h-[620px] bg-[var(--print-paper)] text-[var(--print-ink)] rounded-md shadow-[0_30px_90px_rgba(0,0,0,0.9)] border border-[var(--color-border-subtle)] grid grid-cols-1 md:grid-cols-2 overflow-hidden transition-transform duration-300 transform-gpu z-20 ${
             isFlipping ? (flipDirection === "next" ? "book-flip-next" : "book-flip-prev") : ""
           }`}
         >
@@ -291,20 +291,20 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
           {currentSpread === 0 && (
             <>
               {/* Left Page (Inside Cover / Publishing Info) */}
-              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#F4EFE6] text-[#1A1D1F] border-r border-[var(--color-border-subtle)] relative z-20">
+              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[var(--print-paper-alt)] text-[var(--print-ink)] border-r border-[var(--color-border-subtle)] relative z-20">
                 <div className="book-gutter-shadow-right absolute inset-y-0 right-0 w-8 pointer-events-none" />
                 <div>
                   <span className="font-mono text-[10px] text-[var(--color-slate-muted)] uppercase tracking-widest block mb-4">
                     Mediverse Publishing Desk · {issue.volume || "Vol. XV"}
                   </span>
-                  <h3 className="font-serif text-2xl font-semibold text-[#1A1D1F] mb-3 leading-snug">
+                  <h3 className="font-serif text-2xl font-semibold text-[var(--print-ink)] mb-3 leading-snug">
                     Dedicated Intelligence for Pharma, MedTech & AI Leaders
                   </h3>
-                  <p className="text-xs text-[#4A4E51] leading-relaxed mb-6">
+                  <p className="text-xs text-[var(--print-ink-soft)] leading-relaxed mb-6">
                     Published monthly in Singapore and Bangalore. Distributed exclusively to verified life science executives, regulatory directors, and clinical leads.
                   </p>
                 </div>
-                <div className="pt-4 border-t border-[var(--color-border-subtle)] text-[10px] font-mono text-[#6B7073] space-y-1">
+                <div className="pt-4 border-t border-[var(--color-border-subtle)] text-[10px] font-mono text-[var(--print-muted)] space-y-1">
                   <div>ISSN: 2984-102X · Registered Digital Issue</div>
                   <div>Editor-in-Chief: Dr. Leila Ahmadi</div>
                   <div>Editorial Board: CDSCO Review Committee, MedTech APAC</div>
@@ -312,7 +312,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
               </div>
 
               {/* Right Page (Cover Artwork & Headline) */}
-              <div className="relative flex flex-col justify-between p-8 sm:p-12 text-white bg-stone-900 overflow-hidden z-20">
+              <div className="relative flex flex-col justify-between p-8 sm:p-12 text-white bg-sand-900 overflow-hidden z-20">
                 <SafeImage
                   src={issue.coverImage}
                   alt={issue.theme}
@@ -336,7 +336,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                 </div>
 
                 <div className="relative z-20">
-                  <p className="text-xs sm:text-sm text-stone-200 leading-relaxed mb-6 max-w-md">
+                  <p className="text-xs sm:text-sm text-sand-200 leading-relaxed mb-6 max-w-md">
                     {issue.summary}
                   </p>
                   <Button variant="coral" size="sm" onClick={nextSpread}>
@@ -351,46 +351,46 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
           {currentSpread === 1 && (
             <>
               {/* Left: Editor's Note */}
-              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] border-r border-[var(--color-border-subtle)] relative z-20">
+              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[var(--print-paper)] text-[var(--print-ink)] border-r border-[var(--color-border-subtle)] relative z-20">
                 <div className="book-gutter-shadow-right absolute inset-y-0 right-0 w-8 pointer-events-none" />
                 <div>
                   <span className="font-mono text-[10px] uppercase font-bold text-[var(--color-brand-coral)] tracking-widest block mb-2">
                     Editorial Column
                   </span>
-                  <h2 className="font-serif text-2xl font-semibold text-[#1A1D1F] mb-3">
+                  <h2 className="font-serif text-2xl font-semibold text-[var(--print-ink)] mb-3">
                     {issue.editorialColumn?.title || "Letter from the Editor"}
                   </h2>
-                  <p className="text-xs text-[#1A1D1F] leading-relaxed mb-3">
+                  <p className="text-xs text-[var(--print-ink)] leading-relaxed mb-3">
                     <span className="float-left text-3xl font-serif font-bold text-[var(--color-brand-teal)] pr-2 leading-none">A</span>
                     {issue.editorialColumn?.quote || "As regulatory authorities across the Asia-Pacific region modernize digital validation frameworks, life science leaders must pivot from isolated trial models to continuous evidence ecosystems."}
                   </p>
-                  <p className="text-xs text-[#4A4E51] leading-relaxed">
+                  <p className="text-xs text-[var(--print-ink-soft)] leading-relaxed">
                     This issue brings together firsthand perspectives from regulatory strategists, clinical operations directors, and bioprocess engineers tackling the next frontier of patient access.
                   </p>
                 </div>
                 <div className="pt-4 border-t border-[var(--color-border-subtle)] flex justify-between items-end text-xs">
                   <div>
-                    <span className="font-semibold block text-[#1A1D1F]">
+                    <span className="font-semibold block text-[var(--print-ink)]">
                       {issue.editorialColumn?.authorName || "Dr. Leila Ahmadi"}
                     </span>
-                    <span className="text-[10px] text-[#6B7073]">
+                    <span className="text-[10px] text-[var(--print-muted)]">
                       {issue.editorialColumn?.authorRole || "Senior Editor, Mediverse"}
                     </span>
                   </div>
-                  <span className="font-mono text-[10px] text-[#6B7073]">
+                  <span className="font-mono text-[10px] text-[var(--print-muted)]">
                     Page 2
                   </span>
                 </div>
               </div>
 
               {/* Right: Table of Contents */}
-              <div className="p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] flex flex-col justify-between relative z-20">
+              <div className="p-8 sm:p-10 bg-[var(--print-paper)] text-[var(--print-ink)] flex flex-col justify-between relative z-20">
                 <div className="book-gutter-shadow absolute inset-y-0 left-0 w-8 pointer-events-none" />
                 <div>
                   <span className="font-mono text-[10px] uppercase font-bold text-[var(--color-brand-teal)] tracking-widest block mb-2">
                     In This Issue
                   </span>
-                  <h2 className="font-serif text-2xl font-semibold text-[#1A1D1F] mb-6">
+                  <h2 className="font-serif text-2xl font-semibold text-[var(--print-ink)] mb-6">
                     Table of Contents
                   </h2>
                   
@@ -407,11 +407,11 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                             <span className="font-mono text-[10px] text-[var(--color-brand-coral)] font-bold mr-2">
                               0{idx + 1}
                             </span>
-                            <span className="text-xs font-semibold text-[#1A1D1F] group-hover:text-[var(--color-brand-teal)] transition-colors truncate">
+                            <span className="text-xs font-semibold text-[var(--print-ink)] group-hover:text-[var(--color-brand-teal)] transition-colors truncate">
                               {art.title}
                             </span>
                           </div>
-                          <span className="font-mono text-[10px] text-[#6B7073] whitespace-nowrap group-hover:text-[var(--color-brand-teal)]">
+                          <span className="font-mono text-[10px] text-[var(--print-muted)] whitespace-nowrap group-hover:text-[var(--color-brand-teal)]">
                             P. {idx * 2 + 4} →
                           </span>
                         </div>
@@ -421,7 +421,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                 </div>
 
                 <div className="flex justify-between items-center pt-4 border-t border-[var(--color-border-subtle)] text-xs">
-                  <span className="font-mono text-[10px] text-[#6B7073]">
+                  <span className="font-mono text-[10px] text-[var(--print-muted)]">
                     Page 3
                   </span>
                   <Button variant="ghost" size="sm" onClick={nextSpread}>
@@ -436,7 +436,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
           {currentSpread === 2 && (
             <>
               {/* Left: Feature Visual & Pull Quote */}
-              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] border-r border-[var(--color-border-subtle)] relative z-20">
+              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[var(--print-paper)] text-[var(--print-ink)] border-r border-[var(--color-border-subtle)] relative z-20">
                 <div className="book-gutter-shadow-right absolute inset-y-0 right-0 w-8 pointer-events-none" />
                 <div>
                   <div className="h-44 sm:h-52 w-full rounded-sm overflow-hidden mb-4 shadow-sm border border-[var(--color-border-subtle)] relative">
@@ -446,33 +446,33 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                     &ldquo;Process Analytical Technology and continuous bioprocessing are shifting release turnaround times from weeks to hours.&rdquo;
                   </blockquote>
                 </div>
-                <div className="flex justify-between items-center text-xs text-[#6B7073] pt-2 border-t border-[var(--color-border-subtle)]">
+                <div className="flex justify-between items-center text-xs text-[var(--print-muted)] pt-2 border-t border-[var(--color-border-subtle)]">
                   <span className="font-mono">{heroArticle.category} Feature</span>
                   <span className="font-mono">Page 4</span>
                 </div>
               </div>
 
               {/* Right: Feature Body Text */}
-              <div className="p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] flex flex-col justify-between relative z-20">
+              <div className="p-8 sm:p-10 bg-[var(--print-paper)] text-[var(--print-ink)] flex flex-col justify-between relative z-20">
                 <div className="book-gutter-shadow absolute inset-y-0 left-0 w-8 pointer-events-none" />
                 <div>
                   <span className="font-mono text-[10px] font-semibold text-[var(--color-brand-coral)] uppercase tracking-wider block mb-1">
                     Cover Story Dossier
                   </span>
-                  <h2 className="font-serif text-xl sm:text-2xl font-semibold text-[#1A1D1F] mb-3 leading-snug">
+                  <h2 className="font-serif text-xl sm:text-2xl font-semibold text-[var(--print-ink)] mb-3 leading-snug">
                     {heroArticle.title}
                   </h2>
-                  <p className="text-xs text-[#6B7073] mb-4 italic">
+                  <p className="text-xs text-[var(--print-muted)] mb-4 italic">
                     {heroArticle.dek}
                   </p>
-                  <div className={`space-y-3 text-[#1A1D1F] leading-relaxed select-text ${fontSize === "large" ? "text-sm" : "text-xs"}`}>
+                  <div className={`space-y-3 text-[var(--print-ink)] leading-relaxed select-text ${fontSize === "large" ? "text-sm" : "text-xs"}`}>
                     {heroArticle.body.map((para, i) => (
                       <p key={i}>{para}</p>
                     ))}
                   </div>
                 </div>
                 <div className="flex justify-between items-center pt-4 border-t border-[var(--color-border-subtle)] text-xs">
-                  <span className="font-mono text-[10px] text-[#6B7073]">
+                  <span className="font-mono text-[10px] text-[var(--print-muted)]">
                     Page 5
                   </span>
                   <Button variant="ghost" size="sm" onClick={nextSpread}>
@@ -487,36 +487,36 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
           {currentSpread === 3 && (
             <>
               {/* Left Analysis Body */}
-              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] border-r border-[var(--color-border-subtle)] relative z-20">
+              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[var(--print-paper)] text-[var(--print-ink)] border-r border-[var(--color-border-subtle)] relative z-20">
                 <div className="book-gutter-shadow-right absolute inset-y-0 right-0 w-8 pointer-events-none" />
                 <div>
                   <span className="font-mono text-[10px] font-semibold text-[var(--color-brand-teal)] uppercase tracking-wider block mb-1">
                     {analysisArticle.category} · Strategy
                   </span>
-                  <h3 className="font-serif text-xl font-semibold text-[#1A1D1F] mb-3 leading-snug">
+                  <h3 className="font-serif text-xl font-semibold text-[var(--print-ink)] mb-3 leading-snug">
                     {analysisArticle.title}
                   </h3>
-                  <div className={`space-y-3 text-[#1A1D1F] leading-relaxed select-text ${fontSize === "large" ? "text-sm" : "text-xs"}`}>
-                    <p className="font-semibold text-[#4A4E51]">{analysisArticle.dek}</p>
+                  <div className={`space-y-3 text-[var(--print-ink)] leading-relaxed select-text ${fontSize === "large" ? "text-sm" : "text-xs"}`}>
+                    <p className="font-semibold text-[var(--print-ink-soft)]">{analysisArticle.dek}</p>
                     {analysisArticle.body.map((para, i) => (
                       <p key={i}>{para}</p>
                     ))}
                   </div>
                 </div>
-                <div className="flex justify-between items-center pt-4 border-t border-[var(--color-border-subtle)] text-xs text-[#6B7073]">
+                <div className="flex justify-between items-center pt-4 border-t border-[var(--color-border-subtle)] text-xs text-[var(--print-muted)]">
                   <span className="font-mono">Page 6</span>
                 </div>
               </div>
 
               {/* Right Analysis Infographic / Data Callout */}
-              <div className="p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] flex flex-col justify-between relative z-20">
+              <div className="p-8 sm:p-10 bg-[var(--print-paper)] text-[var(--print-ink)] flex flex-col justify-between relative z-20">
                 <div className="book-gutter-shadow absolute inset-y-0 left-0 w-8 pointer-events-none" />
                 <div>
                   <div className="p-4 bg-card border border-[var(--color-border-subtle)] rounded-sm mb-4 shadow-sm">
                     <span className="font-mono text-[10px] uppercase font-bold text-[var(--color-brand-teal)] block mb-1">
                       Key Takeaway Matrix
                     </span>
-                    <ul className="space-y-2 text-xs text-[#1A1D1F]">
+                    <ul className="space-y-2 text-xs text-[var(--print-ink)]">
                       <li className="flex items-start gap-2">
                         <span className="text-[var(--color-brand-coral)] font-bold">•</span>
                         <span>Multi-center data audits are prioritized in Phase II clearances.</span>
@@ -533,7 +533,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                   </div>
                 </div>
                 <div className="flex justify-between items-center pt-4 border-t border-[var(--color-border-subtle)] text-xs">
-                  <span className="font-mono text-[10px] text-[#6B7073]">
+                  <span className="font-mono text-[10px] text-[var(--print-muted)]">
                     Page 7
                   </span>
                   <Button variant="ghost" size="sm" onClick={nextSpread}>
@@ -548,36 +548,36 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
           {currentSpread === 4 && (
             <>
               {/* Left Interviewee Profile */}
-              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] border-r border-[var(--color-border-subtle)] relative z-20">
+              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[var(--print-paper)] text-[var(--print-ink)] border-r border-[var(--color-border-subtle)] relative z-20">
                 <div className="book-gutter-shadow-right absolute inset-y-0 right-0 w-8 pointer-events-none" />
                 <div>
                   <span className="font-mono text-[10px] font-semibold text-[var(--color-brand-coral)] uppercase tracking-wider block mb-2">
                     Executive Dialogue
                   </span>
-                  <h3 className="font-serif text-xl font-semibold text-[#1A1D1F] mb-3">
+                  <h3 className="font-serif text-xl font-semibold text-[var(--print-ink)] mb-3">
                     Conversation with {interviewAuthor?.name || "Industry Pioneer"}
                   </h3>
-                  <div className="p-3 bg-card border border-[var(--color-border-subtle)] rounded-sm mb-4 text-xs text-[#6B7073]">
+                  <div className="p-3 bg-card border border-[var(--color-border-subtle)] rounded-sm mb-4 text-xs text-[var(--print-muted)]">
                     <strong>Position:</strong> {interviewAuthor?.role} at {interviewAuthor?.company}
                   </div>
-                  <p className="text-xs text-[#1A1D1F] leading-relaxed italic">
+                  <p className="text-xs text-[var(--print-ink)] leading-relaxed italic">
                     &ldquo;{interviewAuthor?.bio}&rdquo;
                   </p>
                 </div>
-                <div className="flex justify-between items-center pt-4 border-t border-[var(--color-border-subtle)] text-xs text-[#6B7073]">
+                <div className="flex justify-between items-center pt-4 border-t border-[var(--color-border-subtle)] text-xs text-[var(--print-muted)]">
                   <span className="font-mono">Page 8</span>
                 </div>
               </div>
 
               {/* Right Q&A Excerpt */}
-              <div className="p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] flex flex-col justify-between relative z-20">
+              <div className="p-8 sm:p-10 bg-[var(--print-paper)] text-[var(--print-ink)] flex flex-col justify-between relative z-20">
                 <div className="book-gutter-shadow absolute inset-y-0 left-0 w-8 pointer-events-none" />
                 <div className="space-y-3">
                   <div>
                     <span className="font-mono text-[10px] text-[var(--color-brand-teal)] font-bold block">
                       Q: What is the most critical hurdle facing decentralized distribution?
                     </span>
-                    <p className="text-xs text-[#1A1D1F] leading-relaxed mt-1">
+                    <p className="text-xs text-[var(--print-ink)] leading-relaxed mt-1">
                       &ldquo;Temperature excursion visibility at the final transit mile. Without real-time IoT threshold telemetry, high-potency biologics risk silent degradation.&rdquo;
                     </p>
                   </div>
@@ -593,7 +593,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                 </div>
 
                 <div className="flex justify-between items-center pt-4 border-t border-[var(--color-border-subtle)] text-xs">
-                  <span className="font-mono text-[10px] text-[#6B7073]">
+                  <span className="font-mono text-[10px] text-[var(--print-muted)]">
                     Page 9
                   </span>
                   <Button variant="ghost" size="sm" onClick={nextSpread}>
@@ -608,26 +608,26 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
           {currentSpread === 5 && (
             <>
               {/* Left: Index & Upcoming Drop Preview */}
-              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] border-r border-[var(--color-border-subtle)] relative z-20">
+              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[var(--print-paper)] text-[var(--print-ink)] border-r border-[var(--color-border-subtle)] relative z-20">
                 <div className="book-gutter-shadow-right absolute inset-y-0 right-0 w-8 pointer-events-none" />
                 <div>
                   <span className="font-mono text-[10px] uppercase font-bold text-[var(--color-brand-teal)] tracking-widest block mb-2">
                     Vault Summary
                   </span>
-                  <h3 className="font-serif text-xl font-semibold text-[#1A1D1F] mb-3">
+                  <h3 className="font-serif text-xl font-semibold text-[var(--print-ink)] mb-3">
                     Issue #{issue.number}: {issue.theme}
                   </h3>
-                  <p className="text-xs text-[#6B7073] leading-relaxed mb-4">
+                  <p className="text-xs text-[var(--print-muted)] leading-relaxed mb-4">
                     Published under Mediverse Life Sciences Digital Intelligence Registry. Verified readers count: {issue.readersCount || "34,000+"}.
                   </p>
                 </div>
-                <div className="text-[10px] font-mono text-[#6B7073]">
+                <div className="text-[10px] font-mono text-[var(--print-muted)]">
                   End of Issue #{issue.number}
                 </div>
               </div>
 
               {/* Right: Back Cover Solid Slate */}
-              <div className="p-8 sm:p-12 bg-[#0D3B4A] text-white flex flex-col justify-between relative z-20">
+              <div className="p-8 sm:p-12 bg-[var(--print-accent)] text-white flex flex-col justify-between relative z-20">
                 <div>
                   <span className="font-serif text-2xl font-bold block mb-2 text-white">
                     MEDIVERSE
@@ -663,7 +663,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
       </div>
 
       {/* Bottom Spread Scrubber Controls */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-white border-t border-white/20 pt-3 z-30 bg-[#05161C]">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-white border-t border-white/20 pt-3 z-30 bg-[var(--print-cover)]">
         <div className="flex items-center gap-2">
           <Button variant="secondary" size="sm" onClick={prevSpread} disabled={currentSpread === 0}>
             ← Prev Spread
@@ -711,7 +711,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                 type="text"
                 readOnly
                 value={shareUrl}
-                className="flex-1 px-3 py-2 text-xs bg-card border border-[var(--color-border-subtle)] rounded-sm font-mono select-all text-[#1A1D1F]"
+                className="flex-1 px-3 py-2 text-xs bg-card border border-[var(--color-border-subtle)] rounded-sm font-mono select-all text-[var(--print-ink)]"
               />
               <Button variant="coral" size="sm" onClick={handleCopyLink}>
                 <CheckIcon size={12} />
@@ -724,9 +724,9 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
 
       {/* Interactive Write Notes Drawer */}
       {showNotesDrawer && (
-        <div className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-[#09222A] text-white shadow-2xl border-l border-white/20 flex flex-col justify-between animate-slide-in-right">
+        <div className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-[var(--print-cover-alt)] text-white shadow-2xl border-l border-white/20 flex flex-col justify-between animate-slide-in-right">
           {/* Drawer Header */}
-          <div className="p-4 border-b border-white/20 flex items-center justify-between bg-[#05161C]">
+          <div className="p-4 border-b border-white/20 flex items-center justify-between bg-[var(--print-cover)]">
             <div className="flex items-center gap-2">
               <PenTool size={16} className="text-[var(--color-brand-coral)]" />
               <span className="font-serif font-bold text-sm text-white">
@@ -761,7 +761,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
             {/* Note Writer Input Area */}
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="font-mono text-xs font-semibold text-amber-200 flex items-center gap-1">
+                <label className="font-mono text-xs font-semibold text-gold-200 flex items-center gap-1">
                   <span>Write Margin Note / Key Takeaway:</span>
                 </label>
                 <span className="text-[10px] font-mono text-white/50">
@@ -822,7 +822,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                 {Object.keys(notes).length > 0 && (
                   <button
                     onClick={handleExportNotes}
-                    className="font-mono text-[10px] text-amber-300 hover:underline flex items-center gap-1 cursor-pointer"
+                    className="font-mono text-[10px] text-gold-200 hover:underline flex items-center gap-1 cursor-pointer"
                   >
                     <Download size={11} />
                     <span>Export .txt</span>
@@ -842,11 +842,11 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                       <div
                         key={sIdx}
                         className={`p-2.5 rounded-sm border text-xs transition-colors ${
-                          sIdx === currentSpread ? "bg-amber-500/10 border-amber-400/50" : "bg-white/5 border-white/10"
+                          sIdx === currentSpread ? "bg-gold-400/10 border-gold-400/50" : "bg-white/5 border-white/10"
                         }`}
                       >
                         <div className="flex items-center justify-between mb-1">
-                          <span className="font-mono text-[10px] font-bold text-amber-200">
+                          <span className="font-mono text-[10px] font-bold text-gold-200">
                             Spread #{sIdx + 1}
                           </span>
                           <div className="flex items-center gap-1.5">
@@ -858,7 +858,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                             </button>
                             <button
                               onClick={() => handleDeleteNote(sIdx)}
-                              className="text-white/40 hover:text-rose-400 p-0.5 cursor-pointer"
+                              className="text-white/40 hover:text-danger-400 p-0.5 cursor-pointer"
                               title="Delete note"
                             >
                               <Trash2 size={12} />
@@ -877,7 +877,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
           </div>
 
           {/* Drawer Footer */}
-          <div className="p-3 border-t border-white/20 bg-[#05161C] flex justify-between items-center text-[10px] font-mono text-white/60">
+          <div className="p-3 border-t border-white/20 bg-[var(--print-cover)] flex justify-between items-center text-[10px] font-mono text-white/60">
             <span>Auto-saved to Browser Storage</span>
             <Button variant="ghost" size="sm" className="text-white hover:bg-white/10 text-xs" onClick={handleExportNotes}>
               Export Package
@@ -896,7 +896,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Type keyword (e.g. CDMO, Perfusion, CDSCO, GLP-1)..."
-              className="w-full pl-9 pr-4 py-2.5 text-xs bg-card border border-[var(--color-border-subtle)] rounded-sm focus:outline-none focus:border-[var(--color-brand-teal)] font-sans text-[#1A1D1F]"
+              className="w-full pl-9 pr-4 py-2.5 text-xs bg-card border border-[var(--color-border-subtle)] rounded-sm focus:outline-none focus:border-[var(--color-brand-teal)] font-sans text-[var(--print-ink)]"
             />
             <Search size={14} className="absolute left-3 top-3 text-[var(--color-slate-muted)]" />
           </div>

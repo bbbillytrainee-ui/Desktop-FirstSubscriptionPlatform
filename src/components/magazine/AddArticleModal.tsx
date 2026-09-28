@@ -206,7 +206,7 @@ export default function AddArticleModal({ isOpen, onClose, onAddArticle }: AddAr
                 <button
                   type="button"
                   onClick={() => { setImagePreview(""); setImageUrl("") }}
-                  className="absolute top-2 right-2 bg-black/70 text-white text-[11px] px-2 py-0.5 rounded font-mono hover:bg-red-600"
+                  className="absolute top-2 right-2 bg-black/70 text-white text-[11px] px-2 py-0.5 rounded font-mono hover:bg-danger-600"
                 >
                   Remove
                 </button>

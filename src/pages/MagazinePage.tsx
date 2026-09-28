@@ -209,7 +209,7 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
 
           <button
             onClick={() => setShowAddModal(true)}
-            className="font-mono px-4 py-2 bg-gradient-to-r from-[var(--color-brand-coral)] to-[#B94E2C] text-white text-xs font-semibold rounded-md hover:brightness-110 transition flex items-center gap-1.5 cursor-pointer shadow-sm"
+            className="font-mono px-4 py-2 bg-gradient-to-r from-[var(--color-brand-coral)] to-[var(--color-terracotta-700)] text-white text-xs font-semibold rounded-md hover:brightness-110 transition flex items-center gap-1.5 cursor-pointer shadow-sm"
           >
             <Plus size={14} />
             <span>Add Article / Upload Custom Dossier</span>
@@ -248,10 +248,10 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
       <div className="fixed bottom-6 right-6 z-40">
         <button
           onClick={() => setActiveFlipbookIssue(currentIssue)}
-          className="font-mono px-4 py-3 bg-gradient-to-r from-[var(--color-brand-teal)] to-[#164e60] text-white text-xs font-semibold rounded-full shadow-[0_10px_30px_rgba(13,59,74,0.35)] hover:scale-105 active:scale-95 transition flex items-center gap-2 border border-white/20 group cursor-pointer"
+          className="font-mono px-4 py-3 bg-gradient-to-r from-[var(--color-brand-teal)] to-[var(--color-teal-700)] text-white text-xs font-semibold rounded-full shadow-[0_10px_30px_rgba(13,59,74,0.35)] hover:scale-105 active:scale-95 transition flex items-center gap-2 border border-white/20 group cursor-pointer"
           title="Open interactive 3D page-turning magazine reader"
         >
-          <BookOpen size={16} className="text-amber-200 group-hover:rotate-12 transition-transform" />
+          <BookOpen size={16} className="text-gold-200 group-hover:rotate-12 transition-transform" />
           <span>Launch 3D Book Reader</span>
         </button>
       </div>

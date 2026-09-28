@@ -19,7 +19,7 @@ export default function TaxonomyNav({
   const headlines = [breakingNewsText, ...LATEST_NEWS.map(n => n.title).filter(t => t !== breakingNewsText).slice(0, 3)]
 
   return (
-    <div className="bg-gradient-to-r from-[#0A2E3B] via-[#0D3B4A] to-[#0A2E3B] text-white border-y border-white/10 text-xs shadow-inner relative z-20">
+    <div className="bg-gradient-to-r from-[var(--color-teal-900)] via-[var(--color-teal-800)] to-[var(--color-teal-900)] text-white border-y border-white/10 text-xs shadow-inner relative z-20">
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 md:px-12 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2 lg:gap-6 py-2 lg:py-0">
         
         {/* Left: Live Editorial Dispatch Ticker */}
@@ -80,7 +80,7 @@ export default function TaxonomyNav({
                   onClick={() => onSelectTopic?.(topic.id)}
                   className={`relative snap-start px-3 min-h-9 whitespace-nowrap before:absolute before:inset-x-0 before:-inset-y-1.5 before:content-[''] text-xs font-medium transition-colors duration-200 rounded-full cursor-pointer shrink-0 flex items-center gap-1.5 border ${
                     isSelected
-                      ? "bg-white text-[#0D3B4A] font-semibold border-white"
+                      ? "bg-white text-[var(--color-teal-800)] font-semibold border-white"
                       : "text-white/85 hover:text-white hover:bg-white/15 bg-white/5 border-white/10"
                   }`}
                 >
@@ -88,7 +88,7 @@ export default function TaxonomyNav({
                   {count !== undefined && (
                     <span
                       className={`font-mono text-[11px] tabular-nums px-1.5 rounded-full ${
-                        isSelected ? "bg-[#0D3B4A]/10 text-[#0D3B4A]" : "bg-white/10 text-white/70"
+                        isSelected ? "bg-[var(--color-teal-800)]/10 text-[var(--color-teal-800)]" : "bg-white/10 text-white/70"
                       }`}
                     >
                       {count}

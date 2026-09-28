@@ -46,7 +46,7 @@ export default function SectionHeader({
           {title}
         </Heading>
         {description && (
-          <p className={`mt-3 text-sm leading-relaxed ${isDark ? "text-stone-300" : "text-[var(--color-slate-muted)]"}`}>
+          <p className={`mt-3 text-sm leading-relaxed ${isDark ? "text-sand-300" : "text-[var(--color-slate-muted)]"}`}>
             {description}
           </p>
         )}

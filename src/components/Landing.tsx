@@ -291,7 +291,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                     0{i + 1} / {v.label}
                   </span>
                   <h3 className="font-serif text-h3 font-semibold text-white mb-3">{v.title}</h3>
-                  <p className="text-sm text-stone-300 leading-relaxed mb-6">{v.description}</p>
+                  <p className="text-sm text-sand-300 leading-relaxed mb-6">{v.description}</p>
                 </div>
                 <span className="inline-flex items-center gap-1 text-meta font-semibold text-[var(--color-brand-coral-on-dark)] group-hover:text-white transition-colors">
                   Explore {v.short} coverage
@@ -440,13 +440,13 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             <div className="w-9 h-9 rounded-full border-2 border-white bg-[var(--color-brand-coral-fill)] flex items-center justify-center font-bold text-xs shadow-md">
               AP
             </div>
-            <div className="w-9 h-9 rounded-full border-2 border-white bg-emerald-700 flex items-center justify-center font-bold text-xs shadow-md">
+            <div className="w-9 h-9 rounded-full border-2 border-white bg-success-700 flex items-center justify-center font-bold text-xs shadow-md">
               SK
             </div>
-            <div className="w-9 h-9 rounded-full border-2 border-white bg-cyan-700 flex items-center justify-center font-bold text-xs shadow-md">
+            <div className="w-9 h-9 rounded-full border-2 border-white bg-teal-800 flex items-center justify-center font-bold text-xs shadow-md">
               VS
             </div>
-            <div className="w-9 h-9 rounded-full border-2 border-white bg-slate-800 flex items-center justify-center text-[11px] font-mono font-bold shadow-md">
+            <div className="w-9 h-9 rounded-full border-2 border-white bg-sand-800 flex items-center justify-center text-[11px] font-mono font-bold shadow-md">
               +34k
             </div>
           </div>
@@ -461,7 +461,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
           >
             The publication &amp; network for healthcare decision-makers.
           </h2>
-          <p className="text-sm md:text-base text-stone-200/90 mb-9 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-sm md:text-base text-sand-200/90 mb-9 leading-relaxed max-w-2xl mx-auto">
             Read curated monthly dossiers, interact with digital 3D flipbook magazines, and receive explainable peer introductions across Pharma, MedTech, and AI-Health.
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">

@@ -12,7 +12,7 @@ export default function Footer({ onNavigate }: FooterProps) {
   }
 
   return (
-    <footer className="border-t-4 border-[var(--color-brand-coral)] bg-[#0A1F28] text-stone-300 py-12 px-6 md:px-12 mt-auto">
+    <footer className="border-t-4 border-[var(--color-brand-coral)] bg-[var(--color-teal-900)] text-sand-300 py-12 px-6 md:px-12 mt-auto">
       <div className="max-w-[var(--container-max)] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-white/10">
           {/* Col 1: Brand & Identity (4 cols) */}
@@ -20,12 +20,12 @@ export default function Footer({ onNavigate }: FooterProps) {
             <div onClick={() => handleNav("home")} className="cursor-pointer brightness-110">
               <Logo size="md" />
             </div>
-            <p className="text-xs sm:text-sm text-stone-400 max-w-sm leading-relaxed">
+            <p className="text-xs sm:text-sm text-sand-400 max-w-sm leading-relaxed">
               A serious monthly publication and verified peer network for leaders building what healthcare becomes next across Pharma, MedTech, and AI-Health.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <span
-                className="font-mono text-[11px] uppercase font-bold tracking-wider px-2 py-1 bg-white/10 border border-white/15 rounded-xs text-emerald-400"
+                className="font-mono text-[11px] uppercase font-bold tracking-wider px-2 py-1 bg-white/10 border border-white/15 rounded-xs text-success-400"
               >
                 Monthly Circulation
               </span>
@@ -44,19 +44,19 @@ export default function Footer({ onNavigate }: FooterProps) {
             >
               Magazine & Editorial
             </span>
-            <button onClick={() => handleNav("magazine")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
+            <button onClick={() => handleNav("magazine")} className="text-left text-sm md:text-xs text-sand-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Current Issue (Flipbook Reader)
             </button>
-            <button onClick={() => handleNav("archive")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
+            <button onClick={() => handleNav("archive")} className="text-left text-sm md:text-xs text-sand-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Digital Issue Archive
             </button>
-            <button onClick={() => handleNav("thought-leadership")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
+            <button onClick={() => handleNav("thought-leadership")} className="text-left text-sm md:text-xs text-sand-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Thought Leadership Columns
             </button>
-            <button onClick={() => handleNav("interviews")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
+            <button onClick={() => handleNav("interviews")} className="text-left text-sm md:text-xs text-sand-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Special Executive Interviews
             </button>
-            <button onClick={() => handleNav("press-release")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
+            <button onClick={() => handleNav("press-release")} className="text-left text-sm md:text-xs text-sand-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Submit Press Release
             </button>
           </div>
@@ -64,23 +64,23 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Col 3: Industry & Intelligence (2 cols) */}
           <div className="md:col-span-2 flex flex-col gap-2.5">
             <span
-              className="font-mono text-[11px] font-semibold tracking-[0.14em] uppercase text-cyan-400 mb-1"
+              className="font-mono text-[11px] font-semibold tracking-[0.14em] uppercase text-teal-300 mb-1"
             >
               Industry & Events
             </span>
-            <button onClick={() => handleNav("reports")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
+            <button onClick={() => handleNav("reports")} className="text-left text-sm md:text-xs text-sand-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Research Reports
             </button>
-            <button onClick={() => handleNav("webinars")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
+            <button onClick={() => handleNav("webinars")} className="text-left text-sm md:text-xs text-sand-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Webinars & Masterclasses
             </button>
-            <button onClick={() => handleNav("events")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
+            <button onClick={() => handleNav("events")} className="text-left text-sm md:text-xs text-sand-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Events & Conclaves
             </button>
-            <button onClick={() => handleNav("regulatory-navigator")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
+            <button onClick={() => handleNav("regulatory-navigator")} className="text-left text-sm md:text-xs text-sand-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Regulatory Navigator
             </button>
-            <button onClick={() => handleNav("trends")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
+            <button onClick={() => handleNav("trends")} className="text-left text-sm md:text-xs text-sand-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Trend Telemetry
             </button>
           </div>
@@ -88,7 +88,7 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Col 4: Network & Corporate (3 cols) */}
           <div className="md:col-span-3 flex flex-col gap-2.5">
             <span
-              className="font-mono text-[11px] font-semibold tracking-[0.14em] uppercase text-cyan-400 mb-1"
+              className="font-mono text-[11px] font-semibold tracking-[0.14em] uppercase text-teal-300 mb-1"
             >
               Network & Corporate
             </span>
@@ -99,29 +99,29 @@ export default function Footer({ onNavigate }: FooterProps) {
               🎁 Colleague Referral Program
             </button>
 
-            <button onClick={() => handleNav("professionals")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
+            <button onClick={() => handleNav("professionals")} className="text-left text-sm md:text-xs text-sand-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               For Verified Professionals
             </button>
-            <button onClick={() => handleNav("companies")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
+            <button onClick={() => handleNav("companies")} className="text-left text-sm md:text-xs text-sand-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               For Enterprise Teams
             </button>
-            <button onClick={() => handleNav("vendors")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
+            <button onClick={() => handleNav("vendors")} className="text-left text-sm md:text-xs text-sand-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               CDMO & Partner Directory
             </button>
-            <button onClick={() => handleNav("advertise")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
+            <button onClick={() => handleNav("advertise")} className="text-left text-sm md:text-xs text-sand-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               Advertise / Media Kit
             </button>
-            <button onClick={() => handleNav("about")} className="text-left text-sm md:text-xs text-stone-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
+            <button onClick={() => handleNav("about")} className="text-left text-sm md:text-xs text-sand-400 hover:text-white transition-colors inline-flex items-center min-h-11 md:min-h-0">
               About Mediverse Life Sciences
             </button>
           </div>
         </div>
 
         {/* Bottom Bar: Copyright & Compliance */}
-        <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-stone-400 font-mono">
+        <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-sand-400 font-mono">
           <div>© 2026 Mediverse Life Sciences. All rights reserved.</div>
 
-          <div className="flex items-center gap-4 text-[11px] flex-wrap justify-center text-stone-400">
+          <div className="flex items-center gap-4 text-[11px] flex-wrap justify-center text-sand-400">
             <span>DPDP Act, 2023 Compliant</span>
             <span>·</span>
             <span>Explicit Consent Matching</span>

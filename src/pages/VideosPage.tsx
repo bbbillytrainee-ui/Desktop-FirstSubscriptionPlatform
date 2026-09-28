@@ -38,8 +38,8 @@ export default function VideosPage({ onJoin, onNavigate }: VideosPageProps) {
         </div>
 
         {/* Featured Video Player View */}
-        <div className="bg-black rounded-sm overflow-hidden shadow-2xl mb-12 border border-stone-800">
-          <div className="relative aspect-video max-h-[500px] w-full bg-stone-900 flex items-center justify-center group">
+        <div className="bg-black rounded-sm overflow-hidden shadow-2xl mb-12 border border-sand-800">
+          <div className="relative aspect-video max-h-[500px] w-full bg-sand-900 flex items-center justify-center group">
             <img loading="lazy" decoding="async"
               src={activeVideo.thumbnail}
               alt={activeVideo.title}
@@ -50,7 +50,7 @@ export default function VideosPage({ onJoin, onNavigate }: VideosPageProps) {
             {/* Play Button Overlay */}
             <button
               onClick={() => setIsPlaying(v => !v)}
-              className="relative z-10 w-20 h-20 rounded-full bg-[var(--color-brand-coral-fill)] hover:bg-[#b84e2e] text-white flex items-center justify-center text-3xl shadow-[0_0_40px_rgba(208,96,61,0.6)] cursor-pointer transition hover:scale-110"
+              className="relative z-10 w-20 h-20 rounded-full bg-[var(--color-brand-coral-fill)] hover:bg-[var(--color-terracotta-700)] text-white flex items-center justify-center text-3xl shadow-[0_0_40px_rgba(208,96,61,0.6)] cursor-pointer transition hover:scale-110"
               aria-label="Play Video"
             >
               {isPlaying ? "❚❚" : "▶"}
@@ -63,14 +63,14 @@ export default function VideosPage({ onJoin, onNavigate }: VideosPageProps) {
                   <span className="font-mono bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-[11px] font-semibold uppercase px-2 py-0.5 rounded-sm">
                     {activeVideo.category}
                   </span>
-                  <span className="font-mono text-xs text-stone-300">
+                  <span className="font-mono text-xs text-sand-300">
                     Duration: {activeVideo.duration}
                   </span>
                 </div>
                 <h2 className="font-serif text-xl sm:text-2xl md:text-3xl font-semibold leading-snug max-w-3xl">
                   {activeVideo.title}
                 </h2>
-                <p className="text-xs text-stone-300 mt-1">
+                <p className="text-xs text-sand-300 mt-1">
                   Speaker: {activeVideo.speaker} ({activeVideo.speakerRole}, {activeVideo.speakerCompany})
                 </p>
               </div>
@@ -109,7 +109,7 @@ export default function VideosPage({ onJoin, onNavigate }: VideosPageProps) {
                 activeVideo.id === video.id ? "ring-2 ring-[var(--color-brand-teal)]" : "border-[var(--color-border-subtle)]"
               }`}
             >
-              <div className="relative h-48 bg-stone-900 overflow-hidden">
+              <div className="relative h-48 bg-sand-900 overflow-hidden">
                 <img loading="lazy" decoding="async"
                   src={video.thumbnail}
                   alt={video.title}

@@ -69,7 +69,7 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
                   {activeEpisode.date} · {activeEpisode.duration}
                 </span>
                 {isPlaying && (
-                  <span className="flex items-center gap-1 text-[11px] font-mono text-[var(--color-brand-coral)] bg-orange-50 px-2 py-0.5 rounded border border-orange-200">
+                  <span className="flex items-center gap-1 text-[11px] font-mono text-[var(--color-brand-coral)] bg-terracotta-50 px-2 py-0.5 rounded border border-terracotta-200">
                     <span className="inline-block w-1.5 h-1.5 bg-[var(--color-brand-coral-fill)] rounded-full animate-ping" />
                     PLAYING NOW
                   </span>
@@ -173,10 +173,10 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
           </div>
           <div className="flex items-center gap-3">
             <span className="px-3 py-1.5 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] text-xs font-medium rounded-sm flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-500" /> Spotify
+              <span className="w-2 h-2 rounded-full bg-success-400" /> Spotify
             </span>
             <span className="px-3 py-1.5 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] text-xs font-medium rounded-sm flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-purple-500" /> Apple Podcasts
+              <span className="w-2 h-2 rounded-full bg-[var(--color-apple-podcasts)]" /> Apple Podcasts
             </span>
           </div>
         </div>
@@ -201,9 +201,9 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
                 <span>Guest: {activeEpisode.guest} ({activeEpisode.guestCompany})</span>
                 {isPlaying && (
                   <span className="flex items-center gap-0.5 ml-2">
-                    <span className="w-0.5 h-2 bg-emerald-400 animate-pulse" />
-                    <span className="w-0.5 h-3 bg-emerald-400 animate-bounce" />
-                    <span className="w-0.5 h-1.5 bg-emerald-400 animate-pulse" />
+                    <span className="w-0.5 h-2 bg-success-400 animate-pulse" />
+                    <span className="w-0.5 h-3 bg-success-400 animate-bounce" />
+                    <span className="w-0.5 h-1.5 bg-success-400 animate-pulse" />
                   </span>
                 )}
               </span>

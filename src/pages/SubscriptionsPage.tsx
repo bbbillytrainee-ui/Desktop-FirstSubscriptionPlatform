@@ -150,7 +150,7 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
         </div>
 
         {/* Referral Perk Callout Banner */}
-        <div className="max-w-5xl mx-auto mb-12 bg-gradient-to-r from-[var(--color-brand-teal)]/10 via-amber-500/5 to-[var(--color-brand-coral)]/10 border border-[var(--color-brand-teal)]/30 rounded-lg p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="max-w-5xl mx-auto mb-12 bg-gradient-to-r from-[var(--color-brand-teal)]/10 via-gold-400/5 to-[var(--color-brand-coral)]/10 border border-[var(--color-brand-teal)]/30 rounded-lg p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-start gap-4">
             <div className="p-3 bg-card rounded-full border border-[var(--color-brand-teal)]/20 shadow-xs hidden sm:block shrink-0">
               <svg className="w-6 h-6 text-[var(--color-brand-teal)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">

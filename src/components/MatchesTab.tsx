@@ -82,7 +82,7 @@ export default function MatchesTab() {
               <div className="flex-shrink-0">
                 <div
                   className="w-11 h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center text-sm font-bold text-white"
-                  style={{ background: connected.has(match.id) ? "#D0603D" : "#0D3B4A" }}
+                  style={{ background: connected.has(match.id) ? "var(--color-terracotta-600)" : "var(--color-teal-800)" }}
                 >
                   {match.name.split(" ").filter((_, idx) => idx < 2).map(n => n[0]).join("")}
                 </div>

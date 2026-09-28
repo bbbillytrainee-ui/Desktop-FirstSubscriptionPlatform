@@ -1,45 +1,104 @@
-/* src/styles/tokens.css — Mediverse Life Sciences Token Architecture */
-
+/* src/styles/tokens.css — Mediverse Life Sciences token architecture
+ *
+ * Layers:
+ *   1. Scales      → index.css `@theme static` (teal, terracotta, sand, gold, success, danger, topic)
+ *   2. Semantic    → here: surfaces, text, borders, accents, elevation — swap per theme
+ *   3. Legacy      → here: --color-brand-* etc. kept as aliases so existing components keep working
+ *
+ * Depth: page (flat) → panel (hairline) → card (hairline + elev-1, elev-2 on hover) → floating (elev-3).
+ * Borders describe structure; shadows mean "raised / touchable".
+ */
 
 :root {
-  /* ── Color System Tokens ── */
-  --color-brand-teal: #0D3B4A;
-  --color-brand-teal-dark: #07222B;
-  --color-brand-teal-mid: #1A5C72;
-  --color-brand-teal-light: #2A8FA8;
+  /* ── Semantic: surfaces ── */
+  --surface-page: var(--color-sand-50);
+  --surface-panel: var(--color-sand-0);
+  --surface-sunken: var(--color-sand-100);
+  --surface-card: var(--color-sand-0);
+  --surface-raised: var(--color-sand-0);
+  --surface-inverse: var(--color-teal-900);
+  --surface-inverse-raised: var(--color-teal-800);
+
+  /* ── Semantic: text ── */
+  --text-primary: var(--color-sand-900);
+  --text-muted: var(--color-sand-600);          /* 6.1:1 on page, 5.7:1 on sunken */
+  --text-inverse: var(--color-sand-50);
+  --text-inverse-muted: var(--color-sand-300);  /* 10.3:1 on teal-900 */
+
+  /* ── Semantic: borders ── */
+  --border-subtle: var(--color-sand-200);
+  --border-strong: var(--color-sand-300);
+  --border-inverse: rgba(255, 255, 255, 0.12);
+
+  /* ── Semantic: accents ── */
+  --accent-text: var(--color-terracotta-600);        /* small text: 5.0:1 on page */
+  --accent-fill: var(--color-terracotta-600);        /* buttons under white text: 5.35:1 */
+  --accent-fill-hover: var(--color-terracotta-700);
+  --accent-decor: var(--color-terracotta-500);       /* large display ("&"), dots, rules — not small text */
+  --accent-on-inverse: var(--color-terracotta-300);  /* text on teal bands: 6.0:1 */
+  --accent-tint: var(--color-terracotta-50);
+  --brand-text: var(--color-teal-800);
+
+  /* ── Elevation: warm-tinted (umber), never grey-black ── */
+  --elev-1: 0 1px 2px rgba(60, 38, 22, 0.05), 0 1px 3px rgba(60, 38, 22, 0.06);
+  --elev-2: 0 2px 6px rgba(60, 38, 22, 0.06), 0 12px 28px -10px rgba(60, 38, 22, 0.20);
+  --elev-3: 0 4px 12px rgba(40, 25, 15, 0.08), 0 28px 60px -18px rgba(40, 25, 15, 0.32);
+  --glow-accent: 0 8px 24px -8px rgba(180, 73, 42, 0.45);
+
+  /* ── Print palette: 3D flipbook pages always render as paper, in both themes ── */
+  --print-paper: var(--color-sand-50);
+  --print-paper-alt: #F4EFE6;
+  --print-ink: var(--color-sand-900);
+  --print-ink-soft: #4A4E51;
+  --print-muted: #6B7073;
+  --print-accent: var(--color-teal-800);
+  --print-cover: var(--color-teal-950);
+  --print-cover-alt: #09222A;
+
+  /* ── Third-party brand marks (used only for their logos/dots) ── */
+  --color-linkedin: #0A66C2;
+  --color-apple-podcasts: #9933CC;
+
+  /* ── Legacy aliases (existing components) ── */
+  --color-brand-teal: var(--color-teal-800);
+  --color-brand-teal-dark: var(--color-teal-900);
+  --color-brand-teal-mid: var(--color-teal-600);
+  --color-brand-teal-light: var(--color-teal-500);
   --color-brand-teal-glow: rgba(13, 59, 74, 0.12);
-  --color-brand-coral: #D0603D;       /* text, borders, tints — lightens in dark mode */
-  --color-brand-coral-fill: #D0603D;  /* solid fills under white text (4.95:1) — same in both themes */
-  --color-brand-coral-hover: #B84E2E;
-  --color-brand-coral-light: #FAE8E2;
-  --color-brand-coral-glow: rgba(208, 96, 61, 0.10);
-  --color-brand-gold: #C9A84C;
-  --color-brand-gold-bg: #FDF7E8;
-  --color-paper: #FAF7F2;
-  --color-ink: #1A1D1F;
-  --color-surface: #F2EFE9;
-  --color-border-subtle: #E8E4DE;
-  --color-slate-muted: #5E6366; /* 5.3:1 on surface — WCAG AA */
-  --color-brand-coral-on-dark: #E8876A; /* coral for small text on dark sections, 6.5:1 */
-  --color-success: #10B981;
-  --color-success-bg: #ECFDF5;
-  --color-navy-deep: #0A2630;
-  --color-section-dark: #0A1F28;
-  --color-footer-dark: #07141A;
+  --color-brand-coral: var(--accent-text);          /* was #D0603D (3.6:1 on paper — failed AA) */
+  --color-brand-coral-fill: var(--accent-fill);     /* was #D0603D (white on it 3.9:1 — failed AA) */
+  --color-brand-coral-hover: var(--accent-fill-hover);
+  --color-brand-coral-light: var(--accent-tint);
+  --color-brand-coral-glow: rgba(180, 73, 42, 0.10);
+  --color-brand-coral-on-dark: var(--accent-on-inverse);
+  --color-brand-gold: var(--color-gold-400);
+  --color-brand-gold-bg: var(--color-gold-100);
+  --color-paper: var(--surface-page);
+  --color-ink: var(--text-primary);
+  --color-surface: var(--surface-sunken);
+  --color-border-subtle: var(--border-subtle);
+  --color-slate-muted: var(--text-muted);
+  --color-success: var(--color-success-600);
+  --color-success-bg: var(--color-success-50);
+  --color-navy-deep: var(--surface-inverse-raised);
+  --color-section-dark: var(--surface-inverse);
+  --color-footer-dark: var(--color-teal-950);
 
   /* ── Font families ── (type scale, radius & shadow live in index.css @theme) */
   --font-serif: 'Fraunces', Georgia, serif;
   --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
   --font-mono: 'Geist Mono', monospace;
 
-  /* ── Layout & Container Constraints ── */
+  /* ── Layout ── */
   --container-max: min(1200px, calc(100% - 48px));
   --article-max: min(740px, 100%);
   --modal-max: 700px;
   --drawer-max: 420px;
+  --section-y: clamp(3.5rem, 2.5rem + 4vw, 6rem);
 
-  /* ── Motion & Animation Timing ── */
+  /* ── Motion: one easing set ── */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --duration-fast: 150ms;
   --duration-base: 220ms;
   --duration-slow: 300ms;
@@ -48,17 +107,37 @@
 }
 
 html.dark {
-  --color-paper: #091E26;
-  --color-ink: #F2EFE9;
-  --color-surface: #0A242E;
-  --color-card: #0D323E;
-  --color-border-subtle: rgba(255, 255, 255, 0.12);
-  --color-slate-muted: #94A3B8;
-  --color-brand-teal: #5FB3C4;   /* brand teal lifted for dark bg (7.2:1), not generic sky blue */
-  --color-brand-coral: #E8876A;  /* coral text/borders on dark bg (6.5:1); fills keep --color-brand-coral-fill */
-  --color-brand-coral-light: rgba(208, 96, 61, 0.2);
+  --surface-page: #091E26;
+  --surface-panel: #0B2530;
+  --surface-sunken: #0A242E;
+  --surface-card: #0D323E;
+  --surface-raised: #103A48;
+  --surface-inverse: var(--color-teal-950);
+  --surface-inverse-raised: #0B2A34;
+
+  --text-primary: var(--color-sand-100);
+  --text-muted: #A39E95;                         /* 6.4:1 on page, 5.1:1 on card */
+  --text-inverse: var(--color-sand-50);
+  --text-inverse-muted: var(--color-sand-300);
+
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.2);
+
+  --accent-text: var(--color-terracotta-300);     /* 6.6:1 on page */
+  --accent-decor: var(--color-terracotta-400);
+  --accent-tint: rgba(232, 135, 106, 0.14);
+  --brand-text: var(--color-teal-400);            /* 7.1:1 on page */
+
+  /* Deeper, cooler shadows plus a faint top highlight so raised surfaces separate on dark */
+  --elev-1: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 1px 3px rgba(0, 0, 0, 0.35);
+  --elev-2: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 14px 32px -10px rgba(0, 0, 0, 0.55);
+  --elev-3: 0 1px 0 rgba(255, 255, 255, 0.06) inset, 0 30px 70px -18px rgba(0, 0, 0, 0.7);
+
+  --color-card: var(--surface-card);
+  --color-brand-teal: var(--brand-text);
+  --color-brand-coral-light: var(--accent-tint);
 }
 
-.font-serif { font-family: var(--font-serif) !important; }
+.font-serif { font-family: var(--font-serif) !important; font-optical-sizing: auto; }
 .font-mono  { font-family: var(--font-mono) !important; }
 .font-sans  { font-family: var(--font-sans) !important; }

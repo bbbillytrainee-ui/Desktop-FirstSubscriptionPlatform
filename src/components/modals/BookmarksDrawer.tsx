@@ -48,10 +48,10 @@ export default function BookmarksDrawer({
       <div className="backdrop-overlay animate-fade-up" onClick={onClose} />
 
       {/* Slide-over Drawer Panel */}
-      <div className="drawer-panel bg-[#0D222A] text-white shadow-2xl flex flex-col justify-between border-l border-stone-700/60 animate-slide-in-right">
+      <div className="drawer-panel bg-[var(--color-teal-950)] text-white shadow-2xl flex flex-col justify-between border-l border-sand-700/60 animate-slide-in-right">
         
         {/* Drawer Header */}
-        <div className="p-4 sm:p-5 border-b border-stone-700/80 flex items-center justify-between bg-[#05161C]">
+        <div className="p-4 sm:p-5 border-b border-sand-700/80 flex items-center justify-between bg-[var(--color-teal-950)]">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-full bg-[var(--color-brand-coral)]/20 border border-[var(--color-brand-coral)]/40 flex items-center justify-center text-[var(--color-brand-coral)]">
               <BookmarkFilled size={16} />
@@ -68,7 +68,7 @@ export default function BookmarksDrawer({
 
           <button
             onClick={onClose}
-            className="p-1.5 hover:bg-white/10 rounded-sm text-stone-300 hover:text-white transition-colors cursor-pointer"
+            className="p-1.5 hover:bg-white/10 rounded-sm text-sand-300 hover:text-white transition-colors cursor-pointer"
             aria-label="Close bookmarks drawer"
           >
             <X size={18} />
@@ -92,21 +92,21 @@ export default function BookmarksDrawer({
           ) : (
             <>
               {/* Drawer Top Utility Toolbar */}
-              <div className="flex items-center justify-between text-xs pb-2 border-b border-stone-800">
+              <div className="flex items-center justify-between text-xs pb-2 border-b border-sand-800">
                 <span className="font-mono text-[11px] text-[var(--color-slate-muted)] uppercase tracking-widest">
                   Bookmarked Articles
                 </span>
                 <div className="flex items-center gap-3">
                   <button
                     onClick={handleExportSavedList}
-                    className="font-mono text-[11px] text-amber-300 hover:underline flex items-center gap-1 cursor-pointer"
+                    className="font-mono text-[11px] text-gold-200 hover:underline flex items-center gap-1 cursor-pointer"
                   >
                     <Download size={12} />
                     <span>Export Digest</span>
                   </button>
                   <button
                     onClick={clearAllBookmarks}
-                    className="font-mono text-[11px] text-[var(--color-slate-muted)] hover:text-rose-400 underline cursor-pointer"
+                    className="font-mono text-[11px] text-[var(--color-slate-muted)] hover:text-danger-400 underline cursor-pointer"
                   >
                     Clear All
                   </button>
@@ -118,10 +118,10 @@ export default function BookmarksDrawer({
                 {savedArticles.map(article => (
                   <div
                     key={article.slug}
-                    className="p-3.5 bg-white/5 hover:bg-white/10 border border-stone-700/70 hover:border-[var(--color-brand-teal)] rounded-md transition group relative"
+                    className="p-3.5 bg-white/5 hover:bg-white/10 border border-sand-700/70 hover:border-[var(--color-brand-teal)] rounded-md transition group relative"
                   >
                     <div className="flex gap-3 items-start">
-                      <div className="w-20 h-16 rounded-xs overflow-hidden border border-stone-700 shrink-0 relative bg-stone-900">
+                      <div className="w-20 h-16 rounded-xs overflow-hidden border border-sand-700 shrink-0 relative bg-sand-900">
                         <SafeImage
                           src={article.image}
                           alt={article.title}
@@ -154,7 +154,7 @@ export default function BookmarksDrawer({
                         </p>
 
                         {/* Quick Action Footer */}
-                        <div className="flex items-center justify-between pt-2 border-t border-stone-800 text-[11px]">
+                        <div className="flex items-center justify-between pt-2 border-t border-sand-800 text-[11px]">
                           <div className="flex items-center gap-2">
                             <button
                               onClick={() => {
@@ -173,7 +173,7 @@ export default function BookmarksDrawer({
                                   onOpen3DReader(article)
                                   onClose()
                                 }}
-                                className="font-mono text-amber-300 hover:underline flex items-center gap-1 cursor-pointer"
+                                className="font-mono text-gold-200 hover:underline flex items-center gap-1 cursor-pointer"
                               >
                                 <BookOpen size={10} />
                                 <span>3D Reader</span>
@@ -183,7 +183,7 @@ export default function BookmarksDrawer({
 
                           <button
                             onClick={() => removeBookmark(article.slug)}
-                            className="text-[var(--color-slate-muted)] hover:text-rose-400 p-1 transition-colors cursor-pointer"
+                            className="text-[var(--color-slate-muted)] hover:text-danger-400 p-1 transition-colors cursor-pointer"
                             title="Remove bookmark"
                           >
                             <Trash2 size={13} />
@@ -199,7 +199,7 @@ export default function BookmarksDrawer({
         </div>
 
         {/* Drawer Footer */}
-        <div className="p-4 border-t border-stone-800 bg-[#05161C] flex justify-between items-center text-[11px] font-mono text-[var(--color-slate-muted)]">
+        <div className="p-4 border-t border-sand-800 bg-[var(--color-teal-950)] flex justify-between items-center text-[11px] font-mono text-[var(--color-slate-muted)]">
           <span>Saved to local account profile</span>
           <Button variant="coral" size="sm" onClick={onClose}>
             Done

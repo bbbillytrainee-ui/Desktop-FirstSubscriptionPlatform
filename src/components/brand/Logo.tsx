@@ -19,10 +19,10 @@ export default function Logo({ size = "md", inverse = false, className = "" }: L
 
       <div className={`${markSize} flex-shrink-0 flex items-center justify-center`}>
         <svg viewBox="0 0 32 32" fill="none" className="w-full h-full">
-          <circle cx="16" cy="16" r="14" stroke={inverse ? "#FAF7F2" : "#0D3B4A"} strokeWidth="2.5" strokeOpacity="0.9" />
-          <ellipse cx="16" cy="16" rx="7" ry="14" stroke={inverse ? "#FAF7F2" : "#0D3B4A"} strokeWidth="1.75" />
-          <line x1="2" y1="16" x2="30" y2="16" stroke={inverse ? "#FAF7F2" : "#0D3B4A"} strokeWidth="1.75" />
-          <circle cx="16" cy="16" r="3" fill="#D0603D" />
+          <circle cx="16" cy="16" r="14" stroke={inverse ? "var(--color-sand-50)" : "var(--brand-text)"} strokeWidth="2.5" strokeOpacity="0.9" />
+          <ellipse cx="16" cy="16" rx="7" ry="14" stroke={inverse ? "var(--color-sand-50)" : "var(--brand-text)"} strokeWidth="1.75" />
+          <line x1="2" y1="16" x2="30" y2="16" stroke={inverse ? "var(--color-sand-50)" : "var(--brand-text)"} strokeWidth="1.75" />
+          <circle cx="16" cy="16" r="3" fill="var(--accent-decor)" />
         </svg>
       </div>
       <div className="flex flex-col justify-center">

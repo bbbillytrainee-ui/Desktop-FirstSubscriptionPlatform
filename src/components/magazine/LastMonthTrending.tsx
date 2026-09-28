@@ -20,8 +20,8 @@ export default function LastMonthTrending({
 
   const rankings = [
     { rank: "01", label: "#1 Most Read Last Month", icon: <Flame size={12} className="text-[var(--color-brand-coral)]" />, views: "5,420 Reads", velocity: "+48% velocity" },
-    { rank: "02", label: "Top Shared in MedTech", icon: <TrendingUp size={12} className="text-emerald-600" />, views: "3,890 Reads", velocity: "+32% shares" },
-    { rank: "03", label: "Editor's Breakthrough Pick", icon: <Award size={12} className="text-amber-600" />, views: "3,120 Reads", velocity: "98% completion" },
+    { rank: "02", label: "Top Shared in MedTech", icon: <TrendingUp size={12} className="text-success-600" />, views: "3,890 Reads", velocity: "+32% shares" },
+    { rank: "03", label: "Editor's Breakthrough Pick", icon: <Award size={12} className="text-gold-600" />, views: "3,120 Reads", velocity: "98% completion" },
   ]
 
   const editorial = lastMonthIssue.editorialColumn || {
@@ -46,7 +46,7 @@ export default function LastMonthTrending({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[var(--color-border-subtle)] mb-8 relative z-10">
         <div>
           <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-            <span className="font-mono text-[11px] uppercase font-bold tracking-wider text-[var(--color-brand-coral)] bg-orange-50 px-2 py-0.5 rounded border border-orange-200 flex items-center gap-1">
+            <span className="font-mono text-[11px] uppercase font-bold tracking-wider text-[var(--color-brand-coral)] bg-terracotta-50 px-2 py-0.5 rounded border border-terracotta-200 flex items-center gap-1">
               <TrendingUp size={12} />
               {lastMonthIssue.month} Retrospective & Velocity Report
             </span>
@@ -66,7 +66,7 @@ export default function LastMonthTrending({
           onClick={() => onOpenIssueFlipbook(lastMonthIssue)}
           className="font-mono min-h-11 px-4 py-2.5 bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-xs font-semibold rounded-sm hover:bg-[var(--color-brand-teal-dark)] transition flex items-center gap-2 shrink-0 cursor-pointer shadow-xs"
         >
-          <BookOpen size={14} className="text-amber-200" />
+          <BookOpen size={14} className="text-gold-200" />
           <span>Launch {lastMonthIssue.month.split(" ")[0]} Issue (3D)</span>
         </button>
       </div>
@@ -149,7 +149,7 @@ export default function LastMonthTrending({
                         {meta.icon}
                         {meta.label}
                       </span>
-                      <span className="text-stone-300">•</span>
+                      <span className="text-sand-300">•</span>
                       <span className="font-mono text-[11px] text-[var(--color-slate-muted)]">
                         {article.category} · {article.readingTime}
                       </span>
@@ -170,7 +170,7 @@ export default function LastMonthTrending({
                   <span className="font-mono text-[11px] font-semibold text-[var(--color-ink)]">
                     {meta.views}
                   </span>
-                  <span className="font-mono text-[11px] text-emerald-600 font-medium">
+                  <span className="font-mono text-[11px] text-success-600 font-medium">
                     {meta.velocity}
                   </span>
                   <span className="text-xs text-[var(--color-brand-teal)] font-semibold mt-1 hidden sm:inline-block group-hover:translate-x-1 transition-transform">
@@ -184,7 +184,7 @@ export default function LastMonthTrending({
           {/* Quick All Last Month Issues Link */}
           <div className="pt-2 flex items-center justify-between text-xs text-[var(--color-slate-muted)]">
             <span className="flex items-center gap-1 font-mono text-[11px]">
-              <Sparkles size={12} className="text-amber-500" />
+              <Sparkles size={12} className="text-gold-400" />
               {lastMonthIssue.readersCount || "28,000+"} leaders engaged with Issue #{lastMonthIssue.number}
             </span>
             <button

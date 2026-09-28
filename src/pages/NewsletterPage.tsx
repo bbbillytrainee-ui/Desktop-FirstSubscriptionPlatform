@@ -177,9 +177,9 @@ export default function NewsletterPage({ onJoin, onNavigate }: NewsletterPagePro
               {/* Fake Email Client Header Bar */}
               <div className="bg-[var(--color-surface)] border-b border-[var(--color-border-subtle)] px-5 py-3 flex items-center justify-between text-xs text-[var(--color-slate-muted)]">
                 <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-danger-400" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-gold-400" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-success-400" />
                   <span className="font-mono text-[11px] ml-2 text-[var(--color-slate-muted)]">From: dispatch@mediverse.network</span>
                 </div>
                 <span className="font-mono text-[11px]">

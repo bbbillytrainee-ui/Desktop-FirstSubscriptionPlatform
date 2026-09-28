@@ -180,7 +180,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
             onClick={handleBookmarkToggle}
             className={`max-md:hidden font-mono px-3 py-1.5 text-xs font-semibold rounded-sm border transition flex items-center gap-1.5 cursor-pointer ${
               isBookmarked
-                ? "bg-orange-50 border-[var(--color-brand-coral)] text-[var(--color-brand-coral)]"
+                ? "bg-terracotta-50 border-[var(--color-brand-coral)] text-[var(--color-brand-coral)]"
                 : "bg-card border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] hover:border-[var(--color-ink)]"
             }`}
             title={isBookmarked ? "Remove bookmark" : "Save article to reading list"}
@@ -203,7 +203,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
               onClick={onOpenFlipbook}
               className="font-mono min-h-11 px-3 py-1.5 bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-xs font-semibold rounded-sm shadow-xs hover:bg-[var(--color-brand-teal-dark)] transition flex items-center gap-1.5 cursor-pointer"
             >
-              <BookOpen size={14} className="text-amber-200" />
+              <BookOpen size={14} className="text-gold-200" />
               <span>Open in 3D Reader</span>
             </button>
           )}

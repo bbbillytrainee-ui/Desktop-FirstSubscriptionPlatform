@@ -276,7 +276,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
               </div>
 
               {/* Referral Code Field */}
-              <div className="pt-2 border-t border-gray-100">
+              <div className="pt-2 border-t border-sand-100">
                 <label className="block text-xs font-semibold text-[var(--color-ink)] mb-1">Have a Referral Code? (Optional)</label>
                 <div className="flex gap-2">
                   <input
@@ -289,13 +289,13 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                   <button
                     type="button"
                     onClick={handleApplyReferralCode}
-                    className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-xs font-medium rounded-sm transition-colors text-[var(--color-ink)]"
+                    className="px-3 py-1.5 bg-sand-100 hover:bg-sand-200 text-xs font-medium rounded-sm transition-colors text-[var(--color-ink)]"
                   >
                     Apply Code
                   </button>
                 </div>
                 {appliedRefSuccess && (
-                  <p className="text-[11px] text-emerald-600 font-medium mt-1">
+                  <p className="text-[11px] text-success-600 font-medium mt-1">
                     ✓ Referral code applied! You will get 1 month extra trial upon activation.
                   </p>
                 )}

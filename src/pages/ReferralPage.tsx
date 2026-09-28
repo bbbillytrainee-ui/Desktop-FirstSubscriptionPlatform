@@ -58,16 +58,16 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
 
         {/* 4 Gamified Stats Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-10">
-          <div className="bg-gradient-to-br from-stone-50 to-white border border-[var(--color-border-subtle)] p-6 rounded-xl shadow-[0_4px_16px_rgba(13,59,74,0.04)] hover:-translate-y-1 transition-transform">
+          <div className="bg-gradient-to-br from-sand-50 to-white border border-[var(--color-border-subtle)] p-6 rounded-xl shadow-[0_4px_16px_rgba(13,59,74,0.04)] hover:-translate-y-1 transition-transform">
             <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-slate-muted)] block mb-1">Invites Sent</span>
             <span className="text-3xl sm:text-4xl font-black text-[var(--color-ink)] font-mono">{stats.totalInvitesSent}</span>
             <span className="text-[11px] text-[var(--color-slate-muted)] block mt-1 font-medium">Direct &amp; link shares</span>
           </div>
 
-          <div className="bg-gradient-to-br from-emerald-50/80 via-white to-white border border-emerald-200/70 p-6 rounded-xl shadow-[0_4px_16px_rgba(16,185,129,0.08)] hover:-translate-y-1 transition-transform">
-            <span className="text-xs font-semibold uppercase tracking-wider text-emerald-800 block mb-1">Colleagues Joined</span>
-            <span className="text-3xl sm:text-4xl font-black text-emerald-600 font-mono">{stats.totalJoined}</span>
-            <span className="text-[11px] text-emerald-700 font-semibold flex items-center gap-1 mt-1">
+          <div className="bg-gradient-to-br from-success-50/80 via-white to-white border border-success-200/70 p-6 rounded-xl shadow-[0_4px_16px_rgba(16,185,129,0.08)] hover:-translate-y-1 transition-transform">
+            <span className="text-xs font-semibold uppercase tracking-wider text-success-700 block mb-1">Colleagues Joined</span>
+            <span className="text-3xl sm:text-4xl font-black text-success-600 font-mono">{stats.totalJoined}</span>
+            <span className="text-[11px] text-success-700 font-semibold flex items-center gap-1 mt-1">
               <CheckIcon size={12} /> Active members
             </span>
           </div>
@@ -78,10 +78,10 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
             <span className="text-[11px] text-[var(--color-brand-coral)] font-semibold block mt-1">Value ₹2,998 Unlocked</span>
           </div>
 
-          <div className="bg-gradient-to-br from-cyan-50/70 via-white to-white border border-cyan-200/60 p-6 rounded-xl shadow-[0_4px_16px_rgba(13,59,74,0.06)] hover:-translate-y-1 transition-transform">
+          <div className="bg-gradient-to-br from-teal-50/70 via-white to-white border border-teal-200/60 p-6 rounded-xl shadow-[0_4px_16px_rgba(13,59,74,0.06)] hover:-translate-y-1 transition-transform">
             <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-brand-teal)] block mb-1">Peer Introductions</span>
             <span className="text-3xl sm:text-4xl font-black text-[var(--color-brand-teal)] font-mono">+{stats.peerIntroductionsUnlocked}</span>
-            <span className="text-[11px] text-cyan-800 font-medium block mt-1">Priority match credits</span>
+            <span className="text-[11px] text-teal-800 font-medium block mt-1">Priority match credits</span>
           </div>
         </div>
 
@@ -104,7 +104,7 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
                   type="text"
                   readOnly
                   value={stats.inviteLink}
-                  className="flex-1 px-3 py-2.5 bg-gray-50 border border-[var(--color-border-subtle)] rounded-sm font-mono text-xs text-[var(--color-ink)] select-all focus:outline-none"
+                  className="flex-1 px-3 py-2.5 bg-sand-50 border border-[var(--color-border-subtle)] rounded-sm font-mono text-xs text-[var(--color-ink)] select-all focus:outline-none"
                 />
                 <Button variant="coral" size="sm" onClick={handleCopy} className="whitespace-nowrap">
                   {copied ? "Copied to Clipboard! ✓" : "Copy Link"}
@@ -118,14 +118,14 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
             </div>
 
             {/* Quick Share Buttons */}
-            <div className="border-t border-gray-100 pt-4 mt-6">
-              <span className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider block mb-3">Quick Share:</span>
+            <div className="border-t border-sand-100 pt-4 mt-6">
+              <span className="text-[11px] font-semibold text-sand-400 uppercase tracking-wider block mb-3">Quick Share:</span>
               <div className="flex flex-wrap gap-2">
                 <a
                   href={`https://api.whatsapp.com/send?text=${encodeURIComponent(`Join me on Mediverse Life Sciences — premier B2B pharma intelligence platform. Use my link to get 1 month free access: ${stats.inviteLink}`)}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-3 py-1.5 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 text-xs font-medium rounded-sm flex items-center gap-1.5 transition-colors"
+                  className="px-3 py-1.5 bg-success-50 text-success-700 hover:bg-success-200 border border-success-200 text-xs font-medium rounded-sm flex items-center gap-1.5 transition-colors"
                 >
                   <WhatsAppIcon size={14} />
                   <span>Share on WhatsApp</span>
@@ -134,14 +134,14 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
                   href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(stats.inviteLink)}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="px-3 py-1.5 bg-sky-50 text-sky-700 hover:bg-sky-100 border border-sky-200 text-xs font-medium rounded-sm flex items-center gap-1.5 transition-colors"
+                  className="px-3 py-1.5 bg-teal-50 text-teal-600 hover:bg-teal-100 border border-teal-200 text-xs font-medium rounded-sm flex items-center gap-1.5 transition-colors"
                 >
                   <LinkedInIcon size={14} />
                   <span>Share on LinkedIn</span>
                 </a>
                 <a
                   href={`mailto:?subject=${encodeURIComponent("Invitation to Mediverse Life Sciences")}&body=${encodeURIComponent(`Hi,\n\nI wanted to invite you to join Mediverse Life Sciences platform. It provides department-segmented intelligence, 3D magazine flipbooks, and peer networking for pharma leads.\n\nUse my invite link to claim 1 month free: ${stats.inviteLink}\n\nBest regards`)}`}
-                  className="px-3 py-1.5 bg-gray-50 text-gray-700 hover:bg-gray-100 border border-gray-200 text-xs font-medium rounded-sm flex items-center gap-1.5 transition-colors"
+                  className="px-3 py-1.5 bg-sand-50 text-sand-700 hover:bg-sand-100 border border-sand-200 text-xs font-medium rounded-sm flex items-center gap-1.5 transition-colors"
                 >
                   <MailIcon size={14} />
                   <span>Email Colleagues</span>
@@ -188,7 +188,7 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
               </Button>
 
               {sentSuccess && (
-                <p className="text-xs text-emerald-600 font-medium bg-emerald-50 p-2.5 rounded-sm border border-emerald-200 flex items-center gap-1.5">
+                <p className="text-xs text-success-600 font-medium bg-success-50 p-2.5 rounded-sm border border-success-200 flex items-center gap-1.5">
                   <CheckIcon size={14} />
                   <span>Invitation sent successfully to {invitedEmail}!</span>
                 </p>
@@ -216,7 +216,7 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="border-b border-gray-200 bg-[var(--color-surface)] text-[var(--color-slate-muted)] font-semibold uppercase tracking-wider">
+                <tr className="border-b border-sand-200 bg-[var(--color-surface)] text-[var(--color-slate-muted)] font-semibold uppercase tracking-wider">
                   <th className="py-3 px-4">Colleague</th>
                   <th className="py-3 px-4">Organization & Role</th>
                   <th className="py-3 px-4">Department</th>
@@ -225,24 +225,24 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
                   <th className="py-3 px-4 text-right">Reward Earned</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-sand-100">
                 {stats.referredUsers.map(user => (
-                  <tr key={user.id} className="hover:bg-gray-50/80 transition-colors">
+                  <tr key={user.id} className="hover:bg-sand-50/80 transition-colors">
                     <td className="py-3.5 px-4 font-semibold text-[var(--color-ink)]">{user.name}</td>
                     <td className="py-3.5 px-4 text-[var(--color-slate-muted)]">{user.role} at {user.organization}</td>
                     <td className="py-3.5 px-4">
-                      <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded-sm text-[11px] font-medium">
+                      <span className="bg-sand-100 text-sand-700 px-2 py-0.5 rounded-sm text-[11px] font-medium">
                         {user.department}
                       </span>
                     </td>
                     <td className="py-3.5 px-4 text-[var(--color-slate-muted)]">{user.joinedDate}</td>
                     <td className="py-3.5 px-4">
                       {user.status === "active" ? (
-                        <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                        <span className="bg-success-50 text-success-700 border border-success-200 text-[11px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
                           <CheckIcon size={10} /> Joined & Active
                         </span>
                       ) : (
-                        <span className="bg-amber-50 text-amber-700 border border-amber-200 text-[11px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                        <span className="bg-gold-100 text-gold-600 border border-gold-200 text-[11px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
                           ○ Invite Pending
                         </span>
                       )}

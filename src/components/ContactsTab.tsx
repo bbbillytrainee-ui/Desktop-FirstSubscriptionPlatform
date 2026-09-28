@@ -25,7 +25,7 @@ function ContactDrawer({ contact, onClose }: { contact: Profile; onClose: () => 
             <div className="flex items-center gap-4 mb-6">
               <div
                 className="w-14 h-14 rounded-full flex items-center justify-center text-base font-bold text-white flex-shrink-0"
-                style={{ background: "#0D3B4A" }}
+                style={{ background: "var(--color-teal-800)" }}
               >
                 {contact.name.split(" ").filter((_, i) => i < 2).map(n => n[0]).join("")}
               </div>
@@ -39,7 +39,7 @@ function ContactDrawer({ contact, onClose }: { contact: Profile; onClose: () => 
             {/* Badge */}
             <div className="flex items-center gap-2 mb-6">
               {contact.isContributor ? (
-                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full" style={{ background: "var(--color-brand-coral-fill)", color: "#FFFFFF" }}>
+                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full" style={{ background: "var(--color-brand-coral-fill)", color: "var(--color-sand-0)" }}>
                   Contributor
                 </span>
               ) : (
@@ -188,7 +188,7 @@ export default function ContactsTab() {
           <div className="flex items-center gap-2">
             <span
               className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full"
-              style={{ background: "var(--color-brand-coral-fill)", color: "#FFFFFF" }}
+              style={{ background: "var(--color-brand-coral-fill)", color: "var(--color-sand-0)" }}
             >
               Contributor
             </span>
@@ -218,7 +218,7 @@ export default function ContactsTab() {
                 <div className="flex items-center gap-3">
                   <div
                     className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center text-xs font-bold text-white"
-                    style={{ background: "#0D3B4A" }}
+                    style={{ background: "var(--color-teal-800)" }}
                   >
                     {contact.name.split(" ").filter((_, i) => i < 2).map(n => n[0]).join("")}
                   </div>
@@ -231,7 +231,7 @@ export default function ContactsTab() {
                 {contact.isContributor ? (
                   <span
                     className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full flex-shrink-0"
-                    style={{ background: "var(--color-brand-coral-fill)", color: "#FFFFFF" }}
+                    style={{ background: "var(--color-brand-coral-fill)", color: "var(--color-sand-0)" }}
                   >
                     Contributor
                   </span>

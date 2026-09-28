@@ -108,7 +108,7 @@ export default function RegulatoryNavigatorPage({ onJoin, onNavigate }: Regulato
           </div>
 
           {/* Compliance Audit Checklist */}
-          <div className="p-6 bg-[#F4EFE6] border border-[var(--color-border-subtle)] rounded-sm">
+          <div className="p-6 bg-[var(--color-sand-100)] border border-[var(--color-border-subtle)] rounded-sm">
             <h4 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-3">
               Mandatory Compliance & Audit Standards
             </h4>

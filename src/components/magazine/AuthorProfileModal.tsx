@@ -25,11 +25,11 @@ export default function AuthorProfileModal({
     <Modal isOpen={isOpen} onClose={onClose} title="Writer Professional Profile">
       <div className="space-y-6 max-h-[75vh] overflow-y-auto pr-1">
         {/* Header Profile Card */}
-        <div className="p-4 sm:p-5 bg-gradient-to-r from-[#0D3B4A] to-[#164e60] rounded-xl text-white flex flex-col sm:flex-row items-start sm:items-center gap-4 relative overflow-hidden">
+        <div className="p-4 sm:p-5 bg-gradient-to-r from-[var(--color-teal-800)] to-[var(--color-teal-700)] rounded-xl text-white flex flex-col sm:flex-row items-start sm:items-center gap-4 relative overflow-hidden">
           <div className="absolute -right-6 -bottom-6 w-24 h-24 bg-white/5 rounded-full blur-xl pointer-events-none" />
 
           {/* Photo */}
-          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-white/30 shrink-0 shadow-md bg-stone-700">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-white/30 shrink-0 shadow-md bg-sand-700">
             <img loading="lazy" decoding="async" src={author.photo} alt={author.name} className="w-full h-full object-cover" />
           </div>
 
@@ -43,7 +43,7 @@ export default function AuthorProfileModal({
             </div>
 
             <p className="text-xs text-white/90 font-medium">
-              {author.role} · <span className="text-amber-200">{author.company}</span>
+              {author.role} · <span className="text-gold-200">{author.company}</span>
             </p>
 
             {author.credentials && (
@@ -92,7 +92,7 @@ export default function AuthorProfileModal({
               href={author.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="px-3 py-1 bg-[#0A66C2] text-white text-[11px] font-semibold rounded hover:brightness-110 transition flex items-center gap-1"
+              className="px-3 py-1 bg-[var(--color-linkedin)] text-white text-[11px] font-semibold rounded hover:brightness-110 transition flex items-center gap-1"
             >
               <span>in</span> LinkedIn Profile →
             </a>

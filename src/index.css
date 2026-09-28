@@ -28,6 +28,72 @@
   font-display: swap;
 }
 
+/* ── Brand scales → utilities like bg-teal-50, text-terracotta-600, border-sand-200 ──
+   `static` so every step is emitted as a CSS variable (semantic tokens in tokens.css reference them).
+   Contrast (WCAG AA, normal text): terracotta-600 on paper 5.0, white on terracotta-600 5.35,
+   sand-600 on paper 6.1, terracotta-300 on teal-900 6.0. terracotta-500 is decorative/large text only (3.6). */
+@theme static {
+  --color-teal-50: #EFF6F7;
+  --color-teal-100: #D6E9ED;
+  --color-teal-200: #AFD3DB;
+  --color-teal-300: #80B7C3;
+  --color-teal-400: #5FB3C4;
+  --color-teal-500: #2A7A8C;
+  --color-teal-600: #1A5F70;
+  --color-teal-700: #134B59;
+  --color-teal-800: #0D3B4A;
+  --color-teal-900: #082731;
+  --color-teal-950: #051A21;
+
+  --color-terracotta-50: #FCF1EC;
+  --color-terracotta-100: #F8DED3;
+  --color-terracotta-200: #F0BBA6;
+  --color-terracotta-300: #E8876A;
+  --color-terracotta-400: #DE7050;
+  --color-terracotta-500: #D0603D;
+  --color-terracotta-600: #B4492A;
+  --color-terracotta-700: #923A22;
+  --color-terracotta-800: #74301D;
+  --color-terracotta-900: #5C2819;
+
+  --color-sand-0: #FFFFFF;
+  --color-sand-50: #FAF7F2;
+  --color-sand-100: #F2EFE9;
+  --color-sand-200: #E8E4DE;
+  --color-sand-300: #D6D1C8;
+  --color-sand-400: #ADA79D;
+  --color-sand-500: #857F76;
+  --color-sand-600: #625D56;
+  --color-sand-700: #45413C;
+  --color-sand-800: #2C2926;
+  --color-sand-900: #1A1D1F;
+
+  --color-gold-100: #F6EDD3;
+  --color-gold-200: #EBD9A6;
+  --color-gold-400: #C9A84C;
+  --color-gold-600: #836A22;
+
+  --color-success-50: #ECF7F1;
+  --color-success-200: #BFE3CF;
+  --color-success-400: #3FAE7A;
+  --color-success-600: #1F7A50;
+  --color-success-700: #17613F;
+
+  --color-danger-50: #FDF0EE;
+  --color-danger-400: #E8796A;
+  --color-danger-600: #B42318;
+
+  /* Topic accents (chip text on tint ≥ 6.6:1 light, ≥ 5.2:1 dark) */
+  --color-topic-pharma: #134B59;
+  --color-topic-pharma-tint: #EFF6F7;
+  --color-topic-regulatory: #923A22;
+  --color-topic-regulatory-tint: #FCF1EC;
+  --color-topic-medtech: #3E4C7A;
+  --color-topic-medtech-tint: #EEF0F7;
+  --color-topic-ai: #4F5A22;
+  --color-topic-ai-tint: #F2F4E6;
+}
+
 @theme {
   --color-background: var(--color-paper);
   --color-foreground: var(--color-ink);
@@ -47,28 +113,49 @@
   --font-sans: 'Geist', system-ui, sans-serif;
   --font-mono: 'Geist Mono', monospace;
 
-  /* ── Type scale → text-display, text-h2, text-h3, text-eyebrow, text-meta ── */
-  --text-display: clamp(2.4rem, 4.5vw, 3.8rem);
-  --text-display--line-height: 1.08;
-  --text-h2: clamp(1.625rem, 2.6vw, 2rem);
-  --text-h2--line-height: 1.2;
-  --text-h3: 1.25rem;
-  --text-h3--line-height: 1.35;
+  /* ── Type scale (fluid) → text-display, text-h1..h4, text-deck, text-body, text-caption, text-label ──
+     Hierarchy per block: kicker (text-label, accent) → headline (serif) → deck (text-deck, muted) → meta (mono caption) */
+  --text-display: clamp(2.5rem, 1.6rem + 3.6vw, 4.25rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.025em;
+  --text-h1: clamp(2rem, 1.5rem + 2vw, 3rem);
+  --text-h1--line-height: 1.08;
+  --text-h1--letter-spacing: -0.02em;
+  --text-h2: clamp(1.625rem, 1.3rem + 1.3vw, 2.25rem);
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.015em;
+  --text-h3: clamp(1.25rem, 1.15rem + 0.4vw, 1.375rem);
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: -0.01em;
+  --text-h4: 1.0625rem;
+  --text-h4--line-height: 1.4;
+  --text-deck: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --text-deck--line-height: 1.6;
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.4;
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1rem;
+  --text-label--letter-spacing: 0.14em;
+  /* legacy names kept for existing components */
   --text-eyebrow: 0.75rem;
   --text-eyebrow--line-height: 1rem;
   --text-eyebrow--letter-spacing: 0.14em;
   --text-meta: 0.75rem;
   --text-meta--line-height: 1.125rem;
 
-  /* ── Radius → rounded-control (buttons, inputs, chips), rounded-card, rounded-overlay (modals, menus) ── */
+  /* ── Radius → rounded-tag, -control, -card, -overlay, -cover ── */
+  --radius-tag: 2px;
   --radius-control: 4px;
   --radius-card: 8px;
   --radius-overlay: 12px;
+  --radius-cover: 20px;
 
-  /* ── Elevation → shadow-card, shadow-raised, shadow-overlay ── */
-  --shadow-card: 0 1px 2px rgba(13, 59, 74, 0.04), 0 1px 3px rgba(13, 59, 74, 0.06);
-  --shadow-raised: 0 8px 24px -6px rgba(13, 59, 74, 0.14);
-  --shadow-overlay: 0 20px 50px -10px rgba(13, 59, 74, 0.25);
+  /* ── Elevation (warm-tinted; values swap per theme in tokens.css) → shadow-card, -raised, -overlay ── */
+  --shadow-card: var(--elev-1);
+  --shadow-raised: var(--elev-2);
+  --shadow-overlay: var(--elev-3);
 }
 
 * {

@@ -406,22 +406,22 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
         </div>
         <div className="relative h-32 flex items-center justify-center">
           <svg className="w-full h-full" viewBox="0 0 300 120">
-            <line x1="60" y1="60" x2="150" y2="30" stroke="#E8876A" strokeWidth="1.5" strokeDasharray="3 3" />
-            <line x1="240" y1="60" x2="150" y2="30" stroke="#E8876A" strokeWidth="1.5" strokeDasharray="3 3" />
-            <line x1="60" y1="60" x2="150" y2="90" stroke="#6B8A96" strokeWidth="1.5" />
-            <line x1="240" y1="60" x2="150" y2="90" stroke="#6B8A96" strokeWidth="1.5" />
+            <line x1="60" y1="60" x2="150" y2="30" stroke="var(--color-terracotta-300)" strokeWidth="1.5" strokeDasharray="3 3" />
+            <line x1="240" y1="60" x2="150" y2="30" stroke="var(--color-terracotta-300)" strokeWidth="1.5" strokeDasharray="3 3" />
+            <line x1="60" y1="60" x2="150" y2="90" stroke="var(--color-teal-300)" strokeWidth="1.5" />
+            <line x1="240" y1="60" x2="150" y2="90" stroke="var(--color-teal-300)" strokeWidth="1.5" />
 
-            <circle cx="60" cy="60" r="22" fill="#123844" stroke="#E8876A" strokeWidth="2" />
-            <text x="60" y="64" textAnchor="middle" fill="#E8876A" fontSize="9" fontWeight="bold">Broad</text>
+            <circle cx="60" cy="60" r="22" fill="var(--color-teal-800)" stroke="var(--color-terracotta-300)" strokeWidth="2" />
+            <text x="60" y="64" textAnchor="middle" fill="var(--color-terracotta-300)" fontSize="9" fontWeight="bold">Broad</text>
 
-            <circle cx="240" cy="60" r="22" fill="#123844" stroke="#E8876A" strokeWidth="2" />
-            <text x="240" y="64" textAnchor="middle" fill="#E8876A" fontSize="9" fontWeight="bold">Berkeley</text>
+            <circle cx="240" cy="60" r="22" fill="var(--color-teal-800)" stroke="var(--color-terracotta-300)" strokeWidth="2" />
+            <text x="240" y="64" textAnchor="middle" fill="var(--color-terracotta-300)" fontSize="9" fontWeight="bold">Berkeley</text>
 
-            <circle cx="150" cy="30" r="24" fill="#E8876A" stroke="#FFFFFF" strokeWidth="2" />
-            <text x="150" y="34" textAnchor="middle" fill="#1A1A1A" fontSize="9" fontWeight="bold">Base Editing</text>
+            <circle cx="150" cy="30" r="24" fill="var(--color-terracotta-300)" stroke="var(--color-sand-0)" strokeWidth="2" />
+            <text x="150" y="34" textAnchor="middle" fill="var(--color-sand-900)" fontSize="9" fontWeight="bold">Base Editing</text>
 
-            <circle cx="150" cy="90" r="20" fill="#123844" stroke="#6B8A96" strokeWidth="2" />
-            <text x="150" y="94" textAnchor="middle" fill="#E2E8F0" fontSize="8">Intellia Delivery</text>
+            <circle cx="150" cy="90" r="20" fill="var(--color-teal-800)" stroke="var(--color-teal-300)" strokeWidth="2" />
+            <text x="150" y="94" textAnchor="middle" fill="var(--color-sand-200)" fontSize="8">Intellia Delivery</text>
           </svg>
         </div>
         <div className="text-[11px] text-white/60 text-center">Click article to view license stacking analysis & royalty breakdown</div>
@@ -453,16 +453,16 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
               <span className="text-white/60">Medium Conviction</span>
             </div>
             <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
-              <div className="bg-emerald-400 h-full rounded-full" style={{ width: "65%" }} />
+              <div className="bg-success-400 h-full rounded-full" style={{ width: "65%" }} />
             </div>
           </div>
           <div>
             <div className="flex justify-between text-[11px] mb-1">
               <span className="text-white/80">Weekly Injectables</span>
-              <span className="text-rose-400">Crowded / Commoditized</span>
+              <span className="text-danger-400">Crowded / Commoditized</span>
             </div>
             <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
-              <div className="bg-rose-400 h-full rounded-full" style={{ width: "35%" }} />
+              <div className="bg-danger-400 h-full rounded-full" style={{ width: "35%" }} />
             </div>
           </div>
         </div>
@@ -536,7 +536,7 @@ const FDAComplianceCalculator = () => {
   }, [hasPCCP, riskTier, dataGovernance])
 
   return (
-    <div className="my-8 p-6 bg-[var(--color-section-dark)] text-[#F8F6F0] rounded-sm border border-[var(--color-brand-coral-on-dark)]/30">
+    <div className="my-8 p-6 bg-[var(--color-section-dark)] text-[var(--color-sand-50)] rounded-sm border border-[var(--color-brand-coral-on-dark)]/30">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-3 h-3 rounded-full bg-[var(--color-brand-coral-on-dark)]" />
         <h4 className="text-sm font-semibold tracking-wide uppercase text-[var(--color-brand-coral-on-dark)]">
@@ -586,7 +586,7 @@ const FDAComplianceCalculator = () => {
           <div className="text-2xl font-bold text-[var(--color-brand-coral-on-dark)]">{readinessScore} / 100</div>
         </div>
         <div className="text-right">
-          <span className={`text-xs px-3 py-1 rounded font-semibold ${readinessScore >= 80 ? "bg-emerald-500/20 text-emerald-300" : "bg-amber-500/20 text-amber-300"}`}>
+          <span className={`text-xs px-3 py-1 rounded font-semibold ${readinessScore >= 80 ? "bg-success-400/20 text-success-400" : "bg-gold-400/20 text-gold-200"}`}>
             {readinessScore >= 80 ? "Audit Ready" : "Action Required"}
           </span>
         </div>
@@ -632,7 +632,7 @@ function AudioPlayerBar({
   }
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-8 md:w-[460px] z-50 bg-[var(--color-section-dark)] text-[#F8F6F0] p-4 rounded-md shadow-2xl border border-[var(--color-brand-coral-on-dark)]/40 animate-fade-up">
+    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-8 md:w-[460px] z-50 bg-[var(--color-section-dark)] text-[var(--color-sand-50)] p-4 rounded-md shadow-2xl border border-[var(--color-brand-coral-on-dark)]/40 animate-fade-up">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-3 min-w-0">
           <div className="flex items-end gap-0.5 h-4 flex-shrink-0">
@@ -779,17 +779,17 @@ function ArticleModal({
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => setTheme("warm")}
-                  className={`w-4 h-4 rounded-full bg-[#F8F6F0] border border-black/30 ${theme === "warm" && "ring-2 ring-[var(--reader-accent)]"}`}
+                  className={`w-4 h-4 rounded-full bg-[var(--color-sand-50)] border border-black/30 ${theme === "warm" && "ring-2 ring-[var(--reader-accent)]"}`}
                   title="Warm Paper"
                 />
                 <button
                   onClick={() => setTheme("dark")}
-                  className={`w-4 h-4 rounded-full bg-[#121417] border border-white/30 ${theme === "dark" && "ring-2 ring-[var(--reader-accent)]"}`}
+                  className={`w-4 h-4 rounded-full bg-[var(--color-sand-900)] border border-white/30 ${theme === "dark" && "ring-2 ring-[var(--reader-accent)]"}`}
                   title="Midnight Dark"
                 />
                 <button
                   onClick={() => setTheme("sepia")}
-                  className={`w-4 h-4 rounded-full bg-[#F5EFE6] border border-black/30 ${theme === "sepia" && "ring-2 ring-[var(--reader-accent)]"}`}
+                  className={`w-4 h-4 rounded-full bg-[var(--print-paper-alt)] border border-black/30 ${theme === "sepia" && "ring-2 ring-[var(--reader-accent)]"}`}
                   title="Classic Sepia"
                 />
               </div>
@@ -822,7 +822,7 @@ function ArticleModal({
 
             {/* Author Byline */}
             <div className="flex items-center gap-4 mb-8 pb-6 border-b border-black/10">
-              <div className="w-10 h-10 rounded-full bg-[#0D3B4A] flex items-center justify-center text-xs font-bold text-white">
+              <div className="w-10 h-10 rounded-full bg-[var(--color-teal-800)] flex items-center justify-center text-xs font-bold text-white">
                 {article.byline.split(" ").filter((w) => w.length > 1).map((n) => n[0]).join("").slice(0, 2)}
               </div>
               <div>
@@ -872,7 +872,7 @@ function ArticleModal({
                   triggerToast(isBookmarked ? "Removed from Notebook" : "Saved to Notebook!")
                 }}
                 className={`text-xs px-4 py-2 rounded border transition-colors flex items-center gap-1.5 ${
-                  isBookmarked ? "bg-[#0D3B4A] text-white border-[#0D3B4A]" : "border-black/20 hover:border-black/50"
+                  isBookmarked ? "bg-[var(--color-teal-800)] text-white border-[var(--color-teal-800)]" : "border-black/20 hover:border-black/50"
                 }`}
               >
                 <span>{isBookmarked ? "★ Bookmarked" : "☆ Save to Notebook"}</span>
@@ -908,7 +908,7 @@ function CSuiteDigestModal({ onClose, onSelectArticle }: { onClose: () => void; 
       <div className="backdrop-overlay" onClick={onClose} />
       <div className="modal-panel" onClick={onClose}>
         <div
-          className="bg-[var(--color-section-dark)] text-[#F8F6F0] border border-[var(--color-brand-coral-on-dark)]/40 rounded-sm shadow-2xl w-full max-w-[800px] max-h-[88vh] overflow-y-auto p-6 md:p-10 animate-fade-up"
+          className="bg-[var(--color-section-dark)] text-[var(--color-sand-50)] border border-[var(--color-brand-coral-on-dark)]/40 rounded-sm shadow-2xl w-full max-w-[800px] max-h-[88vh] overflow-y-auto p-6 md:p-10 animate-fade-up"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
@@ -994,7 +994,7 @@ function NotebookDrawer({
                 <div key={art.id} className="p-4 rounded border border-[var(--color-border-subtle)] bg-card shadow-sm flex flex-col justify-between">
                   <div className="flex justify-between items-start mb-2">
                     <span className="text-[11px] font-semibold text-[var(--color-brand-coral)] uppercase tracking-wider">{art.section}</span>
-                    <button onClick={() => onRemove(art.id)} className="text-xs text-rose-500 hover:underline">Remove</button>
+                    <button onClick={() => onRemove(art.id)} className="text-xs text-danger-600 hover:underline">Remove</button>
                   </div>
                   <h4 className="text-xs font-semibold text-[var(--color-ink)] mb-3 line-clamp-2">{art.title}</h4>
                   <button
@@ -1175,7 +1175,7 @@ export default function MagazineTab() {
         {/* LEFT EDITORIAL CONTENT AREA */}
         <div className="lg:pr-8 lg:border-r border-[var(--color-border-subtle)]">
           {/* Editor's Welcome Card */}
-          <div className="mb-10 p-6 md:p-8 bg-[var(--color-section-dark)] rounded-sm text-[#F8F6F0] shadow-md relative overflow-hidden">
+          <div className="mb-10 p-6 md:p-8 bg-[var(--color-section-dark)] rounded-sm text-[var(--color-sand-50)] shadow-md relative overflow-hidden">
             <div className="absolute right-0 top-0 w-32 h-32 bg-[var(--color-brand-coral-on-dark)]/10 rounded-full blur-2xl pointer-events-none" />
             <div className="flex items-center gap-2 mb-3">
               <div className="w-4 h-px bg-[var(--color-brand-coral-on-dark)]" />

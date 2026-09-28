@@ -89,7 +89,7 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
         <div className="relative aspect-[16/9] sm:aspect-[2/1] w-full bg-[var(--color-surface)] overflow-hidden">
           <SafeImage src={article.image} alt="" width={1200} loading="eager" fetchPriority="high" className={IMAGE_ZOOM} />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/5 to-transparent" />
-          <span className="absolute top-4 left-4 font-mono bg-[#0D3B4A] text-white text-[11px] font-semibold tracking-[0.14em] uppercase px-2.5 py-1 rounded-control">
+          <span className="absolute top-4 left-4 font-mono bg-[var(--color-teal-800)] text-white text-[11px] font-semibold tracking-[0.14em] uppercase px-2.5 py-1 rounded-control">
             {article.category} · {article.format}
           </span>
           <div className="absolute top-3 right-3">
@@ -148,7 +148,7 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
     <article className={`${CARD} h-full`}>
       <div className="relative aspect-[16/9] w-full bg-[var(--color-surface)] overflow-hidden">
         <SafeImage src={article.image} alt="" width={640} className={IMAGE_ZOOM} />
-        <span className="absolute top-3 left-3 font-mono text-[11px] font-semibold tracking-[0.12em] uppercase bg-[#0D3B4A] text-white px-2 py-0.5 rounded-control">
+        <span className="absolute top-3 left-3 font-mono text-[11px] font-semibold tracking-[0.12em] uppercase bg-[var(--color-teal-800)] text-white px-2 py-0.5 rounded-control">
           {article.category} · {article.format}
         </span>
         <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5">
