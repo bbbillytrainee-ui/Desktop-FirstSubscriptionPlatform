@@ -1,10 +1,12 @@
-import React, { useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 
-export interface SafeImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+export interface SafeImageProps extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, "width"> {
   src: string
   alt: string
   className?: string
   fallbackSrc?: string
+  /** Rendered CSS width in px; Unsplash images are requested at this size (1x/2x srcset) */
+  width?: number
 }
 
 const DEFAULT_FALLBACKS = [
@@ -14,15 +16,46 @@ const DEFAULT_FALLBACKS = [
   "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1200&q=80",
 ]
 
+/** Returns the URL resized via Unsplash's `w` param; other hosts are returned unchanged. */
+const sized = (url: string, w: number) => {
+  try {
+    const u = new URL(url)
+    if (u.hostname !== "images.unsplash.com") return url
+    u.searchParams.set("w", String(Math.round(w)))
+    u.searchParams.set("auto", "format")
+    return u.toString()
+  } catch {
+    return url
+  }
+}
+
+/**
+ * Image with fallback on error, lazy loading by default, right-sized Unsplash
+ * requests and a fade-in once loaded (the parent should reserve space via aspect-ratio).
+ */
 export default function SafeImage({
   src,
   alt,
   className = "",
   fallbackSrc = DEFAULT_FALLBACKS[0],
+  width,
+  loading = "lazy",
   ...props
 }: SafeImageProps) {
   const [currentSrc, setCurrentSrc] = useState(src)
   const [hasError, setHasError] = useState(false)
+  const [loaded, setLoaded] = useState(false)
+  const ref = useRef<HTMLImageElement>(null)
+
+  useEffect(() => {
+    setCurrentSrc(src)
+    setHasError(false)
+  }, [src])
+
+  // Cached images can finish before onLoad is attached
+  useEffect(() => {
+    if (ref.current?.complete && ref.current.naturalWidth > 0) setLoaded(true)
+  }, [currentSrc])
 
   const handleError = () => {
     if (!hasError) {
@@ -31,12 +64,20 @@ export default function SafeImage({
     }
   }
 
+  const responsive = width
+    ? { src: sized(currentSrc, width), srcSet: `${sized(currentSrc, width)} 1x, ${sized(currentSrc, width * 2)} 2x` }
+    : { src: currentSrc }
+
   return (
     <img
-      src={currentSrc}
+      ref={ref}
+      {...responsive}
       alt={hasError ? "" : alt}
+      loading={loading}
+      decoding="async"
+      onLoad={() => setLoaded(true)}
       onError={handleError}
-      className={className}
+      className={`transition-opacity duration-[var(--duration-slow)] ${loaded ? "opacity-100" : "opacity-0"} ${className}`}
       {...props}
     />
   )
