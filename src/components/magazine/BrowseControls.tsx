@@ -29,18 +29,19 @@ export default function BrowseControls({
   ]
 
   return (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-4 mb-8 border-y border-[var(--color-border-subtle)]">
-      <div className="flex items-center gap-3">
-        <span className="font-mono text-xs text-[var(--color-slate-muted)]">
-          Sector:
-        </span>
-        <FilterBar options={categoryOptions} activeId={selectedCategory} onChange={onCategoryChange} />
+    // Stacks below lg; each group may shrink (min-w-0) so its FilterBar scrolls instead of widening the page
+    <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 lg:gap-4 py-4 mb-8 border-y border-[var(--color-border-subtle)]">
+      <div className="flex items-center gap-3 min-w-0">
+        <span className="font-mono text-xs text-[var(--color-slate-muted)] shrink-0">Sector:</span>
+        <div className="min-w-0 flex-1">
+          <FilterBar options={categoryOptions} activeId={selectedCategory} onChange={onCategoryChange} />
+        </div>
       </div>
-      <div className="flex items-center gap-3">
-        <span className="font-mono text-xs text-[var(--color-slate-muted)]">
-          Format:
-        </span>
-        <FilterBar options={formatOptions} activeId={selectedFormat} onChange={onFormatChange} />
+      <div className="flex items-center gap-3 min-w-0">
+        <span className="font-mono text-xs text-[var(--color-slate-muted)] shrink-0">Format:</span>
+        <div className="min-w-0 flex-1">
+          <FilterBar options={formatOptions} activeId={selectedFormat} onChange={onFormatChange} />
+        </div>
       </div>
     </div>
   )
