@@ -9,6 +9,10 @@ import ArticleReader from "./magazine/ArticleReader"
 import MagazineFlipbook from "./magazine/MagazineFlipbook"
 import LastMonthTrending from "./magazine/LastMonthTrending"
 import LatestNewsSidebar from "./news/LatestNewsSidebar"
+import Card from "./ui/Card"
+import SectionHeader from "./ui/SectionHeader"
+import TextLink from "./ui/TextLink"
+import Avatar from "./ui/Avatar"
 import { BookOpen } from "./ui/Icons"
 import SafeImage from "./ui/SafeImage"
 import { ARTICLES, Article } from "../data/fixtures/articles"
@@ -16,6 +20,27 @@ import { ISSUES, Issue } from "../data/fixtures/issues"
 import { PROFILES } from "../data/fixtures/profiles"
 import { WEBINARS } from "../data/fixtures/webinars"
 import { RESEARCH_REPORTS } from "../data/fixtures/reports"
+
+const VERTICALS = [
+  {
+    taxonomy: "Pharma",
+    label: "Pharma & Biologics",
+    title: "Drug Discovery & Regulatory Submissions",
+    description: "CDSCO clinical guidance, oncology HEOR evidence, biosimilars scale-up, and regional drug pricing dynamics.",
+  },
+  {
+    taxonomy: "MedTech",
+    label: "MedTech & Diagnostics",
+    title: "Device Engineering & Cross-Border IP",
+    description: "Surgical robotics licensing, point-of-care diagnostics, precision hardware, and supply chain integrity.",
+  },
+  {
+    taxonomy: "AI-Health",
+    label: "AI & Digital Health",
+    title: "SaMD Validation & Automated Safety",
+    description: "Clinical AI trial design, NLP pharmacovigilance pipelines, synthetic controls, and health data governance.",
+  },
+]
 
 export interface LandingProps {
   onGetAccess: () => void
@@ -147,12 +172,9 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
           </div>
 
           {/* Right Column: Current Issue Spotlight Card */}
-          <div className="card-tactile p-6 relative group border border-[var(--color-border-subtle)] bg-white">
-            <div className="flex items-center justify-between border-b border-[var(--color-border-subtle)] pb-3.5 mb-4">
-              <span
-                style={{ fontFamily: "'Geist Mono', monospace" }}
-                className="text-xs font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider"
-              >
+          <Card padding="lg" interactive className="group">
+            <div className="flex items-center justify-between pb-4 mb-4 border-b border-[var(--color-border-subtle)]">
+              <span className="font-mono text-meta font-semibold uppercase tracking-wider text-[var(--color-slate-muted)]">
                 Issue #{currentIssue.number} · {currentIssue.month}
               </span>
               <Badge type="pro" label="Current Issue" />
@@ -161,7 +183,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             <button
               type="button"
               aria-label={`Read Issue #${currentIssue.number}: ${currentIssue.theme}`}
-              className="block w-full h-56 rounded-lg overflow-hidden mb-4 cursor-pointer"
+              className="block w-full h-56 rounded-control overflow-hidden mb-4 cursor-pointer"
               onClick={() => setShowFlipbook(true)}
             >
               <SafeImage
@@ -171,57 +193,38 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
               />
             </button>
 
-            <h3
-              style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-              className="text-xl font-semibold text-[var(--color-ink)] mb-2 group-hover:text-[var(--color-brand-teal)] transition-colors"
-            >
+            <h3 className="font-serif text-h3 font-semibold text-[var(--color-ink)] mb-2">
               {currentIssue.theme}
             </h3>
-            <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-4 line-clamp-2">
+            <p className="text-sm text-[var(--color-slate-muted)] leading-relaxed mb-4 line-clamp-2">
               {currentIssue.summary}
             </p>
 
-            <div className="flex items-center justify-end pt-3.5 border-t border-[var(--color-border-subtle)] text-xs font-mono">
-              <button
-                onClick={() => onNavigate && onNavigate("archive")}
-                className="text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] hover:underline"
-              >
-                Past Editions
-              </button>
+            <div className="flex items-center justify-end pt-4 border-t border-[var(--color-border-subtle)]">
+              <TextLink tone="muted" onClick={() => onNavigate?.("archive")}>
+                Past editions
+              </TextLink>
             </div>
-          </div>
+          </Card>
         </div>
       </section>
 
       {/* SECTION 3: Newspaper Editorial Grid (Lead Dossier + Live Breaking Sidebar + 3 Sub-Features) */}
 
-      <section id="articles-section" className="py-14 px-6 md:px-12 border-b border-[var(--color-border-subtle)] bg-white">
+      <section id="articles-section" className="py-14 px-6 md:px-12 border-b border-[var(--color-border-subtle)] bg-card">
         <div className="max-w-[var(--container-max)] mx-auto">
           
-          <div className="flex items-end justify-between border-b border-[var(--color-border-subtle)] pb-4 mb-8">
-            <div>
-              <span
-                style={{ fontFamily: "'Geist Mono', monospace" }}
-                className="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-brand-coral)] block mb-1"
-              >
-                Editorial Exclusives
-              </span>
-              <h2
-                style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                className="text-3xl font-semibold text-[var(--color-ink)]"
-              >
-                Latest Life Science Dossiers
-              </h2>
-            </div>
-            {activeTaxonomy !== "All Intelligence" && (
-              <button
-                onClick={() => setActiveTaxonomy("All Intelligence")}
-                className="text-xs text-[var(--color-brand-coral)] underline font-mono"
-              >
-                Reset to All Topics
-              </button>
-            )}
-          </div>
+          <SectionHeader
+            eyebrow="Editorial Exclusives"
+            title="Latest Life Science Dossiers"
+            action={
+              activeTaxonomy !== "All Intelligence" && (
+                <TextLink tone="muted" arrow={false} onClick={() => setActiveTaxonomy("All Intelligence")}>
+                  Show all topics
+                </TextLink>
+              )
+            }
+          />
 
           {/* Top Row: Hero Article (7 cols) + Live Breaking Feed Sidebar (5 cols) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10">
@@ -267,288 +270,162 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       </section>
 
       {/* SECTION 4: Three-Lane Focus Areas (Pharma, MedTech, AI) - Dark Mode Island */}
-      <section className="py-16 px-6 md:px-12 bg-[#0A1F28] text-white border-b border-white/10 relative overflow-hidden">
+      <section className="py-16 px-6 md:px-12 bg-[var(--color-section-dark)] text-white border-b border-white/10 relative overflow-hidden">
         <div className="max-w-[var(--container-max)] mx-auto relative z-10">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span
-              style={{ fontFamily: "'Geist Mono', monospace" }}
-              className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-brand-coral-on-dark)] block mb-2"
-            >
-              Core Coverage
-            </span>
-            <h2
-              style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-              className="text-3xl sm:text-4xl font-semibold text-white mb-3"
-            >
-              Three verticals. Focused depth.
-            </h2>
-            <p className="text-sm text-stone-300 leading-relaxed">
-              Uncompromising monthly analysis written for decision-makers in medicine, biotechnology, and health technology.
-            </p>
-          </div>
+          <SectionHeader
+            eyebrow="Core Coverage"
+            title="Three verticals. Focused depth."
+            description="Uncompromising monthly analysis written for decision-makers in medicine, biotechnology, and health technology."
+            align="center"
+            tone="dark"
+            className="mb-12"
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div
-              onClick={() => { setActiveTaxonomy("Pharma"); const el = document.getElementById("articles-section"); if (el) el.scrollIntoView({ behavior: "smooth" }) }}
-              className="p-7 bg-[#071921] border border-white/12 rounded-xl hover:border-[var(--color-brand-coral)] cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-lg flex flex-col justify-between group"
-            >
-              <div>
-                <span
-                  style={{ fontFamily: "'Geist Mono', monospace" }}
-                  className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-coral-on-dark)] block mb-3"
-                >
-                  01 / Pharma & Biologics
+            {VERTICALS.map((v, i) => (
+              <button
+                key={v.taxonomy}
+                type="button"
+                onClick={() => {
+                  setActiveTaxonomy(v.taxonomy)
+                  document.getElementById("articles-section")?.scrollIntoView({ behavior: "smooth" })
+                }}
+                className="group text-left p-6 bg-[var(--color-navy-deep)] border border-white/10 rounded-card hover:border-[var(--color-brand-coral-on-dark)]/60 transition-colors flex flex-col justify-between"
+              >
+                <div>
+                  <span className="block mb-3 font-mono text-meta font-semibold uppercase tracking-wider text-[var(--color-brand-coral-on-dark)]">
+                    0{i + 1} / {v.label}
+                  </span>
+                  <h3 className="font-serif text-h3 font-semibold text-white mb-3">{v.title}</h3>
+                  <p className="text-sm text-stone-300 leading-relaxed mb-6">{v.description}</p>
+                </div>
+                <span className="inline-flex items-center gap-1 text-meta font-semibold text-[var(--color-brand-coral-on-dark)] group-hover:text-white transition-colors">
+                  Explore {v.taxonomy} coverage
+                  <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
                 </span>
-                <h3
-                  style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                  className="text-xl font-semibold text-white mb-3 group-hover:text-[var(--color-brand-coral)] transition-colors"
-                >
-                  Drug Discovery & Regulatory Submissions
-                </h3>
-                <p className="text-xs text-stone-300 leading-relaxed mb-6">
-                  CDSCO clinical guidance, oncology HEOR evidence, biosimilars scale-up, and regional drug pricing dynamics.
-                </p>
-              </div>
-              <span className="text-xs font-semibold text-[var(--color-brand-coral-on-dark)] font-mono group-hover:translate-x-1 transition-transform inline-block">
-                Explore Pharma Coverage →
-              </span>
-            </div>
-
-            <div
-              onClick={() => { setActiveTaxonomy("MedTech"); const el = document.getElementById("articles-section"); if (el) el.scrollIntoView({ behavior: "smooth" }) }}
-              className="p-7 bg-[#071921] border border-white/12 rounded-xl hover:border-cyan-400 cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-lg flex flex-col justify-between group"
-            >
-              <div>
-                <span
-                  style={{ fontFamily: "'Geist Mono', monospace" }}
-                  className="text-[10px] font-bold uppercase tracking-wider text-cyan-400 block mb-3"
-                >
-                  02 / MedTech & Diagnostics
-                </span>
-                <h3
-                  style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                  className="text-xl font-semibold text-white mb-3 group-hover:text-cyan-300 transition-colors"
-                >
-                  Device Engineering & Cross-Border IP
-                </h3>
-                <p className="text-xs text-stone-300 leading-relaxed mb-6">
-                  Surgical robotics licensing, point-of-care diagnostics, precision hardware, and supply chain integrity.
-                </p>
-              </div>
-              <span className="text-xs font-semibold text-cyan-400 font-mono group-hover:translate-x-1 transition-transform inline-block">
-                Explore MedTech Coverage →
-              </span>
-            </div>
-
-            <div
-              onClick={() => { setActiveTaxonomy("AI-Health"); const el = document.getElementById("articles-section"); if (el) el.scrollIntoView({ behavior: "smooth" }) }}
-              className="p-7 bg-[#071921] border border-white/12 rounded-xl hover:border-emerald-400 cursor-pointer transition-all duration-300 hover:-translate-y-1 shadow-lg flex flex-col justify-between group"
-            >
-              <div>
-                <span
-                  style={{ fontFamily: "'Geist Mono', monospace" }}
-                  className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 block mb-3"
-                >
-                  03 / AI & Digital Health
-                </span>
-                <h3
-                  style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                  className="text-xl font-semibold text-white mb-3 group-hover:text-emerald-300 transition-colors"
-                >
-                  SaMD Validation & Automated Safety
-                </h3>
-                <p className="text-xs text-stone-300 leading-relaxed mb-6">
-                  Clinical AI trial design, NLP pharmacovigilance pipelines, synthetic controls, and health data governance.
-                </p>
-              </div>
-              <span className="text-xs font-semibold text-emerald-400 font-mono group-hover:translate-x-1 transition-transform inline-block">
-                Explore AI-Health Coverage →
-              </span>
-            </div>
+              </button>
+            ))}
           </div>
         </div>
       </section>
 
       {/* SECTION 5: Webinar Spotlight + Verified Network Teaser */}
-      <section className="py-14 px-6 md:px-12 border-b border-[var(--color-border-subtle)] bg-white">
+      <section className="py-14 px-6 md:px-12 border-b border-[var(--color-border-subtle)] bg-card">
         <div className="max-w-[var(--container-max)] mx-auto">
-          
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
-            {/* Left Col (5 cols): Live Upcoming Webinar Card */}
-            <div className="lg:col-span-5 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm p-6 flex flex-col justify-between">
+
+            {/* Left Col (5 cols): Upcoming Webinar */}
+            <Card variant="muted" padding="lg" className="lg:col-span-5 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--color-border-subtle)]">
-                  <span
-                    style={{ fontFamily: "'Geist Mono', monospace" }}
-                    className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]"
-                  >
+                  <span className="font-mono text-eyebrow font-semibold uppercase text-[var(--color-brand-coral)]">
                     Upcoming Masterclass
                   </span>
-                  <span className="text-xs font-mono text-[var(--color-slate-muted)]">
-                    {nextWebinar.date}
-                  </span>
+                  <span className="font-mono text-meta text-[var(--color-slate-muted)]">{nextWebinar.date}</span>
                 </div>
 
-                <h3
-                  style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                  className="text-xl font-semibold text-[var(--color-ink)] mb-2.5"
-                >
-                  {nextWebinar.title}
-                </h3>
+                <h3 className="font-serif text-h3 font-semibold text-[var(--color-ink)] mb-2">{nextWebinar.title}</h3>
+                <p className="text-sm text-[var(--color-slate-muted)] leading-relaxed mb-5">{nextWebinar.description}</p>
 
-                <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-5">
-                  {nextWebinar.description}
-                </p>
-
-                <div className="p-3 bg-white border border-[var(--color-border-subtle)] rounded-xs mb-5 flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[var(--color-brand-teal)] text-white flex items-center justify-center font-bold text-xs">
-                    {nextWebinar.speaker.split(" ").map(n => n[0]).join("")}
-                  </div>
+                <div className="flex items-center gap-3 mb-5">
+                  <Avatar name={nextWebinar.speaker} size="sm" />
                   <div>
-                    <div className="text-xs font-bold text-[var(--color-ink)]">{nextWebinar.speaker}</div>
-                    <div className="text-[11px] text-[var(--color-slate-muted)]">{nextWebinar.speakerRole}, {nextWebinar.speakerCompany}</div>
+                    <div className="text-sm font-semibold text-[var(--color-ink)]">{nextWebinar.speaker}</div>
+                    <div className="text-meta text-[var(--color-slate-muted)]">
+                      {nextWebinar.speakerRole}, {nextWebinar.speakerCompany}
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-3 border-t border-[var(--color-border-subtle)]">
-                <Button variant="coral" size="sm" onClick={() => onNavigate ? onNavigate("webinars") : onGetAccess()}>
-                  Reserve Seat (Free for Members)
+              <div className="flex items-center justify-between pt-4 border-t border-[var(--color-border-subtle)]">
+                <Button variant="coral" size="sm" onClick={() => (onNavigate ? onNavigate("webinars") : onGetAccess())}>
+                  Reserve a seat
                 </Button>
-                <button
-                  onClick={() => onNavigate && onNavigate("webinars")}
-                  className="text-xs text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] font-mono underline"
-                >
-                  All Webinars →
-                </button>
+                <TextLink tone="muted" onClick={() => onNavigate?.("webinars")}>
+                  All webinars
+                </TextLink>
               </div>
-            </div>
+            </Card>
 
             {/* Right Col (7 cols): Verified Network Introductions */}
             <div className="lg:col-span-7">
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <span
-                    style={{ fontFamily: "'Geist Mono', monospace" }}
-                    className="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-brand-teal)] block mb-1"
-                  >
-                    Verified Network
-                  </span>
-                  <h3
-                    style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                    className="text-2xl font-semibold text-[var(--color-ink)]"
-                  >
-                    Connect with leaders across the ecosystem
-                  </h3>
-                </div>
-                <button
-                  onClick={onGetAccess}
-                  className="text-xs font-semibold text-[var(--color-brand-coral)] font-mono hover:underline hidden sm:block"
-                >
-                  Explore the member directory →
-                </button>
-              </div>
+              <SectionHeader
+                as="h3"
+                eyebrow="Verified Network"
+                title="Connect with leaders across the ecosystem"
+                action={<TextLink onClick={onGetAccess} className="hidden sm:inline-flex">Explore the member directory</TextLink>}
+                className="mb-5"
+              />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {PROFILES.slice(0, 2).map(p => (
-                  <div key={p.id} className="p-5 border border-[var(--color-border-subtle)] rounded-sm bg-[var(--color-surface)] flex flex-col justify-between">
+                  <Card key={p.id} variant="muted" className="flex flex-col justify-between">
                     <div>
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="w-9 h-9 rounded-full bg-[var(--color-brand-teal)] text-white flex items-center justify-center font-bold text-xs">
-                          {p.name.split(" ").map(n => n[0]).join("")}
-                        </div>
+                        <Avatar name={p.name} size="sm" />
                         <div>
-                          <h4 className="text-xs font-semibold text-[var(--color-ink)]">{p.name}</h4>
-                          <p className="text-[11px] text-[var(--color-slate-muted)]">{p.title} · {p.org}</p>
+                          <h4 className="text-sm font-semibold text-[var(--color-ink)]">{p.name}</h4>
+                          <p className="text-meta text-[var(--color-slate-muted)]">{p.title} · {p.org}</p>
                         </div>
                       </div>
-                      <p className="text-xs text-[var(--color-slate-muted)] line-clamp-2 leading-relaxed mb-3">{p.bio}</p>
+                      <p className="text-sm text-[var(--color-slate-muted)] line-clamp-2 leading-relaxed mb-3">{p.bio}</p>
                     </div>
-                    <div className="flex items-center gap-1.5 flex-wrap pt-2 border-t border-[var(--color-border-subtle)]">
+                    <div className="flex items-center gap-1.5 flex-wrap pt-3 border-t border-[var(--color-border-subtle)]">
                       {p.tags.slice(0, 2).map(t => (
                         <span
                           key={t}
-                          style={{ fontFamily: "'Geist Mono', monospace" }}
-                          className="text-[9px] px-2 py-0.5 bg-white text-[var(--color-ink)] rounded-xs border border-[var(--color-border-subtle)]"
+                          className="font-mono text-meta px-2 py-0.5 bg-card text-[var(--color-ink)] rounded-control border border-[var(--color-border-subtle)]"
                         >
                           {t}
                         </span>
                       ))}
                     </div>
-                  </div>
+                  </Card>
                 ))}
               </div>
 
-              <div className="mt-4 p-3 bg-[var(--color-paper)] border border-[var(--color-border-subtle)] rounded-xs flex items-center justify-between text-xs font-mono">
+              <div className="mt-4 px-4 py-3 bg-[var(--color-paper)] border border-[var(--color-border-subtle)] rounded-card flex items-center justify-between gap-4 text-meta">
                 <span className="text-[var(--color-slate-muted)]">
-                  🔒 DPDP Act 2023 Compliant · Explicit Consent Matching Only
+                  DPDP Act 2023 compliant · Introductions only with explicit consent
                 </span>
-                <button onClick={onGetAccess} className="text-[var(--color-brand-teal)] font-bold hover:underline">
-                  Join Directory →
-                </button>
+                <TextLink onClick={onGetAccess} className="shrink-0">Join the directory</TextLink>
               </div>
             </div>
 
           </div>
-
         </div>
       </section>
 
       {/* SECTION 6: Institutional Dossiers / Research Reports */}
       <section className="py-14 px-6 md:px-12 border-b border-[var(--color-border-subtle)] bg-[var(--color-surface)]">
         <div className="max-w-[var(--container-max)] mx-auto">
-          <div className="flex items-end justify-between mb-8 pb-4 border-b border-[var(--color-border-subtle)]">
-            <div>
-              <span
-                style={{ fontFamily: "'Geist Mono', monospace" }}
-                className="text-xs font-semibold tracking-[0.16em] uppercase text-[var(--color-brand-coral)] block mb-1"
-              >
-                Institutional Intelligence
-              </span>
-              <h2
-                style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                className="text-3xl font-semibold text-[var(--color-ink)]"
-              >
-                Deep Industry Briefings & Dossiers
-              </h2>
-            </div>
-            <button
-              onClick={() => onNavigate && onNavigate("reports")}
-              className="text-xs font-semibold text-[var(--color-brand-coral)] font-mono hover:underline"
-            >
-              Browse All Reports →
-            </button>
-          </div>
+          <SectionHeader
+            eyebrow="Institutional Intelligence"
+            title="Deep Industry Briefings & Dossiers"
+            action={<TextLink onClick={() => onNavigate?.("reports")}>Browse all reports</TextLink>}
+          />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {RESEARCH_REPORTS.map(rep => (
-              <div key={rep.id} className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm flex flex-col justify-between">
+              <Card key={rep.id} padding="lg" interactive className="flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between text-[10px] font-mono text-[var(--color-slate-muted)] mb-2">
-                    <span className="uppercase text-[var(--color-brand-teal)] font-bold">{rep.category}</span>
+                  <div className="flex items-center justify-between font-mono text-meta text-[var(--color-slate-muted)] mb-2">
+                    <span className="uppercase font-semibold text-[var(--color-brand-teal)]">{rep.category}</span>
                     <span>{rep.pagesCount} pages</span>
                   </div>
-                  <h3
-                    style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                    className="text-base font-semibold text-[var(--color-ink)] mb-2 leading-snug"
-                  >
-                    {rep.title}
-                  </h3>
-                  <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-4 line-clamp-3">
+                  <h3 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-2 leading-snug">{rep.title}</h3>
+                  <p className="text-sm text-[var(--color-slate-muted)] leading-relaxed mb-4 line-clamp-3">
                     {rep.executiveSummary}
                   </p>
                 </div>
-                <div className="pt-3 border-t border-[var(--color-border-subtle)] flex items-center justify-between">
-                  <span className="text-xs font-bold text-[var(--color-ink)] font-mono">{rep.price} <span className="text-[10px] font-normal text-stone-500">(Free with Pro)</span></span>
-                  <button
-                    onClick={() => onNavigate ? onNavigate("reports") : onGetAccess()}
-                    className="text-xs font-semibold text-[var(--color-brand-coral)] font-mono hover:underline"
-                  >
-                    View Dossier →
-                  </button>
+                <div className="pt-4 border-t border-[var(--color-border-subtle)] flex items-center justify-between">
+                  <span className="font-mono text-meta font-semibold text-[var(--color-ink)]">
+                    {rep.price} <span className="font-normal text-[var(--color-slate-muted)]">· free with Pro</span>
+                  </span>
+                  <TextLink onClick={() => (onNavigate ? onNavigate("reports") : onGetAccess())}>View dossier</TextLink>
                 </div>
-              </div>
+              </Card>
             ))}
           </div>
         </div>

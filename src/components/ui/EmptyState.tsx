@@ -23,7 +23,7 @@ export default function EmptyState({
   className = "",
 }: EmptyStateProps) {
   return (
-    <div className={`flex flex-col items-center justify-center text-center py-16 px-6 bg-white border border-[var(--color-border-subtle)] rounded-sm ${className}`}>
+    <div className={`flex flex-col items-center justify-center text-center py-16 px-6 bg-card border border-[var(--color-border-subtle)] rounded-card ${className}`}>
       {icon ? (
         <div className="mb-4 text-[var(--color-slate-muted)]">{icon}</div>
       ) : (

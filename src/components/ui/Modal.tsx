@@ -33,7 +33,7 @@ export default function Modal({ isOpen, onClose, title, children, className = ""
           role="dialog"
           aria-modal="true"
           onClick={e => e.stopPropagation()}
-          className={`w-full max-w-[var(--modal-max)] bg-white border border-[var(--color-border-subtle)] rounded-sm shadow-[0_8px_40px_rgba(13,59,74,0.12)] overflow-hidden animate-fade-up ${className}`}
+          className={`w-full max-w-[var(--modal-max)] bg-card border border-[var(--color-border-subtle)] rounded-overlay shadow-overlay overflow-hidden animate-fade-up ${className}`}
         >
           {title && (
             <div className="px-6 py-4 border-b border-[var(--color-border-subtle)] flex items-center justify-between">
