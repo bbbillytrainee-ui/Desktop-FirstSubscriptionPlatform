@@ -1,5 +1,5 @@
-import { useState } from "react"
 import { TOPICS, ALL_TOPIC_ID } from "../../data/topics"
+import { LATEST_NEWS } from "../../data/fixtures/news"
 
 export interface TaxonomyNavProps {
   activeTopic?: string
@@ -15,7 +15,8 @@ export default function TaxonomyNav({
   counts,
   breakingNewsText = "CDSCO issues revised clinical evaluation guidance for AI diagnostic software",
 }: TaxonomyNavProps) {
-  const [isPaused, setIsPaused] = useState(false)
+  // Mobile marquee cycles the lead dispatch plus the next few headlines
+  const headlines = [breakingNewsText, ...LATEST_NEWS.map(n => n.title).filter(t => t !== breakingNewsText).slice(0, 3)]
 
   return (
     <div className="bg-gradient-to-r from-[#0A2E3B] via-[#0D3B4A] to-[#0A2E3B] text-white border-y border-white/10 text-xs shadow-inner relative z-20">
@@ -24,8 +25,6 @@ export default function TaxonomyNav({
         {/* Left: Live Editorial Dispatch Ticker */}
         <div 
           className="flex items-center gap-3 py-1.5 lg:py-2.5 lg:pr-5 lg:border-r border-white/15 shrink-0 max-w-full lg:max-w-[420px] xl:max-w-[500px]"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
         >
           <div className="flex items-center gap-2 shrink-0">
             <span className="relative flex h-2 w-2">
@@ -39,10 +38,24 @@ export default function TaxonomyNav({
             </span>
           </div>
 
-          <div className="overflow-hidden relative min-w-0 flex-1">
-            <p className={`text-[11px] text-white/95 font-medium truncate tracking-tight transition-opacity duration-300 ${isPaused ? "opacity-100" : "opacity-90"}`}>
-              {breakingNewsText}
-            </p>
+          <div className="ticker overflow-hidden relative min-w-0 flex-1" tabIndex={-1}>
+            {/* Screen readers get the lead headline once; the moving copies are decorative */}
+            <p className="sr-only">{breakingNewsText}</p>
+            {/* Desktop: single truncated line */}
+            <p aria-hidden="true" className="hidden lg:block text-xs text-white/95 font-medium truncate tracking-tight">{breakingNewsText}</p>
+            {/* Mobile/tablet: seamless marquee (content duplicated for the loop), pauses on hover/focus */}
+            <div aria-hidden="true" className="lg:hidden ticker-track text-xs text-white/95 font-medium tracking-tight whitespace-nowrap">
+              {[0, 1].map(copy => (
+                <span key={copy} className="inline-flex items-center gap-8 pr-8">
+                  {headlines.map(h => (
+                    <span key={h} className="inline-flex items-center gap-8">
+                      {h}
+                      <span className="text-white/40">·</span>
+                    </span>
+                  ))}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 

@@ -39,7 +39,7 @@ export default function ReaderControls() {
         aria-controls="reader-controls"
         aria-label="Reading settings"
         onClick={() => setOpen(v => !v)}
-        className="h-9 min-w-9 px-2.5 rounded-control border border-[var(--color-border-subtle)] bg-card text-[var(--color-ink)] hover:border-[var(--color-slate-muted)]/50 font-serif text-sm font-semibold"
+        className="relative before:absolute before:-inset-1 before:content-[''] h-9 min-w-9 px-2.5 rounded-control border border-[var(--color-border-subtle)] bg-card text-[var(--color-ink)] hover:border-[var(--color-slate-muted)]/50 font-serif text-sm font-semibold"
       >
         Aa
       </button>

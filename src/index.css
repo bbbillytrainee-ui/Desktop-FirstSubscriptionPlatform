@@ -318,6 +318,27 @@ body {
   animation: countBump var(--duration-slow) var(--ease-out);
 }
 
+/* ── Dispatch ticker (TaxonomyNav, below lg): seamless marquee ── */
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  display: inline-flex;
+  animation: tickerScroll 40s linear infinite;
+}
+
+.ticker:hover .ticker-track,
+.ticker:focus-within .ticker-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No marquee: show the first headline, truncated */
+  .ticker-track { animation: none !important; display: block; overflow: hidden; text-overflow: ellipsis; }
+}
+
 /* ── View transitions (topic filtering) ── */
 ::view-transition-old(root),
 ::view-transition-new(root) {
