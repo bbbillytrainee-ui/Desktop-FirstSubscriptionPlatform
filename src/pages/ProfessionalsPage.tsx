@@ -23,15 +23,15 @@ export default function ProfessionalsPage({ onJoin, onNavigate }: ProfessionalsP
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          <div className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm">
+          <div className="p-6 bg-card border border-[var(--color-border-subtle)] rounded-sm">
             <h3 className="font-serif text-xl font-semibold mb-2">Monthly Intelligence</h3>
             <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed">One deliberate monthly drop containing long-form regulatory breakdowns, IP analyses, and sector digests.</p>
           </div>
-          <div className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm">
+          <div className="p-6 bg-card border border-[var(--color-border-subtle)] rounded-sm">
             <h3 className="font-serif text-xl font-semibold mb-2">Transparent Matching</h3>
             <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed">3–6 introductions per month matched strictly on shared tags and career goals with plain-language explanations.</p>
           </div>
-          <div className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm">
+          <div className="p-6 bg-card border border-[var(--color-border-subtle)] rounded-sm">
             <h3 className="font-serif text-xl font-semibold mb-2">Contributor Recognition</h3>
             <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed">Publish guest insights to earn contributor badges, elevated directory placement, and complimentary access.</p>
           </div>

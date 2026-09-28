@@ -61,7 +61,7 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
           <div className="bg-gradient-to-br from-stone-50 to-white border border-[var(--color-border-subtle)] p-6 rounded-xl shadow-[0_4px_16px_rgba(13,59,74,0.04)] hover:-translate-y-1 transition-transform">
             <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-slate-muted)] block mb-1">Invites Sent</span>
             <span className="text-3xl sm:text-4xl font-black text-[var(--color-ink)] font-mono">{stats.totalInvitesSent}</span>
-            <span className="text-[11px] text-stone-500 block mt-1 font-medium">Direct &amp; link shares</span>
+            <span className="text-[11px] text-[var(--color-slate-muted)] block mt-1 font-medium">Direct &amp; link shares</span>
           </div>
 
           <div className="bg-gradient-to-br from-emerald-50/80 via-white to-white border border-emerald-200/70 p-6 rounded-xl shadow-[0_4px_16px_rgba(16,185,129,0.08)] hover:-translate-y-1 transition-transform">
@@ -89,7 +89,7 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
           
           {/* Share Link Card (2 cols) */}
-          <div className="lg:col-span-2 bg-white border border-[var(--color-border-subtle)] p-6 rounded-sm shadow-xs flex flex-col justify-between">
+          <div className="lg:col-span-2 bg-card border border-[var(--color-border-subtle)] p-6 rounded-sm shadow-xs flex flex-col justify-between">
             <div>
               <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-2">
                 Your Personal Referral Link & Code
@@ -151,7 +151,7 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
           </div>
 
           {/* Direct Email Invite Form (1 col) */}
-          <div className="bg-white border border-[var(--color-border-subtle)] p-6 rounded-sm shadow-xs">
+          <div className="bg-card border border-[var(--color-border-subtle)] p-6 rounded-sm shadow-xs">
             <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-2">
               Send Direct Invitation
             </h3>
@@ -167,7 +167,7 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
                   value={invitedName}
                   onChange={e => setInvitedName(e.target.value)}
                   placeholder="e.g. Dr. Rajesh Kumar"
-                  className="w-full px-3 py-2 text-xs border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-teal)]"
+                  className="w-full px-3 py-2 text-xs border border-[var(--color-border-subtle)] rounded-sm bg-card focus:outline-none focus:border-[var(--color-brand-teal)]"
                 />
               </div>
 
@@ -179,7 +179,7 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
                   value={invitedEmail}
                   onChange={e => setInvitedEmail(e.target.value)}
                   placeholder="e.g. rkumar@sunpharma.com"
-                  className="w-full px-3 py-2 text-xs border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-teal)]"
+                  className="w-full px-3 py-2 text-xs border border-[var(--color-border-subtle)] rounded-sm bg-card focus:outline-none focus:border-[var(--color-brand-teal)]"
                 />
               </div>
 
@@ -198,7 +198,7 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
         </div>
 
         {/* Referred Colleagues Table */}
-        <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 mb-10 shadow-xs">
+        <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 mb-10 shadow-xs">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
               <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)]">

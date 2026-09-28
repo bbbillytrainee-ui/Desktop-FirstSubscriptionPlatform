@@ -38,7 +38,7 @@ export default function LastMonthTrending({
   ]
 
   return (
-    <section className="bg-white border-2 border-[var(--color-brand-teal)]/20 rounded-md p-6 sm:p-8 mb-12 shadow-sm relative overflow-hidden">
+    <section className="bg-card border-2 border-[var(--color-brand-teal)]/20 rounded-md p-6 sm:p-8 mb-12 shadow-sm relative overflow-hidden">
       {/* Background Subtle Gradient Accents */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-surface)]/60 rounded-full blur-3xl pointer-events-none -z-0" />
 
@@ -105,7 +105,7 @@ export default function LastMonthTrending({
           </div>
 
           {/* Last Month's 3 Key Regulatory Signals */}
-          <div className="p-4 bg-white border border-[var(--color-border-subtle)] rounded-sm space-y-3">
+          <div className="p-4 bg-card border border-[var(--color-border-subtle)] rounded-sm space-y-3">
             <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-teal)] tracking-wider block">
               Key Macro Signals Logged in {lastMonthIssue.month.split(" ")[0]}:
             </span>
@@ -135,7 +135,7 @@ export default function LastMonthTrending({
               <div
                 key={article.slug}
                 onClick={() => onSelectArticle(article)}
-                className="group p-4 bg-white border border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)] rounded-sm transition-all shadow-2xs hover:shadow-xs cursor-pointer flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between"
+                className="group p-4 bg-card border border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)] rounded-sm transition-all shadow-2xs hover:shadow-xs cursor-pointer flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between"
               >
                 <div className="flex items-start gap-3.5 flex-1 min-w-0">
                   {/* Rank Number */}
@@ -166,7 +166,7 @@ export default function LastMonthTrending({
                 </div>
 
                 {/* Read / Views Metric */}
-                <div className="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-stone-100">
+                <div className="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-[var(--color-border-subtle)]">
                   <span className="font-mono text-[11px] font-semibold text-[var(--color-ink)]">
                     {meta.views}
                   </span>

@@ -57,12 +57,12 @@ export default function ArchivePage({ onJoin, onNavigate }: ArchivePageProps) {
             return (
               <div
                 key={issue.id}
-                className={`bg-white border rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)]/50 transition-all shadow-sm group ${
+                className={`bg-card border rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)]/50 transition-all shadow-sm group ${
                   isLatest ? "border-[var(--color-brand-teal)] ring-1 ring-[var(--color-brand-teal)]" : "border-[var(--color-border-subtle)]"
                 }`}
               >
                 {/* Cover Art with 3D Flipbook Trigger */}
-                <div className="relative h-64 bg-stone-100 overflow-hidden cursor-pointer" onClick={() => setActiveFlipbookIssue(issue)}>
+                <div className="relative h-64 bg-[var(--color-surface)] overflow-hidden cursor-pointer" onClick={() => setActiveFlipbookIssue(issue)}>
                   <SafeImage
                     src={issue.coverImage}
                     alt={issue.theme}

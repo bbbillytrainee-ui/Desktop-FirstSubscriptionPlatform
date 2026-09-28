@@ -60,7 +60,7 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
         </div>
 
         {/* Featured Episode Hero Card */}
-        <div className="bg-white border-2 border-[var(--color-brand-teal)] rounded-sm p-8 shadow-md mb-12 relative overflow-hidden">
+        <div className="bg-card border-2 border-[var(--color-brand-teal)] rounded-sm p-8 shadow-md mb-12 relative overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4">
               <div className="flex items-center gap-3">
@@ -129,7 +129,7 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
               <div
                 key={ep.id}
                 onClick={() => { setActiveEpisode(ep); setIsPlaying(true) }}
-                className={`p-5 bg-white border rounded-sm flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition-all shadow-sm cursor-pointer ${
+                className={`p-5 bg-card border rounded-sm flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition-all shadow-sm cursor-pointer ${
                   activeEpisode.id === ep.id ? "border-[var(--color-brand-teal)] ring-1 ring-[var(--color-brand-teal)]" : "border-[var(--color-border-subtle)]"
                 }`}
               >
@@ -162,7 +162,7 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
         </div>
 
         {/* Subscribe on Platform Bar */}
-        <div className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="p-6 bg-card border border-[var(--color-border-subtle)] rounded-sm flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <h4 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-1">
               Listen to Mediverse Dialogues Anywhere

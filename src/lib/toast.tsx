@@ -101,7 +101,7 @@ function ToastContainer({ toasts, onDismiss }: { toasts: ToastMessage[]; onDismi
         return (
           <div
             key={toast.id}
-            className={`pointer-events-auto bg-white border ${borderColor} rounded-md p-3.5 shadow-xl transition-all duration-300 animate-slide-in flex items-start gap-3 relative overflow-hidden`}
+            className={`pointer-events-auto bg-card border ${borderColor} rounded-md p-3.5 shadow-xl transition-all duration-300 animate-slide-in flex items-start gap-3 relative overflow-hidden`}
           >
             <div className={`p-2 rounded-full ${bgAccent} shrink-0`}>
               {icon}
@@ -120,7 +120,7 @@ function ToastContainer({ toasts, onDismiss }: { toasts: ToastMessage[]; onDismi
 
             <button
               onClick={() => onDismiss(toast.id)}
-              className="text-stone-400 hover:text-stone-700 p-1 transition-colors absolute top-2 right-2 cursor-pointer"
+              className="text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] p-1 transition-colors absolute top-2 right-2 cursor-pointer"
             >
               <X size={12} />
             </button>

@@ -68,31 +68,31 @@ export default function GlobalSearchModal({ isOpen, onClose, onNavigate }: Globa
 
   return (
     <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-start justify-center pt-16 px-4">
-      <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm max-w-2xl w-full shadow-2xl overflow-hidden animate-fade-up flex flex-col max-h-[80vh]">
+      <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm max-w-2xl w-full shadow-2xl overflow-hidden animate-fade-up flex flex-col max-h-[80vh]">
         
         {/* Search Header Input */}
         <div className="p-4 border-b border-[var(--color-border-subtle)] flex items-center gap-3 bg-[var(--color-surface)]">
-          <span className="text-stone-400 text-lg">🔍</span>
+          <span className="text-[var(--color-slate-muted)] text-lg">🔍</span>
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder="Search dossiers, regulatory guidance, CDMOs, news, or members..."
-            className="flex-1 bg-transparent text-sm text-[var(--color-ink)] focus:outline-none placeholder:text-stone-400 font-medium"
+            className="flex-1 bg-transparent text-sm text-[var(--color-ink)] focus:outline-none placeholder:text-[var(--color-slate-muted)] font-medium"
           />
           {query && (
-            <button onClick={() => setQuery("")} className="text-xs text-stone-400 hover:text-stone-700">
+            <button onClick={() => setQuery("")} className="text-xs text-[var(--color-slate-muted)] hover:text-[var(--color-ink)]">
               Clear
             </button>
           )}
-          <kbd className="hidden sm:inline-block px-2 py-0.5 text-[11px] font-mono bg-white border border-stone-300 rounded text-stone-500 shadow-xs">
+          <kbd className="hidden sm:inline-block px-2 py-0.5 text-[11px] font-mono bg-card border border-[var(--color-border-subtle)] rounded text-[var(--color-slate-muted)] shadow-xs">
             ESC
           </kbd>
         </div>
 
         {/* Filter Pills */}
-        <div className="px-4 py-2 bg-stone-50 border-b border-[var(--color-border-subtle)] flex items-center gap-2 overflow-x-auto text-[11px]">
+        <div className="px-4 py-2 bg-[var(--color-surface)] border-b border-[var(--color-border-subtle)] flex items-center gap-2 overflow-x-auto text-[11px]">
           {(["all", "articles", "reports", "news", "events", "profiles"] as const).map(f => (
             <button
               key={f}
@@ -100,7 +100,7 @@ export default function GlobalSearchModal({ isOpen, onClose, onNavigate }: Globa
               className={`px-2.5 py-1 rounded-sm capitalize transition-colors ${
                 activeFilter === f
                   ? "bg-[var(--color-brand-teal)] text-white font-semibold"
-                  : "text-stone-600 hover:bg-stone-200"
+                  : "text-[var(--color-slate-muted)] hover:bg-[var(--color-surface)]"
               }`}
             >
               {f}
@@ -203,7 +203,7 @@ export default function GlobalSearchModal({ isOpen, onClose, onNavigate }: Globa
               {/* Events */}
               {(activeFilter === "all" || activeFilter === "events") && matchedEvents.length > 0 && (
                 <div className="pt-2 border-t border-[var(--color-border-subtle)]">
-                  <span className="font-mono text-[11px] uppercase font-bold text-stone-600 block mb-1.5">
+                  <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1.5">
                     Conclaves & Events ({matchedEvents.length})
                   </span>
                   <div className="space-y-1">
@@ -229,7 +229,7 @@ export default function GlobalSearchModal({ isOpen, onClose, onNavigate }: Globa
               {/* Profiles */}
               {(activeFilter === "all" || activeFilter === "profiles") && matchedProfiles.length > 0 && (
                 <div className="pt-2 border-t border-[var(--color-border-subtle)]">
-                  <span className="font-mono text-[11px] uppercase font-bold text-stone-600 block mb-1.5">
+                  <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1.5">
                     Verified Members ({matchedProfiles.length})
                   </span>
                   <div className="space-y-1">
@@ -253,9 +253,9 @@ export default function GlobalSearchModal({ isOpen, onClose, onNavigate }: Globa
         </div>
 
         {/* Modal Footer */}
-        <div className="p-3 bg-stone-100 border-t border-[var(--color-border-subtle)] flex items-center justify-between text-[11px] text-stone-500 font-mono">
+        <div className="p-3 bg-[var(--color-surface)] border-t border-[var(--color-border-subtle)] flex items-center justify-between text-[11px] text-[var(--color-slate-muted)] font-mono">
           <span>Search across 20+ intelligence hubs</span>
-          <button onClick={onClose} className="hover:text-stone-800 underline">Close</button>
+          <button onClick={onClose} className="hover:text-[var(--color-ink)] underline">Close</button>
         </div>
 
       </div>

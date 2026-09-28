@@ -22,7 +22,7 @@ export default function LatestNewsSidebar({ onSubscribe }: LatestNewsSidebarProp
   return (
     <div className="space-y-6">
       {/* News Feed Box */}
-      <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-5 shadow-sm">
+      <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-5 shadow-sm">
         <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--color-border-subtle)]">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[var(--color-brand-coral)] animate-ping" />
@@ -91,7 +91,7 @@ export default function LatestNewsSidebar({ onSubscribe }: LatestNewsSidebarProp
         </p>
 
         {subscribed ? (
-          <div className="p-3 bg-white border border-[var(--color-brand-teal)]/30 rounded-sm text-center text-xs text-[var(--color-brand-teal)] font-medium">
+          <div className="p-3 bg-card border border-[var(--color-brand-teal)]/30 rounded-sm text-center text-xs text-[var(--color-brand-teal)] font-medium">
             ✓ Subscribed to Daily Brief
           </div>
         ) : (
@@ -102,7 +102,7 @@ export default function LatestNewsSidebar({ onSubscribe }: LatestNewsSidebarProp
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder="work.email@company.com"
-              className="w-full px-3 py-2 text-xs bg-white border border-[var(--color-border-subtle)] rounded-sm focus:outline-none focus:border-[var(--color-brand-teal)]"
+              className="w-full px-3 py-2 text-xs bg-card border border-[var(--color-border-subtle)] rounded-sm focus:outline-none focus:border-[var(--color-brand-teal)]"
             />
             <Button variant="coral" size="sm" className="w-full" onClick={() => onSubscribe && onSubscribe()}>
               Join Free Morning Brief →

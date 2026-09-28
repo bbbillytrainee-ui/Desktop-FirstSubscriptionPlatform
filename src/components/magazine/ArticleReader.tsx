@@ -62,7 +62,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
             className={`font-mono px-3 py-1.5 text-xs font-semibold rounded-sm border transition-all flex items-center gap-1.5 cursor-pointer ${
               isBookmarked
                 ? "bg-orange-50 border-[var(--color-brand-coral)] text-[var(--color-brand-coral)]"
-                : "bg-white border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] hover:border-[var(--color-ink)]"
+                : "bg-card border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] hover:border-[var(--color-ink)]"
             }`}
             title={isBookmarked ? "Remove bookmark" : "Save article to reading list"}
           >
@@ -72,7 +72,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
 
           <button
             onClick={handleShare}
-            className="font-mono px-3 py-1.5 bg-white border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] hover:border-[var(--color-ink)] text-xs font-semibold rounded-sm transition-all flex items-center gap-1.5 cursor-pointer"
+            className="font-mono px-3 py-1.5 bg-card border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] hover:border-[var(--color-ink)] text-xs font-semibold rounded-sm transition-all flex items-center gap-1.5 cursor-pointer"
             title="Share or copy direct link"
           >
             <Share2 size={14} />
@@ -125,7 +125,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
 
       {/* Academic & Regulatory Citations / Reference Section */}
       {article.references && article.references.length > 0 && (
-        <section className="my-10 p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm">
+        <section className="my-10 p-6 bg-card border border-[var(--color-border-subtle)] rounded-sm">
           <div className="flex items-center gap-2 pb-3 mb-4 border-b border-[var(--color-border-subtle)]">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.12em] text-[var(--color-brand-teal)]">
               Academic & Regulatory References ({article.references.length})
@@ -144,7 +144,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
                   </div>
                   <div className="text-[var(--color-slate-muted)] mt-0.5 flex items-center gap-2 flex-wrap">
                     <span className="italic">{ref.source} ({ref.year})</span>
-                    <span className="font-mono text-[11px] uppercase px-1.5 py-0.2 bg-[var(--color-surface)] border border-stone-200 rounded text-stone-700">
+                    <span className="font-mono text-[11px] uppercase px-1.5 py-0.2 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded text-[var(--color-ink)]">
                       {ref.type}
                     </span>
                     {ref.doiOrUrl && (

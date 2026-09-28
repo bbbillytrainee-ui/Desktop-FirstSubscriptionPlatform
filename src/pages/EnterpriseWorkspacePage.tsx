@@ -58,7 +58,7 @@ export default function EnterpriseWorkspacePage({ onJoin, onNavigate }: Enterpri
 
         {/* 3 Metric Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
+          <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
             <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
               Seat Allocation
             </span>
@@ -66,7 +66,7 @@ export default function EnterpriseWorkspacePage({ onJoin, onNavigate }: Enterpri
             <span className="text-xs text-[var(--color-brand-teal)] font-medium">6 unassigned team seats remaining</span>
           </div>
 
-          <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
+          <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
             <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
               Domain Auto-Verification
             </span>
@@ -74,7 +74,7 @@ export default function EnterpriseWorkspacePage({ onJoin, onNavigate }: Enterpri
             <span className="text-xs text-[var(--color-brand-coral)] font-medium">Auto-onboarding enabled</span>
           </div>
 
-          <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
+          <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
             <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
               Institutional Reports Vault
             </span>
@@ -87,7 +87,7 @@ export default function EnterpriseWorkspacePage({ onJoin, onNavigate }: Enterpri
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-16">
           
           {/* Left 8: Team Members Table */}
-          <div className="lg:col-span-8 bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
+          <div className="lg:col-span-8 bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
             <div className="flex items-center justify-between pb-4 mb-4 border-b border-[var(--color-border-subtle)]">
               <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)]">
                 Assigned Team Members
@@ -102,7 +102,7 @@ export default function EnterpriseWorkspacePage({ onJoin, onNavigate }: Enterpri
                 <div key={idx} className="py-3.5 flex items-center justify-between gap-4 text-xs">
                   <div>
                     <span className="font-semibold text-[var(--color-ink)] block">{m.name}</span>
-                    <span className="text-stone-500 font-mono text-[11px]">{m.email}</span>
+                    <span className="text-[var(--color-slate-muted)] font-mono text-[11px]">{m.email}</span>
                   </div>
                   <div className="text-right">
                     <span className="text-[var(--color-ink)] block">{m.role}</span>
@@ -117,7 +117,7 @@ export default function EnterpriseWorkspacePage({ onJoin, onNavigate }: Enterpri
 
           {/* Right 4: Quick Invite & Invoicing Box */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
+            <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
               <h4 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-1">
                 Provision New Team Seat
               </h4>

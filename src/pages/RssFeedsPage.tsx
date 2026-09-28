@@ -81,7 +81,7 @@ export default function RssFeedsPage({ onJoin, onNavigate }: RssFeedsPageProps) 
           {FEEDS.map(feed => (
             <div
               key={feed.id}
-              className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 flex flex-col justify-between hover:border-[var(--color-brand-teal)]/50 transition-all shadow-sm"
+              className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 flex flex-col justify-between hover:border-[var(--color-brand-teal)]/50 transition-all shadow-sm"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
@@ -118,7 +118,7 @@ export default function RssFeedsPage({ onJoin, onNavigate }: RssFeedsPageProps) 
         </div>
 
         {/* Developer / Corporate API Box */}
-        <div className="p-8 bg-white border border-[var(--color-border-subtle)] rounded-sm shadow-sm flex flex-col lg:flex-row items-center justify-between gap-8">
+        <div className="p-8 bg-card border border-[var(--color-border-subtle)] rounded-sm shadow-sm flex flex-col lg:flex-row items-center justify-between gap-8">
           <div>
             <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-coral)] block mb-1">
               Institutional Licensing

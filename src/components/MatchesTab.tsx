@@ -70,7 +70,7 @@ export default function MatchesTab() {
         {filteredMatches.map((match, i) => (
           <div
             key={match.id}
-            className={`match-card border rounded-sm bg-white overflow-hidden ${
+            className={`match-card border rounded-sm bg-card overflow-hidden ${
               connected.has(match.id)
                 ? "border-[var(--color-brand-coral)]/40"
                 : "border-[var(--color-border-subtle)]"

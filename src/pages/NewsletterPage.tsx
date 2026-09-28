@@ -58,7 +58,7 @@ export default function NewsletterPage({ onJoin, onNavigate }: NewsletterPagePro
           
           {/* Left Column: Preferences & Form */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
+            <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
               <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-2">
                 Customize Your Dispatches
               </h3>
@@ -163,7 +163,7 @@ export default function NewsletterPage({ onJoin, onNavigate }: NewsletterPagePro
                   className={`px-3 py-1.5 text-xs font-medium rounded-sm whitespace-nowrap transition-colors ${
                     activePreview.id === ed.id
                       ? "bg-[var(--color-brand-teal)] text-white font-semibold"
-                      : "bg-white border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)]"
+                      : "bg-card border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)]"
                   }`}
                 >
                   {ed.edition}
@@ -172,15 +172,15 @@ export default function NewsletterPage({ onJoin, onNavigate }: NewsletterPagePro
             </div>
 
             {/* Rendered Email Dispatch Preview Container */}
-            <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm shadow-md overflow-hidden">
+            <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm shadow-md overflow-hidden">
               
               {/* Fake Email Client Header Bar */}
-              <div className="bg-stone-100 border-b border-stone-200 px-5 py-3 flex items-center justify-between text-xs text-[var(--color-slate-muted)]">
+              <div className="bg-[var(--color-surface)] border-b border-[var(--color-border-subtle)] px-5 py-3 flex items-center justify-between text-xs text-[var(--color-slate-muted)]">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
                   <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
                   <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
-                  <span className="font-mono text-[11px] ml-2 text-stone-600">From: dispatch@mediverse.network</span>
+                  <span className="font-mono text-[11px] ml-2 text-[var(--color-slate-muted)]">From: dispatch@mediverse.network</span>
                 </div>
                 <span className="font-mono text-[11px]">
                   {activePreview.date}

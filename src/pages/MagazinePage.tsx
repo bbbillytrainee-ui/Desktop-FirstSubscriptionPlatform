@@ -93,7 +93,7 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
 
       <main className="flex-1 max-w-[var(--container-max)] mx-auto px-6 md:px-12 py-10 w-full">
         {/* Magazine Cover Hero Banner */}
-        <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 sm:p-8 mb-10 shadow-sm">
+        <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 sm:p-8 mb-10 shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Cover image (4 cols) */}
             <div

@@ -9,7 +9,7 @@ function ContactDrawer({ contact, onClose }: { contact: Profile; onClose: () => 
     <>
       <div className="backdrop-overlay" onClick={onClose} />
       <div className="drawer-panel" onClick={e => e.stopPropagation()}>
-        <div className="h-full bg-white border-l border-[var(--color-border-subtle)] shadow-[-8px_0_40px_rgba(26,26,26,0.08)] flex flex-col animate-slide-in-right overflow-y-auto">
+        <div className="h-full bg-card border-l border-[var(--color-border-subtle)] shadow-[-8px_0_40px_rgba(26,26,26,0.08)] flex flex-col animate-slide-in-right overflow-y-auto">
           {/* Header */}
           <div className="p-6 border-b border-[var(--color-border-subtle)] flex items-center justify-between flex-shrink-0">
             <span className="text-[11px] font-medium tracking-[0.12em] uppercase text-[var(--color-slate-muted)]">Contact Profile</span>
@@ -159,7 +159,7 @@ export default function ContactsTab() {
             <select
               value={filterTag ?? ""}
               onChange={e => setFilterTag(e.target.value || null)}
-              className="text-xs px-3 py-2 border border-[var(--color-border-subtle)] rounded-sm bg-white text-[var(--color-slate-muted)] appearance-none cursor-pointer"
+              className="text-xs px-3 py-2 border border-[var(--color-border-subtle)] rounded-sm bg-card text-[var(--color-slate-muted)] appearance-none cursor-pointer"
             >
               <option value="">All Topics</option>
               {ALL_TAGS.map(tag => (
@@ -175,7 +175,7 @@ export default function ContactsTab() {
               placeholder="Search name, org, or title…"
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full sm:w-56 text-sm px-4 py-2 border border-[var(--color-border-subtle)] rounded-sm bg-white text-[var(--color-ink)] placeholder-[var(--color-slate-muted)] focus:outline-none focus:border-[var(--color-slate-muted)]/50"
+              className="w-full sm:w-56 text-sm px-4 py-2 border border-[var(--color-border-subtle)] rounded-sm bg-card text-[var(--color-ink)] placeholder-[var(--color-slate-muted)] focus:outline-none focus:border-[var(--color-slate-muted)]/50"
             />
             <div className="text-xs text-[var(--color-slate-muted)] flex-shrink-0">
               {filtered.length} of {PROFILES.length}
@@ -210,7 +210,7 @@ export default function ContactsTab() {
           {filtered.map(contact => (
             <div
               key={contact.id}
-              className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-5 flex flex-col gap-3 hover:border-[var(--color-slate-muted)]/50 transition-colors group cursor-pointer"
+              className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-5 flex flex-col gap-3 hover:border-[var(--color-slate-muted)]/50 transition-colors group cursor-pointer"
               onClick={() => setSelectedContact(contact)}
             >
               {/* Header row */}

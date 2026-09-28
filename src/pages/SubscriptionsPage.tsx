@@ -60,7 +60,7 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
             return (
               <div
                 key={tier.id}
-                className={`bg-white border rounded-lg p-7 flex flex-col justify-between relative transition-all duration-300 ${
+                className={`bg-card border rounded-lg p-7 flex flex-col justify-between relative transition-all duration-300 ${
                   tier.popular
                     ? "border-2 border-[var(--color-brand-coral)] shadow-xl transform -translate-y-1.5"
                     : tier.departmentCode === "rnd"
@@ -82,7 +82,7 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
                 <div>
                   {/* Department Tag & Icon */}
                   <div className="flex items-center gap-2.5 mb-4">
-                    <div className="p-2.5 rounded-md bg-stone-50 border border-stone-200/80">
+                    <div className="p-2.5 rounded-md bg-[var(--color-surface)] border border-[var(--color-border-subtle)]">
                       {renderIcon(tier.iconName)}
                     </div>
                     <span className="text-[11px] font-bold font-mono text-[var(--color-slate-muted)] uppercase tracking-wider">
@@ -99,7 +99,7 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
                   </p>
 
                   {/* Price */}
-                  <div className="mb-6 p-4 rounded-md bg-stone-50 border border-stone-200/60">
+                  <div className="mb-6 p-4 rounded-md bg-[var(--color-surface)] border border-[var(--color-border-subtle)]">
                     <div className="flex items-baseline gap-1.5">
                       <span className="text-3xl sm:text-4xl font-extrabold text-[var(--color-ink)]">
                         {isFree ? "Free" : `${tier.currency}${tier.yearlyPriceINR.toLocaleString()}`}
@@ -111,22 +111,22 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
                         GST invoice ready for expense reporting
                       </p>
                     ) : (
-                      <p className="text-[11px] text-stone-500 font-medium mt-1">
+                      <p className="text-[11px] text-[var(--color-slate-muted)] font-medium mt-1">
                         No credit card required
                       </p>
                     )}
                   </div>
 
                   {/* Features List */}
-                  <div className="border-t border-stone-100 pt-5 mb-6">
-                    <span className="text-[11px] font-bold uppercase font-mono text-stone-400 block mb-3 tracking-wider">
+                  <div className="border-t border-[var(--color-border-subtle)] pt-5 mb-6">
+                    <span className="text-[11px] font-bold uppercase font-mono text-[var(--color-slate-muted)] block mb-3 tracking-wider">
                       Included Features:
                     </span>
                     <ul className="space-y-2.5 text-xs text-[var(--color-ink)] font-medium">
                       {tier.features.map((feat, idx) => (
                         <li key={idx} className="flex items-start gap-2.5">
                           <span className="text-[var(--color-brand-teal)] font-bold text-sm shrink-0">✓</span>
-                          <span className="leading-snug text-stone-700">{feat}</span>
+                          <span className="leading-snug text-[var(--color-ink)]">{feat}</span>
                         </li>
                       ))}
                     </ul>
@@ -152,7 +152,7 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
         {/* Referral Perk Callout Banner */}
         <div className="max-w-5xl mx-auto mb-12 bg-gradient-to-r from-[var(--color-brand-teal)]/10 via-amber-500/5 to-[var(--color-brand-coral)]/10 border border-[var(--color-brand-teal)]/30 rounded-lg p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex items-start gap-4">
-            <div className="p-3 bg-white rounded-full border border-[var(--color-brand-teal)]/20 shadow-xs hidden sm:block shrink-0">
+            <div className="p-3 bg-card rounded-full border border-[var(--color-brand-teal)]/20 shadow-xs hidden sm:block shrink-0">
               <svg className="w-6 h-6 text-[var(--color-brand-teal)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
               </svg>

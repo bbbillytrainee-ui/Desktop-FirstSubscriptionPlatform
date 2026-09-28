@@ -60,7 +60,7 @@ export default function BookmarksDrawer({
               <h3 className="font-serif font-bold text-base text-white leading-none mb-1">
                 Saved Intelligence Vault
               </h3>
-              <span className="font-mono text-[11px] text-stone-400 block uppercase tracking-wider">
+              <span className="font-mono text-[11px] text-[var(--color-slate-muted)] block uppercase tracking-wider">
                 {savedCount} {savedCount === 1 ? "Dossier Saved" : "Dossiers Saved"}
               </span>
             </div>
@@ -78,14 +78,14 @@ export default function BookmarksDrawer({
         {/* Drawer Content Body */}
         <div className="flex-1 p-4 sm:p-5 overflow-y-auto space-y-4">
           {savedArticles.length === 0 ? (
-            <div className="py-16 text-center text-stone-400 space-y-3">
-              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-stone-500">
+            <div className="py-16 text-center text-[var(--color-slate-muted)] space-y-3">
+              <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-[var(--color-slate-muted)]">
                 <BookmarkFilled size={24} />
               </div>
               <h4 className="font-serif text-lg font-semibold text-white">
                 Your Reading Vault is Empty
               </h4>
-              <p className="text-xs text-stone-400 max-w-xs mx-auto leading-relaxed">
+              <p className="text-xs text-[var(--color-slate-muted)] max-w-xs mx-auto leading-relaxed">
                 Click the bookmark icon on any article card or reader to save dossiers for offline study and team review.
               </p>
             </div>
@@ -93,7 +93,7 @@ export default function BookmarksDrawer({
             <>
               {/* Drawer Top Utility Toolbar */}
               <div className="flex items-center justify-between text-xs pb-2 border-b border-stone-800">
-                <span className="font-mono text-[11px] text-stone-400 uppercase tracking-widest">
+                <span className="font-mono text-[11px] text-[var(--color-slate-muted)] uppercase tracking-widest">
                   Bookmarked Articles
                 </span>
                 <div className="flex items-center gap-3">
@@ -106,7 +106,7 @@ export default function BookmarksDrawer({
                   </button>
                   <button
                     onClick={clearAllBookmarks}
-                    className="font-mono text-[11px] text-stone-400 hover:text-rose-400 underline cursor-pointer"
+                    className="font-mono text-[11px] text-[var(--color-slate-muted)] hover:text-rose-400 underline cursor-pointer"
                   >
                     Clear All
                   </button>
@@ -134,7 +134,7 @@ export default function BookmarksDrawer({
                           <span className="font-mono text-[11px] font-bold text-[var(--color-brand-coral)] uppercase tracking-wider">
                             {article.category}
                           </span>
-                          <span className="text-[11px] text-stone-400 font-mono">
+                          <span className="text-[11px] text-[var(--color-slate-muted)] font-mono">
                             · {article.readingTime}
                           </span>
                         </div>
@@ -149,7 +149,7 @@ export default function BookmarksDrawer({
                           {article.title}
                         </h4>
 
-                        <p className="text-[11px] text-stone-400 line-clamp-2 leading-relaxed mb-2">
+                        <p className="text-[11px] text-[var(--color-slate-muted)] line-clamp-2 leading-relaxed mb-2">
                           {article.dek}
                         </p>
 
@@ -183,7 +183,7 @@ export default function BookmarksDrawer({
 
                           <button
                             onClick={() => removeBookmark(article.slug)}
-                            className="text-stone-400 hover:text-rose-400 p-1 transition-colors cursor-pointer"
+                            className="text-[var(--color-slate-muted)] hover:text-rose-400 p-1 transition-colors cursor-pointer"
                             title="Remove bookmark"
                           >
                             <Trash2 size={13} />
@@ -199,7 +199,7 @@ export default function BookmarksDrawer({
         </div>
 
         {/* Drawer Footer */}
-        <div className="p-4 border-t border-stone-800 bg-[#05161C] flex justify-between items-center text-[11px] font-mono text-stone-400">
+        <div className="p-4 border-t border-stone-800 bg-[#05161C] flex justify-between items-center text-[11px] font-mono text-[var(--color-slate-muted)]">
           <span>Saved to local account profile</span>
           <Button variant="coral" size="sm" onClick={onClose}>
             Done

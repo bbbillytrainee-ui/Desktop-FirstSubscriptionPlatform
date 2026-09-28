@@ -55,7 +55,7 @@ export default function TalentIntentPage({ onJoin, onNavigate }: TalentIntentPag
           {TALENT_INTENTS.map((item: TalentIntentItem) => (
             <div
               key={item.id}
-              className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition-all shadow-sm"
+              className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition-all shadow-sm"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
@@ -90,7 +90,7 @@ export default function TalentIntentPage({ onJoin, onNavigate }: TalentIntentPag
                   </span>
                   <div className="flex flex-wrap gap-1">
                     {item.specialties.map(s => (
-                      <span key={s} className="text-[11px] text-[var(--color-ink)] bg-stone-100 px-1.5 py-0.2 rounded-sm">
+                      <span key={s} className="text-[11px] text-[var(--color-ink)] bg-[var(--color-surface)] px-1.5 py-0.2 rounded-sm">
                         {s}
                       </span>
                     ))}
@@ -117,12 +117,12 @@ export default function TalentIntentPage({ onJoin, onNavigate }: TalentIntentPag
         {/* Signal Intent Modal */}
         {showSignalModal && (
           <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm max-w-lg w-full p-6 shadow-2xl animate-fade-up">
+            <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm max-w-lg w-full p-6 shadow-2xl animate-fade-up">
               <div className="flex items-center justify-between pb-3 border-b border-[var(--color-border-subtle)] mb-4">
                 <h3 className="font-serif text-lg font-semibold text-[var(--color-ink)]">
                   Signal Your Confidential Availability
                 </h3>
-                <button onClick={() => setShowSignalModal(false)} className="text-stone-400 hover:text-stone-700 font-bold">
+                <button onClick={() => setShowSignalModal(false)} className="text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] font-bold">
                   ✕
                 </button>
               </div>
@@ -158,7 +158,7 @@ export default function TalentIntentPage({ onJoin, onNavigate }: TalentIntentPag
                     <label className="block text-xs font-semibold text-[var(--color-ink)] mb-1">Intent / Engagement Preferences</label>
                     <div className="grid grid-cols-2 gap-2 text-xs">
                       {["Strategic Advisory", "Board of Directors", "Joint R&D Co-Development", "Fractional C-Suite"].map(opt => (
-                        <label key={opt} className="p-2 border rounded-sm flex items-center gap-1.5 cursor-pointer hover:bg-stone-50">
+                        <label key={opt} className="p-2 border rounded-sm flex items-center gap-1.5 cursor-pointer hover:bg-[var(--color-surface)]">
                           <input type="checkbox" defaultChecked className="accent-[var(--color-brand-coral)]" />
                           <span className="text-[11px]">{opt}</span>
                         </label>

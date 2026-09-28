@@ -987,7 +987,7 @@ function NotebookDrawer({
           ) : (
             <div className="space-y-4">
               {savedArticles.map((art) => (
-                <div key={art.id} className="p-4 rounded border border-[var(--color-border-subtle)] bg-white shadow-sm flex flex-col justify-between">
+                <div key={art.id} className="p-4 rounded border border-[var(--color-border-subtle)] bg-card shadow-sm flex flex-col justify-between">
                   <div className="flex justify-between items-start mb-2">
                     <span className="text-[11px] font-semibold text-[var(--color-brand-coral)] uppercase tracking-wider">{art.section}</span>
                     <button onClick={() => onRemove(art.id)} className="text-xs text-rose-500 hover:underline">Remove</button>
@@ -1059,7 +1059,7 @@ export default function MagazineTab() {
   return (
     <>
       {/* ── TOP CONTROL BAR: SEARCH, EDITION, VIEWS ── */}
-      <div className="mb-8 p-4 md:p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+      <div className="mb-8 p-4 md:p-6 bg-card border border-[var(--color-border-subtle)] rounded-sm shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
         {/* Left: Edition & Search */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
           {/* Edition Selector */}
@@ -1244,7 +1244,7 @@ export default function MagazineTab() {
                 {filteredArticles.filter((a) => a.id !== heroArticle?.id).map((article) => (
                   <article
                     key={article.id}
-                    className="p-5 border border-[var(--color-border-subtle)] rounded bg-white hover:border-[var(--color-slate-muted)]/50 transition-all flex flex-col justify-between group cursor-pointer shadow-sm"
+                    className="p-5 border border-[var(--color-border-subtle)] rounded bg-card hover:border-[var(--color-slate-muted)]/50 transition-all flex flex-col justify-between group cursor-pointer shadow-sm"
                     onClick={() => setSelectedArticle(article)}
                   >
                     <div>
@@ -1313,7 +1313,7 @@ export default function MagazineTab() {
           </div>
 
           {/* Digests Briefings */}
-          <div className="p-5 border border-[var(--color-border-subtle)] rounded bg-white shadow-sm">
+          <div className="p-5 border border-[var(--color-border-subtle)] rounded bg-card shadow-sm">
             <div className="flex items-center gap-2 mb-4 pb-2 border-b border-[var(--color-border-subtle)]">
               <div className="w-3 h-px bg-[var(--color-brand-coral)]" />
               <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-ink)]">Curated Digests</span>
@@ -1336,7 +1336,7 @@ export default function MagazineTab() {
           </div>
 
           {/* Top Industry Contributors */}
-          <div className="p-5 border border-[var(--color-border-subtle)] rounded bg-white shadow-sm">
+          <div className="p-5 border border-[var(--color-border-subtle)] rounded bg-card shadow-sm">
             <div className="flex items-center gap-2 mb-4 pb-2 border-b border-[var(--color-border-subtle)]">
               <div className="w-3 h-px bg-[var(--color-brand-coral)]" />
               <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-ink)]">Top Key Contributors</span>

@@ -30,7 +30,7 @@ export default function TrendIntelligencePage({ onJoin, onNavigate }: TrendIntel
 
         {/* Top Summary Metrics Strip */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-5 shadow-sm">
+          <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-5 shadow-sm">
             <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
               Active Network Inquiries
             </span>
@@ -38,7 +38,7 @@ export default function TrendIntelligencePage({ onJoin, onNavigate }: TrendIntel
             <span className="text-[11px] text-[var(--color-brand-teal)] font-medium">↑ +34% vs last quarter</span>
           </div>
 
-          <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-5 shadow-sm">
+          <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-5 shadow-sm">
             <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
               Top Researched Vector
             </span>
@@ -46,7 +46,7 @@ export default function TrendIntelligencePage({ onJoin, onNavigate }: TrendIntel
             <span className="text-[11px] text-[var(--color-slate-muted)]">54% MoM search growth</span>
           </div>
 
-          <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-5 shadow-sm">
+          <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-5 shadow-sm">
             <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
               Most Active BD Hub
             </span>
@@ -54,7 +54,7 @@ export default function TrendIntelligencePage({ onJoin, onNavigate }: TrendIntel
             <span className="text-[11px] text-[var(--color-brand-teal)] font-medium">42 active deal flows</span>
           </div>
 
-          <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-5 shadow-sm">
+          <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-5 shadow-sm">
             <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
               Data Privacy Standard
             </span>
@@ -67,7 +67,7 @@ export default function TrendIntelligencePage({ onJoin, onNavigate }: TrendIntel
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-16">
           
           {/* Left: Trending Research Vectors */}
-          <div className="lg:col-span-7 bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
+          <div className="lg:col-span-7 bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
             <div className="flex items-center justify-between pb-4 mb-4 border-b border-[var(--color-border-subtle)]">
               <div>
                 <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-coral)]">
@@ -86,7 +86,7 @@ export default function TrendIntelligencePage({ onJoin, onNavigate }: TrendIntel
                   <div>
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-xs font-semibold text-[var(--color-ink)]">{t.topic}</span>
-                      <span className="font-mono text-[11px] bg-white border px-1.5 py-0.2 rounded-sm text-[var(--color-slate-muted)]">
+                      <span className="font-mono text-[11px] bg-card border px-1.5 py-0.2 rounded-sm text-[var(--color-slate-muted)]">
                         {t.category}
                       </span>
                     </div>
@@ -109,7 +109,7 @@ export default function TrendIntelligencePage({ onJoin, onNavigate }: TrendIntel
           </div>
 
           {/* Right: Regional Hub Activity Matrix */}
-          <div className="lg:col-span-5 bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm flex flex-col justify-between">
+          <div className="lg:col-span-5 bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm flex flex-col justify-between">
             <div>
               <div className="pb-4 mb-4 border-b border-[var(--color-border-subtle)]">
                 <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-teal)]">
@@ -122,7 +122,7 @@ export default function TrendIntelligencePage({ onJoin, onNavigate }: TrendIntel
 
               <div className="space-y-3.5">
                 {HUB_ACTIVITIES.map((h, i) => (
-                  <div key={i} className="p-3 bg-white border border-[var(--color-border-subtle)] rounded-sm space-y-1">
+                  <div key={i} className="p-3 bg-card border border-[var(--color-border-subtle)] rounded-sm space-y-1">
                     <div className="flex justify-between items-center">
                       <span className="text-xs font-semibold text-[var(--color-ink)]">{h.hub}</span>
                       <span className="font-mono text-[11px] font-bold text-[var(--color-brand-teal)]">{h.growthPercentage}</span>

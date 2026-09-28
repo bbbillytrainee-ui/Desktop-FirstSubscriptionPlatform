@@ -91,7 +91,7 @@ export default function VideosPage({ onJoin, onNavigate }: VideosPageProps) {
               className={`px-4 py-2 text-xs font-medium rounded-sm whitespace-nowrap transition-colors cursor-pointer ${
                 selectedCategory === cat
                   ? "bg-[var(--color-brand-teal)] text-white font-semibold"
-                  : "bg-white border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)]"
+                  : "bg-card border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)]"
               }`}
             >
               {cat}
@@ -105,7 +105,7 @@ export default function VideosPage({ onJoin, onNavigate }: VideosPageProps) {
             <div
               key={video.id}
               onClick={() => { setActiveVideo(video); window.scrollTo({ top: 260, behavior: "smooth" }) }}
-              className={`bg-white border rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition-all shadow-sm group cursor-pointer ${
+              className={`bg-card border rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition-all shadow-sm group cursor-pointer ${
                 activeVideo.id === video.id ? "ring-2 ring-[var(--color-brand-teal)]" : "border-[var(--color-border-subtle)]"
               }`}
             >

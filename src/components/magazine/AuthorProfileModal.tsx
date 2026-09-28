@@ -79,8 +79,8 @@ export default function AuthorProfileModal({
         )}
 
         {/* Professional Contact & Links */}
-        <div className="p-3 bg-stone-50 border border-stone-200 rounded-lg flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-4 text-stone-600 font-mono text-[11px]">
+        <div className="p-3 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-lg flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-4 text-[var(--color-slate-muted)] font-mono text-[11px]">
             {author.email && (
               <span>✉️ {author.email}</span>
             )}
@@ -116,7 +116,7 @@ export default function AuthorProfileModal({
                     onClose()
                     if (onSelectArticle) onSelectArticle(art)
                   }}
-                  className="p-3 bg-white border border-stone-200 rounded-lg hover:border-[var(--color-brand-teal)]/60 cursor-pointer transition-all flex items-center justify-between gap-3 group"
+                  className="p-3 bg-card border border-[var(--color-border-subtle)] rounded-lg hover:border-[var(--color-brand-teal)]/60 cursor-pointer transition-all flex items-center justify-between gap-3 group"
                 >
                   <div className="min-w-0 flex-1">
                     <span className="font-mono text-[11px] font-bold uppercase text-[var(--color-brand-coral)] block mb-0.5">
@@ -133,7 +133,7 @@ export default function AuthorProfileModal({
               ))}
             </div>
           ) : (
-            <p className="text-xs text-stone-500 italic">No published articles listed for this writer yet.</p>
+            <p className="text-xs text-[var(--color-slate-muted)] italic">No published articles listed for this writer yet.</p>
           )}
         </div>
       </div>

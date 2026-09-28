@@ -26,7 +26,7 @@ export default function AuthorByline({ author, date, readingTime, size = "md" }:
             <img 
               src={author.photo} 
               alt={author.name} 
-              className={`${avatarSize} rounded-full object-cover border border-stone-300 shrink-0 group-hover:scale-105 transition-transform`} 
+              className={`${avatarSize} rounded-full object-cover border border-[var(--color-border-subtle)] shrink-0 group-hover:scale-105 transition-transform`} 
             />
           ) : (
             <div className={`${avatarSize} rounded-full bg-[var(--color-brand-teal)] text-[var(--color-paper)] flex items-center justify-center font-bold shrink-0`}>

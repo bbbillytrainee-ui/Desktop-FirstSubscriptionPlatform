@@ -25,7 +25,7 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
     return (
       <div
         onClick={onClick}
-        className="group cursor-pointer border border-[var(--color-border-subtle)] rounded-xl bg-white overflow-hidden hover:border-[var(--color-brand-teal)]/50 transition-all duration-300 flex flex-col shadow-[0_4px_20px_rgba(13,59,74,0.06)] hover:shadow-[0_16px_40px_rgba(13,59,74,0.16)] hover:-translate-y-1 relative"
+        className="group cursor-pointer border border-[var(--color-border-subtle)] rounded-xl bg-card overflow-hidden hover:border-[var(--color-brand-teal)]/50 transition-all duration-300 flex flex-col shadow-[0_4px_20px_rgba(13,59,74,0.06)] hover:shadow-[0_16px_40px_rgba(13,59,74,0.16)] hover:-translate-y-1 relative"
       >
         {/* Photo FIRST - prominent cover view */}
         <div className="relative h-64 sm:h-80 md:h-96 w-full bg-[var(--color-surface)] overflow-hidden">
@@ -89,7 +89,7 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
     return (
       <div
         onClick={onClick}
-        className="group cursor-pointer border border-[var(--color-border-subtle)] rounded-xl bg-white overflow-hidden hover:border-[var(--color-brand-teal)]/40 transition-all duration-300 flex flex-col justify-between shadow-[0_2px_10px_rgba(13,59,74,0.05)] hover:shadow-[0_12px_28px_rgba(13,59,74,0.14)] hover:-translate-y-1"
+        className="group cursor-pointer border border-[var(--color-border-subtle)] rounded-xl bg-card overflow-hidden hover:border-[var(--color-brand-teal)]/40 transition-all duration-300 flex flex-col justify-between shadow-[0_2px_10px_rgba(13,59,74,0.05)] hover:shadow-[0_12px_28px_rgba(13,59,74,0.14)] hover:-translate-y-1"
       >
         {/* Photo FIRST */}
         <div className="h-32 w-full bg-[var(--color-surface)] overflow-hidden relative">
@@ -141,7 +141,7 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
   return (
     <div
       onClick={onClick}
-      className="group cursor-pointer border border-[var(--color-border-subtle)] rounded-xl bg-white overflow-hidden hover:border-[var(--color-brand-teal)]/40 transition-all duration-300 flex flex-col shadow-[0_2px_12px_rgba(13,59,74,0.05)] hover:shadow-[0_14px_32px_rgba(13,59,74,0.14)] hover:-translate-y-1"
+      className="group cursor-pointer border border-[var(--color-border-subtle)] rounded-xl bg-card overflow-hidden hover:border-[var(--color-brand-teal)]/40 transition-all duration-300 flex flex-col shadow-[0_2px_12px_rgba(13,59,74,0.05)] hover:shadow-[0_14px_32px_rgba(13,59,74,0.14)] hover:-translate-y-1"
     >
       {/* Photo FIRST */}
       <div className="h-48 w-full bg-[var(--color-surface)] overflow-hidden relative">

@@ -120,7 +120,7 @@ export default function AddArticleModal({ isOpen, onClose, onAddArticle }: AddAr
             <select
               value={category}
               onChange={e => setCategory(e.target.value as any)}
-              className="w-full px-3 py-2 text-xs border border-[var(--color-border-subtle)] rounded-sm focus:outline-none focus:border-[var(--color-brand-teal)] bg-white"
+              className="w-full px-3 py-2 text-xs border border-[var(--color-border-subtle)] rounded-sm focus:outline-none focus:border-[var(--color-brand-teal)] bg-card"
             >
               <option value="Pharma">Pharma</option>
               <option value="MedTech">MedTech</option>
@@ -133,7 +133,7 @@ export default function AddArticleModal({ isOpen, onClose, onAddArticle }: AddAr
             <select
               value={format}
               onChange={e => setFormat(e.target.value as any)}
-              className="w-full px-3 py-2 text-xs border border-[var(--color-border-subtle)] rounded-sm focus:outline-none focus:border-[var(--color-brand-teal)] bg-white"
+              className="w-full px-3 py-2 text-xs border border-[var(--color-border-subtle)] rounded-sm focus:outline-none focus:border-[var(--color-brand-teal)] bg-card"
             >
               <option value="Feature">Feature</option>
               <option value="Analysis">Analysis</option>
@@ -151,7 +151,7 @@ export default function AddArticleModal({ isOpen, onClose, onAddArticle }: AddAr
           <select
             value={selectedAuthorId}
             onChange={e => setSelectedAuthorId(e.target.value)}
-            className="w-full px-3 py-2 text-xs border border-[var(--color-border-subtle)] rounded-sm focus:outline-none focus:border-[var(--color-brand-teal)] bg-white font-medium"
+            className="w-full px-3 py-2 text-xs border border-[var(--color-border-subtle)] rounded-sm focus:outline-none focus:border-[var(--color-brand-teal)] bg-card font-medium"
           >
             {AUTHORS.map(aut => (
               <option key={aut.id} value={aut.id}>
@@ -191,7 +191,7 @@ export default function AddArticleModal({ isOpen, onClose, onAddArticle }: AddAr
               value={imageUrl}
               onChange={e => handleUrlChange(e.target.value)}
               placeholder="https://images.unsplash.com/photo-..."
-              className="w-full px-3 py-1.5 text-xs bg-white border border-[var(--color-border-subtle)] rounded-sm focus:outline-none focus:border-[var(--color-brand-teal)]"
+              className="w-full px-3 py-1.5 text-xs bg-card border border-[var(--color-border-subtle)] rounded-sm focus:outline-none focus:border-[var(--color-brand-teal)]"
             />
           </div>
 
@@ -201,7 +201,7 @@ export default function AddArticleModal({ isOpen, onClose, onAddArticle }: AddAr
               <span className="text-[11px] font-mono text-[var(--color-slate-muted)] block mb-1">
                 Image Live Preview:
               </span>
-              <div className="h-36 w-full rounded overflow-hidden border border-stone-300 relative bg-stone-100">
+              <div className="h-36 w-full rounded overflow-hidden border border-[var(--color-border-subtle)] relative bg-[var(--color-surface)]">
                 <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
                 <button
                   type="button"

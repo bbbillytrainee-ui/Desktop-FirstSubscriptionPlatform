@@ -23,11 +23,11 @@ export default function CompaniesPage({ onJoin, onNavigate }: CompaniesPageProps
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 max-w-4xl">
-          <div className="p-8 bg-white border border-[var(--color-border-subtle)] rounded-sm">
+          <div className="p-8 bg-card border border-[var(--color-border-subtle)] rounded-sm">
             <h3 className="font-serif text-xl font-semibold mb-2">Corporate Email Auto-Verification</h3>
             <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed">Instantly verify employees signing up with company email domains, unlocking trial seats automatically.</p>
           </div>
-          <div className="p-8 bg-white border border-[var(--color-border-subtle)] rounded-sm">
+          <div className="p-8 bg-card border border-[var(--color-border-subtle)] rounded-sm">
             <h3 className="font-serif text-xl font-semibold mb-2">Sponsored Placement & Team Dashboard</h3>
             <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed">Feature company technical whitepapers in the magazine and manage team subscriptions with enterprise controls.</p>
           </div>

@@ -39,7 +39,7 @@ export default function PushNotificationPrompt({ onOptIn }: PushNotificationProm
   if (!visible) return null
 
   return (
-    <div className="fixed bottom-5 right-5 z-40 max-w-sm w-full bg-white border-2 border-[var(--color-brand-teal)] rounded-sm shadow-[0_12px_40px_rgba(13,59,74,0.18)] p-4 animate-fade-up">
+    <div className="fixed bottom-5 right-5 z-40 max-w-sm w-full bg-card border-2 border-[var(--color-brand-teal)] rounded-sm shadow-[0_12px_40px_rgba(13,59,74,0.18)] p-4 animate-fade-up">
       <div className="flex items-start justify-between gap-3 mb-2">
         <div className="flex items-center gap-2">
           <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-brand-coral)] animate-ping" />
@@ -47,7 +47,7 @@ export default function PushNotificationPrompt({ onOptIn }: PushNotificationProm
             Instant Regulatory Alerts
           </span>
         </div>
-        <button onClick={handleDismiss} className="text-stone-400 hover:text-stone-700 text-sm font-bold">
+        <button onClick={handleDismiss} className="text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] text-sm font-bold">
           ✕
         </button>
       </div>

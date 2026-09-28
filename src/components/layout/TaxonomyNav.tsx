@@ -70,7 +70,7 @@ export default function TaxonomyNav({
                   onClick={() => onSelectTaxonomy && onSelectTaxonomy(item.name)}
                   className={`px-3 py-1 whitespace-nowrap text-[11px] font-medium transition-all duration-200 rounded-full cursor-pointer shrink-0 flex items-center gap-1.5 group ${
                     isSelected
-                      ? "bg-white text-[var(--color-brand-teal)] font-bold shadow-sm ring-1 ring-white"
+                      ? "bg-card text-[var(--color-brand-teal)] font-bold shadow-sm ring-1 ring-white"
                       : "text-white/80 hover:text-white hover:bg-white/15 bg-white/5 border border-white/10"
                   }`}
                 >

@@ -118,7 +118,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
 
   return (
     <div className="min-h-screen bg-[var(--color-paper)] flex items-center justify-center px-4 py-8" onKeyDown={handleKeyDown}>
-      <div className="w-full max-w-[var(--modal-max)] bg-white border border-[var(--color-border-subtle)] rounded-sm shadow-[0_8px_40px_rgba(13,59,74,0.08)] overflow-hidden">
+      <div className="w-full max-w-[var(--modal-max)] bg-card border border-[var(--color-border-subtle)] rounded-sm shadow-[0_8px_40px_rgba(13,59,74,0.08)] overflow-hidden">
         
         {/* Progress Header */}
         <div className="px-6 md:px-10 pt-8 pb-6 border-b border-[var(--color-border-subtle)]">
@@ -205,7 +205,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                     value={fullName}
                     onChange={e => setFullName(e.target.value)}
                     placeholder="e.g. Dr. Siddharth Rao"
-                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-teal)]"
+                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-card focus:outline-none focus:border-[var(--color-brand-teal)]"
                   />
                 </div>
 
@@ -216,7 +216,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                     value={organization}
                     onChange={e => setOrganization(e.target.value)}
                     placeholder="e.g. Sun Pharma, Cipla, Biocon, Dr. Reddy's"
-                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-teal)]"
+                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-card focus:outline-none focus:border-[var(--color-brand-teal)]"
                   />
                 </div>
               </div>
@@ -227,7 +227,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                   <select
                     value={department}
                     onChange={e => setDepartment(e.target.value)}
-                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-teal)]"
+                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-card focus:outline-none focus:border-[var(--color-brand-teal)]"
                   >
                     {DEPARTMENTS.map(d => (
                       <option key={d} value={d}>{d}</option>
@@ -242,7 +242,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                     value={jobTitle}
                     onChange={e => setJobTitle(e.target.value)}
                     placeholder="e.g. Head of Supply Chain / Lead Scientist"
-                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-teal)]"
+                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-card focus:outline-none focus:border-[var(--color-brand-teal)]"
                   />
                 </div>
               </div>
@@ -253,7 +253,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                   <select
                     value={experience}
                     onChange={e => setExperience(e.target.value)}
-                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-teal)]"
+                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-card focus:outline-none focus:border-[var(--color-brand-teal)]"
                   >
                     {EXPERIENCE_LEVELS.map(exp => (
                       <option key={exp} value={exp}>{exp}</option>
@@ -266,7 +266,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                   <select
                     value={city}
                     onChange={e => setCity(e.target.value)}
-                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-teal)]"
+                    className="w-full px-3 py-2 text-sm border border-[var(--color-border-subtle)] rounded-sm bg-card focus:outline-none focus:border-[var(--color-brand-teal)]"
                   >
                     {CITIES.map(c => (
                       <option key={c} value={c}>{c}</option>
@@ -284,7 +284,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                     value={referralCodeInput}
                     onChange={e => setReferralCodeInput(e.target.value.toUpperCase())}
                     placeholder="e.g. MEDIVERSE-REF-8842"
-                    className="flex-1 px-3 py-1.5 text-xs font-mono border border-[var(--color-border-subtle)] rounded-sm bg-white focus:outline-none focus:border-[var(--color-brand-coral)] uppercase"
+                    className="flex-1 px-3 py-1.5 text-xs font-mono border border-[var(--color-border-subtle)] rounded-sm bg-card focus:outline-none focus:border-[var(--color-brand-coral)] uppercase"
                   />
                   <button
                     type="button"
@@ -469,7 +469,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
               </div>
 
               {/* Referral Incentive Widget */}
-              <div className="p-5 bg-white border-2 border-[var(--color-brand-coral)] rounded-sm relative shadow-sm">
+              <div className="p-5 bg-card border-2 border-[var(--color-brand-coral)] rounded-sm relative shadow-sm">
                 <span
                   className="font-mono text-[11px] font-semibold uppercase bg-[var(--color-brand-coral)] text-white px-2 py-0.5 rounded-sm inline-block mb-2"
                 >

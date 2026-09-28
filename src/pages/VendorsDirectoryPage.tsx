@@ -64,7 +64,7 @@ export default function VendorsDirectoryPage({ onJoin, onNavigate }: VendorsDire
               className={`px-4 py-2 text-xs font-medium rounded-sm whitespace-nowrap transition-colors cursor-pointer ${
                 selectedCategory === cat
                   ? "bg-[var(--color-brand-teal)] text-white font-semibold"
-                  : "bg-white border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)]"
+                  : "bg-card border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)]"
               }`}
             >
               {cat}
@@ -77,7 +77,7 @@ export default function VendorsDirectoryPage({ onJoin, onNavigate }: VendorsDire
           {filteredVendors.map(vendor => (
             <div
               key={vendor.id}
-              className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition-all shadow-sm"
+              className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition-all shadow-sm"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
@@ -101,7 +101,7 @@ export default function VendorsDirectoryPage({ onJoin, onNavigate }: VendorsDire
                 {/* Capabilities & Certifications */}
                 <div className="space-y-2 pt-3 border-t border-[var(--color-border-subtle)] mb-4">
                   <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="font-mono text-[11px] text-stone-500 uppercase font-bold mr-1">
+                    <span className="font-mono text-[11px] text-[var(--color-slate-muted)] uppercase font-bold mr-1">
                       Certifications:
                     </span>
                     {vendor.certifications.map(cert => (
@@ -112,11 +112,11 @@ export default function VendorsDirectoryPage({ onJoin, onNavigate }: VendorsDire
                   </div>
 
                   <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="font-mono text-[11px] text-stone-500 uppercase font-bold mr-1">
+                    <span className="font-mono text-[11px] text-[var(--color-slate-muted)] uppercase font-bold mr-1">
                       Capabilities:
                     </span>
                     {vendor.primaryCapabilities.map(cap => (
-                      <span key={cap} className="text-[11px] bg-stone-100 text-stone-700 px-1.5 py-0.2 rounded-sm">
+                      <span key={cap} className="text-[11px] bg-[var(--color-surface)] text-[var(--color-ink)] px-1.5 py-0.2 rounded-sm">
                         {cap}
                       </span>
                     ))}
@@ -143,7 +143,7 @@ export default function VendorsDirectoryPage({ onJoin, onNavigate }: VendorsDire
         {/* RFP Modal */}
         {showRfpModal && (
           <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm max-w-lg w-full p-6 shadow-2xl animate-fade-up">
+            <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm max-w-lg w-full p-6 shadow-2xl animate-fade-up">
               <div className="flex items-center justify-between pb-3 border-b border-[var(--color-border-subtle)] mb-4">
                 <div>
                   <h3 className="font-serif text-lg font-semibold text-[var(--color-ink)]">
@@ -153,7 +153,7 @@ export default function VendorsDirectoryPage({ onJoin, onNavigate }: VendorsDire
                     Verified Vendor Channel · Direct Executive Routing
                   </span>
                 </div>
-                <button onClick={() => setShowRfpModal(false)} className="text-stone-400 hover:text-stone-700 font-bold">
+                <button onClick={() => setShowRfpModal(false)} className="text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] font-bold">
                   ✕
                 </button>
               </div>

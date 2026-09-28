@@ -83,7 +83,7 @@ export default function ThoughtLeadershipPage({ onJoin, onNavigate }: ThoughtLea
             {columns.map((col, idx) => (
               <div
                 key={idx}
-                className="bg-white border border-[var(--color-border-subtle)] rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)] transition-all group"
+                className="bg-card border border-[var(--color-border-subtle)] rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)] transition-all group"
               >
                 <div>
                   {/* Author Portrait Photo (Photo First) */}
@@ -158,7 +158,7 @@ export default function ThoughtLeadershipPage({ onJoin, onNavigate }: ThoughtLea
               </ul>
             </div>
 
-            <div className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm">
+            <div className="p-6 bg-card border border-[var(--color-border-subtle)] rounded-sm">
               <h4 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-2">
                 Contributor Privileges
               </h4>
@@ -170,7 +170,7 @@ export default function ThoughtLeadershipPage({ onJoin, onNavigate }: ThoughtLea
 
           {/* Submission Form Column */}
           <div className="lg:col-span-5">
-            <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
+            <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
               <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-2">
                 Submit an Editorial Pitch
               </h3>
@@ -256,10 +256,10 @@ export default function ThoughtLeadershipPage({ onJoin, onNavigate }: ThoughtLea
                         setPitchImagePreview(e.target.value)
                       }}
                       placeholder="Or paste image web URL (https://...)"
-                      className="w-full px-2.5 py-1 text-[11px] bg-white border border-[var(--color-border-subtle)] rounded-sm"
+                      className="w-full px-2.5 py-1 text-[11px] bg-card border border-[var(--color-border-subtle)] rounded-sm"
                     />
                     {pitchImagePreview && (
-                      <div className="h-28 w-full rounded overflow-hidden border border-stone-300 relative bg-stone-100">
+                      <div className="h-28 w-full rounded overflow-hidden border border-[var(--color-border-subtle)] relative bg-[var(--color-surface)]">
                         <img src={pitchImagePreview} alt="Preview" className="w-full h-full object-cover" />
                       </div>
                     )}

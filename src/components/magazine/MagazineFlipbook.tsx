@@ -280,7 +280,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
         
         {/* Book Container with Pure High-Contrast White/Cream Background */}
         <div
-          className={`relative w-full max-w-5xl h-full max-h-[540px] sm:max-h-[620px] bg-[#FAF7F2] text-[#1A1D1F] rounded-md shadow-[0_30px_90px_rgba(0,0,0,0.9)] border border-stone-300 grid grid-cols-1 md:grid-cols-2 overflow-hidden transition-transform duration-300 transform-gpu z-20 ${
+          className={`relative w-full max-w-5xl h-full max-h-[540px] sm:max-h-[620px] bg-[#FAF7F2] text-[#1A1D1F] rounded-md shadow-[0_30px_90px_rgba(0,0,0,0.9)] border border-[var(--color-border-subtle)] grid grid-cols-1 md:grid-cols-2 overflow-hidden transition-transform duration-300 transform-gpu z-20 ${
             isFlipping ? (flipDirection === "next" ? "book-flip-next" : "book-flip-prev") : ""
           }`}
         >
@@ -291,7 +291,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
           {currentSpread === 0 && (
             <>
               {/* Left Page (Inside Cover / Publishing Info) */}
-              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#F4EFE6] text-[#1A1D1F] border-r border-stone-300 relative z-20">
+              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#F4EFE6] text-[#1A1D1F] border-r border-[var(--color-border-subtle)] relative z-20">
                 <div className="book-gutter-shadow-right absolute inset-y-0 right-0 w-8 pointer-events-none" />
                 <div>
                   <span className="font-mono text-[10px] text-[var(--color-slate-muted)] uppercase tracking-widest block mb-4">
@@ -304,7 +304,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                     Published monthly in Singapore and Bangalore. Distributed exclusively to verified life science executives, regulatory directors, and clinical leads.
                   </p>
                 </div>
-                <div className="pt-4 border-t border-stone-300 text-[10px] font-mono text-[#6B7073] space-y-1">
+                <div className="pt-4 border-t border-[var(--color-border-subtle)] text-[10px] font-mono text-[#6B7073] space-y-1">
                   <div>ISSN: 2984-102X · Registered Digital Issue</div>
                   <div>Editor-in-Chief: Dr. Leila Ahmadi</div>
                   <div>Editorial Board: CDSCO Review Committee, MedTech APAC</div>
@@ -351,7 +351,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
           {currentSpread === 1 && (
             <>
               {/* Left: Editor's Note */}
-              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] border-r border-stone-300 relative z-20">
+              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] border-r border-[var(--color-border-subtle)] relative z-20">
                 <div className="book-gutter-shadow-right absolute inset-y-0 right-0 w-8 pointer-events-none" />
                 <div>
                   <span className="font-mono text-[10px] uppercase font-bold text-[var(--color-brand-coral)] tracking-widest block mb-2">
@@ -368,7 +368,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                     This issue brings together firsthand perspectives from regulatory strategists, clinical operations directors, and bioprocess engineers tackling the next frontier of patient access.
                   </p>
                 </div>
-                <div className="pt-4 border-t border-stone-300 flex justify-between items-end text-xs">
+                <div className="pt-4 border-t border-[var(--color-border-subtle)] flex justify-between items-end text-xs">
                   <div>
                     <span className="font-semibold block text-[#1A1D1F]">
                       {issue.editorialColumn?.authorName || "Dr. Leila Ahmadi"}
@@ -401,7 +401,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                         <div
                           key={art.slug}
                           onClick={() => goToSpread(targetSpread)}
-                          className="flex items-baseline justify-between border-b border-stone-300/80 pb-2 cursor-pointer group"
+                          className="flex items-baseline justify-between border-b border-[var(--color-border-subtle)] pb-2 cursor-pointer group"
                         >
                           <div className="pr-4 min-w-0">
                             <span className="font-mono text-[10px] text-[var(--color-brand-coral)] font-bold mr-2">
@@ -420,7 +420,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                   </div>
                 </div>
 
-                <div className="flex justify-between items-center pt-4 border-t border-stone-300 text-xs">
+                <div className="flex justify-between items-center pt-4 border-t border-[var(--color-border-subtle)] text-xs">
                   <span className="font-mono text-[10px] text-[#6B7073]">
                     Page 3
                   </span>
@@ -436,17 +436,17 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
           {currentSpread === 2 && (
             <>
               {/* Left: Feature Visual & Pull Quote */}
-              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] border-r border-stone-300 relative z-20">
+              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] border-r border-[var(--color-border-subtle)] relative z-20">
                 <div className="book-gutter-shadow-right absolute inset-y-0 right-0 w-8 pointer-events-none" />
                 <div>
-                  <div className="h-44 sm:h-52 w-full rounded-sm overflow-hidden mb-4 shadow-sm border border-stone-300 relative">
+                  <div className="h-44 sm:h-52 w-full rounded-sm overflow-hidden mb-4 shadow-sm border border-[var(--color-border-subtle)] relative">
                     <SafeImage src={heroArticle.image} alt={heroArticle.title} className="w-full h-full object-cover" />
                   </div>
                   <blockquote className="font-serif text-sm italic text-[var(--color-brand-teal)] border-l-2 border-[var(--color-brand-coral)] pl-3 my-4">
                     &ldquo;Process Analytical Technology and continuous bioprocessing are shifting release turnaround times from weeks to hours.&rdquo;
                   </blockquote>
                 </div>
-                <div className="flex justify-between items-center text-xs text-[#6B7073] pt-2 border-t border-stone-300">
+                <div className="flex justify-between items-center text-xs text-[#6B7073] pt-2 border-t border-[var(--color-border-subtle)]">
                   <span className="font-mono">{heroArticle.category} Feature</span>
                   <span className="font-mono">Page 4</span>
                 </div>
@@ -471,7 +471,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                     ))}
                   </div>
                 </div>
-                <div className="flex justify-between items-center pt-4 border-t border-stone-300 text-xs">
+                <div className="flex justify-between items-center pt-4 border-t border-[var(--color-border-subtle)] text-xs">
                   <span className="font-mono text-[10px] text-[#6B7073]">
                     Page 5
                   </span>
@@ -487,7 +487,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
           {currentSpread === 3 && (
             <>
               {/* Left Analysis Body */}
-              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] border-r border-stone-300 relative z-20">
+              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] border-r border-[var(--color-border-subtle)] relative z-20">
                 <div className="book-gutter-shadow-right absolute inset-y-0 right-0 w-8 pointer-events-none" />
                 <div>
                   <span className="font-mono text-[10px] font-semibold text-[var(--color-brand-teal)] uppercase tracking-wider block mb-1">
@@ -503,7 +503,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                     ))}
                   </div>
                 </div>
-                <div className="flex justify-between items-center pt-4 border-t border-stone-300 text-xs text-[#6B7073]">
+                <div className="flex justify-between items-center pt-4 border-t border-[var(--color-border-subtle)] text-xs text-[#6B7073]">
                   <span className="font-mono">Page 6</span>
                 </div>
               </div>
@@ -512,7 +512,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
               <div className="p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] flex flex-col justify-between relative z-20">
                 <div className="book-gutter-shadow absolute inset-y-0 left-0 w-8 pointer-events-none" />
                 <div>
-                  <div className="p-4 bg-white border border-stone-300 rounded-sm mb-4 shadow-sm">
+                  <div className="p-4 bg-card border border-[var(--color-border-subtle)] rounded-sm mb-4 shadow-sm">
                     <span className="font-mono text-[10px] uppercase font-bold text-[var(--color-brand-teal)] block mb-1">
                       Key Takeaway Matrix
                     </span>
@@ -528,11 +528,11 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                     </ul>
                   </div>
 
-                  <div className="h-40 rounded-sm overflow-hidden shadow-sm border border-stone-300 relative">
+                  <div className="h-40 rounded-sm overflow-hidden shadow-sm border border-[var(--color-border-subtle)] relative">
                     <SafeImage src={analysisArticle.image} alt="analysis" className="w-full h-full object-cover" />
                   </div>
                 </div>
-                <div className="flex justify-between items-center pt-4 border-t border-stone-300 text-xs">
+                <div className="flex justify-between items-center pt-4 border-t border-[var(--color-border-subtle)] text-xs">
                   <span className="font-mono text-[10px] text-[#6B7073]">
                     Page 7
                   </span>
@@ -548,7 +548,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
           {currentSpread === 4 && (
             <>
               {/* Left Interviewee Profile */}
-              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] border-r border-stone-300 relative z-20">
+              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] border-r border-[var(--color-border-subtle)] relative z-20">
                 <div className="book-gutter-shadow-right absolute inset-y-0 right-0 w-8 pointer-events-none" />
                 <div>
                   <span className="font-mono text-[10px] font-semibold text-[var(--color-brand-coral)] uppercase tracking-wider block mb-2">
@@ -557,14 +557,14 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                   <h3 className="font-serif text-xl font-semibold text-[#1A1D1F] mb-3">
                     Conversation with {interviewAuthor?.name || "Industry Pioneer"}
                   </h3>
-                  <div className="p-3 bg-white border border-stone-300 rounded-sm mb-4 text-xs text-[#6B7073]">
+                  <div className="p-3 bg-card border border-[var(--color-border-subtle)] rounded-sm mb-4 text-xs text-[#6B7073]">
                     <strong>Position:</strong> {interviewAuthor?.role} at {interviewAuthor?.company}
                   </div>
                   <p className="text-xs text-[#1A1D1F] leading-relaxed italic">
                     &ldquo;{interviewAuthor?.bio}&rdquo;
                   </p>
                 </div>
-                <div className="flex justify-between items-center pt-4 border-t border-stone-300 text-xs text-[#6B7073]">
+                <div className="flex justify-between items-center pt-4 border-t border-[var(--color-border-subtle)] text-xs text-[#6B7073]">
                   <span className="font-mono">Page 8</span>
                 </div>
               </div>
@@ -592,7 +592,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                   </div>
                 </div>
 
-                <div className="flex justify-between items-center pt-4 border-t border-stone-300 text-xs">
+                <div className="flex justify-between items-center pt-4 border-t border-[var(--color-border-subtle)] text-xs">
                   <span className="font-mono text-[10px] text-[#6B7073]">
                     Page 9
                   </span>
@@ -608,7 +608,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
           {currentSpread === 5 && (
             <>
               {/* Left: Index & Upcoming Drop Preview */}
-              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] border-r border-stone-300 relative z-20">
+              <div className="hidden md:flex flex-col justify-between p-8 sm:p-10 bg-[#FAF7F2] text-[#1A1D1F] border-r border-[var(--color-border-subtle)] relative z-20">
                 <div className="book-gutter-shadow-right absolute inset-y-0 right-0 w-8 pointer-events-none" />
                 <div>
                   <span className="font-mono text-[10px] uppercase font-bold text-[var(--color-brand-teal)] tracking-widest block mb-2">
@@ -711,7 +711,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                 type="text"
                 readOnly
                 value={shareUrl}
-                className="flex-1 px-3 py-2 text-xs bg-white border border-[var(--color-border-subtle)] rounded-sm font-mono select-all text-[#1A1D1F]"
+                className="flex-1 px-3 py-2 text-xs bg-card border border-[var(--color-border-subtle)] rounded-sm font-mono select-all text-[#1A1D1F]"
               />
               <Button variant="coral" size="sm" onClick={handleCopyLink}>
                 <CheckIcon size={12} />
@@ -896,7 +896,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Type keyword (e.g. CDMO, Perfusion, CDSCO, GLP-1)..."
-              className="w-full pl-9 pr-4 py-2.5 text-xs bg-white border border-[var(--color-border-subtle)] rounded-sm focus:outline-none focus:border-[var(--color-brand-teal)] font-sans text-[#1A1D1F]"
+              className="w-full pl-9 pr-4 py-2.5 text-xs bg-card border border-[var(--color-border-subtle)] rounded-sm focus:outline-none focus:border-[var(--color-brand-teal)] font-sans text-[#1A1D1F]"
             />
             <Search size={14} className="absolute left-3 top-3 text-[var(--color-slate-muted)]" />
           </div>

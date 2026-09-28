@@ -115,7 +115,7 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
                 type="text"
                 readOnly
                 value={referralLink}
-                className="flex-1 px-3 py-2 text-xs bg-white border border-[var(--color-border-subtle)] rounded-sm font-mono select-all"
+                className="flex-1 px-3 py-2 text-xs bg-card border border-[var(--color-border-subtle)] rounded-sm font-mono select-all"
               />
               <Button variant="coral" size="sm" onClick={handleCopy}>
                 {copied ? "Copied! ✓" : "Copy"}

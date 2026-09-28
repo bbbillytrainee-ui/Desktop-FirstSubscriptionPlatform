@@ -48,7 +48,7 @@ export default function ReportsPage({ onJoin, onNavigate }: ReportsPageProps) {
         </div>
 
         {/* Featured Report Lead Dossier Box */}
-        <div className="bg-white border-2 border-[var(--color-brand-teal)] rounded-sm p-8 shadow-lg mb-14">
+        <div className="bg-card border-2 border-[var(--color-brand-teal)] rounded-sm p-8 shadow-lg mb-14">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-8 space-y-4">
               <div className="flex items-center gap-2">
@@ -141,7 +141,7 @@ export default function ReportsPage({ onJoin, onNavigate }: ReportsPageProps) {
               <div
                 key={rep.id}
                 onClick={() => { setSelectedReport(rep); window.scrollTo({ top: 240, behavior: "smooth" }) }}
-                className={`bg-white border rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition-all shadow-sm cursor-pointer ${
+                className={`bg-card border rounded-sm overflow-hidden flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition-all shadow-sm cursor-pointer ${
                   selectedReport.id === rep.id ? "ring-2 ring-[var(--color-brand-teal)]" : "border-[var(--color-border-subtle)]"
                 }`}
               >
@@ -178,12 +178,12 @@ export default function ReportsPage({ onJoin, onNavigate }: ReportsPageProps) {
         {/* Purchase Inquiry Modal */}
         {showPurchaseModal && (
           <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm max-w-lg w-full p-6 shadow-2xl animate-fade-up">
+            <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm max-w-lg w-full p-6 shadow-2xl animate-fade-up">
               <div className="flex items-center justify-between pb-3 border-b border-[var(--color-border-subtle)] mb-4">
                 <h3 className="font-serif text-lg font-semibold text-[var(--color-ink)]">
                   Institutional Report Invoice & Access Request
                 </h3>
-                <button onClick={() => setShowPurchaseModal(false)} className="text-stone-400 hover:text-stone-700 font-bold">
+                <button onClick={() => setShowPurchaseModal(false)} className="text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] font-bold">
                   ✕
                 </button>
               </div>

@@ -40,7 +40,7 @@ export default function AdvertisePage({ onJoin, onNavigate }: AdvertisePageProps
 
         {/* Partnership Units Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          <div className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm flex flex-col justify-between">
+          <div className="p-6 bg-card border border-[var(--color-border-subtle)] rounded-sm flex flex-col justify-between">
             <div>
               <span className="font-mono text-[11px] font-semibold text-[var(--color-brand-coral)] uppercase tracking-wider block mb-2">
                 01 / Magazine Placement
@@ -57,7 +57,7 @@ export default function AdvertisePage({ onJoin, onNavigate }: AdvertisePageProps
             </div>
           </div>
 
-          <div className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm flex flex-col justify-between">
+          <div className="p-6 bg-card border border-[var(--color-border-subtle)] rounded-sm flex flex-col justify-between">
             <div>
               <span className="font-mono text-[11px] font-semibold text-[var(--color-brand-teal)] uppercase tracking-wider block mb-2">
                 02 / Live Masterclasses
@@ -75,7 +75,7 @@ export default function AdvertisePage({ onJoin, onNavigate }: AdvertisePageProps
           </div>
 
 
-          <div className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm flex flex-col justify-between">
+          <div className="p-6 bg-card border border-[var(--color-border-subtle)] rounded-sm flex flex-col justify-between">
             <div>
               <span className="font-mono text-[11px] font-semibold text-[var(--color-brand-coral)] uppercase tracking-wider block mb-2">
                 03 / Network Match Sponsoring
@@ -94,7 +94,7 @@ export default function AdvertisePage({ onJoin, onNavigate }: AdvertisePageProps
         </div>
 
         {/* Media Kit Inquiry Form */}
-        <div className="max-w-2xl mx-auto bg-white border border-[var(--color-border-subtle)] rounded-sm p-8 shadow-sm">
+        <div className="max-w-2xl mx-auto bg-card border border-[var(--color-border-subtle)] rounded-sm p-8 shadow-sm">
           <h3 className="font-serif text-2xl font-semibold text-[var(--color-ink)] mb-2 text-center">
             Request the 2026 Media Kit & Rate Card
           </h3>

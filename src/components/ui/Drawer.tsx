@@ -29,7 +29,7 @@ export default function Drawer({ isOpen, onClose, title, children, className = "
     <>
       <div className="backdrop-overlay" onClick={onClose} />
       <div className="drawer-panel" onClick={e => e.stopPropagation()}>
-        <div className={`h-full bg-white border-l border-[var(--color-border-subtle)] shadow-[-8px_0_40px_rgba(13,59,74,0.12)] flex flex-col animate-slide-in-right overflow-y-auto ${className}`}>
+        <div className={`h-full bg-card border-l border-[var(--color-border-subtle)] shadow-[-8px_0_40px_rgba(13,59,74,0.12)] flex flex-col animate-slide-in-right overflow-y-auto ${className}`}>
           {title && (
             <div className="p-6 border-b border-[var(--color-border-subtle)] flex items-center justify-between flex-shrink-0">
               <span

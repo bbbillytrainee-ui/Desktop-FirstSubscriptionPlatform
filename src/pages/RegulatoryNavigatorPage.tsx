@@ -45,8 +45,8 @@ export default function RegulatoryNavigatorPage({ onJoin, onNavigate }: Regulato
               onClick={() => setActivePathway(p)}
               className={`p-5 text-left border rounded-sm transition-all cursor-pointer ${
                 activePathway.id === p.id
-                  ? "border-2 border-[var(--color-brand-teal)] bg-white shadow-md ring-1 ring-[var(--color-brand-teal)]"
-                  : "border-[var(--color-border-subtle)] bg-white/70 hover:bg-white"
+                  ? "border-2 border-[var(--color-brand-teal)] bg-card shadow-md ring-1 ring-[var(--color-brand-teal)]"
+                  : "border-[var(--color-border-subtle)] bg-card/70 hover:bg-card"
               }`}
             >
               <div className="flex items-center justify-between mb-2">
@@ -63,7 +63,7 @@ export default function RegulatoryNavigatorPage({ onJoin, onNavigate }: Regulato
         </div>
 
         {/* Active Pathway Deep Dive Container */}
-        <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-8 shadow-sm mb-16 space-y-8">
+        <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-8 shadow-sm mb-16 space-y-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[var(--color-border-subtle)]">
             <div>
               <span className="font-mono text-xs uppercase font-bold text-[var(--color-brand-teal)]">
@@ -108,7 +108,7 @@ export default function RegulatoryNavigatorPage({ onJoin, onNavigate }: Regulato
           </div>
 
           {/* Compliance Audit Checklist */}
-          <div className="p-6 bg-[#F4EFE6] border border-stone-300 rounded-sm">
+          <div className="p-6 bg-[#F4EFE6] border border-[var(--color-border-subtle)] rounded-sm">
             <h4 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-3">
               Mandatory Compliance & Audit Standards
             </h4>

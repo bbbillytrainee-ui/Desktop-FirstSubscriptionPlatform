@@ -40,7 +40,7 @@ export default function PressReleasePage({ onJoin, onNavigate }: PressReleasePag
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-5xl">
           <div className="lg:col-span-7 space-y-6">
-            <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6">
+            <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6">
               <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-3">
                 Distribution Standards & Protocol
               </h3>
@@ -62,7 +62,7 @@ export default function PressReleasePage({ onJoin, onNavigate }: PressReleasePag
           </div>
 
           <div className="lg:col-span-5">
-            <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
+            <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
               <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-2">
                 Release Submission Form
               </h3>

@@ -65,7 +65,7 @@ export default function EventsPage({ onJoin, onNavigate }: EventsPageProps) {
               className={`px-4 py-2 text-xs font-medium rounded-sm whitespace-nowrap transition-colors cursor-pointer ${
                 selectedType === type
                   ? "bg-[var(--color-brand-teal)] text-white font-semibold"
-                  : "bg-white border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)]"
+                  : "bg-card border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:text-[var(--color-ink)]"
               }`}
             >
               {type}
@@ -78,7 +78,7 @@ export default function EventsPage({ onJoin, onNavigate }: EventsPageProps) {
           {filteredEvents.map(event => (
             <div
               key={event.id}
-              className={`bg-white border rounded-sm p-6 flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition-all shadow-sm ${
+              className={`bg-card border rounded-sm p-6 flex flex-col justify-between hover:border-[var(--color-brand-teal)]/60 transition-all shadow-sm ${
                 event.isFeatured ? "border-2 border-[var(--color-brand-coral)]" : "border-[var(--color-border-subtle)]"
               }`}
             >
@@ -131,12 +131,12 @@ export default function EventsPage({ onJoin, onNavigate }: EventsPageProps) {
         {/* Media Partnership Intake Modal */}
         {showSubmitModal && (
           <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm max-w-lg w-full p-6 shadow-2xl animate-fade-up">
+            <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm max-w-lg w-full p-6 shadow-2xl animate-fade-up">
               <div className="flex items-center justify-between pb-3 border-b border-[var(--color-border-subtle)] mb-4">
                 <h3 className="font-serif text-lg font-semibold text-[var(--color-ink)]">
                   Submit Event / Request Media Partnership
                 </h3>
-                <button onClick={() => setShowSubmitModal(false)} className="text-stone-400 hover:text-stone-700 font-bold">
+                <button onClick={() => setShowSubmitModal(false)} className="text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] font-bold">
                   ✕
                 </button>
               </div>
