@@ -365,6 +365,74 @@ body {
   animation: feedItemIn var(--duration-slow) var(--ease-out) both;
 }
 
+/* ── Speed Feed newswire (LatestNewsSidebar) ── */
+@layer components {
+  /* Live dot: solid core + a ring that expands and fades (transform/opacity) */
+  .live-dot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-muted);
+  }
+  .live-dot.is-live { background: var(--accent-decor); }
+  .live-dot.is-live::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent-decor);
+    animation: liveRing 1.8s var(--ease-out) infinite;
+  }
+
+  /* Row hover: tint layer fades in (opacity only) */
+  .feed-row::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--surface-sunken);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+  .feed-row:hover::before,
+  .feed-row.is-open::before { opacity: 0.6; }
+
+  /* New arrival: terracotta-50 wash that fades to transparent */
+  .feed-flash::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--accent-tint);
+    pointer-events: none;
+    animation: feedFlash 2400ms var(--ease-out) forwards;
+  }
+  /* multiply keeps the text visible under the solid light-theme tint; dark tint is already translucent */
+  html:not(.dark) .feed-flash::after { mix-blend-mode: multiply; }
+
+  /* Expand/collapse: grid track 0fr → 1fr (the one layout transition in the feed, scoped to the panel) */
+  .feed-panel {
+    position: relative;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--duration-slow) var(--ease-out);
+  }
+  .feed-panel > div { min-height: 0; }
+  .feed-row.is-open .feed-panel { grid-template-rows: 1fr; }
+
+  .feed-chevron { transition: transform var(--duration-base) var(--ease-out); }
+  .feed-row.is-open .feed-chevron { transform: rotate(180deg); }
+}
+
+@keyframes liveRing {
+  from { transform: scale(0.6); opacity: 0.9; }
+  to   { transform: scale(1.6); opacity: 0; }
+}
+@keyframes feedFlash {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
 /* ── Toast entrance ── */
 @keyframes toastIn {
   from { opacity: 0; transform: translateY(8px) scale(0.98); }

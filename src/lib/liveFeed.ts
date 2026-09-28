@@ -21,6 +21,14 @@ export function formatRelative(timestamp: number, now: number) {
   return rtf.format(-Math.round(hours / 24), "day")
 }
 
+const clock = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false })
+const day = new Intl.DateTimeFormat("en-US", { month: "short", day: "2-digit" })
+
+/** Wire-style stamp: "14:05" for today, "Sep 03" for earlier days */
+export function formatClock(timestamp: number, now: number) {
+  return new Date(timestamp).toDateString() === new Date(now).toDateString() ? clock.format(timestamp) : day.format(timestamp)
+}
+
 /**
  * Fixture timestamps are fixed dates; keep their relative spacing but anchor the
  * newest one ~40 minutes before page load so the feed reads as current.

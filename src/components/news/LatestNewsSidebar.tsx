@@ -1,7 +1,9 @@
 import { useState } from "react"
-import type { NewsItem } from "../../data/fixtures/news"
+import { isOfficialSource, type NewsItem } from "../../data/fixtures/news"
 import Button from "../ui/Button"
-import { formatRelative, useLiveFeed } from "../../lib/liveFeed"
+import { BadgeCheck, ChevronDown } from "../ui/Icons"
+import { toneFor } from "../../data/topics"
+import { formatClock, formatRelative, useLiveFeed } from "../../lib/liveFeed"
 
 export interface LatestNewsSidebarProps {
   onArticleClick?: (news: NewsItem) => void
@@ -29,7 +31,7 @@ export default function LatestNewsSidebar({ onSubscribe }: LatestNewsSidebarProp
       {/* Live feed */}
       <section
         aria-labelledby="speed-feed-title"
-        className="bg-card border border-[var(--color-border-subtle)] rounded-card p-5 shadow-card"
+        className="bg-card border border-[var(--border-subtle)] rounded-card shadow-card overflow-hidden"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
         onFocus={() => setFocused(true)}
@@ -37,17 +39,21 @@ export default function LatestNewsSidebar({ onSubscribe }: LatestNewsSidebarProp
           if (!e.currentTarget.contains(e.relatedTarget as Node)) setFocused(false)
         }}
       >
-        <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--color-border-subtle)]">
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2" aria-hidden="true">
-              {isLive && <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-brand-coral)] opacity-60" />}
-              <span className={`relative inline-flex h-2 w-2 rounded-full ${isLive ? "bg-[var(--color-brand-coral)]" : "bg-[var(--color-slate-muted)]"}`} />
-            </span>
-            <h3 id="speed-feed-title" className="font-serif text-lg font-semibold text-[var(--color-ink)]">
-              Latest Speed Feed
+        {/* Wire header: live dot with an expanding ring, state pill */}
+        <div className="flex items-center justify-between gap-3 px-5 py-3.5 border-b border-[var(--border-subtle)] bg-[var(--surface-sunken)]">
+          <div className="flex items-center gap-2.5">
+            <span className={`live-dot ${isLive && !paused ? "is-live" : ""}`} aria-hidden="true" />
+            <h3 id="speed-feed-title" className="font-serif text-lg font-semibold text-[var(--text-primary)]">
+              Speed Feed
             </h3>
           </div>
-          <span className="font-mono text-[11px] uppercase text-[var(--color-slate-muted)]">
+          <span
+            className={`font-mono text-label font-semibold uppercase px-2 py-0.5 rounded-full border ${
+              paused
+                ? "border-[var(--border-strong)] text-[var(--text-muted)]"
+                : "border-transparent bg-[var(--accent-tint)] text-[var(--accent-text)]"
+            }`}
+          >
             {paused ? "Paused" : "Live"}
           </span>
         </div>
@@ -57,47 +63,84 @@ export default function LatestNewsSidebar({ onSubscribe }: LatestNewsSidebarProp
           {latestArrival ? `New update: ${latestArrival.title}` : ""}
         </p>
 
-        <ul className="divide-y divide-[var(--color-border-subtle)]">
+        <ul className="divide-y divide-[var(--border-subtle)]">
           {items.map(item => {
             const isExpanded = expandedId === item.id
             const panelId = `feed-panel-${item.id}`
+            const verified = isOfficialSource(item.source)
             return (
-              <li key={item.id} className={`py-3 first:pt-0 last:pb-0 ${item.isNew ? "feed-item-enter" : ""}`}>
+              <li
+                key={item.id}
+                data-tone={toneFor(item.category)}
+                className={`feed-row relative ${item.isNew ? "feed-item-enter feed-flash" : ""} ${isExpanded ? "is-open" : ""}`}
+              >
+                {/* category rail */}
+                <span aria-hidden="true" className="absolute left-0 top-3 bottom-3 w-[3px] rounded-r-full bg-[var(--tone-rail)]" />
                 <button
                   type="button"
                   aria-expanded={isExpanded}
                   aria-controls={panelId}
                   onClick={() => setExpandedId(prev => (prev === item.id ? null : item.id))}
-                  className="group w-full text-left rounded-control -mx-1 px-1 py-1"
+                  className="group relative w-full text-left pl-5 pr-4 py-3 focus-visible:outline-offset-[-2px]"
                 >
-                  <span className="flex items-center justify-between gap-2 mb-1">
-                    <span className="font-mono text-[11px] uppercase tracking-wider font-semibold text-[var(--color-brand-coral)]">
-                      {item.category}
-                      {item.isBreaking && <span className="ml-1.5 text-[var(--color-ink)]">· Breaking</span>}
-                    </span>
-                    <time dateTime={new Date(item.publishedAt).toISOString()} className="font-mono text-[11px] text-[var(--color-slate-muted)] shrink-0">
-                      {formatRelative(item.publishedAt, now)}
+                  <span className="flex items-center gap-2 mb-1 font-mono text-label uppercase">
+                    <time
+                      dateTime={new Date(item.publishedAt).toISOString()}
+                      title={new Date(item.publishedAt).toLocaleString()}
+                      className="tabular-nums text-[var(--text-muted)] shrink-0"
+                    >
+                      {formatClock(item.publishedAt, now)}
                     </time>
+                    <span aria-hidden="true" className="text-[var(--border-strong)]">/</span>
+                    <span className="font-semibold text-[var(--tone-fg)] truncate">{item.category}</span>
+                    {verified && (
+                      <span className="shrink-0 inline-flex text-[var(--brand-text)]" title="Verified: primary regulator document">
+                        <BadgeCheck size={13} aria-hidden="true" />
+                        <span className="sr-only">Verified</span>
+                      </span>
+                    )}
                   </span>
-                  <span className="flex items-start justify-between gap-2">
-                    <span className="text-sm font-medium text-[var(--color-ink)] leading-snug group-hover:text-[var(--color-brand-teal)] transition-colors">
+                  <span className="flex items-start justify-between gap-3">
+                    <span className="text-sm font-medium text-[var(--text-primary)] leading-snug">
+                      {/* wire convention: the flag leads the headline */}
+                      {item.isBreaking && (
+                        <span className="mr-1.5 inline-flex items-center gap-1 px-1.5 align-[1px] rounded-full bg-[var(--accent-tint)] font-mono text-[10px] leading-4 font-semibold uppercase tracking-[0.1em] text-[var(--accent-text)]">
+                          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[var(--accent-decor)]" />
+                          Breaking
+                        </span>
+                      )}
                       {item.title}
                     </span>
-                    <span aria-hidden="true" className={`mt-0.5 text-[var(--color-slate-muted)] transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}>
-                      ⌄
-                    </span>
+                    <ChevronDown
+                      size={16}
+                      aria-hidden="true"
+                      className="feed-chevron mt-0.5 shrink-0 text-[var(--text-muted)]"
+                    />
                   </span>
+                  <span className="sr-only">{formatRelative(item.publishedAt, now)}</span>
                 </button>
 
-                <div
-                  id={panelId}
-                  hidden={!isExpanded}
-                  className="mt-2 p-3 bg-[var(--color-surface)] border-l-2 border-[var(--color-brand-teal)] rounded-control text-xs text-[var(--color-slate-muted)] leading-relaxed"
-                >
-                  <p className="mb-2">{item.summary}</p>
-                  <div className="flex items-center justify-between font-mono text-[11px] text-[var(--color-ink)]">
-                    <span>Source: {item.source}</span>
-                    <span>{item.readTime} read</span>
+                {/* grid-rows 0fr → 1fr gives a real height animation without measuring */}
+                <div id={panelId} className="feed-panel" inert={!isExpanded} aria-hidden={!isExpanded}>
+                  <div className="overflow-hidden">
+                    <div className="mx-4 ml-5 mb-3 p-3 bg-[var(--surface-sunken)] rounded-control text-xs text-[var(--text-muted)] leading-relaxed">
+                      <p className="mb-2.5">{item.summary}</p>
+                      <div className="flex items-center justify-between gap-2 flex-wrap font-mono text-[11px] text-[var(--text-primary)]">
+                        <span className="inline-flex items-center gap-2">
+                          {item.source}
+                          {verified && (
+                            <span
+                              title="Primary regulator document"
+                              className="inline-flex items-center gap-1 px-1.5 py-px rounded-full bg-[var(--topic-pharma-bg)] text-[var(--topic-pharma-fg)] font-semibold uppercase tracking-[0.08em]"
+                            >
+                              <BadgeCheck size={12} aria-hidden="true" />
+                              Verified
+                            </span>
+                          )}
+                        </span>
+                        <span className="text-[var(--text-muted)]">{formatRelative(item.publishedAt, now)} · {item.readTime} read</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </li>

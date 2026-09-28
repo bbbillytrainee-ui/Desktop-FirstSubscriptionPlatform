@@ -137,3 +137,7 @@ export const INCOMING_NEWS: Omit<NewsItem, "timestamp" | "timeAgo">[] = [
     readTime: "2 min",
   },
 ]
+
+/** Primary regulator documents: the feed marks these "Verified" (a gazette/order/notice, not a wire report) */
+const OFFICIAL_SOURCES = new Set(["CDSCO Gazette", "NPPA Order", "DCGI Notice"])
+export const isOfficialSource = (source: string) => OFFICIAL_SOURCES.has(source)
