@@ -41,7 +41,7 @@ const KNOWN_ROUTES = new Set([
 ])
 
 function AppRoutes() {
-  const { route, navigate } = useRouter()
+  const { route, path, navigate } = useRouter()
 
   const articleSlug = route.startsWith("article/") ? decodeURIComponent(route.slice("article/".length)) : null
 
@@ -53,8 +53,9 @@ function AppRoutes() {
     navigate("onboarding")
   }
 
+  // Keyed by full path (incl. ?topic=) so in-app links to a filtered Home remount it
   return (
-    <div key={route} className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] animate-route-in">
+    <div key={path} className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] animate-route-in">
       <ErrorBoundary onReset={() => navigate("home")}>
       {articleSlug && <ArticlePage slug={articleSlug} onJoin={handleJoin} onNavigate={handleNavigate} />}
       {!articleSlug && !KNOWN_ROUTES.has(route) && <NotFoundPage onJoin={handleJoin} onNavigate={handleNavigate} />}

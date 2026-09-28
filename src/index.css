@@ -166,11 +166,15 @@ body {
   overflow: hidden;
 }
 
-/* ── Focus-visible ring (keyboard-only a11y using Coral focus) ── */
-*:focus-visible {
-  outline: 2px solid var(--color-brand-coral);
-  outline-offset: 2px;
-  border-radius: 2px;
+/* ── Focus-visible ring (keyboard-only a11y using Coral focus) ──
+   In @layer base so component utilities (e.g. focus-visible:outline-none on a stretched
+   card link, or a combobox that styles its own focus) can override it. No border-radius:
+   changing radius on focus squared off round buttons. */
+@layer base {
+  *:focus-visible {
+    outline: 2px solid var(--color-brand-coral);
+    outline-offset: 2px;
+  }
 }
 
 /* ── Skeleton shimmer ── */

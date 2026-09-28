@@ -132,7 +132,7 @@ export function RouterProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const handlePopState = (e: PopStateEvent) => {
-      const current = window.location.pathname || (window.location.hash ? window.location.hash.slice(1) : "/")
+      const current = (window.location.pathname + window.location.search) || (window.location.hash ? window.location.hash.slice(1) : "/")
       setPath(current)
       updateTitle(current)
     }
