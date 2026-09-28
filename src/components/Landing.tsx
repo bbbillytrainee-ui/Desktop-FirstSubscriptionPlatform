@@ -14,6 +14,7 @@ import SectionHeader from "./ui/SectionHeader"
 import TextLink from "./ui/TextLink"
 import Avatar from "./ui/Avatar"
 import EmptyState from "./ui/EmptyState"
+import Reveal from "./ui/Reveal"
 import { BookOpen } from "./ui/Icons"
 import SafeImage from "./ui/SafeImage"
 import { ARTICLES, Article } from "../data/fixtures/articles"
@@ -261,19 +262,17 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
           {/* Bottom Row: 3 Secondary Feature Cards in a clean 3-column row */}
           {filteredArticles.length > 1 && (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-[var(--color-border-subtle)] mb-12">
-              {filteredArticles.slice(1, 4).map(article => (
-                <ArticleCard
-                  key={article.slug}
-                  article={article}
-                  variant="standard"
-                  onClick={() => setSelectedArticle(article)}
-                />
+              {filteredArticles.slice(1, 4).map((article, i) => (
+                <Reveal key={article.slug} delay={i * 70} className="h-full">
+                  <ArticleCard article={article} variant="standard" onClick={() => setSelectedArticle(article)} />
+                </Reveal>
               ))}
             </div>
           )}
 
           {/* Dedicated Last Month's Trending Retrospective */}
           {lastMonthIssue && (
+            <Reveal>
             <LastMonthTrending
               lastMonthIssue={lastMonthIssue}
               lastMonthArticles={lastMonthArticles}
@@ -283,6 +282,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                 setShowFlipbook(true)
               }}
             />
+            </Reveal>
           )}
 
         </div>
@@ -291,6 +291,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       {/* SECTION 4: Three-Lane Focus Areas (Pharma, MedTech, AI) - Dark Mode Island */}
       <section className="py-16 px-6 md:px-12 bg-[var(--color-section-dark)] text-white border-b border-white/10 relative overflow-hidden">
         <div className="max-w-[var(--container-max)] mx-auto relative z-10">
+          <Reveal>
           <SectionHeader
             eyebrow="Core Coverage"
             title="Three verticals. Focused depth."
@@ -299,14 +300,15 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             tone="dark"
             className="mb-12"
           />
+          </Reveal>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {VERTICALS.map((v, i) => (
+              <Reveal key={v.topicId} delay={i * 70} className="h-full">
               <button
-                key={v.topicId}
                 type="button"
                 onClick={() => selectTopic(v.topicId)}
-                className="group text-left p-6 bg-[var(--color-navy-deep)] border border-white/10 rounded-card hover:border-[var(--color-brand-coral-on-dark)]/60 transition-colors flex flex-col justify-between"
+                className="group text-left p-6 bg-[var(--color-navy-deep)] border border-white/10 rounded-card hover:border-[var(--color-brand-coral-on-dark)]/60 transition-colors flex flex-col justify-between w-full h-full"
               >
                 <div>
                   <span className="block mb-3 font-mono text-meta font-semibold uppercase tracking-wider text-[var(--color-brand-coral-on-dark)]">
@@ -320,6 +322,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                   <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
                 </span>
               </button>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -331,7 +334,8 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
             {/* Left Col (5 cols): Upcoming Webinar */}
-            <Card variant="muted" padding="lg" className="lg:col-span-5 flex flex-col justify-between">
+            <Reveal className="lg:col-span-5">
+            <Card variant="muted" padding="lg" className="flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--color-border-subtle)]">
                   <span className="font-mono text-eyebrow font-semibold uppercase text-[var(--color-brand-coral)]">
@@ -363,9 +367,10 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                 </TextLink>
               </div>
             </Card>
+            </Reveal>
 
             {/* Right Col (7 cols): Verified Network Introductions */}
-            <div className="lg:col-span-7">
+            <Reveal delay={80} className="lg:col-span-7">
               <SectionHeader
                 as="h3"
                 eyebrow="Verified Network"
@@ -407,7 +412,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                 </span>
                 <TextLink onClick={onGetAccess} className="shrink-0">Join the directory</TextLink>
               </div>
-            </div>
+            </Reveal>
 
           </div>
         </div>
@@ -423,8 +428,9 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {RESEARCH_REPORTS.map(rep => (
-              <Card key={rep.id} padding="lg" interactive className="flex flex-col justify-between">
+            {RESEARCH_REPORTS.map((rep, i) => (
+              <Reveal key={rep.id} delay={i * 70} className="h-full">
+              <Card padding="lg" interactive className="flex flex-col justify-between h-full">
                 <div>
                   <div className="flex items-center justify-between font-mono text-meta text-[var(--color-slate-muted)] mb-2">
                     <span className="uppercase font-semibold text-[var(--color-brand-teal)]">{rep.category}</span>
@@ -442,6 +448,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                   <TextLink onClick={() => (onNavigate ? onNavigate("reports") : onGetAccess())}>View dossier</TextLink>
                 </div>
               </Card>
+              </Reveal>
             ))}
           </div>
         </div>
