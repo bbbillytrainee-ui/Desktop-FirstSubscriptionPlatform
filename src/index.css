@@ -324,19 +324,22 @@ body {
   to   { transform: translateX(-50%); }
 }
 
-.ticker-track {
-  display: inline-flex;
-  animation: tickerScroll 40s linear infinite;
-}
+/* In @layer components so the element's lg:hidden utility can win (unlayered CSS beats every utility) */
+@layer components {
+  .ticker-track {
+    display: inline-flex;
+    animation: tickerScroll 40s linear infinite;
+  }
 
-.ticker:hover .ticker-track,
-.ticker:focus-within .ticker-track {
-  animation-play-state: paused;
-}
+  .ticker:hover .ticker-track,
+  .ticker:focus-within .ticker-track {
+    animation-play-state: paused;
+  }
 
-@media (prefers-reduced-motion: reduce) {
-  /* No marquee: show the first headline, truncated */
-  .ticker-track { animation: none !important; display: block; overflow: hidden; text-overflow: ellipsis; }
+  @media (prefers-reduced-motion: reduce) {
+    /* No marquee: show the first headline, truncated */
+    .ticker-track { animation: none; display: block; overflow: hidden; text-overflow: ellipsis; }
+  }
 }
 
 /* ── View transitions (topic filtering) ── */
