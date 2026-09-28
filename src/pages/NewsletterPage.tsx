@@ -41,10 +41,10 @@ export default function NewsletterPage({ onJoin, onNavigate }: NewsletterPagePro
       <main className="flex-1 max-w-[var(--container-max)] mx-auto px-6 md:px-12 py-12 w-full">
         {/* Header */}
         <div className="border-b border-[var(--color-border-subtle)] pb-8 mb-10 max-w-3xl">
-          <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
+          <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
             Direct Intelligence Delivery
           </span>
-          <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
             The Mediverse Weekly Intelligence Briefings
 
           </h1>
@@ -59,7 +59,7 @@ export default function NewsletterPage({ onJoin, onNavigate }: NewsletterPagePro
           {/* Left Column: Preferences & Form */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
-              <h3 style={{ fontFamily: "'Fraunces', serif" }} className="text-xl font-semibold text-[var(--color-ink)] mb-2">
+              <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-2">
                 Customize Your Dispatches
               </h3>
               <p className="text-xs text-[var(--color-slate-muted)] mb-6 leading-relaxed">
@@ -69,7 +69,7 @@ export default function NewsletterPage({ onJoin, onNavigate }: NewsletterPagePro
               {subscribed ? (
                 <div className="p-6 bg-[var(--color-surface)] border border-[var(--color-brand-teal)]/30 rounded-sm text-center">
                   <span className="text-2xl mb-2 block">✓</span>
-                  <h4 style={{ fontFamily: "'Fraunces', serif" }} className="text-lg font-semibold text-[var(--color-ink)] mb-1">
+                  <h4 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-1">
                     Subscription Confirmed
                   </h4>
                   <p className="text-xs text-[var(--color-slate-muted)] mb-4">
@@ -106,7 +106,7 @@ export default function NewsletterPage({ onJoin, onNavigate }: NewsletterPagePro
 
                   {/* Vertical Checkboxes */}
                   <div className="pt-2 border-t border-[var(--color-border-subtle)] space-y-2.5">
-                    <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
+                    <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
                       Select Editions
                     </span>
 
@@ -182,7 +182,7 @@ export default function NewsletterPage({ onJoin, onNavigate }: NewsletterPagePro
                   <span className="w-2.5 h-2.5 rounded-full bg-green-400" />
                   <span className="font-mono text-[11px] ml-2 text-stone-600">From: dispatch@mediverse.network</span>
                 </div>
-                <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px]">
+                <span className="font-mono text-[11px]">
                   {activePreview.date}
                 </span>
               </div>
@@ -191,12 +191,12 @@ export default function NewsletterPage({ onJoin, onNavigate }: NewsletterPagePro
               <div className="p-8 space-y-6">
                 <div className="border-b border-[var(--color-border-subtle)] pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-brand-coral)]">
+                    <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-coral)]">
                       {activePreview.edition} Briefing
                     </span>
                     <Badge type="pro" label={activePreview.readTime} />
                   </div>
-                  <h2 style={{ fontFamily: "'Fraunces', serif" }} className="text-2xl font-semibold text-[var(--color-ink)] leading-snug">
+                  <h2 className="font-serif text-2xl font-semibold text-[var(--color-ink)] leading-snug">
                     {activePreview.title}
                   </h2>
                 </div>
@@ -207,7 +207,7 @@ export default function NewsletterPage({ onJoin, onNavigate }: NewsletterPagePro
 
                 {/* Highlights Callout Box */}
                 <div className="p-4 bg-[var(--color-surface)] border-l-3 border-[var(--color-brand-teal)] rounded-sm space-y-2">
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-brand-teal)] block mb-1">
+                  <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-teal)] block mb-1">
                     Executive Summary Key Points
                   </span>
                   {activePreview.highlights.map((hl, idx) => (

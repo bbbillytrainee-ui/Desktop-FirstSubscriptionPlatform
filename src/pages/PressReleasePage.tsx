@@ -27,10 +27,10 @@ export default function PressReleasePage({ onJoin, onNavigate }: PressReleasePag
       <Header onJoin={onJoin} onSignIn={onJoin} onNavigate={onNavigate} />
       <main className="flex-1 max-w-[var(--container-max)] mx-auto px-6 md:px-12 py-12 w-full">
         <div className="border-b border-[var(--color-border-subtle)] pb-8 mb-10 max-w-3xl">
-          <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
+          <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
             Corporate Communications
           </span>
-          <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
             Submit a Press Release
           </h1>
           <p className="text-base md:text-lg text-[var(--color-slate-muted)] leading-relaxed">
@@ -41,7 +41,7 @@ export default function PressReleasePage({ onJoin, onNavigate }: PressReleasePag
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-5xl">
           <div className="lg:col-span-7 space-y-6">
             <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6">
-              <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-xl font-semibold text-[var(--color-ink)] mb-3">
+              <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-3">
                 Distribution Standards & Protocol
               </h3>
               <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-4">
@@ -63,7 +63,7 @@ export default function PressReleasePage({ onJoin, onNavigate }: PressReleasePag
 
           <div className="lg:col-span-5">
             <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
-              <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-xl font-semibold text-[var(--color-ink)] mb-2">
+              <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-2">
                 Release Submission Form
               </h3>
               <p className="text-xs text-[var(--color-slate-muted)] mb-6">
@@ -73,7 +73,7 @@ export default function PressReleasePage({ onJoin, onNavigate }: PressReleasePag
               {submitted ? (
                 <div className="p-6 bg-[var(--color-surface)] border border-[var(--color-brand-teal)]/30 rounded-sm text-center">
                   <span className="text-2xl mb-2 block">✓</span>
-                  <h4 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-lg font-semibold text-[var(--color-ink)] mb-1">
+                  <h4 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-1">
                     Release Queued for Review
                   </h4>
                   <p className="text-xs text-[var(--color-slate-muted)]">

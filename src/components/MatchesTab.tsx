@@ -35,11 +35,11 @@ export default function MatchesTab() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 mb-8 border-b border-[var(--color-border-subtle)]">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-[10px] font-medium tracking-[0.14em] uppercase text-[var(--color-slate-muted)]">
+            <span className="text-[11px] font-medium tracking-[0.14em] uppercase text-[var(--color-slate-muted)]">
               Monthly Introduction Drop
             </span>
           </div>
-          <h2 style={{ fontFamily: "var(--font-serif)" }} className="text-2xl md:text-3xl font-semibold text-[var(--color-ink)]">
+          <h2 className="font-serif text-2xl md:text-3xl font-semibold text-[var(--color-ink)]">
             Your August Introductions
           </h2>
           <p className="text-sm text-[var(--color-slate-muted)] mt-1.5">
@@ -95,7 +95,7 @@ export default function MatchesTab() {
                     <div className="flex items-center gap-2 mb-0.5 flex-wrap">
                       <h3 className="text-[15px] font-semibold text-[var(--color-ink)]">{match.name}</h3>
                       {connected.has(match.id) && (
-                        <span className="text-[10px] font-medium px-2 py-0.5 bg-[var(--color-brand-coral)]/12 border border-[var(--color-brand-coral)]/35 text-[var(--color-brand-coral)] rounded-full">
+                        <span className="text-[11px] font-medium px-2 py-0.5 bg-[var(--color-brand-coral)]/12 border border-[var(--color-brand-coral)]/35 text-[var(--color-brand-coral)] rounded-full">
                           Connected
                         </span>
                       )}
@@ -156,7 +156,7 @@ export default function MatchesTab() {
 
         {filteredMatches.length === 0 && (
           <div className="py-20 text-center text-[var(--color-slate-muted)]">
-            <div style={{ fontFamily: "var(--font-serif)" }} className="text-2xl font-semibold mb-2 text-[var(--color-ink)]">
+            <div className="font-serif text-2xl font-semibold mb-2 text-[var(--color-ink)]">
               All caught up.
             </div>
             <div className="text-sm mb-4">You have reviewed all matches in this view for this month.</div>

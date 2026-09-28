@@ -36,7 +36,7 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-70" />
           <div className="absolute top-4 left-4 flex items-center gap-2">
-            <span className="font-mono bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-[10px] font-semibold tracking-[0.14em] uppercase px-2.5 py-1 rounded-md shadow-sm">
+            <span className="font-mono bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-[11px] font-semibold tracking-[0.14em] uppercase px-2.5 py-1 rounded-md shadow-sm">
               {article.category} · {article.format}
             </span>
           </div>
@@ -98,7 +98,7 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
             alt={article.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
-          <span className="font-mono absolute top-2 left-2 text-[9px] font-semibold tracking-[0.08em] uppercase bg-black/65 text-white px-1.5 py-0.5 rounded-sm">
+          <span className="font-mono absolute top-2 left-2 text-[11px] font-semibold tracking-[0.08em] uppercase bg-black/65 text-white px-1.5 py-0.5 rounded-sm">
             {article.category}
           </span>
           <button
@@ -125,10 +125,10 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
             </p>
           </div>
           <div className="flex items-center justify-between pt-2 border-t border-[var(--color-border-subtle)]">
-            <span className="font-mono text-[10px] text-[var(--color-slate-muted)]">
+            <span className="font-mono text-[11px] text-[var(--color-slate-muted)]">
               {article.date}
             </span>
-            <span className="font-mono read-pill text-[9px] px-1.5 py-0.5">
+            <span className="font-mono read-pill text-[11px] px-1.5 py-0.5">
               {article.readingTime}
             </span>
           </div>
@@ -151,14 +151,14 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         <div className="absolute top-3 left-3">
-          <span className="font-mono text-[10px] font-semibold tracking-[0.12em] uppercase bg-[var(--color-brand-teal)] text-white px-2 py-0.5 rounded-md shadow-sm">
+          <span className="font-mono text-[11px] font-semibold tracking-[0.12em] uppercase bg-[var(--color-brand-teal)] text-white px-2 py-0.5 rounded-md shadow-sm">
             {article.category} · {article.format}
           </span>
         </div>
 
         <div className="absolute top-3 right-3 flex items-center gap-1.5 z-10">
           {article.isLocked && (
-            <div className="font-mono bg-[var(--color-brand-coral)] text-white text-[10px] font-semibold uppercase px-2 py-0.5 rounded-md shadow-sm">
+            <div className="font-mono bg-[var(--color-brand-coral)] text-white text-[11px] font-semibold uppercase px-2 py-0.5 rounded-md shadow-sm">
               Pro Issue
             </div>
           )}
@@ -192,7 +192,7 @@ export default function ArticleCard({ article, variant = "feature", onClick }: A
           </span>
           <div className="flex items-center gap-2">
             {article.references && article.references.length > 0 && (
-              <span className="font-mono text-[10px] text-[var(--color-slate-muted)] bg-[var(--color-surface)] px-1.5 py-0.5 rounded">
+              <span className="font-mono text-[11px] text-[var(--color-slate-muted)] bg-[var(--color-surface)] px-1.5 py-0.5 rounded">
                 {article.references.length} ref{article.references.length > 1 ? "s" : ""}
               </span>
             )}

@@ -19,8 +19,7 @@ export default function FilterBar({ options, activeId, onChange, className = "" 
           <button
             key={option.id}
             onClick={() => onChange(option.id)}
-            style={{ fontFamily: "'Geist Mono', monospace" }}
-            className={`text-xs px-3 py-1.5 rounded-sm whitespace-nowrap transition-colors select-none ${
+            className={`font-mono text-xs px-3 py-1.5 rounded-sm whitespace-nowrap transition-colors select-none ${
               isActive
                 ? "bg-[var(--color-brand-coral)] text-white font-medium"
                 : "bg-white text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] border border-[var(--color-border-subtle)]"

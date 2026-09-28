@@ -32,8 +32,7 @@ export default function EmptyState({
         </div>
       )}
       <h3
-        className="text-xl font-semibold text-[var(--color-ink)] mb-2"
-        style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+        className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-2"
       >
         {title}
       </h3>

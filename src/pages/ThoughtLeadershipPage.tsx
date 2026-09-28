@@ -56,11 +56,11 @@ export default function ThoughtLeadershipPage({ onJoin, onNavigate }: ThoughtLea
       <main className="flex-1 max-w-[var(--container-max)] mx-auto px-6 md:px-12 py-12 w-full">
         {/* Masthead */}
         <div className="border-b border-[var(--color-border-subtle)] pb-8 mb-10 max-w-3xl">
-          <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
+          <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
             Publish With Mediverse
           </span>
 
-          <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
             Thought Leadership & Expert Columns
           </h1>
           <p className="text-base md:text-lg text-[var(--color-slate-muted)] leading-relaxed">
@@ -71,7 +71,7 @@ export default function ThoughtLeadershipPage({ onJoin, onNavigate }: ThoughtLea
         {/* Featured Columns Grid (Photo-First Layout) */}
         <div className="mb-16">
           <div className="flex items-center justify-between pb-3 mb-6 border-b border-[var(--color-border-subtle)]">
-            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-bold uppercase tracking-wider text-[var(--color-brand-teal)]">
+            <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--color-brand-teal)]">
               Featured Industry Columnists
             </span>
             <span className="text-xs text-[var(--color-slate-muted)] font-mono">
@@ -100,14 +100,13 @@ export default function ThoughtLeadershipPage({ onJoin, onNavigate }: ThoughtLea
                   </div>
 
                   <div className="p-5">
-                    <div className="flex items-center justify-between text-[10px] font-mono text-[var(--color-slate-muted)] mb-2">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-[var(--color-slate-muted)] mb-2">
                       <span className="uppercase font-bold text-[var(--color-brand-coral)]">{col.category}</span>
                       <span>{col.readTime}</span>
                     </div>
 
                     <h3
-                      style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                      className="text-base font-semibold text-[var(--color-ink)] mb-2 group-hover:text-[var(--color-brand-teal)] transition-colors leading-snug"
+                      className="font-serif text-base font-semibold text-[var(--color-ink)] mb-2 group-hover:text-[var(--color-brand-teal)] transition-colors leading-snug"
                     >
                       {col.title}
                     </h3>
@@ -137,7 +136,7 @@ export default function ThoughtLeadershipPage({ onJoin, onNavigate }: ThoughtLea
           {/* Guidelines Column */}
           <div className="lg:col-span-7 space-y-6">
             <div>
-              <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-2xl font-semibold text-[var(--color-ink)] mb-3">
+              <h3 className="font-serif text-2xl font-semibold text-[var(--color-ink)] mb-3">
                 Editorial Pillars & Standards
               </h3>
               <p className="text-sm text-[var(--color-slate-muted)] leading-relaxed mb-4">
@@ -160,7 +159,7 @@ export default function ThoughtLeadershipPage({ onJoin, onNavigate }: ThoughtLea
             </div>
 
             <div className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm">
-              <h4 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-xl font-semibold text-[var(--color-ink)] mb-2">
+              <h4 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-2">
                 Contributor Privileges
               </h4>
               <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed">
@@ -172,7 +171,7 @@ export default function ThoughtLeadershipPage({ onJoin, onNavigate }: ThoughtLea
           {/* Submission Form Column */}
           <div className="lg:col-span-5">
             <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
-              <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-xl font-semibold text-[var(--color-ink)] mb-2">
+              <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-2">
                 Submit an Editorial Pitch
               </h3>
               <p className="text-xs text-[var(--color-slate-muted)] mb-6">
@@ -182,7 +181,7 @@ export default function ThoughtLeadershipPage({ onJoin, onNavigate }: ThoughtLea
               {pitchSubmitted ? (
                 <div className="p-6 bg-[var(--color-surface)] border border-[var(--color-brand-teal)]/30 rounded-sm text-center">
                   <span className="text-2xl mb-2 block">✓</span>
-                  <h4 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-lg font-semibold text-[var(--color-ink)] mb-1">
+                  <h4 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-1">
                     Pitch Received
                   </h4>
                   <p className="text-xs text-[var(--color-slate-muted)]">

@@ -69,7 +69,7 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
                   {activeEpisode.date} · {activeEpisode.duration}
                 </span>
                 {isPlaying && (
-                  <span className="flex items-center gap-1 text-[10px] font-mono text-[var(--color-brand-coral)] bg-orange-50 px-2 py-0.5 rounded border border-orange-200">
+                  <span className="flex items-center gap-1 text-[11px] font-mono text-[var(--color-brand-coral)] bg-orange-50 px-2 py-0.5 rounded border border-orange-200">
                     <span className="inline-block w-1.5 h-1.5 bg-[var(--color-brand-coral)] rounded-full animate-ping" />
                     PLAYING NOW
                   </span>
@@ -86,7 +86,7 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
 
               <div className="flex items-center gap-2 flex-wrap pt-2">
                 {activeEpisode.topics.map(t => (
-                  <span key={t} className="font-mono text-[10px] px-2.5 py-0.5 bg-[var(--color-surface)] text-[var(--color-brand-teal)] font-semibold rounded-sm border border-[var(--color-border-subtle)]">
+                  <span key={t} className="font-mono text-[11px] px-2.5 py-0.5 bg-[var(--color-surface)] text-[var(--color-brand-teal)] font-semibold rounded-sm border border-[var(--color-border-subtle)]">
                     {t}
                   </span>
                 ))}
@@ -135,10 +135,10 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-mono text-[10px] uppercase font-bold text-[var(--color-brand-coral)]">
+                    <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-coral)]">
                       Episode 0{ep.episodeNumber}
                     </span>
-                    <span className="font-mono text-[10px] text-[var(--color-slate-muted)]">
+                    <span className="font-mono text-[11px] text-[var(--color-slate-muted)]">
                       {ep.duration}
                     </span>
                   </div>
@@ -197,7 +197,7 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
               <span className="text-xs font-semibold text-white block truncate max-w-sm">
                 EP {activeEpisode.episodeNumber}: {activeEpisode.title}
               </span>
-              <span className="text-[10px] text-white/70 flex items-center gap-1.5">
+              <span className="text-[11px] text-white/70 flex items-center gap-1.5">
                 <span>Guest: {activeEpisode.guest} ({activeEpisode.guestCompany})</span>
                 {isPlaying && (
                   <span className="flex items-center gap-0.5 ml-2">
@@ -212,7 +212,7 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
 
           {/* Interactive Progress Slider */}
           <div className="w-full sm:w-80 flex items-center gap-2">
-            <span className="font-mono text-[10px] text-white/60">
+            <span className="font-mono text-[11px] text-white/60">
               {formatTimeFromProgress(progress, activeEpisode.duration)}
             </span>
             <input
@@ -224,7 +224,7 @@ export default function PodcastsPage({ onJoin, onNavigate }: PodcastsPageProps) 
               aria-label="Audio playback progress"
               className="w-full h-1 bg-white/20 rounded-lg accent-[var(--color-brand-coral)] cursor-pointer"
             />
-            <span className="font-mono text-[10px] text-white/60">
+            <span className="font-mono text-[11px] text-white/60">
               {activeEpisode.duration}
             </span>
           </div>

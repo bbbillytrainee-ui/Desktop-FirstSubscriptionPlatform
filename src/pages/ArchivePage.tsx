@@ -72,11 +72,11 @@ export default function ArchivePage({ onJoin, onNavigate }: ArchivePageProps) {
                   
                   <div className="absolute top-3 left-3 flex items-center gap-2 flex-wrap">
                     <Badge type={isLatest ? "pro" : "member"} label={`Issue #${issue.number}`} />
-                    <span className="font-mono text-[10px] bg-black/60 text-white px-2 py-0.5 rounded-sm">
+                    <span className="font-mono text-[11px] bg-black/60 text-white px-2 py-0.5 rounded-sm">
                       {issue.month}
                     </span>
                     {isLastMonth && (
-                      <span className="font-mono text-[10px] font-bold bg-[var(--color-brand-coral)] text-white px-2 py-0.5 rounded-sm flex items-center gap-1 shadow-sm">
+                      <span className="font-mono text-[11px] font-bold bg-[var(--color-brand-coral)] text-white px-2 py-0.5 rounded-sm flex items-center gap-1 shadow-sm">
                         <Flame size={10} /> Last Month&apos;s Hit
                       </span>
                     )}
@@ -104,7 +104,7 @@ export default function ArchivePage({ onJoin, onNavigate }: ArchivePageProps) {
                   </div>
 
                   <div className="pt-4 border-t border-[var(--color-border-subtle)] flex items-center justify-between">
-                    <span className="font-mono text-[10px] text-[var(--color-slate-muted)]">
+                    <span className="font-mono text-[11px] text-[var(--color-slate-muted)]">
                       ISSN 2984-102X · {ARTICLES.filter(a => a.issueId === issue.id).length || 3} Dossiers
                     </span>
                     <Button variant="ghost" size="sm" onClick={() => setActiveFlipbookIssue(issue)}>

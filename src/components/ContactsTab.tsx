@@ -12,7 +12,7 @@ function ContactDrawer({ contact, onClose }: { contact: Profile; onClose: () => 
         <div className="h-full bg-white border-l border-[var(--color-border-subtle)] shadow-[-8px_0_40px_rgba(26,26,26,0.08)] flex flex-col animate-slide-in-right overflow-y-auto">
           {/* Header */}
           <div className="p-6 border-b border-[var(--color-border-subtle)] flex items-center justify-between flex-shrink-0">
-            <span className="text-[10px] font-medium tracking-[0.12em] uppercase text-[var(--color-slate-muted)]">Contact Profile</span>
+            <span className="text-[11px] font-medium tracking-[0.12em] uppercase text-[var(--color-slate-muted)]">Contact Profile</span>
             <button onClick={onClose} className="text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] transition-colors p-1" aria-label="Close">
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                 <path d="M4 4L14 14M14 4L4 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
@@ -30,7 +30,7 @@ function ContactDrawer({ contact, onClose }: { contact: Profile; onClose: () => 
                 {contact.name.split(" ").filter((_, i) => i < 2).map(n => n[0]).join("")}
               </div>
               <div>
-                <h3 style={{ fontFamily: "var(--font-serif)" }} className="text-xl font-semibold text-[var(--color-ink)]">{contact.name}</h3>
+                <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)]">{contact.name}</h3>
                 <p className="text-sm text-[var(--color-slate-muted)]">{contact.title}</p>
                 <p className="text-xs text-[var(--color-slate-muted)]">{contact.org} · {contact.location}</p>
               </div>
@@ -39,30 +39,30 @@ function ContactDrawer({ contact, onClose }: { contact: Profile; onClose: () => 
             {/* Badge */}
             <div className="flex items-center gap-2 mb-6">
               {contact.isContributor ? (
-                <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full" style={{ background: "var(--color-brand-coral)", color: "#FFFFFF" }}>
+                <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full" style={{ background: "var(--color-brand-coral)", color: "#FFFFFF" }}>
                   Contributor
                 </span>
               ) : (
-                <span className="text-[10px] font-medium px-2.5 py-0.5 rounded-full border" style={{ borderColor: "var(--color-slate-muted)", color: "var(--color-slate-muted)" }}>
+                <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full border" style={{ borderColor: "var(--color-slate-muted)", color: "var(--color-slate-muted)" }}>
                   Member
                 </span>
               )}
               {contact.isContributor && !!contact.articlesCount && (
-                <span className="text-[10px] text-[var(--color-slate-muted)]">{contact.articlesCount} published articles</span>
+                <span className="text-[11px] text-[var(--color-slate-muted)]">{contact.articlesCount} published articles</span>
               )}
             </div>
 
             {/* Bio */}
             {contact.bio && (
               <div className="mb-6">
-                <div className="text-[10px] font-medium tracking-[0.1em] uppercase text-[var(--color-slate-muted)] mb-2">About</div>
+                <div className="text-[11px] font-medium tracking-[0.1em] uppercase text-[var(--color-slate-muted)] mb-2">About</div>
                 <p className="text-sm text-[var(--color-slate-muted)] leading-relaxed">{contact.bio}</p>
               </div>
             )}
 
             {/* Tags */}
             <div className="mb-6">
-              <div className="text-[10px] font-medium tracking-[0.1em] uppercase text-[var(--color-slate-muted)] mb-2">Expertise</div>
+              <div className="text-[11px] font-medium tracking-[0.1em] uppercase text-[var(--color-slate-muted)] mb-2">Expertise</div>
               <div className="flex flex-wrap gap-1.5">
                 {contact.tags.map(tag => (
                   <span
@@ -78,7 +78,7 @@ function ContactDrawer({ contact, onClose }: { contact: Profile; onClose: () => 
 
             {/* Meta */}
             <div className="mb-6">
-              <div className="text-[10px] font-medium tracking-[0.1em] uppercase text-[var(--color-slate-muted)] mb-2">Details</div>
+              <div className="text-[11px] font-medium tracking-[0.1em] uppercase text-[var(--color-slate-muted)] mb-2">Details</div>
               <div className="flex flex-col gap-2 text-sm text-[var(--color-slate-muted)]">
                 <div className="flex items-center gap-2">
                   <span>Member since</span>
@@ -187,7 +187,7 @@ export default function ContactsTab() {
         <div className="flex items-center gap-6 mb-6">
           <div className="flex items-center gap-2">
             <span
-              className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full"
+              className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full"
               style={{ background: "var(--color-brand-coral)", color: "#FFFFFF" }}
             >
               Contributor
@@ -196,7 +196,7 @@ export default function ContactsTab() {
           </div>
           <div className="flex items-center gap-2">
             <span
-              className="text-[10px] font-medium px-2.5 py-0.5 rounded-full border"
+              className="text-[11px] font-medium px-2.5 py-0.5 rounded-full border"
               style={{ borderColor: "var(--color-slate-muted)", color: "var(--color-slate-muted)" }}
             >
               Member
@@ -230,14 +230,14 @@ export default function ContactsTab() {
                 {/* Badge */}
                 {contact.isContributor ? (
                   <span
-                    className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full flex-shrink-0"
+                    className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full flex-shrink-0"
                     style={{ background: "var(--color-brand-coral)", color: "#FFFFFF" }}
                   >
                     Contributor
                   </span>
                 ) : (
                   <span
-                    className="text-[10px] font-medium px-2.5 py-0.5 rounded-full border flex-shrink-0"
+                    className="text-[11px] font-medium px-2.5 py-0.5 rounded-full border flex-shrink-0"
                     style={{ borderColor: "var(--color-slate-muted)", color: "var(--color-slate-muted)" }}
                   >
                     Member
@@ -256,7 +256,7 @@ export default function ContactsTab() {
                 {contact.tags.map(tag => (
                   <span
                     key={tag}
-                    className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] cursor-pointer hover:border-[var(--color-slate-muted)]/50 transition-colors"
+                    className="text-[11px] px-2 py-0.5 rounded-full border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] cursor-pointer hover:border-[var(--color-slate-muted)]/50 transition-colors"
                     onClick={(e) => { e.stopPropagation(); setFilterTag(tag) }}
                   >
                     {tag}
@@ -285,7 +285,7 @@ export default function ContactsTab() {
 
         {filtered.length === 0 && (
           <div className="py-20 text-center text-[var(--color-slate-muted)]">
-            <div style={{ fontFamily: "var(--font-serif)" }} className="text-2xl font-semibold mb-2 text-[var(--color-ink)]">
+            <div className="font-serif text-2xl font-semibold mb-2 text-[var(--color-ink)]">
               No results found.
             </div>
             <button className="text-sm underline mt-1" onClick={() => { setFilterTag(null); setFilterType("all"); setSearchQuery("") }}>

@@ -26,10 +26,10 @@ export default function RegulatoryNavigatorPage({ onJoin, onNavigate }: Regulato
       <main className="flex-1 max-w-[var(--container-max)] mx-auto px-6 md:px-12 py-12 w-full">
         {/* Header */}
         <div className="border-b border-[var(--color-border-subtle)] pb-8 mb-10 max-w-3xl">
-          <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
+          <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
             Interactive Filing & Compliance Engine
           </span>
-          <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
             Regulatory Filing & Dossier Navigator
           </h1>
           <p className="text-base md:text-lg text-[var(--color-slate-muted)] leading-relaxed">
@@ -51,11 +51,11 @@ export default function RegulatoryNavigatorPage({ onJoin, onNavigate }: Regulato
             >
               <div className="flex items-center justify-between mb-2">
                 <Badge type="verified" label={p.authority} />
-                <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] text-[var(--color-brand-coral)] font-bold">
+                <span className="font-mono text-[11px] text-[var(--color-brand-coral)] font-bold">
                   {p.averageTimelineMonths}
                 </span>
               </div>
-              <h4 style={{ fontFamily: "'Fraunces', serif" }} className="text-base font-semibold text-[var(--color-ink)] leading-snug">
+              <h4 className="font-serif text-base font-semibold text-[var(--color-ink)] leading-snug">
                 {p.title}
               </h4>
             </button>
@@ -66,10 +66,10 @@ export default function RegulatoryNavigatorPage({ onJoin, onNavigate }: Regulato
         <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-8 shadow-sm mb-16 space-y-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[var(--color-border-subtle)]">
             <div>
-              <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs uppercase font-bold text-[var(--color-brand-teal)]">
+              <span className="font-mono text-xs uppercase font-bold text-[var(--color-brand-teal)]">
                 Authority: {activePathway.authority} · Target Product: {activePathway.targetProduct}
               </span>
-              <h2 style={{ fontFamily: "'Fraunces', serif" }} className="text-2xl sm:text-3xl font-semibold text-[var(--color-ink)] mt-1">
+              <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-[var(--color-ink)] mt-1">
                 {activePathway.title}
               </h2>
             </div>
@@ -84,7 +84,7 @@ export default function RegulatoryNavigatorPage({ onJoin, onNavigate }: Regulato
 
           {/* Sequential Milestones Grid */}
           <div>
-            <h3 style={{ fontFamily: "'Fraunces', serif" }} className="text-xl font-semibold text-[var(--color-ink)] mb-4">
+            <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-4">
               Submission Milestones & Required Documentation
             </h3>
 
@@ -92,7 +92,7 @@ export default function RegulatoryNavigatorPage({ onJoin, onNavigate }: Regulato
               {activePathway.keyMilestones.map((m, i) => (
                 <div key={i} className="p-4 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm flex flex-col justify-between">
                   <div>
-                    <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-brand-coral)] block mb-1">
+                    <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-coral)] block mb-1">
                       {m.timeline}
                     </span>
                     <h5 className="text-xs font-semibold text-[var(--color-ink)] mb-2">
@@ -109,7 +109,7 @@ export default function RegulatoryNavigatorPage({ onJoin, onNavigate }: Regulato
 
           {/* Compliance Audit Checklist */}
           <div className="p-6 bg-[#F4EFE6] border border-stone-300 rounded-sm">
-            <h4 style={{ fontFamily: "'Fraunces', serif" }} className="text-lg font-semibold text-[var(--color-ink)] mb-3">
+            <h4 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-3">
               Mandatory Compliance & Audit Standards
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs text-[var(--color-ink)]">

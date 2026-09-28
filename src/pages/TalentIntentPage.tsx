@@ -35,10 +35,10 @@ export default function TalentIntentPage({ onJoin, onNavigate }: TalentIntentPag
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[var(--color-border-subtle)] pb-8 mb-10">
           <div>
-            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
+            <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
               Confidential Leadership & Advisory Marketplace
             </span>
-            <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] leading-tight">
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] leading-tight">
               Executive & Scientific Intent Exchange
             </h1>
             <p className="text-base text-[var(--color-slate-muted)] mt-2 max-w-2xl leading-relaxed">
@@ -59,13 +59,13 @@ export default function TalentIntentPage({ onJoin, onNavigate }: TalentIntentPag
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-bold text-[var(--color-brand-coral)]">
+                  <span className="font-mono text-xs font-bold text-[var(--color-brand-coral)]">
                     {item.codeName}
                   </span>
                   <Badge type="verified" label="Verified Track Record" />
                 </div>
 
-                <h3 style={{ fontFamily: "'Fraunces', serif" }} className="text-lg font-semibold text-[var(--color-ink)] mb-1 leading-snug">
+                <h3 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-1 leading-snug">
                   {item.roleTitle}
                 </h3>
                 <div className="text-xs text-[var(--color-slate-muted)] mb-3">
@@ -74,7 +74,7 @@ export default function TalentIntentPage({ onJoin, onNavigate }: TalentIntentPag
 
                 <div className="flex items-center gap-1.5 flex-wrap mb-4">
                   {item.intentTypes.map(t => (
-                    <span key={t} style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[9px] bg-[var(--color-surface)] text-[var(--color-brand-teal)] font-semibold px-2 py-0.5 rounded-sm border">
+                    <span key={t} className="font-mono text-[11px] bg-[var(--color-surface)] text-[var(--color-brand-teal)] font-semibold px-2 py-0.5 rounded-sm border">
                       {t}
                     </span>
                   ))}
@@ -85,12 +85,12 @@ export default function TalentIntentPage({ onJoin, onNavigate }: TalentIntentPag
                 </p>
 
                 <div className="space-y-1 pt-3 border-t border-[var(--color-border-subtle)] mb-4">
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[9px] uppercase font-bold text-[var(--color-slate-muted)] block">
+                  <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-slate-muted)] block">
                     Key Specialties
                   </span>
                   <div className="flex flex-wrap gap-1">
                     {item.specialties.map(s => (
-                      <span key={s} className="text-[10px] text-[var(--color-ink)] bg-stone-100 px-1.5 py-0.2 rounded-sm">
+                      <span key={s} className="text-[11px] text-[var(--color-ink)] bg-stone-100 px-1.5 py-0.2 rounded-sm">
                         {s}
                       </span>
                     ))}
@@ -99,7 +99,7 @@ export default function TalentIntentPage({ onJoin, onNavigate }: TalentIntentPag
               </div>
 
               <div className="pt-4 border-t border-[var(--color-border-subtle)] flex items-center justify-between">
-                <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] text-[var(--color-slate-muted)]">
+                <span className="font-mono text-[11px] text-[var(--color-slate-muted)]">
                   Double Opt-In Protocol
                 </span>
                 <Button
@@ -119,7 +119,7 @@ export default function TalentIntentPage({ onJoin, onNavigate }: TalentIntentPag
           <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
             <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm max-w-lg w-full p-6 shadow-2xl animate-fade-up">
               <div className="flex items-center justify-between pb-3 border-b border-[var(--color-border-subtle)] mb-4">
-                <h3 style={{ fontFamily: "'Fraunces', serif" }} className="text-lg font-semibold text-[var(--color-ink)]">
+                <h3 className="font-serif text-lg font-semibold text-[var(--color-ink)]">
                   Signal Your Confidential Availability
                 </h3>
                 <button onClick={() => setShowSignalModal(false)} className="text-stone-400 hover:text-stone-700 font-bold">
@@ -130,7 +130,7 @@ export default function TalentIntentPage({ onJoin, onNavigate }: TalentIntentPag
               {signalSubmitted ? (
                 <div className="p-6 bg-[var(--color-surface)] rounded-sm text-center">
                   <span className="text-3xl mb-2 block">🔒</span>
-                  <h4 style={{ fontFamily: "'Fraunces', serif" }} className="text-base font-semibold mb-1 text-[var(--color-ink)]">
+                  <h4 className="font-serif text-base font-semibold mb-1 text-[var(--color-ink)]">
                     Confidential Intent Registered
                   </h4>
                   <p className="text-xs text-[var(--color-slate-muted)] mb-4">

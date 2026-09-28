@@ -26,10 +26,10 @@ export default function VideosPage({ onJoin, onNavigate }: VideosPageProps) {
       <main className="flex-1 max-w-[var(--container-max)] mx-auto px-6 md:px-12 py-12 w-full">
         {/* Header */}
         <div className="border-b border-[var(--color-border-subtle)] pb-8 mb-10 max-w-3xl">
-          <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
+          <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
             Visual Briefings & Conclaves
           </span>
-          <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
             Video Intelligence Library
           </h1>
           <p className="text-base md:text-lg text-[var(--color-slate-muted)] leading-relaxed">
@@ -60,14 +60,14 @@ export default function VideosPage({ onJoin, onNavigate }: VideosPageProps) {
             <div className="absolute bottom-6 left-6 right-6 z-10 text-white flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-2">
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="bg-[var(--color-brand-teal)] text-white text-[10px] font-semibold uppercase px-2 py-0.5 rounded-sm">
+                  <span className="font-mono bg-[var(--color-brand-teal)] text-white text-[11px] font-semibold uppercase px-2 py-0.5 rounded-sm">
                     {activeVideo.category}
                   </span>
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs text-stone-300">
+                  <span className="font-mono text-xs text-stone-300">
                     Duration: {activeVideo.duration}
                   </span>
                 </div>
-                <h2 style={{ fontFamily: "'Fraunces', serif" }} className="text-xl sm:text-2xl md:text-3xl font-semibold leading-snug max-w-3xl">
+                <h2 className="font-serif text-xl sm:text-2xl md:text-3xl font-semibold leading-snug max-w-3xl">
                   {activeVideo.title}
                 </h2>
                 <p className="text-xs text-stone-300 mt-1">
@@ -116,17 +116,17 @@ export default function VideosPage({ onJoin, onNavigate }: VideosPageProps) {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
-                <span style={{ fontFamily: "'Geist Mono', monospace" }} className="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] px-2 py-0.5 rounded-sm">
+                <span className="font-mono absolute bottom-2 right-2 bg-black/80 text-white text-[11px] px-2 py-0.5 rounded-sm">
                   {video.duration}
                 </span>
-                <span className="absolute top-2 left-2 bg-[var(--color-brand-coral)] text-white text-[9px] uppercase font-bold px-1.5 py-0.2 rounded-sm">
+                <span className="absolute top-2 left-2 bg-[var(--color-brand-coral)] text-white text-[11px] uppercase font-bold px-1.5 py-0.2 rounded-sm">
                   {video.category}
                 </span>
               </div>
 
               <div className="p-5 flex-1 flex flex-col justify-between">
                 <div>
-                  <h3 style={{ fontFamily: "'Fraunces', serif" }} className="text-lg font-semibold text-[var(--color-ink)] mb-2 leading-snug group-hover:text-[var(--color-brand-teal)] transition-colors">
+                  <h3 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-2 leading-snug group-hover:text-[var(--color-brand-teal)] transition-colors">
                     {video.title}
                   </h3>
                   <p className="text-xs text-[var(--color-slate-muted)] line-clamp-2 leading-relaxed mb-4">

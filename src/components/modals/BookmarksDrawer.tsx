@@ -60,7 +60,7 @@ export default function BookmarksDrawer({
               <h3 className="font-serif font-bold text-base text-white leading-none mb-1">
                 Saved Intelligence Vault
               </h3>
-              <span className="font-mono text-[10px] text-stone-400 block uppercase tracking-wider">
+              <span className="font-mono text-[11px] text-stone-400 block uppercase tracking-wider">
                 {savedCount} {savedCount === 1 ? "Dossier Saved" : "Dossiers Saved"}
               </span>
             </div>
@@ -93,20 +93,20 @@ export default function BookmarksDrawer({
             <>
               {/* Drawer Top Utility Toolbar */}
               <div className="flex items-center justify-between text-xs pb-2 border-b border-stone-800">
-                <span className="font-mono text-[10px] text-stone-400 uppercase tracking-widest">
+                <span className="font-mono text-[11px] text-stone-400 uppercase tracking-widest">
                   Bookmarked Articles
                 </span>
                 <div className="flex items-center gap-3">
                   <button
                     onClick={handleExportSavedList}
-                    className="font-mono text-[10px] text-amber-300 hover:underline flex items-center gap-1 cursor-pointer"
+                    className="font-mono text-[11px] text-amber-300 hover:underline flex items-center gap-1 cursor-pointer"
                   >
                     <Download size={12} />
                     <span>Export Digest</span>
                   </button>
                   <button
                     onClick={clearAllBookmarks}
-                    className="font-mono text-[10px] text-stone-400 hover:text-rose-400 underline cursor-pointer"
+                    className="font-mono text-[11px] text-stone-400 hover:text-rose-400 underline cursor-pointer"
                   >
                     Clear All
                   </button>
@@ -131,10 +131,10 @@ export default function BookmarksDrawer({
 
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <span className="font-mono text-[9px] font-bold text-[var(--color-brand-coral)] uppercase tracking-wider">
+                          <span className="font-mono text-[11px] font-bold text-[var(--color-brand-coral)] uppercase tracking-wider">
                             {article.category}
                           </span>
-                          <span className="text-[10px] text-stone-400 font-mono">
+                          <span className="text-[11px] text-stone-400 font-mono">
                             · {article.readingTime}
                           </span>
                         </div>
@@ -154,7 +154,7 @@ export default function BookmarksDrawer({
                         </p>
 
                         {/* Quick Action Footer */}
-                        <div className="flex items-center justify-between pt-2 border-t border-stone-800 text-[10px]">
+                        <div className="flex items-center justify-between pt-2 border-t border-stone-800 text-[11px]">
                           <div className="flex items-center gap-2">
                             <button
                               onClick={() => {

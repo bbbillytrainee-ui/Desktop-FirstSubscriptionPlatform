@@ -27,13 +27,12 @@ export default function LatestNewsSidebar({ onSubscribe }: LatestNewsSidebarProp
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[var(--color-brand-coral)] animate-ping" />
             <h3
-              style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-              className="text-lg font-semibold text-[var(--color-ink)]"
+              className="font-serif text-lg font-semibold text-[var(--color-ink)]"
             >
               Latest Speed Feed
             </h3>
           </div>
-          <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] text-[var(--color-slate-muted)] uppercase">
+          <span className="font-mono text-[11px] text-[var(--color-slate-muted)] uppercase">
             Live Feed
           </span>
         </div>
@@ -49,12 +48,11 @@ export default function LatestNewsSidebar({ onSubscribe }: LatestNewsSidebarProp
               >
                 <div className="flex items-center justify-between gap-2 mb-1.5">
                   <span
-                    style={{ fontFamily: "'Geist Mono', monospace" }}
-                    className="text-[9px] uppercase tracking-wider font-semibold text-[var(--color-brand-coral)]"
+                    className="font-mono text-[11px] uppercase tracking-wider font-semibold text-[var(--color-brand-coral)]"
                   >
                     {item.category}
                   </span>
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] text-[var(--color-slate-muted)]">
+                  <span className="font-mono text-[11px] text-[var(--color-slate-muted)]">
                     {item.timeAgo}
                   </span>
                 </div>
@@ -66,7 +64,7 @@ export default function LatestNewsSidebar({ onSubscribe }: LatestNewsSidebarProp
                 {isExpanded && (
                   <div className="mt-2.5 p-2.5 bg-[var(--color-surface)] border-l-2 border-[var(--color-brand-teal)] rounded-sm text-[11px] text-[var(--color-slate-muted)] leading-relaxed animate-fade-up">
                     <p className="mb-1.5">{item.summary}</p>
-                    <div className="flex items-center justify-between text-[10px] font-mono text-[var(--color-ink)]">
+                    <div className="flex items-center justify-between text-[11px] font-mono text-[var(--color-ink)]">
                       <span>Source: {item.source}</span>
                       <span className="text-[var(--color-brand-teal)] font-medium">Verified Alert</span>
                     </div>
@@ -81,12 +79,11 @@ export default function LatestNewsSidebar({ onSubscribe }: LatestNewsSidebarProp
       {/* Free Intelligence Newsletter Signup Card */}
       <div className="bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm p-5">
         <span
-          style={{ fontFamily: "'Geist Mono', monospace" }}
-          className="text-[10px] uppercase font-bold text-[var(--color-brand-teal)] tracking-wider block mb-1"
+          className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-teal)] tracking-wider block mb-1"
         >
           Daily Executive Dispatch
         </span>
-        <h4 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-base font-semibold text-[var(--color-ink)] mb-1.5">
+        <h4 className="font-serif text-base font-semibold text-[var(--color-ink)] mb-1.5">
           Get Breaking CDSCO & Biotech Alerts
         </h4>
         <p className="text-[11px] text-[var(--color-slate-muted)] leading-relaxed mb-4">

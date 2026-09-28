@@ -37,7 +37,7 @@ export default function Modal({ isOpen, onClose, title, children, className = ""
         >
           {title && (
             <div className="px-6 py-4 border-b border-[var(--color-border-subtle)] flex items-center justify-between">
-              <h3 className="font-semibold text-lg text-[var(--color-ink)]" style={{ fontFamily: "'Fraunces', Georgia, serif" }}>
+              <h3 className="font-serif font-semibold text-lg text-[var(--color-ink)]">
                 {title}
               </h3>
               <button

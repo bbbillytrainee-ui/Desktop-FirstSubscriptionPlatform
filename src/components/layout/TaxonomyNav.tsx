@@ -41,8 +41,7 @@ export default function TaxonomyNav({
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-brand-coral)]"></span>
             </span>
             <span
-              style={{ fontFamily: "'Geist Mono', monospace" }}
-              className="text-[9px] font-bold uppercase tracking-widest bg-[var(--color-brand-coral)] text-white px-2 py-0.5 rounded-xs shrink-0 shadow-xs"
+              className="font-mono text-[11px] font-bold uppercase tracking-widest bg-[var(--color-brand-coral)] text-white px-2 py-0.5 rounded-xs shrink-0 shadow-xs"
             >
               DISPATCH
             </span>
@@ -78,8 +77,7 @@ export default function TaxonomyNav({
                   <span>{item.name}</span>
                   {item.badge && (
                     <span
-                      style={{ fontFamily: "'Geist Mono', monospace" }}
-                      className={`text-[8px] font-bold px-1.5 py-0.2 rounded-full uppercase tracking-wider ${
+                      className={`font-mono text-[11px] font-bold px-1.5 py-0.2 rounded-full uppercase tracking-wider ${
                         isSelected
                           ? "bg-[var(--color-brand-coral)] text-white"
                           : "bg-[var(--color-brand-coral)]/90 text-white group-hover:bg-[var(--color-brand-coral)]"

@@ -144,11 +144,11 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
                   </div>
                   <div className="text-[var(--color-slate-muted)] mt-0.5 flex items-center gap-2 flex-wrap">
                     <span className="italic">{ref.source} ({ref.year})</span>
-                    <span className="font-mono text-[9px] uppercase px-1.5 py-0.2 bg-[var(--color-surface)] border border-stone-200 rounded text-stone-700">
+                    <span className="font-mono text-[11px] uppercase px-1.5 py-0.2 bg-[var(--color-surface)] border border-stone-200 rounded text-stone-700">
                       {ref.type}
                     </span>
                     {ref.doiOrUrl && (
-                      <span className="font-mono text-[10px] text-[var(--color-brand-teal)] flex items-center gap-0.5">
+                      <span className="font-mono text-[11px] text-[var(--color-brand-teal)] flex items-center gap-0.5">
                         <ExternalLink size={10} />
                         {ref.doiOrUrl}
                       </span>

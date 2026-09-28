@@ -86,7 +86,7 @@ export default function GlobalSearchModal({ isOpen, onClose, onNavigate }: Globa
               Clear
             </button>
           )}
-          <kbd className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-mono bg-white border border-stone-300 rounded text-stone-500 shadow-xs">
+          <kbd className="hidden sm:inline-block px-2 py-0.5 text-[11px] font-mono bg-white border border-stone-300 rounded text-stone-500 shadow-xs">
             ESC
           </kbd>
         </div>
@@ -124,7 +124,7 @@ export default function GlobalSearchModal({ isOpen, onClose, onNavigate }: Globa
               {/* Articles */}
               {(activeFilter === "all" || activeFilter === "articles") && matchedArticles.length > 0 && (
                 <div>
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-brand-coral)] block mb-1.5">
+                  <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-coral)] block mb-1.5">
                     Articles & Dossiers ({matchedArticles.length})
                   </span>
                   <div className="space-y-1">
@@ -152,7 +152,7 @@ export default function GlobalSearchModal({ isOpen, onClose, onNavigate }: Globa
               {/* Research Reports */}
               {(activeFilter === "all" || activeFilter === "reports") && matchedReports.length > 0 && (
                 <div className="pt-2 border-t border-[var(--color-border-subtle)]">
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-brand-teal)] block mb-1.5">
+                  <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-teal)] block mb-1.5">
                     Institutional Research Reports ({matchedReports.length})
                   </span>
                   <div className="space-y-1">
@@ -180,7 +180,7 @@ export default function GlobalSearchModal({ isOpen, onClose, onNavigate }: Globa
               {/* News */}
               {(activeFilter === "all" || activeFilter === "news") && matchedNews.length > 0 && (
                 <div className="pt-2 border-t border-[var(--color-border-subtle)]">
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-brand-coral)] block mb-1.5">
+                  <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-coral)] block mb-1.5">
                     Speed Feed & Breaking Alerts ({matchedNews.length})
                   </span>
                   <div className="space-y-1">
@@ -193,7 +193,7 @@ export default function GlobalSearchModal({ isOpen, onClose, onNavigate }: Globa
                         <span className="text-xs font-medium text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)] truncate max-w-md">
                           • {news.title}
                         </span>
-                        <span className="text-[10px] font-mono text-[var(--color-slate-muted)]">{news.timeAgo}</span>
+                        <span className="text-[11px] font-mono text-[var(--color-slate-muted)]">{news.timeAgo}</span>
                       </div>
                     ))}
                   </div>
@@ -203,7 +203,7 @@ export default function GlobalSearchModal({ isOpen, onClose, onNavigate }: Globa
               {/* Events */}
               {(activeFilter === "all" || activeFilter === "events") && matchedEvents.length > 0 && (
                 <div className="pt-2 border-t border-[var(--color-border-subtle)]">
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-stone-600 block mb-1.5">
+                  <span className="font-mono text-[11px] uppercase font-bold text-stone-600 block mb-1.5">
                     Conclaves & Events ({matchedEvents.length})
                   </span>
                   <div className="space-y-1">
@@ -229,7 +229,7 @@ export default function GlobalSearchModal({ isOpen, onClose, onNavigate }: Globa
               {/* Profiles */}
               {(activeFilter === "all" || activeFilter === "profiles") && matchedProfiles.length > 0 && (
                 <div className="pt-2 border-t border-[var(--color-border-subtle)]">
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-stone-600 block mb-1.5">
+                  <span className="font-mono text-[11px] uppercase font-bold text-stone-600 block mb-1.5">
                     Verified Members ({matchedProfiles.length})
                   </span>
                   <div className="space-y-1">

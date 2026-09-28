@@ -36,10 +36,10 @@ export default function ReportsPage({ onJoin, onNavigate }: ReportsPageProps) {
       <main className="flex-1 max-w-[var(--container-max)] mx-auto px-6 md:px-12 py-12 w-full">
         {/* Header */}
         <div className="border-b border-[var(--color-border-subtle)] pb-8 mb-10 max-w-3xl">
-          <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
+          <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
             Institutional Research Desk
           </span>
-          <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
             Market Intelligence & Research Reports
           </h1>
           <p className="text-base md:text-lg text-[var(--color-slate-muted)] leading-relaxed">
@@ -53,12 +53,12 @@ export default function ReportsPage({ onJoin, onNavigate }: ReportsPageProps) {
             <div className="lg:col-span-8 space-y-4">
               <div className="flex items-center gap-2">
                 <Badge type="enterprise" label="Institutional Research" />
-                <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs text-[var(--color-slate-muted)]">
+                <span className="font-mono text-xs text-[var(--color-slate-muted)]">
                   {selectedReport.publishedDate} · {selectedReport.pagesCount} Pages Dossier
                 </span>
               </div>
 
-              <h2 style={{ fontFamily: "'Fraunces', serif" }} className="text-2xl sm:text-3xl font-semibold text-[var(--color-ink)] leading-snug">
+              <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-[var(--color-ink)] leading-snug">
                 {selectedReport.title}
               </h2>
 
@@ -67,7 +67,7 @@ export default function ReportsPage({ onJoin, onNavigate }: ReportsPageProps) {
               </p>
 
               <div className="p-4 bg-[var(--color-surface)] border-l-3 border-[var(--color-brand-coral)] rounded-sm space-y-2">
-                <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-brand-coral)] block mb-1">
+                <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-coral)] block mb-1">
                   Core Findings & Key Takeaways
                 </span>
                 {selectedReport.keyTakeaways.map((point, idx) => (
@@ -80,7 +80,7 @@ export default function ReportsPage({ onJoin, onNavigate }: ReportsPageProps) {
 
               {/* Table of Contents Preview */}
               <div className="space-y-1.5 pt-2">
-                <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
+                <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
                   Table of Contents Preview
                 </span>
                 {selectedReport.toc.map((chapter, i) => (
@@ -94,7 +94,7 @@ export default function ReportsPage({ onJoin, onNavigate }: ReportsPageProps) {
             {/* Price & Action Column */}
             <div className="lg:col-span-4 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm p-6 flex flex-col justify-between space-y-6">
               <div>
-                <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-brand-teal)] block mb-1">
+                <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-teal)] block mb-1">
                   Report Pricing
                 </span>
                 <div className="text-3xl font-bold text-[var(--color-ink)] mb-1">
@@ -132,7 +132,7 @@ export default function ReportsPage({ onJoin, onNavigate }: ReportsPageProps) {
 
         {/* All Reports Catalog */}
         <div className="space-y-6 mb-16">
-          <h3 style={{ fontFamily: "'Fraunces', serif" }} className="text-2xl font-semibold text-[var(--color-ink)]">
+          <h3 className="font-serif text-2xl font-semibold text-[var(--color-ink)]">
             Intelligence Report Catalog
           </h3>
 
@@ -147,17 +147,17 @@ export default function ReportsPage({ onJoin, onNavigate }: ReportsPageProps) {
               >
                 <div className="h-44 bg-stone-900 relative overflow-hidden">
                   <img src={rep.coverImage} alt={rep.title} className="w-full h-full object-cover opacity-75" />
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="absolute top-2 left-2 bg-[var(--color-brand-teal)] text-white text-[9px] uppercase font-bold px-2 py-0.5 rounded-sm">
+                  <span className="font-mono absolute top-2 left-2 bg-[var(--color-brand-teal)] text-white text-[11px] uppercase font-bold px-2 py-0.5 rounded-sm">
                     {rep.category}
                   </span>
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] px-2 py-0.5 rounded-sm">
+                  <span className="font-mono absolute bottom-2 right-2 bg-black/80 text-white text-[11px] px-2 py-0.5 rounded-sm">
                     {rep.pagesCount} Pages
                   </span>
                 </div>
 
                 <div className="p-5 flex-1 flex flex-col justify-between">
                   <div>
-                    <h4 style={{ fontFamily: "'Fraunces', serif" }} className="text-base font-semibold text-[var(--color-ink)] mb-2 leading-snug">
+                    <h4 className="font-serif text-base font-semibold text-[var(--color-ink)] mb-2 leading-snug">
                       {rep.title}
                     </h4>
                     <p className="text-xs text-[var(--color-slate-muted)] line-clamp-3 leading-relaxed mb-4">
@@ -180,7 +180,7 @@ export default function ReportsPage({ onJoin, onNavigate }: ReportsPageProps) {
           <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
             <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm max-w-lg w-full p-6 shadow-2xl animate-fade-up">
               <div className="flex items-center justify-between pb-3 border-b border-[var(--color-border-subtle)] mb-4">
-                <h3 style={{ fontFamily: "'Fraunces', serif" }} className="text-lg font-semibold text-[var(--color-ink)]">
+                <h3 className="font-serif text-lg font-semibold text-[var(--color-ink)]">
                   Institutional Report Invoice & Access Request
                 </h3>
                 <button onClick={() => setShowPurchaseModal(false)} className="text-stone-400 hover:text-stone-700 font-bold">
@@ -191,7 +191,7 @@ export default function ReportsPage({ onJoin, onNavigate }: ReportsPageProps) {
               {inquirySent ? (
                 <div className="p-6 bg-[var(--color-surface)] rounded-sm text-center">
                   <span className="text-3xl mb-2 block">✓</span>
-                  <h4 style={{ fontFamily: "'Fraunces', serif" }} className="text-base font-semibold mb-1 text-[var(--color-ink)]">
+                  <h4 className="font-serif text-base font-semibold mb-1 text-[var(--color-ink)]">
                     Report Order Dispatched
                   </h4>
                   <p className="text-xs text-[var(--color-slate-muted)] mb-4">

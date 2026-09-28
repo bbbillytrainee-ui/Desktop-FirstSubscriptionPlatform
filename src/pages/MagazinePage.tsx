@@ -106,7 +106,7 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
-                <span className="font-mono text-[10px] uppercase font-bold text-white bg-[var(--color-brand-coral)] px-2.5 py-1 rounded-xs inline-block w-max mb-1">
+                <span className="font-mono text-[11px] uppercase font-bold text-white bg-[var(--color-brand-coral)] px-2.5 py-1 rounded-xs inline-block w-max mb-1">
                   Interactive 3D Reader
                 </span>
                 <span className="text-white text-xs font-semibold">Click to flip pages like a printed book →</span>

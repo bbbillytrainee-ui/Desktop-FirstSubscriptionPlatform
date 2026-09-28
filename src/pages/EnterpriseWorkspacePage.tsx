@@ -40,11 +40,11 @@ export default function EnterpriseWorkspacePage({ onJoin, onNavigate }: Enterpri
           <div>
             <div className="flex items-center gap-2 mb-2">
               <Badge type="enterprise" label="Corporate Enterprise Portal" />
-              <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs text-[var(--color-slate-muted)]">
+              <span className="font-mono text-xs text-[var(--color-slate-muted)]">
                 Organization: Biocon Biologics Ltd.
               </span>
             </div>
-            <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] leading-tight">
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] leading-tight">
               Enterprise Team Workspace
             </h1>
             <p className="text-base text-[var(--color-slate-muted)] mt-2 max-w-2xl leading-relaxed">
@@ -59,7 +59,7 @@ export default function EnterpriseWorkspacePage({ onJoin, onNavigate }: Enterpri
         {/* 3 Metric Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
           <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
-            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
+            <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
               Seat Allocation
             </span>
             <div className="text-3xl font-bold text-[var(--color-ink)] mb-1">14 / 20</div>
@@ -67,7 +67,7 @@ export default function EnterpriseWorkspacePage({ onJoin, onNavigate }: Enterpri
           </div>
 
           <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
-            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
+            <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
               Domain Auto-Verification
             </span>
             <div className="text-xl font-bold text-[var(--color-ink)] mb-1">@biocon.com</div>
@@ -75,7 +75,7 @@ export default function EnterpriseWorkspacePage({ onJoin, onNavigate }: Enterpri
           </div>
 
           <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
-            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
+            <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-slate-muted)] block mb-1">
               Institutional Reports Vault
             </span>
             <div className="text-3xl font-bold text-[var(--color-ink)] mb-1">Unlimited</div>
@@ -89,10 +89,10 @@ export default function EnterpriseWorkspacePage({ onJoin, onNavigate }: Enterpri
           {/* Left 8: Team Members Table */}
           <div className="lg:col-span-8 bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
             <div className="flex items-center justify-between pb-4 mb-4 border-b border-[var(--color-border-subtle)]">
-              <h3 style={{ fontFamily: "'Fraunces', serif" }} className="text-xl font-semibold text-[var(--color-ink)]">
+              <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)]">
                 Assigned Team Members
               </h3>
-              <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs text-[var(--color-slate-muted)]">
+              <span className="font-mono text-xs text-[var(--color-slate-muted)]">
                 Updated Real-Time
               </span>
             </div>
@@ -106,7 +106,7 @@ export default function EnterpriseWorkspacePage({ onJoin, onNavigate }: Enterpri
                   </div>
                   <div className="text-right">
                     <span className="text-[var(--color-ink)] block">{m.role}</span>
-                    <span style={{ fontFamily: "'Geist Mono', monospace" }} className={`text-[10px] font-semibold ${m.status === "Active" ? "text-[var(--color-brand-teal)]" : "text-amber-600"}`}>
+                    <span className={`font-mono text-[11px] font-semibold ${m.status === "Active" ? "text-[var(--color-brand-teal)]" : "text-amber-600"}`}>
                       ● {m.status}
                     </span>
                   </div>
@@ -118,7 +118,7 @@ export default function EnterpriseWorkspacePage({ onJoin, onNavigate }: Enterpri
           {/* Right 4: Quick Invite & Invoicing Box */}
           <div className="lg:col-span-4 space-y-6">
             <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm p-6 shadow-sm">
-              <h4 style={{ fontFamily: "'Fraunces', serif" }} className="text-lg font-semibold text-[var(--color-ink)] mb-1">
+              <h4 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-1">
                 Provision New Team Seat
               </h4>
               <p className="text-xs text-[var(--color-slate-muted)] mb-4">
@@ -148,7 +148,7 @@ export default function EnterpriseWorkspacePage({ onJoin, onNavigate }: Enterpri
 
             {/* Invoicing & GST Card */}
             <div className="bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm p-6 space-y-3">
-              <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-brand-teal)] block">
+              <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-teal)] block">
                 Corporate Billing & GST
               </span>
               <div className="text-xs text-[var(--color-ink)] space-y-1">

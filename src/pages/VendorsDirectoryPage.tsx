@@ -44,10 +44,10 @@ export default function VendorsDirectoryPage({ onJoin, onNavigate }: VendorsDire
       <main className="flex-1 max-w-[var(--container-max)] mx-auto px-6 md:px-12 py-12 w-full">
         {/* Header */}
         <div className="border-b border-[var(--color-border-subtle)] pb-8 mb-10 max-w-3xl">
-          <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
+          <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
             Vetted Partner Sourcing Network
           </span>
-          <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
             CDMO, CRO & Logistics Partner Directory
           </h1>
           <p className="text-base md:text-lg text-[var(--color-slate-muted)] leading-relaxed">
@@ -82,12 +82,12 @@ export default function VendorsDirectoryPage({ onJoin, onNavigate }: VendorsDire
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <Badge type="verified" label={vendor.category} />
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs text-[var(--color-brand-coral)] font-bold">
+                  <span className="font-mono text-xs text-[var(--color-brand-coral)] font-bold">
                     ★ {vendor.rating}
                   </span>
                 </div>
 
-                <h3 style={{ fontFamily: "'Fraunces', serif" }} className="text-xl font-semibold text-[var(--color-ink)] mb-1">
+                <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-1">
                   {vendor.name}
                 </h3>
                 <div className="text-xs text-[var(--color-slate-muted)] mb-3">
@@ -101,22 +101,22 @@ export default function VendorsDirectoryPage({ onJoin, onNavigate }: VendorsDire
                 {/* Capabilities & Certifications */}
                 <div className="space-y-2 pt-3 border-t border-[var(--color-border-subtle)] mb-4">
                   <div className="flex items-center gap-1.5 flex-wrap">
-                    <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] text-stone-500 uppercase font-bold mr-1">
+                    <span className="font-mono text-[11px] text-stone-500 uppercase font-bold mr-1">
                       Certifications:
                     </span>
                     {vendor.certifications.map(cert => (
-                      <span key={cert} style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] bg-[var(--color-surface)] text-[var(--color-brand-teal)] px-2 py-0.2 rounded-sm font-semibold border">
+                      <span key={cert} className="font-mono text-[11px] bg-[var(--color-surface)] text-[var(--color-brand-teal)] px-2 py-0.2 rounded-sm font-semibold border">
                         {cert}
                       </span>
                     ))}
                   </div>
 
                   <div className="flex items-center gap-1.5 flex-wrap">
-                    <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] text-stone-500 uppercase font-bold mr-1">
+                    <span className="font-mono text-[11px] text-stone-500 uppercase font-bold mr-1">
                       Capabilities:
                     </span>
                     {vendor.primaryCapabilities.map(cap => (
-                      <span key={cap} className="text-[10px] bg-stone-100 text-stone-700 px-1.5 py-0.2 rounded-sm">
+                      <span key={cap} className="text-[11px] bg-stone-100 text-stone-700 px-1.5 py-0.2 rounded-sm">
                         {cap}
                       </span>
                     ))}
@@ -125,7 +125,7 @@ export default function VendorsDirectoryPage({ onJoin, onNavigate }: VendorsDire
               </div>
 
               <div className="pt-4 border-t border-[var(--color-border-subtle)] flex items-center justify-between">
-                <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[11px] text-[var(--color-slate-muted)]">
+                <span className="font-mono text-[11px] text-[var(--color-slate-muted)]">
                   Turnaround: {vendor.leadTime}
                 </span>
                 <Button
@@ -146,7 +146,7 @@ export default function VendorsDirectoryPage({ onJoin, onNavigate }: VendorsDire
             <div className="bg-white border border-[var(--color-border-subtle)] rounded-sm max-w-lg w-full p-6 shadow-2xl animate-fade-up">
               <div className="flex items-center justify-between pb-3 border-b border-[var(--color-border-subtle)] mb-4">
                 <div>
-                  <h3 style={{ fontFamily: "'Fraunces', serif" }} className="text-lg font-semibold text-[var(--color-ink)]">
+                  <h3 className="font-serif text-lg font-semibold text-[var(--color-ink)]">
                     Request Sourcing RFP: {activeVendor.name}
                   </h3>
                   <span className="text-[11px] text-[var(--color-brand-teal)] font-mono">
@@ -161,7 +161,7 @@ export default function VendorsDirectoryPage({ onJoin, onNavigate }: VendorsDire
               {rfpSubmitted ? (
                 <div className="p-6 bg-[var(--color-surface)] rounded-sm text-center">
                   <span className="text-3xl mb-2 block">✓</span>
-                  <h4 style={{ fontFamily: "'Fraunces', serif" }} className="text-base font-semibold mb-1 text-[var(--color-ink)]">
+                  <h4 className="font-serif text-base font-semibold mb-1 text-[var(--color-ink)]">
                     RFP Successfully Transmitted
                   </h4>
                   <p className="text-xs text-[var(--color-slate-muted)] mb-4">

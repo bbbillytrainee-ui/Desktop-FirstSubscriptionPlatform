@@ -40,7 +40,7 @@ export default function AuthorByline({ author, date, readingTime, size = "md" }:
                 {author.name}
               </span>
               {author.isContributor && <Badge type="contributor" label="Contributor" />}
-              <span className="text-[10px] text-[var(--color-brand-coral)] font-mono opacity-80 group-hover:opacity-100">
+              <span className="text-[11px] text-[var(--color-brand-coral)] font-mono opacity-80 group-hover:opacity-100">
                 (View Profile 🔍)
               </span>
             </div>
@@ -51,7 +51,7 @@ export default function AuthorByline({ author, date, readingTime, size = "md" }:
         </div>
 
         {(date || readingTime) && (
-          <div style={{ fontFamily: "'Geist Mono', monospace" }} className="flex items-center gap-3 text-xs text-[var(--color-slate-muted)]">
+          <div className="font-mono flex items-center gap-3 text-xs text-[var(--color-slate-muted)]">
             {date && <span>{date}</span>}
             {readingTime && <span className="read-pill">{readingTime}</span>}
           </div>

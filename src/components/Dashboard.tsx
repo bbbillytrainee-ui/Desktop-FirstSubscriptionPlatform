@@ -131,7 +131,7 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
             Share your private invitation link with colleagues in regulatory affairs, clinical trials, business development, or supply chain.
           </p>
           <div className="p-4 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm">
-            <span className="font-mono text-[10px] text-[var(--color-slate-muted)] uppercase block mb-1">
+            <span className="font-mono text-[11px] text-[var(--color-slate-muted)] uppercase block mb-1">
               Your Personal Referral URL
             </span>
             <div className="flex items-center gap-2">

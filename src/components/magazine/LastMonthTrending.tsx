@@ -46,7 +46,7 @@ export default function LastMonthTrending({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[var(--color-border-subtle)] mb-8 relative z-10">
         <div>
           <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-            <span className="font-mono text-[10px] uppercase font-bold tracking-wider text-[var(--color-brand-coral)] bg-orange-50 px-2 py-0.5 rounded border border-orange-200 flex items-center gap-1">
+            <span className="font-mono text-[11px] uppercase font-bold tracking-wider text-[var(--color-brand-coral)] bg-orange-50 px-2 py-0.5 rounded border border-orange-200 flex items-center gap-1">
               <TrendingUp size={12} />
               {lastMonthIssue.month} Retrospective & Velocity Report
             </span>
@@ -77,10 +77,10 @@ export default function LastMonthTrending({
           {/* Editorial Column Pullout */}
           <div className="p-5 bg-[var(--color-surface)] border-l-4 border-[var(--color-brand-coral)] rounded-r-md">
             <div className="flex items-center justify-between mb-2">
-              <span className="font-mono text-[10px] uppercase font-bold text-[var(--color-brand-coral)] tracking-wider">
+              <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-coral)] tracking-wider">
                 Last Month&apos;s Editorial Column
               </span>
-              <span className="font-mono text-[10px] text-[var(--color-slate-muted)]">
+              <span className="font-mono text-[11px] text-[var(--color-slate-muted)]">
                 {lastMonthIssue.volume || "Vol. XIV"}
               </span>
             </div>
@@ -93,7 +93,7 @@ export default function LastMonthTrending({
             <div className="flex items-center justify-between text-xs pt-3 border-t border-[var(--color-border-subtle)]">
               <div>
                 <span className="font-semibold text-[var(--color-ink)] block">{editorial.authorName}</span>
-                <span className="text-[10px] text-[var(--color-slate-muted)]">{editorial.authorRole}</span>
+                <span className="text-[11px] text-[var(--color-slate-muted)]">{editorial.authorRole}</span>
               </div>
               <button
                 onClick={() => onOpenIssueFlipbook(lastMonthIssue)}
@@ -106,7 +106,7 @@ export default function LastMonthTrending({
 
           {/* Last Month's 3 Key Regulatory Signals */}
           <div className="p-4 bg-white border border-[var(--color-border-subtle)] rounded-sm space-y-3">
-            <span className="font-mono text-[10px] uppercase font-bold text-[var(--color-brand-teal)] tracking-wider block">
+            <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-teal)] tracking-wider block">
               Key Macro Signals Logged in {lastMonthIssue.month.split(" ")[0]}:
             </span>
             <ul className="space-y-2 text-xs text-[var(--color-slate-muted)]">
@@ -145,12 +145,12 @@ export default function LastMonthTrending({
 
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className="font-mono text-[9px] uppercase font-bold text-[var(--color-brand-coral)] flex items-center gap-1">
+                      <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-coral)] flex items-center gap-1">
                         {meta.icon}
                         {meta.label}
                       </span>
                       <span className="text-stone-300">•</span>
-                      <span className="font-mono text-[10px] text-[var(--color-slate-muted)]">
+                      <span className="font-mono text-[11px] text-[var(--color-slate-muted)]">
                         {article.category} · {article.readingTime}
                       </span>
                     </div>
@@ -170,7 +170,7 @@ export default function LastMonthTrending({
                   <span className="font-mono text-[11px] font-semibold text-[var(--color-ink)]">
                     {meta.views}
                   </span>
-                  <span className="font-mono text-[9px] text-emerald-600 font-medium">
+                  <span className="font-mono text-[11px] text-emerald-600 font-medium">
                     {meta.velocity}
                   </span>
                   <span className="text-xs text-[var(--color-brand-teal)] font-semibold mt-1 hidden sm:inline-block group-hover:translate-x-1 transition-transform">

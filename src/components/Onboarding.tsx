@@ -124,7 +124,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
         <div className="px-6 md:px-10 pt-8 pb-6 border-b border-[var(--color-border-subtle)]">
           <div className="flex items-center justify-between mb-4">
             <Logo size="sm" />
-            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs text-[var(--color-slate-muted)]">
+            <span className="font-mono text-xs text-[var(--color-slate-muted)]">
               Step {step} of {totalSteps}
             </span>
           </div>
@@ -141,7 +141,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
             ))}
           </div>
 
-          <h2 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-2xl md:text-3xl font-semibold text-[var(--color-ink)]">
+          <h2 className="font-serif text-2xl md:text-3xl font-semibold text-[var(--color-ink)]">
             {step === 1 && "Select your vertical & role"}
             {step === 2 && "Workplace & Department Details"}
             {step === 3 && "Matching Consent & DPDP Privacy"}
@@ -175,13 +175,13 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                     <div>
                       <div className="flex items-center gap-2 mb-0.5">
                         <span className="text-sm font-semibold text-[var(--color-ink)]">{role.label}</span>
-                        <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] bg-[var(--color-surface)] text-[var(--color-brand-teal)] px-1.5 py-0.2 rounded-sm border border-[var(--color-border-subtle)]">
+                        <span className="font-mono text-[11px] bg-[var(--color-surface)] text-[var(--color-brand-teal)] px-1.5 py-0.2 rounded-sm border border-[var(--color-border-subtle)]">
                           {role.track}
                         </span>
                       </div>
                       <p className="text-xs text-[var(--color-slate-muted)]">{role.desc}</p>
                     </div>
-                    <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] text-[var(--color-brand-coral)] font-semibold whitespace-nowrap pl-2">
+                    <span className="font-mono text-[11px] text-[var(--color-brand-coral)] font-semibold whitespace-nowrap pl-2">
                       {role.package}
                     </span>
                   </div>
@@ -307,7 +307,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
           {step === 3 && (
             <div className="space-y-6">
               <div className="p-5 bg-[var(--color-surface)] border-l-4 border-[var(--color-brand-teal)] rounded-sm">
-                <h4 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-lg font-semibold text-[var(--color-ink)] mb-2">
+                <h4 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-2">
                   Transparent Data Usage Notice
                 </h4>
                 <p className="text-sm text-[var(--color-slate-muted)] leading-relaxed mb-3">
@@ -372,7 +372,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                   Selected {selectedTags.length} of 5 (minimum 3 required)
                 </span>
                 {selectedTags.length >= 3 && (
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs text-[var(--color-brand-coral)] font-semibold">
+                  <span className="font-mono text-xs text-[var(--color-brand-coral)] font-semibold">
                     ✓ Focus threshold met
                   </span>
                 )}
@@ -415,10 +415,10 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
           {step === 6 && (
             <div className="space-y-6">
               <div className="p-5 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm">
-                <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] font-semibold uppercase text-[var(--color-brand-coral)] tracking-wider block mb-1">
+                <span className="font-mono text-[11px] font-semibold uppercase text-[var(--color-brand-coral)] tracking-wider block mb-1">
                   Monthly Cadence
                 </span>
-                <h4 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-lg font-semibold text-[var(--color-ink)] mb-2">
+                <h4 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-2">
                   Matches & Editorial Drop on the 1st of Every Month
                 </h4>
                 <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed">
@@ -471,12 +471,11 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
               {/* Referral Incentive Widget */}
               <div className="p-5 bg-white border-2 border-[var(--color-brand-coral)] rounded-sm relative shadow-sm">
                 <span
-                  style={{ fontFamily: "'Geist Mono', monospace" }}
-                  className="text-[10px] font-semibold uppercase bg-[var(--color-brand-coral)] text-white px-2 py-0.5 rounded-sm inline-block mb-2"
+                  className="font-mono text-[11px] font-semibold uppercase bg-[var(--color-brand-coral)] text-white px-2 py-0.5 rounded-sm inline-block mb-2"
                 >
                   Colleague Referral Program
                 </span>
-                <h4 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-lg font-semibold text-[var(--color-ink)] mb-1">
+                <h4 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-1">
                   Invite 3 Life Science Colleagues → Unlock 1 Month Professional Free
                 </h4>
                 <p className="text-xs text-[var(--color-slate-muted)] mb-4">

@@ -43,10 +43,10 @@ export default function InterviewsPage({ onJoin, onNavigate }: InterviewsPagePro
       <main className="flex-1 max-w-[var(--container-max)] mx-auto px-6 md:px-12 py-12 w-full">
         {/* Header */}
         <div className="border-b border-[var(--color-border-subtle)] pb-8 mb-10 max-w-3xl">
-          <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
+          <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
             Executive & Pioneer Dialogue
           </span>
-          <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
             Special Interviews Archive
           </h1>
           <p className="text-base md:text-lg text-[var(--color-slate-muted)] leading-relaxed">
@@ -71,8 +71,7 @@ export default function InterviewsPage({ onJoin, onNavigate }: InterviewsPagePro
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-6">
                     <span
-                      style={{ fontFamily: "'Geist Mono', monospace" }}
-                      className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)] mb-1"
+                      className="font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)] mb-1"
                     >
                       {item.date} · Executive Dialogue
                     </span>
@@ -83,8 +82,7 @@ export default function InterviewsPage({ onJoin, onNavigate }: InterviewsPagePro
 
                 <div className="p-6">
                   <h4
-                    style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                    className="text-lg font-semibold text-[var(--color-ink)] mb-3 group-hover:text-[var(--color-brand-teal)] transition-colors leading-snug"
+                    className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-3 group-hover:text-[var(--color-brand-teal)] transition-colors leading-snug"
                   >
                     {item.topic}
                   </h4>

@@ -43,7 +43,7 @@ export default function PushNotificationPrompt({ onOptIn }: PushNotificationProm
       <div className="flex items-start justify-between gap-3 mb-2">
         <div className="flex items-center gap-2">
           <span className="w-2.5 h-2.5 rounded-full bg-[var(--color-brand-coral)] animate-ping" />
-          <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]">
+          <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]">
             Instant Regulatory Alerts
           </span>
         </div>
@@ -52,7 +52,7 @@ export default function PushNotificationPrompt({ onOptIn }: PushNotificationProm
         </button>
       </div>
 
-      <h4 style={{ fontFamily: "'Fraunces', serif" }} className="text-base font-semibold text-[var(--color-ink)] mb-1">
+      <h4 className="font-serif text-base font-semibold text-[var(--color-ink)] mb-1">
         Enable CDSCO & Breaking Policy Notifications
       </h4>
       <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-3">

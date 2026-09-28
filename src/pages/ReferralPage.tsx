@@ -231,18 +231,18 @@ export default function ReferralPage({ onJoin, onNavigate }: ReferralPageProps) 
                     <td className="py-3.5 px-4 font-semibold text-[var(--color-ink)]">{user.name}</td>
                     <td className="py-3.5 px-4 text-[var(--color-slate-muted)]">{user.role} at {user.organization}</td>
                     <td className="py-3.5 px-4">
-                      <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded-sm text-[10px] font-medium">
+                      <span className="bg-gray-100 text-gray-700 px-2 py-0.5 rounded-sm text-[11px] font-medium">
                         {user.department}
                       </span>
                     </td>
                     <td className="py-3.5 px-4 text-[var(--color-slate-muted)]">{user.joinedDate}</td>
                     <td className="py-3.5 px-4">
                       {user.status === "active" ? (
-                        <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                        <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
                           <CheckIcon size={10} /> Joined & Active
                         </span>
                       ) : (
-                        <span className="bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
+                        <span className="bg-amber-50 text-amber-700 border border-amber-200 text-[11px] font-semibold px-2 py-0.5 rounded-full inline-flex items-center gap-1">
                           ○ Invite Pending
                         </span>
                       )}

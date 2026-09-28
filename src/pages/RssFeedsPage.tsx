@@ -65,10 +65,10 @@ export default function RssFeedsPage({ onJoin, onNavigate }: RssFeedsPageProps) 
       <main className="flex-1 max-w-[var(--container-max)] mx-auto px-6 md:px-12 py-12 w-full">
         {/* Header */}
         <div className="border-b border-[var(--color-border-subtle)] pb-8 mb-10 max-w-3xl">
-          <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
+          <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
             Syndication & Data Endpoints
           </span>
-          <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
             RSS Feeds & Syndication Hub
           </h1>
           <p className="text-base md:text-lg text-[var(--color-slate-muted)] leading-relaxed">
@@ -86,12 +86,12 @@ export default function RssFeedsPage({ onJoin, onNavigate }: RssFeedsPageProps) 
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <Badge type="verified" label={feed.category} />
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[11px] text-[var(--color-slate-muted)]">
+                  <span className="font-mono text-[11px] text-[var(--color-slate-muted)]">
                     {feed.format}
                   </span>
                 </div>
 
-                <h3 style={{ fontFamily: "'Fraunces', serif" }} className="text-xl font-semibold text-[var(--color-ink)] mb-2">
+                <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-2">
                   {feed.title}
                 </h3>
                 <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-6">
@@ -108,7 +108,7 @@ export default function RssFeedsPage({ onJoin, onNavigate }: RssFeedsPageProps) 
                     {copiedFeed === feed.id ? "Copied! ✓" : "Copy Feed URL"}
                   </Button>
                 </div>
-                <div className="flex justify-between items-center text-[10px] text-[var(--color-slate-muted)] font-mono">
+                <div className="flex justify-between items-center text-[11px] text-[var(--color-slate-muted)] font-mono">
                   <span>Cadence: {feed.itemsCount}</span>
                   <span>Google News / Feedly Ready</span>
                 </div>
@@ -120,10 +120,10 @@ export default function RssFeedsPage({ onJoin, onNavigate }: RssFeedsPageProps) 
         {/* Developer / Corporate API Box */}
         <div className="p-8 bg-white border border-[var(--color-border-subtle)] rounded-sm shadow-sm flex flex-col lg:flex-row items-center justify-between gap-8">
           <div>
-            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-brand-coral)] block mb-1">
+            <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-coral)] block mb-1">
               Institutional Licensing
             </span>
-            <h3 style={{ fontFamily: "'Fraunces', serif" }} className="text-2xl font-semibold text-[var(--color-ink)] mb-2">
+            <h3 className="font-serif text-2xl font-semibold text-[var(--color-ink)] mb-2">
               Looking for JSON REST / Webhook Feeds?
             </h3>
             <p className="text-xs text-[var(--color-slate-muted)] max-w-2xl leading-relaxed">

@@ -47,8 +47,7 @@ export default function AppHeader({
                 <span>{tab.label}</span>
                 {tab.badge && (
                   <span
-                    style={{ fontFamily: "'Geist Mono', monospace" }}
-                    className={`text-[9px] px-1.5 py-0.2 rounded-sm ${
+                    className={`font-mono text-[11px] px-1.5 py-0.2 rounded-sm ${
                       isActive ? "bg-white/20 text-white" : "bg-[var(--color-border-subtle)] text-[var(--color-slate-muted)]"
                     }`}
                   >

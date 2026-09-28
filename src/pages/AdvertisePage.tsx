@@ -27,10 +27,10 @@ export default function AdvertisePage({ onJoin, onNavigate }: AdvertisePageProps
       <main className="flex-1 max-w-[var(--container-max)] mx-auto px-6 md:px-12 py-12 w-full">
         {/* Header */}
         <div className="border-b border-[var(--color-border-subtle)] pb-8 mb-10 max-w-3xl">
-          <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
+          <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
             Ecosystem Partnerships & Media Kit
           </span>
-          <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
             Advertise & Partner With Mediverse
           </h1>
           <p className="text-base md:text-lg text-[var(--color-slate-muted)] leading-relaxed">
@@ -42,10 +42,10 @@ export default function AdvertisePage({ onJoin, onNavigate }: AdvertisePageProps
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           <div className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm flex flex-col justify-between">
             <div>
-              <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] font-semibold text-[var(--color-brand-coral)] uppercase tracking-wider block mb-2">
+              <span className="font-mono text-[11px] font-semibold text-[var(--color-brand-coral)] uppercase tracking-wider block mb-2">
                 01 / Magazine Placement
               </span>
-              <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-xl font-semibold text-[var(--color-ink)] mb-3">
+              <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-3">
                 Monthly Cover & Issue Sponsorship
               </h3>
               <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-4">
@@ -59,10 +59,10 @@ export default function AdvertisePage({ onJoin, onNavigate }: AdvertisePageProps
 
           <div className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm flex flex-col justify-between">
             <div>
-              <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] font-semibold text-[var(--color-brand-teal)] uppercase tracking-wider block mb-2">
+              <span className="font-mono text-[11px] font-semibold text-[var(--color-brand-teal)] uppercase tracking-wider block mb-2">
                 02 / Live Masterclasses
               </span>
-              <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-xl font-semibold text-[var(--color-ink)] mb-3">
+              <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-3">
                 Executive Webinar Co-Hosting
               </h3>
               <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-4">
@@ -77,10 +77,10 @@ export default function AdvertisePage({ onJoin, onNavigate }: AdvertisePageProps
 
           <div className="p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm flex flex-col justify-between">
             <div>
-              <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] font-semibold text-[var(--color-brand-coral)] uppercase tracking-wider block mb-2">
+              <span className="font-mono text-[11px] font-semibold text-[var(--color-brand-coral)] uppercase tracking-wider block mb-2">
                 03 / Network Match Sponsoring
               </span>
-              <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-xl font-semibold text-[var(--color-ink)] mb-3">
+              <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-3">
                 Curated Vendor Match Placement
               </h3>
               <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-4">
@@ -95,7 +95,7 @@ export default function AdvertisePage({ onJoin, onNavigate }: AdvertisePageProps
 
         {/* Media Kit Inquiry Form */}
         <div className="max-w-2xl mx-auto bg-white border border-[var(--color-border-subtle)] rounded-sm p-8 shadow-sm">
-          <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-2xl font-semibold text-[var(--color-ink)] mb-2 text-center">
+          <h3 className="font-serif text-2xl font-semibold text-[var(--color-ink)] mb-2 text-center">
             Request the 2026 Media Kit & Rate Card
           </h3>
           <p className="text-xs text-[var(--color-slate-muted)] text-center mb-6 max-w-md mx-auto">
@@ -105,7 +105,7 @@ export default function AdvertisePage({ onJoin, onNavigate }: AdvertisePageProps
           {inquirySent ? (
             <div className="p-6 bg-[var(--color-surface)] border border-[var(--color-brand-teal)]/30 rounded-sm text-center">
               <span className="text-2xl mb-2 block">✓</span>
-              <h4 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-lg font-semibold text-[var(--color-ink)] mb-1">
+              <h4 className="font-serif text-lg font-semibold text-[var(--color-ink)] mb-1">
                 Media Kit Dispatched
               </h4>
               <p className="text-xs text-[var(--color-slate-muted)]">

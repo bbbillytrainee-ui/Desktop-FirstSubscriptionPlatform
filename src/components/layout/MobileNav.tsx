@@ -26,7 +26,7 @@ export default function MobileNav({ activeTab, onTabChange }: MobileNavProps) {
               }`}
             >
               <span className="text-base">{tab.icon}</span>
-              <span className="text-[10px] tracking-wide" style={{ fontFamily: "'Geist Mono', monospace" }}>
+              <span className="font-mono text-[11px] tracking-wide">
                 {tab.label}
               </span>
             </button>

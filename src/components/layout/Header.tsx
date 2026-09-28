@@ -111,9 +111,8 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
                     <div className="space-y-1">
                       <div className="flex items-center gap-1.5 pb-2 mb-1 border-b border-stone-100">
                         <span className="text-base">📰</span>
-                        <span 
-                          style={{ fontFamily: "'Geist Mono', monospace" }}
-                          className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]"
+                        <span
+                          className="font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]"
                         >
                           News & Intel
                         </span>
@@ -172,9 +171,8 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
                     <div className="space-y-1">
                       <div className="flex items-center gap-1.5 pb-2 mb-1 border-b border-stone-100">
                         <span className="text-base">🏢</span>
-                        <span 
-                          style={{ fontFamily: "'Geist Mono', monospace" }}
-                          className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]"
+                        <span
+                          className="font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]"
                         >
                           Industry Verticals
                         </span>
@@ -233,9 +231,8 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
                     <div className="space-y-1">
                       <div className="flex items-center gap-1.5 pb-2 mb-1 border-b border-stone-100">
                         <span className="text-base">🎥</span>
-                        <span 
-                          style={{ fontFamily: "'Geist Mono', monospace" }}
-                          className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]"
+                        <span
+                          className="font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]"
                         >
                           Webinars & Media
                         </span>
@@ -294,13 +291,12 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
                     <div className="flex flex-col justify-between space-y-2 bg-stone-50 p-3 rounded-lg border border-stone-200/70">
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <span 
-                            style={{ fontFamily: "'Geist Mono', monospace" }}
-                            className="text-[9px] font-bold uppercase tracking-wider bg-[var(--color-brand-teal)] text-white px-2 py-0.5 rounded-xs"
+                          <span
+                            className="font-mono text-[11px] font-bold uppercase tracking-wider bg-[var(--color-brand-teal)] text-white px-2 py-0.5 rounded-xs"
                           >
                             ISSUE #48
                           </span>
-                          <span className="text-[10px] font-medium text-stone-500">Current Issue</span>
+                          <span className="text-[11px] font-medium text-stone-500">Current Issue</span>
                         </div>
 
                         <div 
@@ -378,7 +374,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <span className="text-stone-500 font-normal">Search intelligence...</span>
-              <kbd className="text-[10px] font-mono bg-white border border-stone-200 px-1.5 py-0.5 rounded text-stone-500 font-semibold shadow-2xs group-hover:border-stone-300">
+              <kbd className="text-[11px] font-mono bg-white border border-stone-200 px-1.5 py-0.5 rounded text-stone-500 font-semibold shadow-2xs group-hover:border-stone-300">
                 Ctrl+K
               </kbd>
             </button>
@@ -491,12 +487,12 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
                 </svg>
                 <span>Search articles, CDMOs, news...</span>
               </span>
-              <kbd className="text-[10px] font-mono bg-white px-1.5 py-0.5 rounded border border-stone-200 text-stone-500 font-bold">⌘K</kbd>
+              <kbd className="text-[11px] font-mono bg-white px-1.5 py-0.5 rounded border border-stone-200 text-stone-500 font-bold">⌘K</kbd>
             </button>
 
             {/* Editorial Intelligence */}
             <div className="space-y-2">
-              <span className="text-[10px] font-mono uppercase tracking-wider font-bold text-[var(--color-brand-coral)] block">
+              <span className="text-[11px] font-mono uppercase tracking-wider font-bold text-[var(--color-brand-coral)] block">
                 Editorial & Magazine
               </span>
               <div className="grid grid-cols-2 gap-2">
@@ -529,7 +525,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
 
             {/* Industry Verticals */}
             <div className="space-y-2 pt-3 border-t border-stone-100">
-              <span className="text-[10px] font-mono uppercase tracking-wider font-bold text-[var(--color-brand-coral)] block">
+              <span className="text-[11px] font-mono uppercase tracking-wider font-bold text-[var(--color-brand-coral)] block">
                 Industry & Enterprise
               </span>
               <div className="grid grid-cols-2 gap-2">
@@ -550,7 +546,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
 
             {/* Network & Account */}
             <div className="space-y-2 pt-3 border-t border-stone-100">
-              <span className="text-[10px] font-mono uppercase tracking-wider font-bold text-[var(--color-brand-coral)] block">
+              <span className="text-[11px] font-mono uppercase tracking-wider font-bold text-[var(--color-brand-coral)] block">
                 Network Membership
               </span>
               <div className="flex flex-col gap-1.5">

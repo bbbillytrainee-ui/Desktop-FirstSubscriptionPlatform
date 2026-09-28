@@ -24,11 +24,11 @@ export default function WebinarsPage({ onJoin, onNavigate }: WebinarsPageProps) 
         {/* Header */}
         <div className="border-b border-[var(--color-border-subtle)] pb-8 mb-10">
           <div className="flex items-center gap-2 mb-3">
-            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)]">
+            <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)]">
               Live Intel & Masterclasses
             </span>
           </div>
-          <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
             Mediverse Executive Webinars
           </h1>
           <p className="text-base md:text-lg text-[var(--color-slate-muted)] max-w-3xl leading-relaxed">
@@ -43,11 +43,11 @@ export default function WebinarsPage({ onJoin, onNavigate }: WebinarsPageProps) 
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <Badge type="verified" label={webinar.category} />
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-medium text-[var(--color-brand-coral)]">
+                  <span className="font-mono text-xs font-medium text-[var(--color-brand-coral)]">
                     {webinar.date}
                   </span>
                 </div>
-                <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-xl font-semibold text-[var(--color-ink)] leading-snug mb-3">
+                <h3 className="font-serif text-xl font-semibold text-[var(--color-ink)] leading-snug mb-3">
                   {webinar.title}
                 </h3>
                 <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-6">
@@ -67,7 +67,7 @@ export default function WebinarsPage({ onJoin, onNavigate }: WebinarsPageProps) 
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[11px] text-[var(--color-slate-muted)]">
+                  <span className="font-mono text-[11px] text-[var(--color-slate-muted)]">
                     {webinar.time}
                   </span>
                   <Button
@@ -86,7 +86,7 @@ export default function WebinarsPage({ onJoin, onNavigate }: WebinarsPageProps) 
         {/* Host a webinar callout */}
         <div className="p-8 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
-            <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-2xl font-semibold text-[var(--color-ink)] mb-2">
+            <h3 className="font-serif text-2xl font-semibold text-[var(--color-ink)] mb-2">
               Interested in hosting a Masterclass?
             </h3>
             <p className="text-sm text-[var(--color-slate-muted)] max-w-xl">

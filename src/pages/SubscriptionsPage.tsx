@@ -40,10 +40,10 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
         
         {/* Top Hero Banner */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
+          <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-2">
             Annual Membership Plans
           </span>
-          <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-4 leading-tight">
             Simple, Transparent Pricing
           </h1>
           <p className="text-base md:text-lg text-[var(--color-slate-muted)] leading-relaxed">
@@ -91,7 +91,7 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
                   </div>
 
                   {/* Title */}
-                  <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-2xl font-bold text-[var(--color-ink)] mb-2">
+                  <h3 className="font-serif text-2xl font-bold text-[var(--color-ink)] mb-2">
                     {tier.name}
                   </h3>
                   <p className="text-xs text-[var(--color-slate-muted)] mb-5 min-h-[38px] leading-relaxed">
@@ -107,11 +107,11 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
                       {!isFree && <span className="text-xs font-semibold text-[var(--color-slate-muted)]">{period}</span>}
                     </div>
                     {!isFree ? (
-                      <p className="text-[10px] text-[var(--color-brand-teal)] font-semibold mt-1">
+                      <p className="text-[11px] text-[var(--color-brand-teal)] font-semibold mt-1">
                         GST invoice ready for expense reporting
                       </p>
                     ) : (
-                      <p className="text-[10px] text-stone-500 font-medium mt-1">
+                      <p className="text-[11px] text-stone-500 font-medium mt-1">
                         No credit card required
                       </p>
                     )}
@@ -119,7 +119,7 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
 
                   {/* Features List */}
                   <div className="border-t border-stone-100 pt-5 mb-6">
-                    <span className="text-[10px] font-bold uppercase font-mono text-stone-400 block mb-3 tracking-wider">
+                    <span className="text-[11px] font-bold uppercase font-mono text-stone-400 block mb-3 tracking-wider">
                       Included Features:
                     </span>
                     <ul className="space-y-2.5 text-xs text-[var(--color-ink)] font-medium">
@@ -159,11 +159,11 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
             </div>
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]">
+                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)]">
                   Invite Colleagues & Colleagues
                 </span>
               </div>
-              <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-xl font-bold text-[var(--color-ink)] mb-1">
+              <h3 className="font-serif text-xl font-bold text-[var(--color-ink)] mb-1">
                 Earn Free Months with Referral Program
               </h3>
               <p className="text-xs text-[var(--color-slate-muted)] max-w-xl leading-relaxed">

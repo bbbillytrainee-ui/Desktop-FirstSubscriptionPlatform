@@ -25,14 +25,12 @@ export default function Footer({ onNavigate }: FooterProps) {
             </p>
             <div className="flex items-center gap-3 pt-2">
               <span
-                style={{ fontFamily: "'Geist Mono', monospace" }}
-                className="text-[10px] uppercase font-bold tracking-wider px-2 py-1 bg-white/10 border border-white/15 rounded-xs text-emerald-400"
+                className="font-mono text-[11px] uppercase font-bold tracking-wider px-2 py-1 bg-white/10 border border-white/15 rounded-xs text-emerald-400"
               >
                 Monthly Circulation
               </span>
               <span
-                style={{ fontFamily: "'Geist Mono', monospace" }}
-                className="text-[10px] uppercase font-bold tracking-wider px-2 py-1 bg-[var(--color-brand-coral)]/20 border border-[var(--color-brand-coral)]/40 rounded-xs text-[var(--color-brand-coral)]"
+                className="font-mono text-[11px] uppercase font-bold tracking-wider px-2 py-1 bg-[var(--color-brand-coral)]/20 border border-[var(--color-brand-coral)]/40 rounded-xs text-[var(--color-brand-coral)]"
               >
                 Verified Directory
               </span>
@@ -42,8 +40,7 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Col 2: Magazine & Editorial (3 cols) */}
           <div className="md:col-span-3 flex flex-col gap-2.5">
             <span
-              style={{ fontFamily: "'Geist Mono', monospace" }}
-              className="text-[10px] font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] mb-1"
+              className="font-mono text-[11px] font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] mb-1"
             >
               Magazine & Editorial
             </span>
@@ -67,8 +64,7 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Col 3: Industry & Intelligence (2 cols) */}
           <div className="md:col-span-2 flex flex-col gap-2.5">
             <span
-              style={{ fontFamily: "'Geist Mono', monospace" }}
-              className="text-[10px] font-semibold tracking-[0.14em] uppercase text-cyan-400 mb-1"
+              className="font-mono text-[11px] font-semibold tracking-[0.14em] uppercase text-cyan-400 mb-1"
             >
               Industry & Events
             </span>
@@ -92,8 +88,7 @@ export default function Footer({ onNavigate }: FooterProps) {
           {/* Col 4: Network & Corporate (3 cols) */}
           <div className="md:col-span-3 flex flex-col gap-2.5">
             <span
-              style={{ fontFamily: "'Geist Mono', monospace" }}
-              className="text-[10px] font-semibold tracking-[0.14em] uppercase text-cyan-400 mb-1"
+              className="font-mono text-[11px] font-semibold tracking-[0.14em] uppercase text-cyan-400 mb-1"
             >
               Network & Corporate
             </span>
@@ -126,7 +121,7 @@ export default function Footer({ onNavigate }: FooterProps) {
         <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-stone-400 font-mono">
           <div>© 2026 Mediverse Life Sciences. All rights reserved.</div>
 
-          <div className="flex items-center gap-4 text-[10px] flex-wrap justify-center text-stone-400">
+          <div className="flex items-center gap-4 text-[11px] flex-wrap justify-center text-stone-400">
             <span>DPDP Act, 2023 Compliant</span>
             <span>·</span>
             <span>Explicit Consent Matching</span>

@@ -163,7 +163,7 @@ export default function AddArticleModal({ isOpen, onClose, onAddArticle }: AddAr
 
         {/* IMAGE UPLOAD & PASTE SECTION */}
         <div className="p-3 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm space-y-3">
-          <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)] block">
+          <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--color-brand-coral)] block">
             📷 Article Image Selection
           </span>
 
@@ -198,7 +198,7 @@ export default function AddArticleModal({ isOpen, onClose, onAddArticle }: AddAr
           {/* Image Live Preview Box */}
           {imagePreview && (
             <div className="mt-2 pt-2 border-t border-[var(--color-border-subtle)]">
-              <span className="text-[10px] font-mono text-[var(--color-slate-muted)] block mb-1">
+              <span className="text-[11px] font-mono text-[var(--color-slate-muted)] block mb-1">
                 Image Live Preview:
               </span>
               <div className="h-36 w-full rounded overflow-hidden border border-stone-300 relative bg-stone-100">
@@ -206,7 +206,7 @@ export default function AddArticleModal({ isOpen, onClose, onAddArticle }: AddAr
                 <button
                   type="button"
                   onClick={() => { setImagePreview(""); setImageUrl("") }}
-                  className="absolute top-2 right-2 bg-black/70 text-white text-[10px] px-2 py-0.5 rounded font-mono hover:bg-red-600"
+                  className="absolute top-2 right-2 bg-black/70 text-white text-[11px] px-2 py-0.5 rounded font-mono hover:bg-red-600"
                 >
                   Remove
                 </button>

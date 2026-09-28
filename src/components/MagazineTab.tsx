@@ -369,8 +369,8 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
     return (
       <div className="bg-[var(--color-section-dark)] p-5 rounded-sm text-white flex flex-col justify-between h-full relative overflow-hidden">
         <div className="flex justify-between items-center border-b border-white/10 pb-3 mb-4">
-          <span className="text-[10px] uppercase font-semibold tracking-wider text-[var(--color-brand-coral-on-dark)]">FDA AI Regulatory Flow</span>
-          <span className="text-[10px] text-white/50">Interactive Lifecycle</span>
+          <span className="text-[11px] uppercase font-semibold tracking-wider text-[var(--color-brand-coral-on-dark)]">FDA AI Regulatory Flow</span>
+          <span className="text-[11px] text-white/50">Interactive Lifecycle</span>
         </div>
         <div className="grid grid-cols-4 gap-2 my-2">
           {steps.map((step, idx) => (
@@ -383,7 +383,7 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
                   : "bg-white/5 border-white/10 text-white/70 hover:bg-white/10"
               }`}
             >
-              <div className="text-[10px] font-semibold">{step.label}</div>
+              <div className="text-[11px] font-semibold">{step.label}</div>
             </button>
           ))}
         </div>
@@ -400,8 +400,8 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
     return (
       <div className="bg-[var(--color-navy-deep)] p-5 rounded-sm text-white flex flex-col justify-between h-full relative overflow-hidden">
         <div className="flex justify-between items-center border-b border-white/10 pb-3 mb-2">
-          <span className="text-[10px] uppercase font-semibold tracking-wider text-[var(--color-brand-coral-on-dark)]">CRISPR IP Stack Cluster</span>
-          <span className="text-[10px] text-white/50">Broad vs UC Berkeley vs Intellia</span>
+          <span className="text-[11px] uppercase font-semibold tracking-wider text-[var(--color-brand-coral-on-dark)]">CRISPR IP Stack Cluster</span>
+          <span className="text-[11px] text-white/50">Broad vs UC Berkeley vs Intellia</span>
         </div>
         <div className="relative h-32 flex items-center justify-center">
           <svg className="w-full h-full" viewBox="0 0 300 120">
@@ -423,7 +423,7 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
             <text x="150" y="94" textAnchor="middle" fill="#E2E8F0" fontSize="8">Intellia Delivery</text>
           </svg>
         </div>
-        <div className="text-[10px] text-white/60 text-center">Click article to view license stacking analysis & royalty breakdown</div>
+        <div className="text-[11px] text-white/60 text-center">Click article to view license stacking analysis & royalty breakdown</div>
       </div>
     )
   }
@@ -433,12 +433,12 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
     return (
       <div className="bg-[var(--color-section-dark)] p-5 rounded-sm text-white flex flex-col justify-between h-full">
         <div className="flex justify-between items-center border-b border-white/10 pb-2 mb-2">
-          <span className="text-[10px] uppercase font-semibold tracking-wider text-[var(--color-brand-coral-on-dark)]">GLP-1 Phase II Velocity</span>
-          <span className="text-[10px] text-white/50">42 Molecules</span>
+          <span className="text-[11px] uppercase font-semibold tracking-wider text-[var(--color-brand-coral-on-dark)]">GLP-1 Phase II Velocity</span>
+          <span className="text-[11px] text-white/50">42 Molecules</span>
         </div>
         <div className="h-28 flex flex-col justify-around py-1">
           <div>
-            <div className="flex justify-between text-[10px] mb-1">
+            <div className="flex justify-between text-[11px] mb-1">
               <span className="text-white/80">Oral Small Molecules</span>
               <span className="text-[var(--color-brand-coral-on-dark)] font-semibold">High Conviction</span>
             </div>
@@ -447,7 +447,7 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
             </div>
           </div>
           <div>
-            <div className="flex justify-between text-[10px] mb-1">
+            <div className="flex justify-between text-[11px] mb-1">
               <span className="text-white/80">Dual/Triple Agonists (NASH+Obesity)</span>
               <span className="text-white/60">Medium Conviction</span>
             </div>
@@ -456,7 +456,7 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
             </div>
           </div>
           <div>
-            <div className="flex justify-between text-[10px] mb-1">
+            <div className="flex justify-between text-[11px] mb-1">
               <span className="text-white/80">Weekly Injectables</span>
               <span className="text-rose-400">Crowded / Commoditized</span>
             </div>
@@ -474,8 +474,8 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
     return (
       <div className="bg-[var(--color-navy-deep)] p-5 rounded-sm text-white flex flex-col justify-between h-full">
         <div className="flex justify-between items-center border-b border-white/10 pb-2 mb-2">
-          <span className="text-[10px] uppercase font-semibold tracking-wider text-[var(--color-brand-coral-on-dark)]">Surgical Autonomy Level</span>
-          <span className="text-[10px] text-white/50">Level 1 - 5 Scale</span>
+          <span className="text-[11px] uppercase font-semibold tracking-wider text-[var(--color-brand-coral-on-dark)]">Surgical Autonomy Level</span>
+          <span className="text-[11px] text-white/50">Level 1 - 5 Scale</span>
         </div>
         <div className="flex items-center justify-around my-3">
           {[1, 2, 3, 4, 5].map((lvl) => (
@@ -491,13 +491,13 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
               >
                 L{lvl}
               </div>
-              <span className="text-[9px] text-white/60">
+              <span className="text-[11px] text-white/60">
                 {lvl === 1 ? "Manual" : lvl === 2 ? "Assist" : lvl === 3 ? "Task Auto" : lvl === 4 ? "Conditional" : "Full"}
               </span>
             </div>
           ))}
         </div>
-        <div className="bg-[var(--color-brand-coral-on-dark)]/10 border border-[var(--color-brand-coral-on-dark)]/30 p-2 rounded text-center text-[10px] text-[var(--color-brand-coral-on-dark)]">
+        <div className="bg-[var(--color-brand-coral-on-dark)]/10 border border-[var(--color-brand-coral-on-dark)]/30 p-2 rounded text-center text-[11px] text-[var(--color-brand-coral-on-dark)]">
           Level 3 Autonomy (Autonomous Suturing) target: Commercial launch by 2030
         </div>
       </div>
@@ -641,7 +641,7 @@ function AudioPlayerBar({
             <div className={`eq-bar eq-bar-4 ${!isPlaying && "!animation-none"}`} />
           </div>
           <div className="min-w-0">
-            <div className="text-[10px] text-[var(--color-brand-coral-on-dark)] uppercase font-semibold tracking-wider">AI Executive Audio Brief</div>
+            <div className="text-[11px] text-[var(--color-brand-coral-on-dark)] uppercase font-semibold tracking-wider">AI Executive Audio Brief</div>
             <div className="text-xs font-medium truncate text-white">{article.title}</div>
           </div>
         </div>
@@ -660,7 +660,7 @@ function AudioPlayerBar({
           onChange={(e) => setProgress(Number(e.target.value))}
           className="w-full h-1 bg-white/20 accent-[var(--color-brand-coral-on-dark)] rounded cursor-pointer"
         />
-        <div className="flex justify-between text-[10px] text-white/50 mt-1">
+        <div className="flex justify-between text-[11px] text-white/50 mt-1">
           <span>{formatTime(currentSeconds)}</span>
           <span>{article.audioTime}</span>
         </div>
@@ -740,7 +740,7 @@ function ArticleModal({
           {/* Reader Action Bar */}
           <div className="sticky top-0 z-30 px-6 py-3 border-b border-black/10 bg-inherit flex items-center justify-between backdrop-blur-md">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-semibold tracking-wider uppercase text-[var(--reader-accent)]">{article.section}</span>
+              <span className="text-[11px] font-semibold tracking-wider uppercase text-[var(--reader-accent)]">{article.section}</span>
               <span className="text-xs opacity-40">•</span>
               <span className="text-xs opacity-70">{article.readTime} read</span>
             </div>
@@ -802,7 +802,7 @@ function ArticleModal({
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
                 <div className="w-4 h-px bg-[var(--reader-accent)]" />
-                <span className="text-[10px] font-semibold tracking-[0.12em] uppercase text-[var(--reader-accent)]">{article.category}</span>
+                <span className="text-[11px] font-semibold tracking-[0.12em] uppercase text-[var(--reader-accent)]">{article.category}</span>
                 <span className="text-xs opacity-50">·</span>
                 <span className="text-xs font-medium opacity-70">{article.date}</span>
               </div>
@@ -811,8 +811,7 @@ function ArticleModal({
 
             {/* Title */}
             <h1
-              style={{ fontFamily: "var(--font-serif)", letterSpacing: "-0.02em" }}
-              className="article-title text-2xl md:text-[34px] font-semibold leading-tight mb-6"
+              className="font-serif tracking-[-0.02em] article-title text-2xl md:text-[34px] font-semibold leading-tight mb-6"
             >
               {article.title}
             </h1>
@@ -854,7 +853,7 @@ function ArticleModal({
               <div className="mt-10 p-5 rounded bg-black/5 border border-black/10 grid grid-cols-3 gap-4 text-center">
                 {article.keyMetrics.map((m, idx) => (
                   <div key={idx}>
-                    <div className="text-[10px] uppercase tracking-wider opacity-60 mb-1">{m.label}</div>
+                    <div className="text-[11px] uppercase tracking-wider opacity-60 mb-1">{m.label}</div>
                     <div className="text-base font-bold text-[var(--reader-accent)]">{m.value}</div>
                   </div>
                 ))}
@@ -911,7 +910,7 @@ function CSuiteDigestModal({ onClose, onSelectArticle }: { onClose: () => void; 
           <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-[var(--color-brand-coral-on-dark)]" />
-              <h2 style={{ fontFamily: "var(--font-serif)" }} className="text-xl md:text-2xl font-semibold text-[var(--color-brand-coral-on-dark)]">
+              <h2 className="font-serif text-xl md:text-2xl font-semibold text-[var(--color-brand-coral-on-dark)]">
                 60-Second C-Suite Executive Briefing
               </h2>
             </div>
@@ -930,8 +929,8 @@ function CSuiteDigestModal({ onClose, onSelectArticle }: { onClose: () => void; 
                 className="p-4 rounded border border-white/10 bg-white/5 hover:border-[var(--color-brand-coral-on-dark)]/60 transition-colors cursor-pointer group"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-semibold text-[var(--color-brand-coral-on-dark)] uppercase tracking-wider">{art.section} · {art.category}</span>
-                  <span className="text-[10px] text-white/50 group-hover:text-[var(--color-brand-coral-on-dark)] transition-colors">Read Full Article →</span>
+                  <span className="text-[11px] font-semibold text-[var(--color-brand-coral-on-dark)] uppercase tracking-wider">{art.section} · {art.category}</span>
+                  <span className="text-[11px] text-white/50 group-hover:text-[var(--color-brand-coral-on-dark)] transition-colors">Read Full Article →</span>
                 </div>
                 <h3 className="text-sm font-semibold text-white mb-2 leading-snug">{art.title}</h3>
                 <ul className="space-y-1">
@@ -975,7 +974,7 @@ function NotebookDrawer({
         <div>
           <div className="flex items-center justify-between pb-4 border-b border-[var(--color-border-subtle)] mb-6">
             <div className="flex items-center gap-2">
-              <span className="text-base font-semibold" style={{ fontFamily: "var(--font-serif)" }}>Saved Executive Notebook</span>
+              <span className="font-serif text-base font-semibold">Saved Executive Notebook</span>
               <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-brand-teal)] text-[var(--color-paper)] font-bold">{savedArticles.length}</span>
             </div>
             <button onClick={onClose} className="text-[var(--color-slate-muted)] hover:text-[var(--color-ink)]">✕</button>
@@ -990,7 +989,7 @@ function NotebookDrawer({
               {savedArticles.map((art) => (
                 <div key={art.id} className="p-4 rounded border border-[var(--color-border-subtle)] bg-white shadow-sm flex flex-col justify-between">
                   <div className="flex justify-between items-start mb-2">
-                    <span className="text-[10px] font-semibold text-[var(--color-brand-coral)] uppercase tracking-wider">{art.section}</span>
+                    <span className="text-[11px] font-semibold text-[var(--color-brand-coral)] uppercase tracking-wider">{art.section}</span>
                     <button onClick={() => onRemove(art.id)} className="text-xs text-rose-500 hover:underline">Remove</button>
                   </div>
                   <h4 className="text-xs font-semibold text-[var(--color-ink)] mb-3 line-clamp-2">{art.title}</h4>
@@ -1006,7 +1005,7 @@ function NotebookDrawer({
           )}
         </div>
 
-        <div className="pt-4 border-t border-[var(--color-border-subtle)] text-[10px] text-[var(--color-slate-muted)] text-center">
+        <div className="pt-4 border-t border-[var(--color-border-subtle)] text-[11px] text-[var(--color-slate-muted)] text-center">
           Mediverse Executive Notebook · Issue 24 Sync
         </div>
       </div>
@@ -1112,7 +1111,7 @@ export default function MagazineTab() {
           >
             <span>📓 Notebook</span>
             {savedArticles.length > 0 && (
-              <span className="w-4 h-4 rounded-full bg-[var(--color-brand-coral)] text-white font-bold text-[10px] flex items-center justify-center">
+              <span className="w-4 h-4 rounded-full bg-[var(--color-brand-coral)] text-white font-bold text-[11px] flex items-center justify-center">
                 {savedArticles.length}
               </span>
             )}
@@ -1176,9 +1175,9 @@ export default function MagazineTab() {
             <div className="absolute right-0 top-0 w-32 h-32 bg-[var(--color-brand-coral-on-dark)]/10 rounded-full blur-2xl pointer-events-none" />
             <div className="flex items-center gap-2 mb-3">
               <div className="w-4 h-px bg-[var(--color-brand-coral-on-dark)]" />
-              <span className="text-[10px] font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral-on-dark)]">Editor's Note · Issue 24</span>
+              <span className="text-[11px] font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral-on-dark)]">Editor's Note · Issue 24</span>
             </div>
-            <h3 style={{ fontFamily: "var(--font-serif)" }} className="text-xl md:text-2xl font-semibold mb-3">
+            <h3 className="font-serif text-xl md:text-2xl font-semibold mb-3">
               {EDITORS_LETTER.title}
             </h3>
             <p className="text-xs md:text-sm leading-relaxed text-[rgba(248,246,240,0.8)] mb-4">{EDITORS_LETTER.body}</p>
@@ -1214,12 +1213,11 @@ export default function MagazineTab() {
                     </div>
                     <div>
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-brand-coral)]">{heroArticle.category}</span>
+                        <span className="text-[11px] font-semibold uppercase tracking-wider text-[var(--color-brand-coral)]">{heroArticle.category}</span>
                         <span className="text-xs text-[var(--color-slate-muted)]">· {heroArticle.readTime} read</span>
                       </div>
                       <h2
-                        style={{ fontFamily: "var(--font-serif)" }}
-                        className="text-xl md:text-2xl font-semibold leading-tight text-[var(--color-ink)] mb-3 group-hover:text-[var(--color-slate-muted)] transition-colors"
+                        className="font-serif text-xl md:text-2xl font-semibold leading-tight text-[var(--color-ink)] mb-3 group-hover:text-[var(--color-slate-muted)] transition-colors"
                       >
                         {heroArticle.title}
                       </h2>
@@ -1231,7 +1229,7 @@ export default function MagazineTab() {
                         </div>
                         <button
                           onClick={(e) => { e.stopPropagation(); setActiveAudioArticle(heroArticle); }}
-                          className="px-2.5 py-1 bg-[var(--color-brand-coral)]/20 text-[var(--color-ink)] rounded font-semibold text-[10px] hover:bg-[var(--color-brand-coral)]"
+                          className="px-2.5 py-1 bg-[var(--color-brand-coral)]/20 text-[var(--color-ink)] rounded font-semibold text-[11px] hover:bg-[var(--color-brand-coral)]"
                         >
                           🔊 Listen
                         </button>
@@ -1253,13 +1251,12 @@ export default function MagazineTab() {
                       <div className="h-36 rounded overflow-hidden mb-4">
                         <DynamicArticleGraphic articleId={article.id} />
                       </div>
-                      <div className="flex items-center justify-between text-[10px] mb-2">
+                      <div className="flex items-center justify-between text-[11px] mb-2">
                         <span className="font-semibold text-[var(--color-brand-coral)] uppercase tracking-wider">{article.section} · {article.category}</span>
                         <span className="text-[var(--color-slate-muted)]">{article.readTime}</span>
                       </div>
                       <h3
-                        style={{ fontFamily: "var(--font-serif)" }}
-                        className="text-base font-semibold leading-snug text-[var(--color-ink)] mb-2 group-hover:text-[var(--color-slate-muted)] transition-colors"
+                        className="font-serif text-base font-semibold leading-snug text-[var(--color-ink)] mb-2 group-hover:text-[var(--color-slate-muted)] transition-colors"
                       >
                         {article.title}
                       </h3>
@@ -1270,7 +1267,7 @@ export default function MagazineTab() {
                       <span className="text-[11px] font-medium text-[var(--color-ink)]">{article.byline}</span>
                       <button
                         onClick={(e) => { e.stopPropagation(); setActiveAudioArticle(article); }}
-                        className="text-[10px] px-2 py-0.5 bg-[var(--color-surface)] hover:bg-[var(--color-brand-coral)] rounded font-medium transition-colors"
+                        className="text-[11px] px-2 py-0.5 bg-[var(--color-surface)] hover:bg-[var(--color-brand-coral)] rounded font-medium transition-colors"
                       >
                         🔊 Brief
                       </button>
@@ -1288,8 +1285,8 @@ export default function MagazineTab() {
                   className="break-inside-avoid pb-6 border-b border-[var(--color-border-subtle)] cursor-pointer group"
                   onClick={() => setSelectedArticle(article)}
                 >
-                  <span className="text-[10px] font-bold text-[var(--color-brand-coral)] uppercase tracking-wider block mb-1">{article.category}</span>
-                  <h3 style={{ fontFamily: "var(--font-serif)" }} className="text-lg font-semibold leading-snug mb-2 group-hover:underline">
+                  <span className="text-[11px] font-bold text-[var(--color-brand-coral)] uppercase tracking-wider block mb-1">{article.category}</span>
+                  <h3 className="font-serif text-lg font-semibold leading-snug mb-2 group-hover:underline">
                     {article.title}
                   </h3>
                   <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-3">{article.excerpt}</p>
@@ -1310,7 +1307,7 @@ export default function MagazineTab() {
             <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-3">
               Unlimited access to monthly drops, full editorial issue archives, regulatory briefs, and custom executive downloads.
             </p>
-            <div className="text-[10px] text-[var(--color-slate-muted)] border-t border-[var(--color-brand-coral)]/20 pt-2">
+            <div className="text-[11px] text-[var(--color-slate-muted)] border-t border-[var(--color-brand-coral)]/20 pt-2">
               Next Drop: September 1, 2026
             </div>
           </div>
@@ -1326,10 +1323,10 @@ export default function MagazineTab() {
                 <div key={i} className="flex items-center justify-between p-2 rounded hover:bg-[var(--color-paper)] transition-colors cursor-pointer">
                   <div>
                     <div className="text-xs font-semibold text-[var(--color-ink)]">{d.label}</div>
-                    <div className="text-[10px] text-[var(--color-slate-muted)]">{d.date} · {d.items} briefings</div>
+                    <div className="text-[11px] text-[var(--color-slate-muted)]">{d.date} · {d.items} briefings</div>
                   </div>
                   {d.unread > 0 && (
-                    <span className="w-5 h-5 rounded-full bg-[var(--color-brand-coral)] text-white text-[10px] font-bold flex items-center justify-center">
+                    <span className="w-5 h-5 rounded-full bg-[var(--color-brand-coral)] text-white text-[11px] font-bold flex items-center justify-center">
                       {d.unread}
                     </span>
                   )}
@@ -1352,7 +1349,7 @@ export default function MagazineTab() {
                   </div>
                   <div>
                     <div className="text-xs font-semibold text-[var(--color-ink)]">{c.name}</div>
-                    <div className="text-[10px] text-[var(--color-slate-muted)]">{c.org} · {c.topic}</div>
+                    <div className="text-[11px] text-[var(--color-slate-muted)]">{c.org} · {c.topic}</div>
                   </div>
                 </div>
               ))}

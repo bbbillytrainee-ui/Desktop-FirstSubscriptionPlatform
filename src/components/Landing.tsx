@@ -447,20 +447,18 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             <div className="w-9 h-9 rounded-full border-2 border-white bg-cyan-700 flex items-center justify-center font-bold text-xs shadow-md">
               VS
             </div>
-            <div className="w-9 h-9 rounded-full border-2 border-white bg-slate-800 flex items-center justify-center text-[10px] font-mono font-bold shadow-md">
+            <div className="w-9 h-9 rounded-full border-2 border-white bg-slate-800 flex items-center justify-center text-[11px] font-mono font-bold shadow-md">
               +34k
             </div>
           </div>
 
           <span
-            style={{ fontFamily: "'Geist Mono', monospace" }}
-            className="text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-brand-coral-on-dark)] block mb-3.5"
+            className="font-mono text-xs font-bold tracking-[0.2em] uppercase text-[var(--color-brand-coral-on-dark)] block mb-3.5"
           >
             Join Mediverse Life Sciences
           </span>
           <h2
-            style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-5 leading-tight text-white"
+            className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold mb-5 leading-tight text-white"
           >
             The publication &amp; network for healthcare decision-makers.
           </h2>

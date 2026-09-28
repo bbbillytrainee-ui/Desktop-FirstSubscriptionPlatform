@@ -27,15 +27,13 @@ export default function Logo({ size = "md", inverse = false, className = "" }: L
       </div>
       <div className="flex flex-col justify-center">
         <span
-          className={`font-semibold tracking-tight leading-none ${textSizeClass} ${textColor}`}
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+          className={`font-serif font-semibold tracking-tight leading-none ${textSizeClass} ${textColor}`}
         >
           Mediverse
 
         </span>
         <span
-          className={`text-[9px] font-medium tracking-[0.18em] uppercase ${tagColor} mt-0.5`}
-          style={{ fontFamily: "'Geist Mono', monospace" }}
+          className={`font-mono text-[11px] font-medium tracking-[0.18em] uppercase ${tagColor} mt-0.5`}
         >
           Life Sciences
         </span>

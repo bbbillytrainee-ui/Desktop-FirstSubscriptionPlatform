@@ -36,7 +36,7 @@ export default function AuthorProfileModal({
           {/* Identity Info */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap mb-1">
-              <h3 style={{ fontFamily: "'Fraunces', serif" }} className="text-xl font-bold text-white leading-tight">
+              <h3 className="font-serif text-xl font-bold text-white leading-tight">
                 {author.name}
               </h3>
               {author.isContributor && <Badge type="pro" label="Verified Contributor" />}
@@ -47,7 +47,7 @@ export default function AuthorProfileModal({
             </p>
 
             {author.credentials && (
-              <p style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[11px] text-white/70 mt-1">
+              <p className="font-mono text-[11px] text-white/70 mt-1">
                 🎓 {author.credentials} {author.location && `· 📍 ${author.location}`}
               </p>
             )}
@@ -56,7 +56,7 @@ export default function AuthorProfileModal({
 
         {/* Professional Bio */}
         <div className="space-y-2">
-          <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-brand-coral)] tracking-wider block">
+          <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-coral)] tracking-wider block">
             Executive Biography & Track Record
           </span>
           <p className="text-xs text-[var(--color-ink)] leading-relaxed bg-[var(--color-surface)] p-3 rounded border border-[var(--color-border-subtle)]">
@@ -67,7 +67,7 @@ export default function AuthorProfileModal({
         {/* Expertise Tags */}
         {author.expertise && author.expertise.length > 0 && (
           <div>
-            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[10px] uppercase font-bold text-[var(--color-brand-teal)] tracking-wider block mb-2">
+            <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-teal)] tracking-wider block mb-2">
               Domain Expertise & Specializations
             </span>
             <div className="flex items-center gap-1.5 flex-wrap">
@@ -102,7 +102,7 @@ export default function AuthorProfileModal({
         {/* Articles Written By Writer */}
         <div className="space-y-3 pt-3 border-t border-[var(--color-border-subtle)]">
           <div className="flex items-center justify-between">
-            <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-brand-teal)]">
+            <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[var(--color-brand-teal)]">
               Published Articles by {author.name} ({authoredArticles.length})
             </span>
           </div>
@@ -119,10 +119,10 @@ export default function AuthorProfileModal({
                   className="p-3 bg-white border border-stone-200 rounded-lg hover:border-[var(--color-brand-teal)]/60 cursor-pointer transition-all flex items-center justify-between gap-3 group"
                 >
                   <div className="min-w-0 flex-1">
-                    <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-[9px] font-bold uppercase text-[var(--color-brand-coral)] block mb-0.5">
+                    <span className="font-mono text-[11px] font-bold uppercase text-[var(--color-brand-coral)] block mb-0.5">
                       {art.category} · {art.readingTime}
                     </span>
-                    <h4 style={{ fontFamily: "'Fraunces', serif" }} className="text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)] truncate">
+                    <h4 className="font-serif text-xs font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)] truncate">
                       {art.title}
                     </h4>
                   </div>

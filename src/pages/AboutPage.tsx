@@ -12,10 +12,10 @@ export default function AboutPage({ onJoin, onNavigate }: AboutPageProps) {
     <div className="min-h-screen bg-[var(--color-paper)] flex flex-col">
       <Header onJoin={onJoin} onSignIn={onJoin} onNavigate={onNavigate} />
       <main className="flex-1 max-w-[var(--article-max)] mx-auto px-6 py-12 w-full">
-        <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-3">
+        <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] block mb-3">
           About Mediverse Life Sciences
         </span>
-        <h1 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-6 leading-tight">
+        <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold text-[var(--color-ink)] mb-6 leading-tight">
           Editorial Judgement Plus Useful Connection
         </h1>
 
@@ -35,7 +35,7 @@ export default function AboutPage({ onJoin, onNavigate }: AboutPageProps) {
         </div>
 
         <div className="p-8 bg-[var(--color-surface)] border border-[var(--color-border-subtle)] rounded-sm text-center">
-          <h3 style={{ fontFamily: "'Fraunces', Georgia, serif" }} className="text-2xl font-semibold mb-3">
+          <h3 className="font-serif text-2xl font-semibold mb-3">
             Ready to join the network?
           </h3>
           <p className="text-sm text-[var(--color-slate-muted)] mb-6">

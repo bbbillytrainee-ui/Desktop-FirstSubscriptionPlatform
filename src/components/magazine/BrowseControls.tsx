@@ -31,13 +31,13 @@ export default function BrowseControls({
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 py-4 mb-8 border-y border-[var(--color-border-subtle)]">
       <div className="flex items-center gap-3">
-        <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs text-[var(--color-slate-muted)]">
+        <span className="font-mono text-xs text-[var(--color-slate-muted)]">
           Sector:
         </span>
         <FilterBar options={categoryOptions} activeId={selectedCategory} onChange={onCategoryChange} />
       </div>
       <div className="flex items-center gap-3">
-        <span style={{ fontFamily: "'Geist Mono', monospace" }} className="text-xs text-[var(--color-slate-muted)]">
+        <span className="font-mono text-xs text-[var(--color-slate-muted)]">
           Format:
         </span>
         <FilterBar options={formatOptions} activeId={selectedFormat} onChange={onFormatChange} />

@@ -33,8 +33,7 @@ export default function Drawer({ isOpen, onClose, title, children, className = "
           {title && (
             <div className="p-6 border-b border-[var(--color-border-subtle)] flex items-center justify-between flex-shrink-0">
               <span
-                style={{ fontFamily: "'Geist Mono', monospace" }}
-                className="text-[10px] font-medium tracking-[0.12em] uppercase text-[var(--color-slate-muted)]"
+                className="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-[var(--color-slate-muted)]"
               >
                 {title}
               </span>
