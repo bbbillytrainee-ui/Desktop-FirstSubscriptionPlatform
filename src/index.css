@@ -3,7 +3,8 @@
 
 @font-face {
   font-family: 'Fraunces';
-  src: url('../ilearn-cri-brand-kit/fonts/Fraunces.ttf') format('truetype');
+  src: url('../ilearn-cri-brand-kit/fonts/Fraunces.subset.woff2') format('woff2'),
+       url('../ilearn-cri-brand-kit/fonts/Fraunces.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -11,7 +12,8 @@
 
 @font-face {
   font-family: 'Geist';
-  src: url('../ilearn-cri-brand-kit/fonts/Geist.ttf') format('truetype');
+  src: url('../ilearn-cri-brand-kit/fonts/Geist.subset.woff2') format('woff2'),
+       url('../ilearn-cri-brand-kit/fonts/Geist.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -19,7 +21,8 @@
 
 @font-face {
   font-family: 'Geist Mono';
-  src: url('../ilearn-cri-brand-kit/fonts/GeistMono.ttf') format('truetype');
+  src: url('../ilearn-cri-brand-kit/fonts/GeistMono.subset.woff2') format('woff2'),
+       url('../ilearn-cri-brand-kit/fonts/GeistMono.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
