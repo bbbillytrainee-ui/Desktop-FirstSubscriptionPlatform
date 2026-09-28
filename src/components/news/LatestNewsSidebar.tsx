@@ -15,6 +15,9 @@ export default function LatestNewsSidebar({ onSubscribe }: LatestNewsSidebarProp
   const [email, setEmail] = useState("")
   const [subscribed, setSubscribed] = useState(false)
   const [expandedId, setExpandedId] = useState<string | null>(null)
+  // Below lg the feed stacks above the dossiers: show the latest 3 until the reader asks for more
+  const [showAll, setShowAll] = useState(false)
+  const PREVIEW = 3
   const [hovered, setHovered] = useState(false)
   const [focused, setFocused] = useState(false)
 
@@ -64,7 +67,7 @@ export default function LatestNewsSidebar({ onSubscribe }: LatestNewsSidebarProp
         </p>
 
         <ul className="divide-y divide-[var(--border-subtle)]">
-          {items.map(item => {
+          {items.map((item, index) => {
             const isExpanded = expandedId === item.id
             const panelId = `feed-panel-${item.id}`
             const verified = isOfficialSource(item.source)
@@ -72,7 +75,7 @@ export default function LatestNewsSidebar({ onSubscribe }: LatestNewsSidebarProp
               <li
                 key={item.id}
                 data-tone={toneFor(item.category)}
-                className={`feed-row relative ${item.isNew ? "feed-item-enter feed-flash" : ""} ${isExpanded ? "is-open" : ""}`}
+                className={`feed-row relative ${item.isNew ? "feed-item-enter feed-flash" : ""} ${isExpanded ? "is-open" : ""} ${!showAll && index >= PREVIEW ? "max-lg:hidden" : ""}`}
               >
                 {/* category rail */}
                 <span aria-hidden="true" className="absolute left-0 top-3 bottom-3 w-[3px] rounded-r-full bg-[var(--tone-rail)]" />
@@ -147,6 +150,16 @@ export default function LatestNewsSidebar({ onSubscribe }: LatestNewsSidebarProp
             )
           })}
         </ul>
+
+        {!showAll && items.length > PREVIEW && (
+          <button
+            type="button"
+            onClick={() => setShowAll(true)}
+            className="lg:hidden w-full min-h-11 border-t border-[var(--border-subtle)] font-mono text-label font-semibold uppercase text-[var(--brand-text)] hover:bg-[var(--surface-sunken)]"
+          >
+            Show all {items.length} updates
+          </button>
+        )}
       </section>
 
       {/* Newsletter */}

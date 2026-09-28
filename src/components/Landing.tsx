@@ -5,6 +5,7 @@ import TaxonomyNav from "./layout/TaxonomyNav"
 import Button from "./ui/Button"
 import Badge from "./ui/Badge"
 import ArticleCard from "./magazine/ArticleCard"
+import DossierRail from "./magazine/DossierRail"
 import MagazineFlipbook from "./magazine/LazyMagazineFlipbook"
 import LastMonthTrending from "./magazine/LastMonthTrending"
 import LatestNewsSidebar from "./news/LatestNewsSidebar"
@@ -183,31 +184,26 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             </div>
           </div>
 
-          {/* Hierarchy: 1 featured (above) → 2 medium, horizontal from sm → compact thumbnail rows */}
+          {/* The rest of the issue as one swipeable row (was 2 medium cards + 4 compact rows stacked) */}
           {filteredArticles.length > 1 && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-8 border-t border-[var(--color-border-subtle)] mb-8">
-              {filteredArticles.slice(1, 3).map((article, i) => (
-                <Reveal key={article.slug} delay={i * 120} className="h-full">
-                  <ArticleCard article={article} variant="medium" onClick={() => openArticle(article)} />
-                </Reveal>
-              ))}
+            <div data-reveal="up" className="pt-8 border-t border-[var(--border-subtle)]">
+              <DossierRail
+                articles={filteredArticles.slice(1)}
+                onOpen={openArticle}
+                onViewAll={() => onNavigate?.("magazine")}
+                total={ARTICLES.length}
+              />
             </div>
           )}
+        </div>
+      </section>
 
-          {filteredArticles.length > 3 && (
-            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 mb-12 border-t border-[var(--color-border-subtle)]">
-              {filteredArticles.slice(3, 7).map((article, i) => (
-                <li key={article.slug} data-reveal="up" style={{ "--i": i } as CSSProperties} className="py-3 border-b border-[var(--color-border-subtle)]">
-                  <ArticleCard article={article} variant="compact" onClick={() => openArticle(article)} />
-                </li>
-              ))}
-            </ul>
-          )}
-
-          {/* Dedicated Last Month's Trending Retrospective */}
-          {lastMonthIssue && (
-            <Reveal variant="scale">
+      {/* Last month's retrospective: its own chapter and scene */}
+      {lastMonthIssue && (
+        <section id="last-month" data-chapter="Last month" data-scene="light" className="py-[var(--section-y)] px-6 md:px-12 border-t border-[var(--border-subtle)]">
+          <div className="max-w-[var(--container-max)] mx-auto">
             <LastMonthTrending
+              index="02"
               lastMonthIssue={lastMonthIssue}
               lastMonthArticles={lastMonthArticles}
               onSelectArticle={openArticle}
@@ -216,11 +212,9 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                 setShowFlipbook(true)
               }}
             />
-            </Reveal>
-          )}
-
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
       {/* SECTION 4: Core Coverage — pinned carousel story (stacked on phones / reduced motion) */}
       <CoverageStory
@@ -278,7 +272,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             <Reveal variant="right" delay={120} className="lg:col-span-7">
               <SectionHeader
                 as="h3"
-                index="03"
+                index="04"
                 eyebrow="Verified Network"
                 title="Connect with leaders across the ecosystem"
                 action={<TextLink onClick={onGetAccess} className="hidden sm:inline-flex">Explore the member directory</TextLink>}
@@ -328,7 +322,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       <section id="briefings" data-chapter="Briefings" data-scene="light" className="py-[var(--section-y)] px-6 md:px-12">
         <div className="max-w-[var(--container-max)] mx-auto">
           <SectionHeader
-            index="04"
+            index="05"
             eyebrow="Institutional Intelligence"
             title="Deep Industry Briefings & Dossiers"
             description="Board-ready research with executive summaries, sourced data and regulatory timelines."
@@ -367,7 +361,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
         <div className="relative z-10 max-w-[var(--container-max)] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-12 lg:gap-16 items-center">
           <div>
             <p data-reveal="up" className="mb-5 flex items-center gap-3 font-mono text-label font-semibold uppercase text-[var(--accent-text)]">
-              <span className="tabular-nums text-[var(--premium-text)]"><span className="sr-only">Section </span>05</span>
+              <span className="tabular-nums text-[var(--premium-text)]"><span className="sr-only">Section </span>06</span>
               <span aria-hidden="true" data-reveal="rule" style={{ "--i": 2 } as CSSProperties} className="h-px w-8 bg-[var(--accent-decor)]" />
               Join Mediverse Life Sciences
             </p>

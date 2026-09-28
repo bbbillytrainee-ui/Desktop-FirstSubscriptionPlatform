@@ -1,31 +1,38 @@
-import React from "react"
+import type { CSSProperties } from "react"
 import { Article } from "../../data/fixtures/articles"
 import { Issue } from "../../data/fixtures/issues"
-import { Flame, TrendingUp, Sparkles, BookOpen, Award } from "../ui/Icons"
+import { Flame, TrendingUp, BookOpen, Award } from "../ui/Icons"
+import SectionHeader from "../ui/SectionHeader"
+import TopicChip from "../ui/TopicChip"
 
 export interface LastMonthTrendingProps {
   lastMonthIssue: Issue
   lastMonthArticles: Article[]
   onSelectArticle: (article: Article) => void
   onOpenIssueFlipbook: (issue: Issue) => void
+  /** Chapter number shown before the kicker */
+  index?: string
 }
 
-export default function LastMonthTrending({
-  lastMonthIssue,
-  lastMonthArticles,
-  onSelectArticle,
-  onOpenIssueFlipbook,
-}: LastMonthTrendingProps) {
+const at = (i: number) => ({ style: { "--i": i } as CSSProperties })
+
+/**
+ * Last month's retrospective as an editorial spread: the issue's column as a pull-quote and the
+ * signals that moved (left), the three most-read dossiers ranked (right). Rendered inside its
+ * own landing section/chapter.
+ */
+export default function LastMonthTrending({ lastMonthIssue, lastMonthArticles, onSelectArticle, onOpenIssueFlipbook, index }: LastMonthTrendingProps) {
   const topArticles = lastMonthArticles.slice(0, 3)
+  const month = lastMonthIssue.month.split(" ")[0]
 
   const rankings = [
-    { rank: "01", label: "#1 Most Read Last Month", icon: <Flame size={12} className="text-[var(--color-brand-coral)]" />, views: "5,420 Reads", velocity: "+48% velocity" },
-    { rank: "02", label: "Top Shared in MedTech", icon: <TrendingUp size={12} className="text-success-600" />, views: "3,890 Reads", velocity: "+32% shares" },
-    { rank: "03", label: "Editor's Breakthrough Pick", icon: <Award size={12} className="text-gold-600" />, views: "3,120 Reads", velocity: "98% completion" },
+    { label: "Most read", Icon: Flame, views: "5,420", velocity: "+48% velocity" },
+    { label: "Top shared in MedTech", Icon: TrendingUp, views: "3,890", velocity: "+32% shares" },
+    { label: "Editor's pick", Icon: Award, views: "3,120", velocity: "98% completion" },
   ]
 
   const editorial = lastMonthIssue.editorialColumn || {
-    title: "“The Pivot From In-Silico Algorithms to CDSCO Real-World Validation”",
+    title: "The Pivot From In-Silico Algorithms to CDSCO Real-World Validation",
     quote: "As APAC health authorities enforce post-market surveillance for medical AI, drug and device developers must build continuous verification loops into their core operating models.",
     authorName: "Dr. Leila Ahmadi",
     authorRole: "Senior Editor, Mediverse",
@@ -38,164 +45,108 @@ export default function LastMonthTrending({
   ]
 
   return (
-    <section className="bg-card border-2 border-[var(--color-brand-teal)]/20 rounded-md p-6 sm:p-8 mb-12 shadow-sm relative overflow-hidden">
-      {/* Background Subtle Gradient Accents */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-surface)]/60 rounded-full blur-3xl pointer-events-none -z-0" />
+    <>
+      <SectionHeader
+        index={index}
+        eyebrow={`${month} retrospective · Issue #${lastMonthIssue.number}`}
+        title="Trending from last month"
+        description={lastMonthIssue.theme}
+        action={
+          <button type="button" onClick={() => onOpenIssueFlipbook(lastMonthIssue)} className="rail-btn-wide">
+            <BookOpen size={15} aria-hidden="true" />
+            Open the {month} issue
+          </button>
+        }
+      />
 
-      {/* Top Banner Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[var(--color-border-subtle)] mb-8 relative z-10">
-        <div>
-          <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-            <span className="font-mono text-[11px] uppercase font-bold tracking-wider text-[var(--color-brand-coral)] bg-terracotta-50 px-2 py-0.5 rounded border border-terracotta-200 flex items-center gap-1">
-              <TrendingUp size={12} />
-              {lastMonthIssue.month} Retrospective & Velocity Report
-            </span>
-            <span className="font-mono text-[11px] text-[var(--color-slate-muted)]">
-              Issue #{lastMonthIssue.number} {lastMonthIssue.volume ? `· ${lastMonthIssue.volume}` : ""} Archive
-            </span>
-          </div>
-          <h3 className="font-serif text-2xl sm:text-3xl font-semibold text-[var(--color-ink)]">
-            Trending From Last Month: <span className="text-[var(--color-brand-teal)]">{lastMonthIssue.theme}</span>
-          </h3>
-          <p className="text-xs sm:text-sm text-[var(--color-slate-muted)] mt-1 max-w-2xl">
-            The most cited regulatory analyses, executive columns, and technology breakdowns from our prior monthly drop.
-          </p>
-        </div>
-
-        <button
-          onClick={() => onOpenIssueFlipbook(lastMonthIssue)}
-          className="font-mono min-h-11 px-4 py-2.5 bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-xs font-semibold rounded-sm hover:bg-[var(--color-brand-teal-dark)] transition flex items-center gap-2 shrink-0 cursor-pointer shadow-xs"
-        >
-          <BookOpen size={14} className="text-gold-200" />
-          <span>Launch {lastMonthIssue.month.split(" ")[0]} Issue (3D)</span>
-        </button>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-10">
-        {/* Left Column (5 cols): Prior Month Editorial Column & Macro Signals */}
-        <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
-          {/* Editorial Column Pullout */}
-          <div className="p-5 bg-[var(--color-surface)] border-l-4 border-[var(--color-brand-coral)] rounded-r-md">
-            <div className="flex items-center justify-between mb-2">
-              <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-coral)] tracking-wider">
-                Last Month&apos;s Editorial Column
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
+        {/* Left: the column as a pull-quote, then what moved */}
+        <div className="lg:col-span-5">
+          <figure data-reveal="left" className="relative pl-6 border-l-2 border-[var(--accent-decor)]">
+            <p className="font-mono text-label font-semibold uppercase text-[var(--accent-text)] mb-3">{month}'s editorial column</p>
+            <h3 className="font-serif text-h3 font-semibold text-[var(--text-primary)] mb-4">{editorial.title.replace(/[“”"]/g, "")}</h3>
+            <blockquote className="font-serif italic text-deck text-[var(--text-primary)] leading-relaxed">
+              <span aria-hidden="true" className="float-left -ml-1 mr-2 -mt-2 font-serif text-[3.5rem] leading-none text-[var(--accent-decor)]">“</span>
+              {editorial.quote}
+            </blockquote>
+            <figcaption className="mt-5 flex items-center justify-between gap-4">
+              <span className="text-sm">
+                <span className="font-semibold text-[var(--text-primary)] block">{editorial.authorName}</span>
+                <span className="text-caption text-[var(--text-muted)]">{editorial.authorRole}</span>
               </span>
-              <span className="font-mono text-[11px] text-[var(--color-slate-muted)]">
-                {lastMonthIssue.volume || "Vol. XIV"}
-              </span>
-            </div>
-            <h4 className="font-serif text-base sm:text-lg font-semibold text-[var(--color-ink)] mb-2 leading-snug">
-              {editorial.title}
-            </h4>
-            <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-4 italic">
-              &ldquo;{editorial.quote}&rdquo;
-            </p>
-            <div className="flex items-center justify-between text-xs pt-3 border-t border-[var(--color-border-subtle)]">
-              <div>
-                <span className="font-semibold text-[var(--color-ink)] block">{editorial.authorName}</span>
-                <span className="text-[11px] text-[var(--color-slate-muted)]">{editorial.authorRole}</span>
-              </div>
               <button
+                type="button"
                 onClick={() => onOpenIssueFlipbook(lastMonthIssue)}
-                className="font-mono text-xs text-[var(--color-brand-teal)] font-semibold hover:underline cursor-pointer"
+                className="group inline-flex items-center gap-1 text-sm font-semibold text-[var(--brand-text)] hover:text-[var(--accent-text)] transition-colors"
               >
-                Read Column →
+                Read the column
+                <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
               </button>
-            </div>
-          </div>
+            </figcaption>
+          </figure>
 
-          {/* Last Month's 3 Key Regulatory Signals */}
-          <div className="p-4 bg-card border border-[var(--color-border-subtle)] rounded-sm space-y-3">
-            <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-teal)] tracking-wider block">
-              Key Macro Signals Logged in {lastMonthIssue.month.split(" ")[0]}:
-            </span>
-            <ul className="space-y-2 text-xs text-[var(--color-slate-muted)]">
+          <div data-reveal="up" {...at(1)} className="mt-10">
+            <p className="font-mono text-label font-semibold uppercase text-[var(--text-muted)] mb-3">What moved in {month}</p>
+            <ol className="divide-y divide-[var(--border-subtle)] border-y border-[var(--border-subtle)]">
               {signals.map(s => (
-                <li key={s.number} className="flex items-start gap-2">
-                  <span className="text-[var(--color-brand-coral)] font-bold">{s.number}.</span>
-                  <span><strong>{s.headline}</strong> {s.detail}</span>
+                <li key={s.number} className="flex gap-4 py-3.5">
+                  <span className="font-serif text-2xl leading-none font-semibold text-[var(--premium-text)] tabular-nums w-7 shrink-0">{s.number}</span>
+                  <p className="text-sm text-[var(--text-muted)] leading-relaxed">
+                    <strong className="font-semibold text-[var(--text-primary)]">{s.headline.replace(/:$/, "")}.</strong> {s.detail}
+                  </p>
                 </li>
               ))}
-            </ul>
+            </ol>
           </div>
         </div>
 
-        {/* Right Column (7 cols): Ranked Top 3 Trending Articles */}
-        <div className="lg:col-span-7 space-y-4">
-          <div className="flex items-center justify-between mb-1">
-            <span className="font-mono text-xs font-semibold text-[var(--color-ink)] uppercase tracking-wider flex items-center gap-1.5">
-              <Flame size={14} className="text-[var(--color-brand-coral)]" />
-              Most-Read Dossiers (Ranked by Member Readership)
-            </span>
-          </div>
-
-          {topArticles.map((article, idx) => {
-            const meta = rankings[idx] || { rank: `0${idx + 1}`, label: "Trending", icon: <TrendingUp size={12} />, views: "2.4k Reads", velocity: "+20%" }
-            return (
-              <div
-                key={article.slug}
-                onClick={() => onSelectArticle(article)}
-                className="group p-4 bg-card border border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)] rounded-sm transition shadow-2xs hover:shadow-xs cursor-pointer flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between"
-              >
-                <div className="flex items-start gap-3.5 flex-1 min-w-0 w-full sm:w-auto">
-                  {/* Rank Number */}
-                  <div className="w-9 h-9 rounded-sm bg-[var(--color-surface)] group-hover:bg-[var(--color-brand-teal)] group-hover:text-[var(--color-paper)] transition-colors flex items-center justify-center font-mono font-bold text-sm text-[var(--color-slate-muted)] shrink-0">
-                    {meta.rank}
-                  </div>
-
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <span className="font-mono text-[11px] uppercase font-bold text-[var(--color-brand-coral)] flex items-center gap-1">
-                        {meta.icon}
-                        {meta.label}
+        {/* Right: the three most-read dossiers, ranked */}
+        <div className="lg:col-span-7">
+          <p data-reveal="fade" className="flex items-center gap-2 font-mono text-label font-semibold uppercase text-[var(--text-muted)] mb-2">
+            <Flame size={13} aria-hidden="true" className="text-[var(--accent-text)]" />
+            Most read by members
+          </p>
+          <ol>
+            {topArticles.map((article, idx) => {
+              const meta = rankings[idx] ?? rankings[rankings.length - 1]
+              return (
+                <li key={article.slug} data-reveal="up" {...at(idx + 1)} className="border-b border-[var(--border-subtle)]">
+                  <button type="button" onClick={() => onSelectArticle(article)} className="trend-row group">
+                    <span aria-hidden="true" className="trend-rank">{String(idx + 1).padStart(2, "0")}</span>
+                    <span className="min-w-0 flex-1">
+                      <span className="flex flex-wrap items-center gap-2 mb-2">
+                        <TopicChip category={article.category} />
+                        <span className="inline-flex items-center gap-1 font-mono text-label font-semibold uppercase text-[var(--accent-text)]">
+                          <meta.Icon size={12} aria-hidden="true" />
+                          {meta.label}
+                        </span>
                       </span>
-                      <span className="hidden sm:inline text-sand-300">•</span>
-                      <span className="font-mono text-[11px] text-[var(--color-slate-muted)]">
-                        {article.category} · {article.readingTime}
-                      </span>
-                    </div>
-
-                    <h5 className="font-serif text-sm sm:text-base font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)] transition-colors leading-snug line-clamp-2 sm:line-clamp-none sm:truncate">
-                      {article.title}
-                    </h5>
-
-                    <p className="text-xs text-[var(--color-slate-muted)] line-clamp-1 mt-0.5">
-                      {article.dek}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Read / Views Metric */}
-                <div className="flex sm:flex-col items-center sm:items-end justify-between w-full sm:w-auto shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-[var(--color-border-subtle)]">
-                  <span className="font-mono text-[11px] font-semibold text-[var(--color-ink)]">
-                    {meta.views}
-                  </span>
-                  <span className="font-mono text-[11px] text-success-600 font-medium">
-                    {meta.velocity}
-                  </span>
-                  <span className="text-xs text-[var(--color-brand-teal)] font-semibold mt-1 hidden sm:inline-block group-hover:translate-x-1 transition-transform">
-                    Read →
-                  </span>
-                </div>
-              </div>
-            )
-          })}
-
-          {/* Quick All Last Month Issues Link */}
-          <div className="pt-2 flex items-center justify-between text-xs text-[var(--color-slate-muted)]">
-            <span className="flex items-center gap-1 font-mono text-[11px]">
-              <Sparkles size={12} className="text-gold-400" />
-              {lastMonthIssue.readersCount || "28,000+"} leaders engaged with Issue #{lastMonthIssue.number}
-            </span>
+                      <span className="block font-serif text-h4 sm:text-h3 font-semibold text-[var(--text-primary)] leading-snug">{article.title}</span>
+                      <span className="mt-1.5 block text-sm text-[var(--text-muted)] line-clamp-1">{article.dek}</span>
+                    </span>
+                    <span className="hidden sm:flex flex-col items-end shrink-0 text-right">
+                      <span className="font-serif text-xl font-semibold tabular-nums text-[var(--text-primary)]">{meta.views}</span>
+                      <span className="font-mono text-label uppercase text-[var(--text-muted)]">reads</span>
+                      <span className="mt-1 font-mono text-[11px] text-success-600 dark:text-success-400">{meta.velocity}</span>
+                    </span>
+                  </button>
+                </li>
+              )
+            })}
+          </ol>
+          <p className="mt-5 flex flex-wrap items-center justify-between gap-3 text-caption text-[var(--text-muted)]">
+            <span>{lastMonthIssue.readersCount || "28,000+"} leaders read Issue #{lastMonthIssue.number}</span>
             <button
+              type="button"
               onClick={() => onOpenIssueFlipbook(lastMonthIssue)}
-              className="font-mono font-semibold text-[var(--color-brand-teal)] hover:text-[var(--color-brand-coral)] transition-colors cursor-pointer"
+              className="group inline-flex items-center gap-1 font-semibold text-[var(--brand-text)] hover:text-[var(--accent-text)] transition-colors"
             >
-              Browse Complete {lastMonthIssue.month.split(" ")[0]} Vault →
+              Browse the full {month} issue
+              <span aria-hidden="true" className="transition-transform group-hover:translate-x-1">→</span>
             </button>
-          </div>
+          </p>
         </div>
       </div>
-    </section>
+    </>
   )
 }

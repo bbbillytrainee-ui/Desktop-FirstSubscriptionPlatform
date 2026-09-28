@@ -116,7 +116,7 @@ export default function CoverageStory({ verticals, totalDossiers, onSelectTopic 
           <div className="story-aside">
             <p className="flex items-center gap-2.5 font-mono text-label font-semibold uppercase text-[var(--accent-text)]">
               <span className="tabular-nums text-[var(--premium-text)]">
-                <span className="sr-only">Section </span>02
+                <span className="sr-only">Section </span>03
               </span>
               <span aria-hidden="true" className="h-px w-6 bg-[var(--accent-decor)]" />
               Core Coverage
