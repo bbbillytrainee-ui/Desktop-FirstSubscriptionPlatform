@@ -7,35 +7,57 @@ export interface CountUpProps {
   suffix?: string
   durationMs?: number
   className?: string
+  /**
+   * Controlled start. Leave undefined to count when the number first scrolls into view;
+   * pass false/true to start it yourself (e.g. when a carousel slide becomes active).
+   */
+  play?: boolean
+  /** Show the final value with no animation (stacked / reduced-motion layouts) */
+  static?: boolean
 }
 
 const format = (n: number) => Math.round(n).toLocaleString("en-US")
 
-/** Counts from 0 to `value` once, when it first scrolls into view. Width is reserved so layout never shifts. */
-export default function CountUp({ value, prefix = "", suffix = "", durationMs = 1200, className = "" }: CountUpProps) {
+/**
+ * Counts from 0 to `value` once. Width is reserved so layout never shifts. Screen readers get
+ * only the final value (the moving digits are aria-hidden; no live region), so nothing is announced.
+ */
+export default function CountUp({ value, prefix = "", suffix = "", durationMs = 1200, className = "", play, static: isStatic = false }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null)
   const [display, setDisplay] = useState(0)
+  const started = useRef(false)
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    if (prefersReducedMotion() || !("IntersectionObserver" in window)) {
+    if (isStatic || prefersReducedMotion() || !("IntersectionObserver" in window)) {
       setDisplay(value)
       return
     }
 
     let frame = 0
+    const run = () => {
+      if (started.current) return
+      started.current = true
+      const start = performance.now()
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / durationMs)
+        setDisplay(value * (1 - Math.pow(1 - t, 3))) // ease-out cubic
+        if (t < 1) frame = requestAnimationFrame(tick)
+      }
+      frame = requestAnimationFrame(tick)
+    }
+
+    if (play !== undefined) {
+      if (play) run()
+      return () => cancelAnimationFrame(frame)
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return
         observer.disconnect()
-        const start = performance.now()
-        const tick = (now: number) => {
-          const t = Math.min(1, (now - start) / durationMs)
-          setDisplay(value * (1 - Math.pow(1 - t, 3))) // ease-out cubic
-          if (t < 1) frame = requestAnimationFrame(tick)
-        }
-        frame = requestAnimationFrame(tick)
+        run()
       },
       { threshold: 0.4 }
     )
@@ -44,7 +66,7 @@ export default function CountUp({ value, prefix = "", suffix = "", durationMs = 
       observer.disconnect()
       cancelAnimationFrame(frame)
     }
-  }, [value, durationMs])
+  }, [value, durationMs, play, isStatic])
 
   const final = `${prefix}${format(value)}${suffix}`
 

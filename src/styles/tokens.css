@@ -7,9 +7,12 @@
  *
  * Depth: page (flat) → panel (hairline) → card (hairline + elev-1, elev-2 on hover) → floating (elev-3).
  * Borders describe structure; shadows mean "raised / touchable".
+ *
+ * The theme blocks also apply to cards (.bg-card, .cover): scroll scenes (scroll-config.css) recolour
+ * the page, and cards reset to the theme so they read as paper on any scene.
  */
 
-:root {
+:root, .bg-card, .cover {
   /* ── Semantic: surfaces ── */
   --surface-page: var(--color-sand-50);
   --surface-panel: var(--color-sand-0);
@@ -47,8 +50,6 @@
   --premium-tint: var(--color-gold-100);
   --premium-on-inverse: #D4A447;
 
-  /* ── Semantic: cool section tint (teal-50) so a section reads as its own "chapter" ── */
-  --surface-tint: var(--color-teal-50);
 
   /* ── Semantic: topic tones (chips, feed rails) ──
      fg on bg ≥ 6.6:1, fg on bg-strong ≥ 5.7:1; rail is non-text (≥ 3:1 on card) */
@@ -129,7 +130,7 @@
   --motion-card: 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-html.dark {
+html.dark, html.dark .bg-card, html.dark .cover {
   --surface-page: #091E26;
   --surface-panel: #0B2530;
   --surface-sunken: #0A242E;
@@ -153,7 +154,6 @@ html.dark {
 
   --premium-text: #D4A447;                        /* 7.5:1 on page, 6.0:1 on card */
   --premium-tint: rgba(212, 164, 71, 0.14);
-  --surface-tint: #0C2A34;
 
   /* fg on bg ≥ 6.0:1, on bg-strong ≥ 4.7:1; solid (not alpha) so chips read the same over photos */
   --topic-pharma-fg: #8CC5D1;     --topic-pharma-bg: #123F4B;     --topic-pharma-bg-strong: #17505E;     --topic-pharma-rail: #5FB3C4;

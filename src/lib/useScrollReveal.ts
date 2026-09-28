@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { prefersReducedMotion } from "./motion"
+import { scrollFxEnabled } from "./fx"
 
 /**
  * App-wide scroll reveal. Any element with `data-reveal="up|left|right|scale|rise|rule|fade"`
@@ -12,7 +12,7 @@ import { prefersReducedMotion } from "./motion"
  */
 export function useScrollReveal() {
   useEffect(() => {
-    if (prefersReducedMotion() || !("IntersectionObserver" in window)) return
+    if (!scrollFxEnabled() || !("IntersectionObserver" in window)) return
     const root = document.documentElement
 
     const io = new IntersectionObserver(

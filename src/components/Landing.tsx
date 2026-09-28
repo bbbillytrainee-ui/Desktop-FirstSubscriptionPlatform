@@ -15,6 +15,7 @@ import Avatar from "./ui/Avatar"
 import EmptyState from "./ui/EmptyState"
 import Reveal from "./ui/Reveal"
 import Hero from "./home/Hero"
+import CoverageStory from "./home/CoverageStory"
 import ChapterRail from "./layout/ChapterRail"
 import CountUp from "./ui/CountUp"
 import SafeImage from "./ui/SafeImage"
@@ -30,6 +31,7 @@ import { articleRoute } from "../lib/router"
 const VERTICALS = [
   {
     topicId: "pharma",
+    category: "Pharma",
     short: "Pharma",
     label: "Pharma & Biologics",
     title: "Drug Discovery & Regulatory Submissions",
@@ -37,6 +39,7 @@ const VERTICALS = [
   },
   {
     topicId: "medtech",
+    category: "MedTech",
     short: "MedTech",
     label: "MedTech & Diagnostics",
     title: "Device Engineering & Cross-Border IP",
@@ -44,6 +47,7 @@ const VERTICALS = [
   },
   {
     topicId: "ai-health",
+    category: "AI-Health",
     short: "AI-Health",
     label: "AI & Digital Health",
     title: "SaMD Validation & Automated Safety",
@@ -132,7 +136,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
 
       {/* SECTION 3: Newspaper Editorial Grid (Lead Dossier + Live Breaking Sidebar + 3 Sub-Features) */}
 
-      <section id="articles-section" data-chapter="Dossiers" className="py-[var(--section-y)] px-6 md:px-12 border-b border-[var(--border-subtle)] bg-card">
+      <section id="articles-section" data-chapter="Dossiers" data-scene="white" className="py-[var(--section-y)] px-6 md:px-12">
         <div className="max-w-[var(--container-max)] mx-auto">
           
           <SectionHeader
@@ -218,47 +222,19 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
         </div>
       </section>
 
-      {/* SECTION 4: Three-Lane Focus Areas (Pharma, MedTech, AI) - Dark Mode Island */}
-      <section id="coverage" data-chapter="Coverage" data-chapter-dark className="band-glow band-open py-[var(--section-y)] px-6 md:px-12 bg-[var(--color-section-dark)] text-white relative overflow-clip">
-        <div className="max-w-[var(--container-max)] mx-auto relative z-10">
-          <SectionHeader
-            index="02"
-            eyebrow="Core Coverage"
-            title="Three verticals. Focused depth."
-            description="Uncompromising monthly analysis written for decision-makers in medicine, biotechnology, and health technology."
-            align="center"
-            tone="dark"
-            className="mb-12"
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {VERTICALS.map((v, i) => (
-              <Reveal key={v.topicId} delay={120 + i * 120} className="h-full">
-              <button
-                type="button"
-                onClick={() => selectTopic(v.topicId)}
-                className="group text-left p-6 bg-[var(--color-navy-deep)] border border-white/10 rounded-card hover:border-[var(--color-brand-coral-on-dark)]/60 transition-colors flex flex-col justify-between w-full h-full"
-              >
-                <div>
-                  <span className="block mb-3 font-mono text-meta font-semibold uppercase tracking-wider text-[var(--color-brand-coral-on-dark)]">
-                    0{i + 1} / {v.label}
-                  </span>
-                  <h3 className="font-serif text-h3 font-semibold text-white mb-3">{v.title}</h3>
-                  <p className="text-sm text-sand-300 leading-relaxed mb-6">{v.description}</p>
-                </div>
-                <span className="inline-flex items-center gap-1 text-meta font-semibold text-[var(--color-brand-coral-on-dark)] group-hover:text-white transition-colors">
-                  Explore {v.short} coverage
-                  <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
-                </span>
-              </button>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* SECTION 4: Core Coverage — pinned carousel story (stacked on phones / reduced motion) */}
+      <CoverageStory
+        verticals={VERTICALS.map(v => ({
+          ...v,
+          count: topicCounts[v.topicId] ?? 0,
+          image: ARTICLES.find(a => a.category === v.category)?.image ?? currentIssue.coverImage,
+        }))}
+        totalDossiers={topicCounts[ALL_TOPIC_ID] ?? ARTICLES.length}
+        onSelectTopic={id => selectTopic(id)}
+      />
 
       {/* SECTION 5: Webinar Spotlight + Verified Network Teaser (page tone: rhythm is page / white / teal) */}
-      <section id="network" data-chapter="Network" className="band-open py-[var(--section-y)] px-6 md:px-12 bg-[var(--surface-tint)]">
+      <section id="network" data-chapter="Network" data-scene="sand" className="py-[var(--section-y)] px-6 md:px-12">
         <div className="max-w-[var(--container-max)] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
@@ -349,7 +325,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       </section>
 
       {/* SECTION 6: Institutional Dossiers / Research Reports */}
-      <section id="briefings" data-chapter="Briefings" className="py-[var(--section-y)] px-6 md:px-12 bg-[var(--surface-page)] border-t border-[var(--border-subtle)]">
+      <section id="briefings" data-chapter="Briefings" data-scene="light" className="py-[var(--section-y)] px-6 md:px-12">
         <div className="max-w-[var(--container-max)] mx-auto">
           <SectionHeader
             index="04"
@@ -387,18 +363,18 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       </section>
 
       {/* SECTION 7: Join the network — deep teal band, split layout (pitch left, what you get right) */}
-      <section id="join" data-chapter="Join" data-chapter-dark aria-labelledby="join-title" className="join-band band-open relative overflow-clip px-6 md:px-12 py-[var(--section-y)] text-[var(--text-inverse)]">
+      <section id="join" data-chapter="Join" data-chapter-dark data-scene="dark" aria-labelledby="join-title" className="join-band relative overflow-clip px-6 md:px-12 py-[var(--section-y)]">
         <div className="relative z-10 max-w-[var(--container-max)] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-12 lg:gap-16 items-center">
           <div>
-            <p data-reveal="up" className="mb-5 flex items-center gap-3 font-mono text-label font-semibold uppercase text-[var(--accent-on-inverse)]">
-              <span className="tabular-nums text-[var(--premium-on-inverse)]"><span className="sr-only">Section </span>05</span>
-              <span aria-hidden="true" data-reveal="rule" style={{ "--i": 2 } as CSSProperties} className="h-px w-8 bg-[var(--accent-on-inverse)]" />
+            <p data-reveal="up" className="mb-5 flex items-center gap-3 font-mono text-label font-semibold uppercase text-[var(--accent-text)]">
+              <span className="tabular-nums text-[var(--premium-text)]"><span className="sr-only">Section </span>05</span>
+              <span aria-hidden="true" data-reveal="rule" style={{ "--i": 2 } as CSSProperties} className="h-px w-8 bg-[var(--accent-decor)]" />
               Join Mediverse Life Sciences
             </p>
-            <h2 id="join-title" data-reveal="up" style={{ "--i": 1 } as CSSProperties} className="font-serif text-h1 font-semibold text-white mb-5 [text-wrap:balance]">
-              The publication <span className="font-normal italic text-[var(--accent-on-inverse)]">&amp;</span> network for healthcare decision-makers.
+            <h2 id="join-title" data-reveal="up" style={{ "--i": 1 } as CSSProperties} className="font-serif text-h1 font-semibold text-[var(--text-primary)] mb-5 [text-wrap:balance]">
+              The publication <span className="font-normal italic text-[var(--accent-text)]">&amp;</span> network for healthcare decision-makers.
             </h2>
-            <p data-reveal="up" style={{ "--i": 2 } as CSSProperties} className="text-deck text-[var(--text-inverse-muted)] mb-8 max-w-[52ch]">
+            <p data-reveal="up" style={{ "--i": 2 } as CSSProperties} className="text-deck text-[var(--text-muted)] mb-8 max-w-[52ch]">
               Curated monthly dossiers, interactive 3D editions, and explainable peer introductions across Pharma, MedTech, and AI-Health.
             </p>
             <div data-reveal="up" style={{ "--i": 3 } as CSSProperties} className="flex items-center gap-3 sm:gap-4 flex-wrap">
@@ -409,7 +385,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                 variant="ghost"
                 size="lg"
                 onClick={() => onNavigate?.("subscriptions")}
-                className="text-white border border-white/25 hover:bg-white/10"
+                className="text-[var(--text-primary)] border border-[var(--border-strong)] hover:bg-[var(--surface-raised)]"
               >
                 View membership plans
               </Button>
@@ -420,26 +396,26 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                 {JOIN_AVATARS.map(a => (
                   <span
                     key={a.initials}
-                    className={`w-9 h-9 rounded-full border-2 border-[var(--surface-inverse)] flex items-center justify-center font-mono text-[11px] font-semibold text-white ${a.bg}`}
+                    className={`w-9 h-9 rounded-full border-2 border-[var(--surface-page)] flex items-center justify-center font-mono text-[11px] font-semibold text-white ${a.bg}`}
                   >
                     {a.initials}
                   </span>
                 ))}
               </div>
-              <p className="text-caption text-[var(--text-inverse-muted)]">
-                <span className="font-semibold text-white tabular-nums">34,000+</span> verified leaders read every issue
+              <p className="text-caption text-[var(--text-muted)]">
+                <span className="font-semibold text-[var(--text-primary)] tabular-nums">34,000+</span> verified leaders read every issue
               </p>
             </div>
           </div>
 
           {/* What membership includes: numbered list on a raised inverse panel */}
-          <ol data-reveal="right" style={{ "--i": 1 } as CSSProperties} className="rounded-overlay border border-[var(--border-inverse)] bg-[var(--surface-inverse-raised)] divide-y divide-[var(--border-inverse)] shadow-overlay">
+          <ol data-reveal="right" style={{ "--i": 1 } as CSSProperties} className="rounded-overlay border border-[var(--border-subtle)] bg-[var(--surface-raised)] divide-y divide-[var(--border-subtle)] shadow-overlay">
             {JOIN_BENEFITS.map((item, i) => (
               <li key={item.title} data-reveal="up" style={{ "--i": i + 3 } as CSSProperties} className="flex gap-5 p-6">
-                <span className="font-mono text-label font-semibold text-[var(--premium-on-inverse)] pt-1 tabular-nums">0{i + 1}</span>
+                <span className="font-mono text-label font-semibold text-[var(--premium-text)] pt-1 tabular-nums">0{i + 1}</span>
                 <div>
-                  <h3 className="font-serif text-h4 font-semibold text-white mb-1">{item.title}</h3>
-                  <p className="text-sm leading-relaxed text-[var(--text-inverse-muted)]">{item.body}</p>
+                  <h3 className="font-serif text-h4 font-semibold text-[var(--text-primary)] mb-1">{item.title}</h3>
+                  <p className="text-sm leading-relaxed text-[var(--text-muted)]">{item.body}</p>
                 </div>
               </li>
             ))}

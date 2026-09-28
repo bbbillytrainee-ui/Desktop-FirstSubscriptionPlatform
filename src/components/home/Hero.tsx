@@ -59,7 +59,7 @@ export default function Hero({ issue, onJoin, onOpenIssue, onArchive }: HeroProp
   const sectionRef = usePointerParallax<HTMLElement>()
 
   return (
-    <section ref={sectionRef} id="cover" data-chapter="Cover" className="hero-backdrop relative overflow-clip border-b border-[var(--border-subtle)] px-6 md:px-12 py-14 lg:py-24">
+    <section ref={sectionRef} id="cover" data-chapter="Cover" data-scene="light" className="hero-backdrop relative overflow-clip border-b border-[var(--border-subtle)] px-6 md:px-12 py-14 lg:py-24">
       <div className="relative z-10 max-w-[var(--container-max)] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,25rem)] gap-14 lg:gap-16 items-center">
         {/* ── Left: kicker → headline → deck → actions → stats ── */}
         <div>

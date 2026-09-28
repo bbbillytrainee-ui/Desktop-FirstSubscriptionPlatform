@@ -1,0 +1,112 @@
+/* src/styles/scroll-config.css — every scroll-effect tunable in one place.
+ *
+ * SCENES: sections carry data-scene="light | white | teal | sand | dark" and paint their own
+ * colours; text, borders, links and icons inside follow through the normal semantic tokens.
+ * Only the section changes colour — the header and the rest of the page keep the user's theme
+ * (recolouring the whole page read as the site toggling between light and dark mode).
+ *
+ * Contrast (WCAG AA, normal text), light theme / dark theme:
+ *   light  fg 15.9 / 14.9  muted 6.1 / 6.4   accent 5.0 / 6.6   brand 11.3 / 7.1   brass 6.0 / 7.5
+ *   white  fg 16.9 / 13.8  muted 6.5 / 6.0   accent 5.3 / 6.1   brand 12.1 / 6.6   brass 6.4 / 7.0
+ *   sand   fg 14.8 / 13.9  muted 6.4 / 6.7   accent 5.5 / 6.1   brand 10.5 / 6.6   brass 5.5 / 7.0
+ *   teal   fg 11.3 / 10.5  muted 7.9 / 7.9   accent 4.7 / 5.9   brand  7.6 / 7.6   brass 5.3 / 6.2
+ *   dark   fg 16.7 / 15.6  muted 11.7 / 11.7 accent 6.9 / 6.9   brand  8.1 / 8.1   brass 7.8 / 7.8
+ * Cards (.bg-card, .cover) keep the theme's own tokens inside any scene (see tokens.css).
+ */
+
+:root {
+  /* ── Reveals (lib/useScrollReveal.ts) ── */
+  --reveal-distance: 32px;
+  --reveal-stagger: 90ms;
+  --reveal-margin: -10%;         /* bottom inset of the viewport before an element counts as "in view" */
+
+  /* ── Header (layout/Header.tsx) ── */
+  --header-scrolled-at: 40px;    /* glass + hairline + shadow + logo shrink after this much scroll */
+  --header-logo-scale: 0.92;
+  --hide-header-on-desktop: 0;   /* 1 = header also hides on scroll-down at >= 768px (default: phones only) */
+
+  /* ── Pinned Core Coverage story (home/CoverageStory.tsx), >= 768px only ── */
+  --pin-top: 69px;               /* sticky offset = header height, so the stage sits right under it */
+  --pin-step: 70svh;             /* scroll distance per slide (svh: stable when mobile browser bars move) */
+  --pin-slide-shift: 64px;       /* carousel travel: next slide enters from the right, previous leaves left */
+  --pin-slide-duration: 650ms;
+  --pin-media-duration: 900ms;   /* image curtain reveal */
+}
+
+/* ── Scene palettes: light theme ── */
+[data-scene="light"] {
+  --surface-page: #FAF7F2; --surface-raised: #FFFFFF; --surface-sunken: #F2EFE9;
+  --text-primary: #1A1D1F; --text-muted: #625D56; --accent-text: #B4492A; --accent-decor: #D0603D;
+  --border-subtle: #E8E4DE; --border-strong: #D6D1C8; --brand-text: #0D3B4A; --premium-text: #7A5A12;
+}
+[data-scene="white"] {
+  --surface-page: #FFFFFF; --surface-raised: #FFFFFF; --surface-sunken: #F2EFE9;
+  --text-primary: #1A1D1F; --text-muted: #625D56; --accent-text: #B4492A; --accent-decor: #D0603D;
+  --border-subtle: #E8E4DE; --border-strong: #D6D1C8; --brand-text: #0D3B4A; --premium-text: #7A5A12;
+}
+[data-scene="sand"] {
+  --surface-page: #F2EFE9; --surface-raised: #FFFFFF; --surface-sunken: #E8E4DE;
+  --text-primary: #1A1D1F; --text-muted: #5A554E; --accent-text: #A4411F; --accent-decor: #C9573A;
+  --border-subtle: #DDD8CF; --border-strong: #CFC9BE; --brand-text: #0D3B4A; --premium-text: #7A5A12;
+}
+[data-scene="teal"] {
+  --surface-page: #0D3B4A; --surface-raised: #134B59; --surface-sunken: #0B3441;
+  --text-primary: #FAF7F2; --text-muted: #D6D1C8; --accent-text: #E8876A; --accent-decor: #E8876A;
+  --border-subtle: rgba(255, 255, 255, 0.14); --border-strong: rgba(255, 255, 255, 0.24);
+  --brand-text: #AFD3DB; --premium-text: #D4A447;
+}
+[data-scene="dark"] {
+  --surface-page: #051A21; --surface-raised: #0B2A34; --surface-sunken: #08222B;
+  --text-primary: #FAF7F2; --text-muted: #D6D1C8; --accent-text: #E8876A; --accent-decor: #E8876A;
+  --border-subtle: rgba(255, 255, 255, 0.12); --border-strong: rgba(255, 255, 255, 0.22);
+  --brand-text: #80B7C3; --premium-text: #D4A447;
+}
+
+/* ── Scene palettes: dark theme (all scenes stay dark; they differ in depth and warmth) ── */
+html.dark [data-scene="light"] {
+  --surface-page: #091E26; --surface-raised: #0D323E; --surface-sunken: #0A242E;
+  --text-primary: #F2EFE9; --text-muted: #A39E95; --accent-text: #E8876A; --accent-decor: #DE7050;
+  --border-subtle: rgba(255, 255, 255, 0.12); --border-strong: rgba(255, 255, 255, 0.2);
+  --brand-text: #5FB3C4; --premium-text: #D4A447;
+}
+html.dark [data-scene="white"] {
+  --surface-page: #0B2530; --surface-raised: #103A48; --surface-sunken: #0A242E;
+  --text-primary: #F2EFE9; --text-muted: #A39E95; --accent-text: #E8876A; --accent-decor: #DE7050;
+  --border-subtle: rgba(255, 255, 255, 0.12); --border-strong: rgba(255, 255, 255, 0.2);
+  --brand-text: #5FB3C4; --premium-text: #D4A447;
+}
+html.dark [data-scene="sand"] {
+  --surface-page: #1A2422; --surface-raised: #223030; --surface-sunken: #16201E;
+  --text-primary: #F2EFE9; --text-muted: #ADA79D; --accent-text: #E8876A; --accent-decor: #DE7050;
+  --border-subtle: rgba(255, 255, 255, 0.12); --border-strong: rgba(255, 255, 255, 0.2);
+  --brand-text: #5FB3C4; --premium-text: #D4A447;
+}
+html.dark [data-scene="teal"] {
+  --surface-page: #0D3B4A; --surface-raised: #134B59; --surface-sunken: #0B3441;
+  --text-primary: #F2EFE9; --text-muted: #D6D1C8; --accent-text: #F0A386; --accent-decor: #E8876A;
+  --border-subtle: rgba(255, 255, 255, 0.14); --border-strong: rgba(255, 255, 255, 0.24);
+  --brand-text: #AFD3DB; --premium-text: #DDB45E;
+}
+html.dark [data-scene="dark"] {
+  --surface-page: #051A21; --surface-raised: #0B2A34; --surface-sunken: #08222B;
+  --text-primary: #F2EFE9; --text-muted: #D6D1C8; --accent-text: #E8876A; --accent-decor: #E8876A;
+  --border-subtle: rgba(255, 255, 255, 0.12); --border-strong: rgba(255, 255, 255, 0.22);
+  --brand-text: #80B7C3; --premium-text: #D4A447;
+}
+
+/* Each section paints its own scene. Legacy aliases resolve where they are declared, so re-derive them here. */
+[data-scene] {
+  background-color: var(--surface-page);
+  color: var(--text-primary);
+  --color-ink: var(--text-primary);
+  --color-slate-muted: var(--text-muted);
+  --color-brand-coral: var(--accent-text);
+  --color-border-subtle: var(--border-subtle);
+  --color-brand-teal: var(--brand-text);
+  --color-paper: var(--surface-page);
+  --color-surface: var(--surface-sunken);
+}
+
+/* ── Dial-down switch: html.fx-off (?fx=off, remembered) turns every scroll effect off at once ── */
+html.fx-off .scroll-progress { display: none; }
+/* scroll-driven rules in index.css are scoped to html:not(.fx-off); reveals check it in JS */

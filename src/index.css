@@ -1,4 +1,5 @@
 @import './styles/tokens.css';
+@import './styles/scroll-config.css';
 @import 'tailwindcss';
 
 /* dark: follows the app's theme class (html.dark), not the OS preference */
@@ -585,6 +586,152 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
   .chapter-rail.is-on-dark .chapter-num { color: var(--premium-on-inverse); }
 }
 
+/* ── Core Coverage story (home/CoverageStory.tsx) ──
+   Stacked by default (phones, reduced motion, fx-off). .is-pinned: a sticky stage over a track
+   of --steps × --pin-step; slides share one grid cell and swap like a carousel. */
+@layer components {
+  .story { position: relative; }
+  .story-stage { position: relative; padding: var(--section-y) 1.5rem; }
+  .story-inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--container-max);
+    margin: 0 auto;
+    display: grid;
+    gap: 2.5rem;
+  }
+  .story-counter, .story-nav, .story-rail { display: none; }
+  .story-slides { display: grid; gap: 3.5rem; }
+  .story-slide + .story-slide { padding-top: 3.5rem; border-top: 1px solid var(--border-subtle); }
+  .story-media {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-overlay);
+    aspect-ratio: 16 / 9;
+    background: var(--surface-sunken);
+  }
+  .story-media-img { position: relative; width: 100%; height: 100%; object-fit: cover; }
+
+  /* ── Pinned (>= 768px, motion allowed, effects on) ── */
+  .story.is-pinned { height: calc(100svh - var(--pin-top) + var(--steps) * var(--pin-step)); }
+  .story.is-pinned .story-sentinel {
+    position: absolute;
+    left: 0;
+    width: 1px;
+    height: var(--pin-step);
+    top: calc(50svh - var(--pin-top) + var(--i) * var(--pin-step));
+    pointer-events: none;
+  }
+  .story.is-pinned .story-stage {
+    position: sticky;
+    top: var(--pin-top);
+    height: calc(100svh - var(--pin-top));
+    display: flex;
+    align-items: center;
+    padding: 2rem 1.5rem;
+    overflow: clip;
+  }
+  .story.is-pinned .story-inner {
+    width: 100%;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+  }
+
+  .story.is-pinned .story-counter {
+    display: block;
+    margin: 1.75rem 0 1.5rem;
+    font-family: var(--font-serif);
+    font-weight: 600;
+    line-height: 1;
+    font-variant-numeric: tabular-nums lining-nums;
+    color: var(--text-primary);
+  }
+  .story-counter-current { font-size: clamp(3.5rem, 2rem + 4vw, 5.5rem); letter-spacing: -0.03em; }
+  .story-counter-total { font-size: 1.25rem; color: var(--text-muted); }
+
+  .story.is-pinned .story-nav { display: grid; gap: 2px; }
+  .story-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 36px;
+    padding: 0 0.75rem;
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+  .story-nav-item:hover { color: var(--text-primary); }
+  .story-nav-item[aria-current] { color: var(--text-primary); background: var(--surface-raised); }
+  .story-nav-item[aria-current] .font-mono { color: var(--premium-text); }
+
+  /* progress rail: fills per step (transform only) */
+  .story.is-pinned .story-rail {
+    display: block;
+    position: relative;
+    width: 2px;
+    height: 72px;
+    margin: 1.5rem 0 0 1.5rem;
+    background: var(--border-subtle);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .story-rail-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--accent-decor);
+    transform-origin: top center;
+    transition: transform var(--pin-slide-duration) var(--ease-out);
+  }
+
+  /* Carousel: every slide in the same cell; only opacity/transform/clip-path animate */
+  .story.is-pinned .story-slides { gap: 0; }
+  .story.is-pinned .story-slide {
+    grid-area: 1 / 1;
+    padding-top: 0;
+    border-top: 0;
+    opacity: 0;
+    transform: translate3d(var(--pin-slide-shift), 0, 0);
+    pointer-events: none;
+    transition:
+      opacity calc(var(--pin-slide-duration) * 0.7) var(--ease-out),
+      transform var(--pin-slide-duration) var(--ease-out);
+  }
+  .story.is-pinned .story-slide.is-past { transform: translate3d(calc(var(--pin-slide-shift) * -1), 0, 0); }
+  .story.is-pinned .story-slide.is-active { opacity: 1; transform: none; pointer-events: auto; }
+
+  /* Image: curtain unveils left-to-right while the photo settles from 1.08 to 1 */
+  .story.is-pinned .story-media {
+    aspect-ratio: auto;
+    height: clamp(160px, 34svh, 340px);
+    clip-path: inset(0 100% 0 0 round var(--radius-overlay));
+    transition: clip-path var(--pin-media-duration) var(--ease-out) 80ms;
+  }
+  .story.is-pinned .story-media-img {
+    scale: 1.08;
+    transition: scale calc(var(--pin-media-duration) + 300ms) var(--ease-out);
+  }
+  .story.is-pinned .is-active .story-media { clip-path: inset(0 0 0 0 round var(--radius-overlay)); }
+  .story.is-pinned .is-active .story-media-img { scale: 1; }
+
+  /* Text lines follow the slide in, staggered */
+  .story.is-pinned .story-line {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    transition: opacity 450ms var(--ease-out), transform 550ms var(--ease-out);
+  }
+  .story.is-pinned .is-active .story-line {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(180ms + var(--line, 0) * 70ms); /* --line set per element */
+  }
+
+  .story-hint-arrow { display: inline-block; animation: hintNudge 1.6s var(--ease-in-out) infinite; }
+}
+@keyframes hintNudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+
 /* ── Reading progress bar (layout/ScrollProgress.tsx) ── */
 .scroll-progress {
   position: fixed;
@@ -603,35 +750,29 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     /* Hero: as it scrolls away the cover lifts faster than the page, the lattice slower */
-    .hero-cover-drift {
+    html:not(.fx-off) .hero-cover-drift {
       animation: driftUp linear both;
       animation-timeline: view();
       animation-range: exit 0% exit 100%;
     }
-    .hero-backdrop::before {
+    html:not(.fx-off) .hero-backdrop::before {
       animation: latticeDrift linear both;
       animation-timeline: view();
       animation-range: cover 0% cover 100%;
     }
     /* Teal bands: the glow travels across while the band is on screen */
-    .band-glow::before {
+    html:not(.fx-off) .band-glow::before {
       animation: glowTravel linear both;
       animation-timeline: view();
       animation-range: cover 0% cover 100%;
     }
-    .join-band::before {
+    html:not(.fx-off) .join-band::before {
       animation: latticeDrift linear both;
       animation-timeline: view();
       animation-range: cover 0% cover 100%;
     }
-    /* Chapter change: a band enters as an inset rounded panel and opens to full bleed */
-    .band-open {
-      animation: bandOpen linear backwards; /* backwards: once open, no clip-path is left on the section */
-      animation-timeline: view();
-      animation-range: entry 0% entry 85%;
-    }
     /* Footer wordmark rises into its slot as the footer arrives */
-    .footer-wordmark {
+    html:not(.fx-off) .footer-wordmark {
       animation: wordmarkRise linear both;
       animation-timeline: view();
       animation-range: entry 0% entry 70%;
@@ -639,10 +780,6 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
   }
 }
 
-@keyframes bandOpen {
-  from { clip-path: inset(0 3.5% round 32px); }
-  to   { clip-path: inset(0 0 round 0px); }
-}
 @keyframes driftUp      { to { transform: translate3d(0, -60px, 0); } }
 @keyframes latticeDrift { from { transform: translate3d(0, 36px, 0); } to { transform: translate3d(0, -36px, 0); } }
 @keyframes glowTravel   { from { transform: translate3d(-18%, 10%, 0); } to { transform: translate3d(18%, -10%, 0); } }
@@ -793,10 +930,10 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
    toward the cover, away from the headline) → grain (::after). All decorative, behind z-10 content. */
 @layer components {
   .hero-backdrop {
-    background:
+    /* base colour comes from the section's scene (scroll-config.css) */
+    background-image:
       radial-gradient(ellipse 45% 55% at 82% 40%, rgba(208, 96, 61, 0.11) 0%, transparent 70%),
-      radial-gradient(ellipse 55% 60% at 0% 100%, rgba(13, 59, 74, 0.08) 0%, transparent 70%),
-      var(--surface-page);
+      radial-gradient(ellipse 55% 60% at 0% 100%, rgba(13, 59, 74, 0.08) 0%, transparent 70%);
   }
   .hero-backdrop::before,
   .hero-backdrop::after {
@@ -825,10 +962,9 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
     }
   }
   html.dark .hero-backdrop {
-    background:
+    background-image:
       radial-gradient(ellipse 45% 55% at 82% 40%, rgba(232, 135, 106, 0.12) 0%, transparent 70%),
-      radial-gradient(ellipse 55% 60% at 0% 100%, rgba(95, 179, 196, 0.10) 0%, transparent 70%),
-      var(--surface-page);
+      radial-gradient(ellipse 55% 60% at 0% 100%, rgba(95, 179, 196, 0.10) 0%, transparent 70%);
   }
   html.dark .hero-backdrop::before {
     filter: invert(1);
@@ -1138,10 +1274,9 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
 /* ── Join band (Landing): deep teal, warm glow top-right, faint lattice bottom-left ── */
 @layer components {
   .join-band {
-    background:
+    background-image:
       radial-gradient(ellipse 50% 70% at 100% 0%, rgba(208, 96, 61, 0.22) 0%, transparent 70%),
-      radial-gradient(ellipse 60% 60% at 0% 100%, rgba(95, 179, 196, 0.10) 0%, transparent 70%),
-      var(--surface-inverse);
+      radial-gradient(ellipse 60% 60% at 0% 100%, rgba(95, 179, 196, 0.10) 0%, transparent 70%);
   }
   .join-band::before {
     content: "";
