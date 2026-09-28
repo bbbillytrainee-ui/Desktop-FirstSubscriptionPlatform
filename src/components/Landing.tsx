@@ -15,6 +15,7 @@ import TextLink from "./ui/TextLink"
 import Avatar from "./ui/Avatar"
 import EmptyState from "./ui/EmptyState"
 import Reveal from "./ui/Reveal"
+import CountUp from "./ui/CountUp"
 import { BookOpen } from "./ui/Icons"
 import SafeImage from "./ui/SafeImage"
 import { ARTICLES, Article } from "../data/fixtures/articles"
@@ -157,24 +158,23 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             </div>
 
             {/* Credibility Credentials Trust Row */}
-            <div className="pt-7 border-t border-[var(--color-border-subtle)] grid grid-cols-2 sm:grid-cols-4 gap-6">
-              <div>
-                <div className="font-mono text-2xl sm:text-3xl font-black text-[var(--color-ink)] leading-none">34,000+</div>
-                <div className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider leading-tight mt-1.5">Verified Leaders</div>
-              </div>
-              <div>
-                <div className="font-mono text-2xl sm:text-3xl font-black text-[var(--color-ink)] leading-none">48+</div>
-                <div className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider leading-tight mt-1.5">Annual Dossiers</div>
-              </div>
-              <div>
-                <div className="font-mono text-2xl sm:text-3xl font-black text-[var(--color-ink)] leading-none">100%</div>
-                <div className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider leading-tight mt-1.5">Peer Cited Rigor</div>
-              </div>
-              <div>
-                <div className="font-mono text-2xl sm:text-3xl font-black text-[var(--color-ink)] leading-none">{currentIssue.number}</div>
-                <div className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider leading-tight mt-1.5">Issues Published</div>
-              </div>
-            </div>
+            <dl className="pt-7 border-t border-[var(--color-border-subtle)] grid grid-cols-2 sm:grid-cols-4 gap-6">
+              {[
+                { value: 34000, suffix: "+", label: "Verified Leaders" },
+                { value: 48, suffix: "+", label: "Annual Dossiers" },
+                { value: 100, suffix: "%", label: "Peer Cited Rigor" },
+                { value: currentIssue.number, label: "Issues Published" },
+              ].map(stat => (
+                <div key={stat.label} className="flex flex-col-reverse">
+                  <dt className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider leading-tight mt-1.5">
+                    {stat.label}
+                  </dt>
+                  <dd className="font-mono text-2xl sm:text-3xl font-semibold text-[var(--color-ink)] leading-none">
+                    <CountUp value={stat.value} suffix={stat.suffix} />
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
           {/* Right Column: Current Issue Spotlight Card */}
