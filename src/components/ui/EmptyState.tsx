@@ -10,6 +10,8 @@ export interface EmptyStateProps {
   secondaryActionLabel?: string
   onSecondaryAction?: () => void
   className?: string
+  /** Heading level for the title; use "h1" when the empty state is the whole page (e.g. 404) */
+  headingLevel?: "h1" | "h2" | "h3"
 }
 
 export default function EmptyState({
@@ -21,6 +23,7 @@ export default function EmptyState({
   secondaryActionLabel,
   onSecondaryAction,
   className = "",
+  headingLevel: Heading = "h3",
 }: EmptyStateProps) {
   return (
     <div className={`flex flex-col items-center justify-center text-center py-16 px-6 bg-card border border-[var(--color-border-subtle)] rounded-card ${className}`}>
@@ -31,11 +34,11 @@ export default function EmptyState({
           §
         </div>
       )}
-      <h3
+      <Heading
         className="font-serif text-xl font-semibold text-[var(--color-ink)] mb-2"
       >
         {title}
-      </h3>
+      </Heading>
       <p className="text-sm text-[var(--color-slate-muted)] max-w-md mb-6 leading-relaxed">
         {description}
       </p>

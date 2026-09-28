@@ -1,37 +1,64 @@
+import { lazy, Suspense } from "react"
 import HomePage from "./pages/HomePage"
-import MagazinePage from "./pages/MagazinePage"
-import AboutPage from "./pages/AboutPage"
-import ProfessionalsPage from "./pages/ProfessionalsPage"
-import CompaniesPage from "./pages/CompaniesPage"
-import WebinarsPage from "./pages/WebinarsPage"
-import ThoughtLeadershipPage from "./pages/ThoughtLeadershipPage"
-import InterviewsPage from "./pages/InterviewsPage"
-import PressReleasePage from "./pages/PressReleasePage"
-import AdvertisePage from "./pages/AdvertisePage"
-import SubscriptionsPage from "./pages/SubscriptionsPage"
-import ArchivePage from "./pages/ArchivePage"
-import NewsletterPage from "./pages/NewsletterPage"
-import RssFeedsPage from "./pages/RssFeedsPage"
-import EventsPage from "./pages/EventsPage"
-import VideosPage from "./pages/VideosPage"
-import PodcastsPage from "./pages/PodcastsPage"
-import ReportsPage from "./pages/ReportsPage"
-import TrendIntelligencePage from "./pages/TrendIntelligencePage"
-import TalentIntentPage from "./pages/TalentIntentPage"
-import VendorsDirectoryPage from "./pages/VendorsDirectoryPage"
-import RegulatoryNavigatorPage from "./pages/RegulatoryNavigatorPage"
-import EnterpriseWorkspacePage from "./pages/EnterpriseWorkspacePage"
-import ReferralPage from "./pages/ReferralPage"
 import NotFoundPage from "./pages/NotFoundPage"
-import ArticlePage from "./pages/ArticlePage"
-import Onboarding from "./components/Onboarding"
-import Dashboard from "./components/Dashboard"
 import ErrorBoundary from "./components/ui/ErrorBoundary"
+import LoadingState from "./components/ui/LoadingState"
 import { AuthProvider } from "./lib/auth"
 import { RouterProvider, useRouter } from "./lib/router"
 import { ToastProvider } from "./lib/toast"
 import { BookmarksProvider } from "./lib/bookmarks"
 import { ThemeProvider } from "./lib/theme"
+
+// Home + 404 ship in the main bundle; every other screen is split into its own chunk
+const MagazinePage = lazy(() => import("./pages/MagazinePage"))
+const AboutPage = lazy(() => import("./pages/AboutPage"))
+const ProfessionalsPage = lazy(() => import("./pages/ProfessionalsPage"))
+const CompaniesPage = lazy(() => import("./pages/CompaniesPage"))
+const WebinarsPage = lazy(() => import("./pages/WebinarsPage"))
+const ThoughtLeadershipPage = lazy(() => import("./pages/ThoughtLeadershipPage"))
+const InterviewsPage = lazy(() => import("./pages/InterviewsPage"))
+const PressReleasePage = lazy(() => import("./pages/PressReleasePage"))
+const AdvertisePage = lazy(() => import("./pages/AdvertisePage"))
+const SubscriptionsPage = lazy(() => import("./pages/SubscriptionsPage"))
+const ArchivePage = lazy(() => import("./pages/ArchivePage"))
+const NewsletterPage = lazy(() => import("./pages/NewsletterPage"))
+const RssFeedsPage = lazy(() => import("./pages/RssFeedsPage"))
+const EventsPage = lazy(() => import("./pages/EventsPage"))
+const VideosPage = lazy(() => import("./pages/VideosPage"))
+const PodcastsPage = lazy(() => import("./pages/PodcastsPage"))
+const ReportsPage = lazy(() => import("./pages/ReportsPage"))
+const TrendIntelligencePage = lazy(() => import("./pages/TrendIntelligencePage"))
+const TalentIntentPage = lazy(() => import("./pages/TalentIntentPage"))
+const VendorsDirectoryPage = lazy(() => import("./pages/VendorsDirectoryPage"))
+const RegulatoryNavigatorPage = lazy(() => import("./pages/RegulatoryNavigatorPage"))
+const EnterpriseWorkspacePage = lazy(() => import("./pages/EnterpriseWorkspacePage"))
+const ReferralPage = lazy(() => import("./pages/ReferralPage"))
+const ArticlePage = lazy(() => import("./pages/ArticlePage"))
+const Onboarding = lazy(() => import("./components/Onboarding"))
+const Dashboard = lazy(() => import("./components/Dashboard"))
+
+// Warm the chunks people most often open next, once the browser is idle
+const prefetchLikelyNext = () => {
+  void import("./pages/ArticlePage")
+  void import("./pages/MagazinePage")
+  void import("./components/Onboarding")
+}
+if (typeof window !== "undefined") {
+  const idle = (window as Window & { requestIdleCallback?: (cb: () => void) => number }).requestIdleCallback
+  if (idle) idle(prefetchLikelyNext)
+  else window.setTimeout(prefetchLikelyNext, 2000)
+}
+
+function PageFallback() {
+  return (
+    <div aria-busy="true" aria-label="Loading page" className="min-h-screen">
+      <div className="h-16 border-b border-[var(--color-border-subtle)]" />
+      <div className="max-w-[var(--container-max)] mx-auto px-6 py-12">
+        <LoadingState type="article" />
+      </div>
+    </div>
+  )
+}
 
 const KNOWN_ROUTES = new Set([
   "home", "", "magazine", "about", "professionals", "companies", "webinars", "thought-leadership",
@@ -72,6 +99,7 @@ function AppRoutes() {
         Skip to content
       </a>
       <ErrorBoundary onReset={() => navigate("home")}>
+      <Suspense fallback={<PageFallback />}>
       {articleSlug && <ArticlePage slug={articleSlug} onJoin={handleJoin} onNavigate={handleNavigate} />}
       {!articleSlug && !KNOWN_ROUTES.has(route) && <NotFoundPage onJoin={handleJoin} onNavigate={handleNavigate} />}
       {(route === "home" || route === "") && (
@@ -222,6 +250,7 @@ function AppRoutes() {
         <Onboarding onComplete={() => navigate("dashboard")} />
       )}
       {route === "dashboard" && <Dashboard onNavigate={handleNavigate} />}
+      </Suspense>
       </ErrorBoundary>
     </div>
   )

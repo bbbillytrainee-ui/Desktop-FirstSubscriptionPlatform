@@ -14,6 +14,7 @@ export default function NotFoundPage({ onJoin, onNavigate }: NotFoundPageProps) 
       <main className="flex-1 flex items-center justify-center px-6 py-20">
         <EmptyState
           className="w-full max-w-xl"
+          headingLevel="h1"
           title="We couldn't find that page"
           description="The link may be outdated, or the page may have moved. Try the latest issue or browse the archive."
           actionLabel="Go to homepage"
