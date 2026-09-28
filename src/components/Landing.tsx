@@ -70,6 +70,12 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
     () => Object.fromEntries(TOPICS.map(t => [t.id, filterByTopic(ARTICLES, t.id).length])),
     []
   )
+  // Topics with an article in the 7 days up to the newest one get an "updated" dot
+  const updatedTopics = useMemo(() => {
+    const newest = Math.max(...ARTICLES.map(a => Date.parse(a.date)))
+    const recent = ARTICLES.filter(a => newest - Date.parse(a.date) <= 7 * 86_400_000)
+    return TOPICS.filter(t => t.id !== ALL_TOPIC_ID && recent.some(t.matches)).map(t => t.id)
+  }, [])
 
   const openArticle = (article: Article) => onNavigate?.(articleRoute(article.slug))
 
@@ -99,7 +105,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       <Header onJoin={onGetAccess} onSignIn={onGetAccess} onNavigate={onNavigate} />
 
       {/* Taxonomy Filter Bar (Top Sub-Nav) */}
-      <TaxonomyNav activeTopic={activeTopic} counts={topicCounts} onSelectTopic={id => selectTopic(id)} />
+      <TaxonomyNav activeTopic={activeTopic} counts={topicCounts} updated={updatedTopics} onSelectTopic={id => selectTopic(id)} />
 
       <main id="main-content">
       {/* SECTION 1: Hero */}

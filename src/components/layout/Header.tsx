@@ -8,6 +8,17 @@ import { BookmarkFilled } from "../ui/Icons"
 import { useBookmarks } from "../../lib/bookmarks"
 import { useTheme } from "../../lib/theme"
 import { useScrollHeader } from "../../lib/useScrollHeader"
+import { useRouter } from "../../lib/router"
+import { useSlidingIndicator } from "../../lib/useSlidingIndicator"
+
+/** Routes that live under the Magazine menu: the nav underline rests on "Magazine" for these */
+const MAGAZINE_ROUTES = new Set([
+  "magazine", "archive", "press-release", "newsletter", "rss-feeds", "thought-leadership",
+  "interviews", "reports", "vendors", "webinars", "videos", "podcasts", "events",
+])
+
+const navKeyFor = (route: string) =>
+  MAGAZINE_ROUTES.has(route) ? "magazine" : route === "advertise" || route === "subscriptions" ? route : null
 
 export interface HeaderProps {
   onJoin?: () => void
@@ -28,6 +39,11 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
   const navRef = useRef<HTMLDivElement>(null)
   const { savedCount } = useBookmarks()
   const { scrolled, hidden } = useScrollHeader()
+  const { route } = useRouter()
+  const activeNav = navKeyFor(route)
+  const underline = useSlidingIndicator<HTMLElement>(activeNav ? `[data-nav="${activeNav}"]` : null)
+  // Hover/focus previews the underline; it returns to the active item (or hides) on leave
+  const navItem = (key: string) => ({ "data-nav": key, onMouseEnter: underline.moveTo, onFocus: underline.moveTo })
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -70,19 +86,15 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
         onNavigate={handleNav}
       />
 
-      {/* Main Glass Header */}
+      {/* Header: solid paper at rest; once the page scrolls, glass + shadow fade in (opacity layers) */}
       <header
-        className={`sticky top-0 z-40 bg-[var(--color-paper)]/90 backdrop-blur-xl border-b border-[var(--color-border-subtle)] px-4 sm:px-6 md:px-12 py-3 transition-transform duration-[var(--duration-base)] ease-[var(--ease-out)] ${
-          hidden && !mobileMenuOpen ? "max-md:-translate-y-full" : ""
-        }`}
+        className={`site-header sticky top-0 z-40 border-b border-[var(--border-subtle)] px-4 sm:px-6 md:px-12 py-3 transition-transform duration-[var(--duration-base)] ease-[var(--ease-out)] ${
+          scrolled ? "is-scrolled" : ""
+        } ${hidden && !mobileMenuOpen ? "max-md:-translate-y-full" : ""}`}
       >
-        {/* Elevation fades in once the page scrolls (opacity only, no box-shadow animation) */}
-        <span
-          aria-hidden="true"
-          className={`pointer-events-none absolute inset-x-0 top-full h-4 bg-gradient-to-b from-[rgba(13,59,74,0.10)] to-transparent transition-opacity duration-[var(--duration-base)] ${
-            scrolled ? "opacity-100" : "opacity-0"
-          }`}
-        />
+        <span aria-hidden="true" className="site-header-shadow" />
+        <span aria-hidden="true" className="site-header-solid" />
+        <span aria-hidden="true" className="site-header-glass" />
         <div className="max-w-[var(--container-max)] mx-auto flex items-center justify-between gap-4" ref={navRef}>
           
           {/* Brand Logo */}
@@ -92,17 +104,33 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
             aria-label="Mediverse home"
             className="cursor-pointer shrink-0 min-h-11 flex items-center"
           >
-            <Logo size="md" />
+            <span className="site-header-logo inline-flex"><Logo size="md" /></span>
           </button>
 
           {/* Desktop Navigation */}
-          <nav className="hide-mobile flex items-center gap-1 lg:gap-2">
+          <nav
+            ref={underline.ref}
+            aria-label="Primary"
+            className="hide-mobile relative flex items-center gap-1 lg:gap-2"
+            onMouseLeave={underline.reset}
+            onBlur={e => {
+              if (!e.currentTarget.contains(e.relatedTarget as Node)) underline.reset()
+            }}
+          >
+            {/* Sliding underline: a 1px bar scaled to the item's text width (transform only) */}
+            <span
+              aria-hidden="true"
+              className={`nav-underline ${underline.ready ? "is-ready" : ""}`}
+              style={underline.box ? { opacity: 1, transform: `translateX(${underline.box.x + 12}px) scaleX(${Math.max(0, underline.box.w - 24)})` } : { opacity: 0 }}
+            />
             
             {/* 1. Magazine Dropdown (Includes News, Industry, Webinars sub-columns) */}
-            <div className="relative">
+            <div className="relative" {...navItem("magazine")}>
               <button
                 onClick={() => toggleDropdown("magazine")}
-                className={`flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium transition rounded-md hover:bg-[var(--color-surface)] ${
+                aria-expanded={openDropdown === "magazine"}
+                aria-current={activeNav === "magazine" ? "page" : undefined}
+                className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors rounded-md ${
                   openDropdown === "magazine" ? "text-[var(--color-brand-teal)] font-semibold bg-[var(--color-surface)]" : "text-[var(--color-ink)] hover:text-[var(--color-brand-coral)]"
                 }`}
               >
@@ -361,17 +389,20 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
 
             {/* 2. Advertise */}
             <button
+              {...navItem("advertise")}
               onClick={() => handleNav("advertise")}
-              className="px-3 py-2 text-sm font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-coral)] transition rounded-md hover:bg-[var(--color-surface)] relative group"
+              aria-current={activeNav === "advertise" ? "page" : undefined}
+              className="px-3 py-2 text-sm font-medium text-[var(--text-primary)] hover:text-[var(--accent-text)] transition-colors rounded-md"
             >
               Advertise
-              <span className="absolute bottom-1 left-3 right-3 h-0.5 bg-[var(--color-brand-coral-fill)] scale-x-0 group-hover:scale-x-100 transition-transform duration-200 origin-left rounded-full" />
             </button>
 
             {/* 3. Subscriptions */}
             <button
+              {...navItem("subscriptions")}
               onClick={() => handleNav("subscriptions")}
-              className="px-3 py-2 text-sm font-medium text-[var(--color-ink)] hover:text-[var(--color-brand-coral)] transition rounded-md hover:bg-[var(--color-surface)]"
+              aria-current={activeNav === "subscriptions" ? "page" : undefined}
+              className="px-3 py-2 text-sm font-medium text-[var(--text-primary)] hover:text-[var(--accent-text)] transition-colors rounded-md"
             >
               Subscriptions
             </button>

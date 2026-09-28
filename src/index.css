@@ -466,13 +466,13 @@ body {
   animation: countBump var(--duration-slow) var(--ease-out);
 }
 
-/* ── Dispatch ticker (TaxonomyNav, below lg): seamless marquee ── */
+/* ── Dispatch ticker (TaxonomyNav): seamless marquee at every width, pauses on hover/focus ── */
 @keyframes tickerScroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
 
-/* In @layer components so the element's lg:hidden utility can win (unlayered CSS beats every utility) */
+/* In @layer components so utilities on the element can still override it */
 @layer components {
   .ticker-track {
     display: inline-flex;
@@ -770,6 +770,89 @@ body {
   .cover:focus-within .cover-duotone { opacity: 0; }
   @media (hover: none) {
     .cover-duotone { opacity: 0.55; }
+  }
+}
+
+/* ── Site header (layout/Header.tsx) ──
+   Rest: solid paper. Scrolled: solid fades out, glass + warm shadow fade in, logo eases to 92%.
+   Layers are negative-z children of the sticky header's own stacking context. */
+@layer components {
+  .site-header-solid,
+  .site-header-glass,
+  .site-header-shadow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transition: opacity var(--duration-slow) var(--ease-out);
+  }
+  .site-header-shadow { z-index: -3; box-shadow: var(--elev-2); opacity: 0; }
+  .site-header-solid  { z-index: -2; background: var(--surface-page); }
+  .site-header-glass  {
+    z-index: -1;
+    background: color-mix(in srgb, var(--surface-page) 80%, transparent);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    backdrop-filter: blur(14px) saturate(1.3);
+    opacity: 0;
+  }
+  .site-header.is-scrolled .site-header-solid { opacity: 0; }
+  .site-header.is-scrolled .site-header-glass,
+  .site-header.is-scrolled .site-header-shadow { opacity: 1; }
+
+  .site-header-logo {
+    transform-origin: left center;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+  .site-header.is-scrolled .site-header-logo { transform: scale(0.92); }
+
+  /* 1px bar scaled to the target width; positioned by useSlidingIndicator */
+  .nav-underline {
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    width: 1px;
+    height: 2px;
+    background: var(--accent-decor);
+    transform-origin: left center;
+    pointer-events: none;
+    transition: opacity var(--duration-base) var(--ease-out);
+  }
+  .nav-underline.is-ready {
+    transition: transform var(--duration-slow) var(--ease-out), opacity var(--duration-base) var(--ease-out);
+  }
+}
+
+/* ── Topic chips on the dispatch bar (TaxonomyNav) ── */
+@layer components {
+  /* Active background: one white layer clipped to the active chip; the clip slides on change */
+  .chip-pill {
+    position: absolute;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    left: 0;
+    background: #fff;
+    border-radius: 999px;
+    pointer-events: none;
+  }
+  .chip-pill.is-ready { transition: clip-path var(--duration-slow) var(--ease-out); }
+
+  /* "Updated this week": terracotta dot on the chip corner with a slow ring */
+  .chip-updated {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent-on-inverse);
+    box-shadow: 0 0 0 2px var(--color-teal-800);
+  }
+  .chip-updated::after {
+    content: "";
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 1.5px solid var(--accent-on-inverse);
+    animation: liveRing 2.4s var(--ease-out) infinite;
   }
 }
 
