@@ -5,6 +5,8 @@ const at = (i: number) => ({ style: { "--i": i } as CSSProperties })
 
 export interface SectionHeaderProps {
   eyebrow: string
+  /** Chapter number shown before the kicker, e.g. "02" (landing sections read as a magazine's chapters) */
+  index?: string
   title: string
   description?: string
   action?: ReactNode
@@ -16,6 +18,7 @@ export interface SectionHeaderProps {
 
 export default function SectionHeader({
   eyebrow,
+  index,
   title,
   description,
   action,
@@ -42,6 +45,12 @@ export default function SectionHeader({
             isDark ? "text-[var(--color-brand-coral-on-dark)]" : "text-[var(--color-brand-coral)]"
           }`}
         >
+          {index && (
+            <span className={`tabular-nums ${isDark ? "text-[var(--premium-on-inverse)]" : "text-[var(--premium-text)]"}`}>
+              <span className="sr-only">Section </span>
+              {index}
+            </span>
+          )}
           <span aria-hidden="true" data-reveal="rule" {...at(2)} className={`h-px w-6 ${isDark ? "bg-[var(--accent-on-inverse)]" : "bg-[var(--accent-decor)]"}`} />
           {eyebrow}
         </span>

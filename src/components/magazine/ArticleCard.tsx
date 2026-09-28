@@ -130,7 +130,7 @@ function Meta({ article, className = "" }: { article: Article; className?: strin
 
 function ProBadge() {
   return (
-    <span className="font-mono bg-[var(--accent-fill)] text-white text-[11px] font-semibold uppercase tracking-[0.1em] px-2 py-1 rounded-full">
+    <span className="font-mono bg-[var(--premium-fill)] text-[var(--premium-fill-text)] text-[11px] font-semibold uppercase tracking-[0.1em] px-2 py-1 rounded-full">
       Pro
     </span>
   )

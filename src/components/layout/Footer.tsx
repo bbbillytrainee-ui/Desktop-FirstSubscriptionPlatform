@@ -73,7 +73,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             className="group w-full text-left rounded-card border border-[var(--border-inverse)] bg-white/[0.03] p-5 transition-transform duration-[var(--duration-slow)] ease-[var(--ease-out)] hover:-translate-y-0.5"
           >
             <span className="flex items-center justify-between font-mono text-label font-semibold uppercase">
-              <span className="text-[var(--accent-on-inverse)]">Issue #{issue.number}</span>
+              <span className="text-[var(--premium-on-inverse)]">Issue #{issue.number}</span>
               <span>{issue.month}</span>
             </span>
             <span className="mt-3 block font-serif text-h4 font-semibold text-white">{issue.theme}</span>

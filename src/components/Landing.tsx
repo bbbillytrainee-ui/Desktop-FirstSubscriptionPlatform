@@ -15,6 +15,7 @@ import Avatar from "./ui/Avatar"
 import EmptyState from "./ui/EmptyState"
 import Reveal from "./ui/Reveal"
 import Hero from "./home/Hero"
+import ChapterRail from "./layout/ChapterRail"
 import CountUp from "./ui/CountUp"
 import SafeImage from "./ui/SafeImage"
 import { ARTICLES, Article } from "../data/fixtures/articles"
@@ -131,10 +132,11 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
 
       {/* SECTION 3: Newspaper Editorial Grid (Lead Dossier + Live Breaking Sidebar + 3 Sub-Features) */}
 
-      <section id="articles-section" className="py-[var(--section-y)] px-6 md:px-12 border-b border-[var(--border-subtle)] bg-card">
+      <section id="articles-section" data-chapter="Dossiers" className="py-[var(--section-y)] px-6 md:px-12 border-b border-[var(--border-subtle)] bg-card">
         <div className="max-w-[var(--container-max)] mx-auto">
           
           <SectionHeader
+            index="01"
             eyebrow="Editorial Exclusives"
             title="Latest Life Science Dossiers"
             description="Long-form analysis from this month's issue, plus the wire as it lands."
@@ -217,9 +219,10 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       </section>
 
       {/* SECTION 4: Three-Lane Focus Areas (Pharma, MedTech, AI) - Dark Mode Island */}
-      <section className="band-glow py-[var(--section-y)] px-6 md:px-12 bg-[var(--color-section-dark)] text-white relative overflow-clip">
+      <section id="coverage" data-chapter="Coverage" data-chapter-dark className="band-glow band-open py-[var(--section-y)] px-6 md:px-12 bg-[var(--color-section-dark)] text-white relative overflow-clip">
         <div className="max-w-[var(--container-max)] mx-auto relative z-10">
           <SectionHeader
+            index="02"
             eyebrow="Core Coverage"
             title="Three verticals. Focused depth."
             description="Uncompromising monthly analysis written for decision-makers in medicine, biotechnology, and health technology."
@@ -255,13 +258,13 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       </section>
 
       {/* SECTION 5: Webinar Spotlight + Verified Network Teaser (page tone: rhythm is page / white / teal) */}
-      <section className="py-[var(--section-y)] px-6 md:px-12 border-b border-[var(--border-subtle)] bg-[var(--surface-page)]">
+      <section id="network" data-chapter="Network" className="band-open py-[var(--section-y)] px-6 md:px-12 bg-[var(--surface-tint)]">
         <div className="max-w-[var(--container-max)] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
             {/* Left Col (5 cols): Upcoming Webinar */}
             <Reveal variant="left" className="lg:col-span-5">
-            <Card variant="muted" padding="lg" className="flex flex-col justify-between">
+            <Card padding="lg" className="flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--color-border-subtle)]">
                   <span className="font-mono text-eyebrow font-semibold uppercase text-[var(--color-brand-coral)]">
@@ -299,6 +302,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
             <Reveal variant="right" delay={120} className="lg:col-span-7">
               <SectionHeader
                 as="h3"
+                index="03"
                 eyebrow="Verified Network"
                 title="Connect with leaders across the ecosystem"
                 action={<TextLink onClick={onGetAccess} className="hidden sm:inline-flex">Explore the member directory</TextLink>}
@@ -307,7 +311,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {PROFILES.slice(0, 2).map(p => (
-                  <Card key={p.id} variant="muted" className="flex flex-col justify-between">
+                  <Card key={p.id} className="flex flex-col justify-between">
                     <div>
                       <div className="flex items-center gap-3 mb-3">
                         <Avatar name={p.name} size="sm" />
@@ -332,7 +336,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
                 ))}
               </div>
 
-              <div className="mt-4 px-4 py-3 bg-[var(--color-paper)] border border-[var(--color-border-subtle)] rounded-card flex items-center justify-between gap-4 text-meta">
+              <div className="mt-4 px-4 py-3 bg-card border border-[var(--color-border-subtle)] rounded-card flex items-center justify-between gap-4 text-meta">
                 <span className="text-[var(--color-slate-muted)]">
                   DPDP Act 2023 compliant · Introductions only with explicit consent
                 </span>
@@ -345,9 +349,10 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       </section>
 
       {/* SECTION 6: Institutional Dossiers / Research Reports */}
-      <section className="py-[var(--section-y)] px-6 md:px-12 bg-card">
+      <section id="briefings" data-chapter="Briefings" className="py-[var(--section-y)] px-6 md:px-12 bg-[var(--surface-page)] border-t border-[var(--border-subtle)]">
         <div className="max-w-[var(--container-max)] mx-auto">
           <SectionHeader
+            index="04"
             eyebrow="Institutional Intelligence"
             title="Deep Industry Briefings & Dossiers"
             description="Board-ready research with executive summaries, sourced data and regulatory timelines."
@@ -382,10 +387,11 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       </section>
 
       {/* SECTION 7: Join the network — deep teal band, split layout (pitch left, what you get right) */}
-      <section aria-labelledby="join-title" className="join-band relative overflow-clip px-6 md:px-12 py-[var(--section-y)] text-[var(--text-inverse)]">
+      <section id="join" data-chapter="Join" data-chapter-dark aria-labelledby="join-title" className="join-band band-open relative overflow-clip px-6 md:px-12 py-[var(--section-y)] text-[var(--text-inverse)]">
         <div className="relative z-10 max-w-[var(--container-max)] mx-auto grid grid-cols-1 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] gap-12 lg:gap-16 items-center">
           <div>
             <p data-reveal="up" className="mb-5 flex items-center gap-3 font-mono text-label font-semibold uppercase text-[var(--accent-on-inverse)]">
+              <span className="tabular-nums text-[var(--premium-on-inverse)]"><span className="sr-only">Section </span>05</span>
               <span aria-hidden="true" data-reveal="rule" style={{ "--i": 2 } as CSSProperties} className="h-px w-8 bg-[var(--accent-on-inverse)]" />
               Join Mediverse Life Sciences
             </p>
@@ -430,7 +436,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
           <ol data-reveal="right" style={{ "--i": 1 } as CSSProperties} className="rounded-overlay border border-[var(--border-inverse)] bg-[var(--surface-inverse-raised)] divide-y divide-[var(--border-inverse)] shadow-overlay">
             {JOIN_BENEFITS.map((item, i) => (
               <li key={item.title} data-reveal="up" style={{ "--i": i + 3 } as CSSProperties} className="flex gap-5 p-6">
-                <span className="font-mono text-label font-semibold text-[var(--accent-on-inverse)] pt-1 tabular-nums">0{i + 1}</span>
+                <span className="font-mono text-label font-semibold text-[var(--premium-on-inverse)] pt-1 tabular-nums">0{i + 1}</span>
                 <div>
                   <h3 className="font-serif text-h4 font-semibold text-white mb-1">{item.title}</h3>
                   <p className="text-sm leading-relaxed text-[var(--text-inverse-muted)]">{item.body}</p>
@@ -442,6 +448,8 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       </section>
 
       </main>
+
+      <ChapterRail />
 
       {/* Footer */}
       <Footer onNavigate={onNavigate} />

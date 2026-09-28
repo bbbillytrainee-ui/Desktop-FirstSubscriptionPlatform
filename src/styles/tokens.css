@@ -39,6 +39,17 @@
   --accent-tint: var(--color-terracotta-50);
   --brand-text: var(--color-teal-800);
 
+  /* ── Semantic: premium (brass) — Pro/issue marks, chapter numbers. One job: "premium / editorial"
+     text on paper 6.0:1, on white 6.4:1; sand-900 on fill 8.5:1; on-inverse on teal-900 6.8:1 ── */
+  --premium-fill: #D9B25C;
+  --premium-fill-text: var(--color-sand-900);
+  --premium-text: #7A5A12;
+  --premium-tint: var(--color-gold-100);
+  --premium-on-inverse: #D4A447;
+
+  /* ── Semantic: cool section tint (teal-50) so a section reads as its own "chapter" ── */
+  --surface-tint: var(--color-teal-50);
+
   /* ── Semantic: topic tones (chips, feed rails) ──
      fg on bg ≥ 6.6:1, fg on bg-strong ≥ 5.7:1; rail is non-text (≥ 3:1 on card) */
   --topic-pharma-fg: #134B59;     --topic-pharma-bg: #EFF6F7;     --topic-pharma-bg-strong: #D6E9ED;     --topic-pharma-rail: #2A7A8C;
@@ -139,6 +150,10 @@ html.dark {
   --accent-decor: var(--color-terracotta-400);
   --accent-tint: rgba(232, 135, 106, 0.14);
   --brand-text: var(--color-teal-400);            /* 7.1:1 on page */
+
+  --premium-text: #D4A447;                        /* 7.5:1 on page, 6.0:1 on card */
+  --premium-tint: rgba(212, 164, 71, 0.14);
+  --surface-tint: #0C2A34;
 
   /* fg on bg ≥ 6.0:1, on bg-strong ≥ 4.7:1; solid (not alpha) so chips read the same over photos */
   --topic-pharma-fg: #8CC5D1;     --topic-pharma-bg: #123F4B;     --topic-pharma-bg-strong: #17505E;     --topic-pharma-rail: #5FB3C4;

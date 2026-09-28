@@ -137,7 +137,7 @@ export default function LastMonthTrending({
                 onClick={() => onSelectArticle(article)}
                 className="group p-4 bg-card border border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)] rounded-sm transition shadow-2xs hover:shadow-xs cursor-pointer flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between"
               >
-                <div className="flex items-start gap-3.5 flex-1 min-w-0">
+                <div className="flex items-start gap-3.5 flex-1 min-w-0 w-full sm:w-auto">
                   {/* Rank Number */}
                   <div className="w-9 h-9 rounded-sm bg-[var(--color-surface)] group-hover:bg-[var(--color-brand-teal)] group-hover:text-[var(--color-paper)] transition-colors flex items-center justify-center font-mono font-bold text-sm text-[var(--color-slate-muted)] shrink-0">
                     {meta.rank}
@@ -149,13 +149,13 @@ export default function LastMonthTrending({
                         {meta.icon}
                         {meta.label}
                       </span>
-                      <span className="text-sand-300">•</span>
+                      <span className="hidden sm:inline text-sand-300">•</span>
                       <span className="font-mono text-[11px] text-[var(--color-slate-muted)]">
                         {article.category} · {article.readingTime}
                       </span>
                     </div>
 
-                    <h5 className="font-serif text-sm sm:text-base font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)] transition-colors leading-snug truncate">
+                    <h5 className="font-serif text-sm sm:text-base font-semibold text-[var(--color-ink)] group-hover:text-[var(--color-brand-teal)] transition-colors leading-snug line-clamp-2 sm:line-clamp-none sm:truncate">
                       {article.title}
                     </h5>
 
