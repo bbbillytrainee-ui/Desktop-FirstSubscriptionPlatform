@@ -54,7 +54,7 @@ function AppRoutes() {
   }
 
   return (
-    <div key={route} className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] animate-fade-up">
+    <div key={route} className="min-h-screen bg-[var(--color-paper)] text-[var(--color-ink)] animate-route-in">
       <ErrorBoundary onReset={() => navigate("home")}>
       {articleSlug && <ArticlePage slug={articleSlug} onJoin={handleJoin} onNavigate={handleNavigate} />}
       {!articleSlug && !KNOWN_ROUTES.has(route) && <NotFoundPage onJoin={handleJoin} onNavigate={handleNavigate} />}
