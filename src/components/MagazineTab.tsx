@@ -367,9 +367,9 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
       { label: "4. Post-Market Audit", detail: "Mandatory FDA reporting log & safety thresholds." }
     ]
     return (
-      <div className="bg-[#121417] p-5 rounded-sm text-white flex flex-col justify-between h-full relative overflow-hidden">
+      <div className="bg-[var(--color-section-dark)] p-5 rounded-sm text-white flex flex-col justify-between h-full relative overflow-hidden">
         <div className="flex justify-between items-center border-b border-white/10 pb-3 mb-4">
-          <span className="text-[10px] uppercase font-semibold tracking-wider text-[#D4A373]">FDA AI Regulatory Flow</span>
+          <span className="text-[10px] uppercase font-semibold tracking-wider text-[var(--color-brand-coral-on-dark)]">FDA AI Regulatory Flow</span>
           <span className="text-[10px] text-white/50">Interactive Lifecycle</span>
         </div>
         <div className="grid grid-cols-4 gap-2 my-2">
@@ -379,7 +379,7 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
               onClick={(e) => { e.stopPropagation(); setActiveStep(idx); }}
               className={`p-2 rounded text-left transition-all border ${
                 activeStep === idx
-                  ? "bg-[#D4A373]/20 border-[#D4A373] text-[#D4A373]"
+                  ? "bg-[var(--color-brand-coral-on-dark)]/20 border-[var(--color-brand-coral-on-dark)] text-[var(--color-brand-coral-on-dark)]"
                   : "bg-white/5 border-white/10 text-white/70 hover:bg-white/10"
               }`}
             >
@@ -388,7 +388,7 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
           ))}
         </div>
         <div className="bg-white/5 p-3 rounded border border-white/10 mt-2">
-          <div className="text-[11px] font-semibold text-[#D4A373] mb-1">{steps[activeStep].label}</div>
+          <div className="text-[11px] font-semibold text-[var(--color-brand-coral-on-dark)] mb-1">{steps[activeStep].label}</div>
           <div className="text-[11px] text-white/80 leading-relaxed">{steps[activeStep].detail}</div>
         </div>
       </div>
@@ -398,28 +398,28 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
   // 2. CRISPR Patent License Stack Node Graph
   if (articleId === 2) {
     return (
-      <div className="bg-[#181C20] p-5 rounded-sm text-white flex flex-col justify-between h-full relative overflow-hidden">
+      <div className="bg-[var(--color-navy-deep)] p-5 rounded-sm text-white flex flex-col justify-between h-full relative overflow-hidden">
         <div className="flex justify-between items-center border-b border-white/10 pb-3 mb-2">
-          <span className="text-[10px] uppercase font-semibold tracking-wider text-[#D4A373]">CRISPR IP Stack Cluster</span>
+          <span className="text-[10px] uppercase font-semibold tracking-wider text-[var(--color-brand-coral-on-dark)]">CRISPR IP Stack Cluster</span>
           <span className="text-[10px] text-white/50">Broad vs UC Berkeley vs Intellia</span>
         </div>
         <div className="relative h-32 flex items-center justify-center">
           <svg className="w-full h-full" viewBox="0 0 300 120">
-            <line x1="60" y1="60" x2="150" y2="30" stroke="#D4A373" strokeWidth="1.5" strokeDasharray="3 3" />
-            <line x1="240" y1="60" x2="150" y2="30" stroke="#D4A373" strokeWidth="1.5" strokeDasharray="3 3" />
-            <line x1="60" y1="60" x2="150" y2="90" stroke="#5A6B7C" strokeWidth="1.5" />
-            <line x1="240" y1="60" x2="150" y2="90" stroke="#5A6B7C" strokeWidth="1.5" />
+            <line x1="60" y1="60" x2="150" y2="30" stroke="#E8876A" strokeWidth="1.5" strokeDasharray="3 3" />
+            <line x1="240" y1="60" x2="150" y2="30" stroke="#E8876A" strokeWidth="1.5" strokeDasharray="3 3" />
+            <line x1="60" y1="60" x2="150" y2="90" stroke="#6B8A96" strokeWidth="1.5" />
+            <line x1="240" y1="60" x2="150" y2="90" stroke="#6B8A96" strokeWidth="1.5" />
 
-            <circle cx="60" cy="60" r="22" fill="#2A3038" stroke="#D4A373" strokeWidth="2" />
-            <text x="60" y="64" textAnchor="middle" fill="#D4A373" fontSize="9" fontWeight="bold">Broad</text>
+            <circle cx="60" cy="60" r="22" fill="#123844" stroke="#E8876A" strokeWidth="2" />
+            <text x="60" y="64" textAnchor="middle" fill="#E8876A" fontSize="9" fontWeight="bold">Broad</text>
 
-            <circle cx="240" cy="60" r="22" fill="#2A3038" stroke="#D4A373" strokeWidth="2" />
-            <text x="240" y="64" textAnchor="middle" fill="#D4A373" fontSize="9" fontWeight="bold">Berkeley</text>
+            <circle cx="240" cy="60" r="22" fill="#123844" stroke="#E8876A" strokeWidth="2" />
+            <text x="240" y="64" textAnchor="middle" fill="#E8876A" fontSize="9" fontWeight="bold">Berkeley</text>
 
-            <circle cx="150" cy="30" r="24" fill="#D4A373" stroke="#FFFFFF" strokeWidth="2" />
+            <circle cx="150" cy="30" r="24" fill="#E8876A" stroke="#FFFFFF" strokeWidth="2" />
             <text x="150" y="34" textAnchor="middle" fill="#1A1A1A" fontSize="9" fontWeight="bold">Base Editing</text>
 
-            <circle cx="150" cy="90" r="20" fill="#2A3038" stroke="#5A6B7C" strokeWidth="2" />
+            <circle cx="150" cy="90" r="20" fill="#123844" stroke="#6B8A96" strokeWidth="2" />
             <text x="150" y="94" textAnchor="middle" fill="#E2E8F0" fontSize="8">Intellia Delivery</text>
           </svg>
         </div>
@@ -431,19 +431,19 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
   // 3. GLP-1 Molecule Differentiation Scatter
   if (articleId === 3) {
     return (
-      <div className="bg-[#121417] p-5 rounded-sm text-white flex flex-col justify-between h-full">
+      <div className="bg-[var(--color-section-dark)] p-5 rounded-sm text-white flex flex-col justify-between h-full">
         <div className="flex justify-between items-center border-b border-white/10 pb-2 mb-2">
-          <span className="text-[10px] uppercase font-semibold tracking-wider text-[#D4A373]">GLP-1 Phase II Velocity</span>
+          <span className="text-[10px] uppercase font-semibold tracking-wider text-[var(--color-brand-coral-on-dark)]">GLP-1 Phase II Velocity</span>
           <span className="text-[10px] text-white/50">42 Molecules</span>
         </div>
         <div className="h-28 flex flex-col justify-around py-1">
           <div>
             <div className="flex justify-between text-[10px] mb-1">
               <span className="text-white/80">Oral Small Molecules</span>
-              <span className="text-[#D4A373] font-semibold">High Conviction</span>
+              <span className="text-[var(--color-brand-coral-on-dark)] font-semibold">High Conviction</span>
             </div>
             <div className="w-full bg-white/10 h-2 rounded-full overflow-hidden">
-              <div className="bg-[#D4A373] h-full rounded-full" style={{ width: "82%" }} />
+              <div className="bg-[var(--color-brand-coral-on-dark)] h-full rounded-full" style={{ width: "82%" }} />
             </div>
           </div>
           <div>
@@ -472,9 +472,9 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
   // 5 & 10. Surgical Autonomy Precision Gauge
   if (articleId === 5 || articleId === 10) {
     return (
-      <div className="bg-[#181C20] p-5 rounded-sm text-white flex flex-col justify-between h-full">
+      <div className="bg-[var(--color-navy-deep)] p-5 rounded-sm text-white flex flex-col justify-between h-full">
         <div className="flex justify-between items-center border-b border-white/10 pb-2 mb-2">
-          <span className="text-[10px] uppercase font-semibold tracking-wider text-[#D4A373]">Surgical Autonomy Level</span>
+          <span className="text-[10px] uppercase font-semibold tracking-wider text-[var(--color-brand-coral-on-dark)]">Surgical Autonomy Level</span>
           <span className="text-[10px] text-white/50">Level 1 - 5 Scale</span>
         </div>
         <div className="flex items-center justify-around my-3">
@@ -483,7 +483,7 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
               <div
                 className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${
                   lvl === 3
-                    ? "bg-[#D4A373] text-[#1A1A1A] ring-4 ring-[#D4A373]/30"
+                    ? "bg-[var(--color-brand-coral-on-dark)] text-[var(--color-section-dark)] ring-4 ring-[var(--color-brand-coral-on-dark)]/30"
                     : lvl < 3
                     ? "bg-white/20 text-white"
                     : "bg-white/5 text-white/30"
@@ -497,7 +497,7 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
             </div>
           ))}
         </div>
-        <div className="bg-[#D4A373]/10 border border-[#D4A373]/30 p-2 rounded text-center text-[10px] text-[#D4A373]">
+        <div className="bg-[var(--color-brand-coral-on-dark)]/10 border border-[var(--color-brand-coral-on-dark)]/30 p-2 rounded text-center text-[10px] text-[var(--color-brand-coral-on-dark)]">
           Level 3 Autonomy (Autonomous Suturing) target: Commercial launch by 2030
         </div>
       </div>
@@ -508,12 +508,12 @@ const DynamicArticleGraphic = ({ articleId }: { articleId: number }) => {
   return (
     <div className="article-image-bg rounded-sm overflow-hidden h-full flex items-center justify-center relative">
       <svg viewBox="0 0 320 200" className="w-full h-full opacity-15" fill="none">
-        <circle cx="160" cy="100" r="6" fill="#1A1A1A" />
-        <circle cx="220" cy="50" r="4" fill="#D4A373" />
-        <circle cx="100" cy="150" r="4" fill="#1A1A1A" />
-        <line x1="160" y1="100" x2="220" y2="50" stroke="#1A1A1A" strokeWidth="1.5" />
-        <line x1="160" y1="100" x2="100" y2="150" stroke="#1A1A1A" strokeWidth="1.5" />
-        <circle cx="160" cy="100" r="28" stroke="#D4A373" strokeWidth="1" strokeDasharray="4 4" />
+        <circle cx="160" cy="100" r="6" fill="var(--color-ink)" />
+        <circle cx="220" cy="50" r="4" fill="var(--color-brand-coral)" />
+        <circle cx="100" cy="150" r="4" fill="var(--color-ink)" />
+        <line x1="160" y1="100" x2="220" y2="50" stroke="var(--color-ink)" strokeWidth="1.5" />
+        <line x1="160" y1="100" x2="100" y2="150" stroke="var(--color-ink)" strokeWidth="1.5" />
+        <circle cx="160" cy="100" r="28" stroke="var(--color-brand-coral)" strokeWidth="1" strokeDasharray="4 4" />
       </svg>
     </div>
   )
@@ -535,10 +535,10 @@ const FDAComplianceCalculator = () => {
   }, [hasPCCP, riskTier, dataGovernance])
 
   return (
-    <div className="my-8 p-6 bg-[#1A1A1A] text-[#F8F6F0] rounded-sm border border-[#D4A373]/30">
+    <div className="my-8 p-6 bg-[var(--color-section-dark)] text-[#F8F6F0] rounded-sm border border-[var(--color-brand-coral-on-dark)]/30">
       <div className="flex items-center gap-2 mb-4">
-        <div className="w-3 h-3 rounded-full bg-[#D4A373]" />
-        <h4 className="text-sm font-semibold tracking-wide uppercase text-[#D4A373]">
+        <div className="w-3 h-3 rounded-full bg-[var(--color-brand-coral-on-dark)]" />
+        <h4 className="text-sm font-semibold tracking-wide uppercase text-[var(--color-brand-coral-on-dark)]">
           Interactive Tool: 510(k) AI Diagnostic Readiness Calculator
         </h4>
       </div>
@@ -548,7 +548,7 @@ const FDAComplianceCalculator = () => {
           <button
             onClick={() => setHasPCCP(!hasPCCP)}
             className={`w-full py-2 px-3 text-xs rounded border transition-colors ${
-              hasPCCP ? "bg-[#D4A373] text-[#1A1A1A] font-semibold border-[#D4A373]" : "bg-white/10 text-white border-white/20"
+              hasPCCP ? "bg-[var(--color-brand-coral-on-dark)] text-[var(--color-section-dark)] font-semibold border-[var(--color-brand-coral-on-dark)]" : "bg-white/10 text-white border-white/20"
             }`}
           >
             {hasPCCP ? "✓ PCCP Ready" : "Missing PCCP"}
@@ -561,9 +561,9 @@ const FDAComplianceCalculator = () => {
             onChange={(e) => setRiskTier(e.target.value as any)}
             className="w-full py-2 px-3 text-xs rounded bg-white/10 text-white border border-white/20"
           >
-            <option value="low" className="bg-[#1A1A1A]">Tier 3 (Screening / Triage)</option>
-            <option value="medium" className="bg-[#1A1A1A]">Tier 2 (Diagnostic Assist)</option>
-            <option value="high" className="bg-[#1A1A1A]">Tier 1 (Critical Decision)</option>
+            <option value="low" className="bg-[var(--color-section-dark)]">Tier 3 (Screening / Triage)</option>
+            <option value="medium" className="bg-[var(--color-section-dark)]">Tier 2 (Diagnostic Assist)</option>
+            <option value="high" className="bg-[var(--color-section-dark)]">Tier 1 (Critical Decision)</option>
           </select>
         </div>
         <div>
@@ -571,7 +571,7 @@ const FDAComplianceCalculator = () => {
           <button
             onClick={() => setDataGovernance(!dataGovernance)}
             className={`w-full py-2 px-3 text-xs rounded border transition-colors ${
-              dataGovernance ? "bg-[#D4A373] text-[#1A1A1A] font-semibold border-[#D4A373]" : "bg-white/10 text-white border-white/20"
+              dataGovernance ? "bg-[var(--color-brand-coral-on-dark)] text-[var(--color-section-dark)] font-semibold border-[var(--color-brand-coral-on-dark)]" : "bg-white/10 text-white border-white/20"
             }`}
           >
             {dataGovernance ? "✓ Active Monitoring" : "No Real-Time Monitoring"}
@@ -582,7 +582,7 @@ const FDAComplianceCalculator = () => {
       <div className="flex items-center justify-between pt-4 border-t border-white/10">
         <div>
           <div className="text-[11px] text-white/60">Estimated Regulatory Audit Preparedness Score</div>
-          <div className="text-2xl font-bold text-[#D4A373]">{readinessScore} / 100</div>
+          <div className="text-2xl font-bold text-[var(--color-brand-coral-on-dark)]">{readinessScore} / 100</div>
         </div>
         <div className="text-right">
           <span className={`text-xs px-3 py-1 rounded font-semibold ${readinessScore >= 80 ? "bg-emerald-500/20 text-emerald-300" : "bg-amber-500/20 text-amber-300"}`}>
@@ -631,7 +631,7 @@ function AudioPlayerBar({
   }
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-8 md:w-[460px] z-50 bg-[#1A1A1A] text-[#F8F6F0] p-4 rounded-md shadow-2xl border border-[#D4A373]/40 animate-fade-up">
+    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-8 md:w-[460px] z-50 bg-[var(--color-section-dark)] text-[#F8F6F0] p-4 rounded-md shadow-2xl border border-[var(--color-brand-coral-on-dark)]/40 animate-fade-up">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-3 min-w-0">
           <div className="flex items-end gap-0.5 h-4 flex-shrink-0">
@@ -641,7 +641,7 @@ function AudioPlayerBar({
             <div className={`eq-bar eq-bar-4 ${!isPlaying && "!animation-none"}`} />
           </div>
           <div className="min-w-0">
-            <div className="text-[10px] text-[#D4A373] uppercase font-semibold tracking-wider">AI Executive Audio Brief</div>
+            <div className="text-[10px] text-[var(--color-brand-coral-on-dark)] uppercase font-semibold tracking-wider">AI Executive Audio Brief</div>
             <div className="text-xs font-medium truncate text-white">{article.title}</div>
           </div>
         </div>
@@ -658,7 +658,7 @@ function AudioPlayerBar({
           max="100"
           value={progress}
           onChange={(e) => setProgress(Number(e.target.value))}
-          className="w-full h-1 bg-white/20 accent-[#D4A373] rounded cursor-pointer"
+          className="w-full h-1 bg-white/20 accent-[var(--color-brand-coral-on-dark)] rounded cursor-pointer"
         />
         <div className="flex justify-between text-[10px] text-white/50 mt-1">
           <span>{formatTime(currentSeconds)}</span>
@@ -678,7 +678,7 @@ function AudioPlayerBar({
           </button>
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="w-8 h-8 rounded-full bg-[#D4A373] text-[#1A1A1A] flex items-center justify-center font-bold text-sm hover:scale-105 transition-transform"
+            className="w-8 h-8 rounded-full bg-[var(--color-brand-coral-on-dark)] text-[var(--color-section-dark)] flex items-center justify-center font-bold text-sm hover:scale-105 transition-transform"
           >
             {isPlaying ? "❚❚" : "▶"}
           </button>
@@ -693,7 +693,7 @@ function AudioPlayerBar({
 
         <button
           onClick={toggleRate}
-          className="text-xs px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-[#D4A373] font-mono font-semibold"
+          className="text-xs px-2 py-0.5 rounded bg-white/10 hover:bg-white/20 text-[var(--color-brand-coral-on-dark)] font-mono font-semibold"
         >
           {playbackRate.toFixed(2)}x
         </button>
@@ -740,7 +740,7 @@ function ArticleModal({
           {/* Reader Action Bar */}
           <div className="sticky top-0 z-30 px-6 py-3 border-b border-black/10 bg-inherit flex items-center justify-between backdrop-blur-md">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-semibold tracking-wider uppercase text-[#D4A373]">{article.section}</span>
+              <span className="text-[10px] font-semibold tracking-wider uppercase text-[var(--reader-accent)]">{article.section}</span>
               <span className="text-xs opacity-40">•</span>
               <span className="text-xs opacity-70">{article.readTime} read</span>
             </div>
@@ -750,7 +750,7 @@ function ArticleModal({
               {/* Audio Listen */}
               <button
                 onClick={() => onPlayAudio(article)}
-                className="flex items-center gap-1.5 px-3 py-1 bg-[#D4A373] text-[#1A1A1A] rounded text-xs font-semibold hover:bg-[#c39262] transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1 bg-[var(--color-brand-coral)] text-white rounded text-xs font-semibold hover:bg-[var(--color-brand-coral-hover)] transition-colors"
               >
                 <span>🔊 Listen ({article.audioTime})</span>
               </button>
@@ -775,17 +775,17 @@ function ArticleModal({
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => setTheme("warm")}
-                  className={`w-4 h-4 rounded-full bg-[#F8F6F0] border border-black/30 ${theme === "warm" && "ring-2 ring-[#D4A373]"}`}
+                  className={`w-4 h-4 rounded-full bg-[#F8F6F0] border border-black/30 ${theme === "warm" && "ring-2 ring-[var(--reader-accent)]"}`}
                   title="Warm Paper"
                 />
                 <button
                   onClick={() => setTheme("dark")}
-                  className={`w-4 h-4 rounded-full bg-[#121417] border border-white/30 ${theme === "dark" && "ring-2 ring-[#D4A373]"}`}
+                  className={`w-4 h-4 rounded-full bg-[#121417] border border-white/30 ${theme === "dark" && "ring-2 ring-[var(--reader-accent)]"}`}
                   title="Midnight Dark"
                 />
                 <button
                   onClick={() => setTheme("sepia")}
-                  className={`w-4 h-4 rounded-full bg-[#F5EFE6] border border-black/30 ${theme === "sepia" && "ring-2 ring-[#D4A373]"}`}
+                  className={`w-4 h-4 rounded-full bg-[#F5EFE6] border border-black/30 ${theme === "sepia" && "ring-2 ring-[var(--reader-accent)]"}`}
                   title="Classic Sepia"
                 />
               </div>
@@ -801,8 +801,8 @@ function ArticleModal({
             {/* Header */}
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-4 h-px bg-[#D4A373]" />
-                <span className="text-[10px] font-semibold tracking-[0.12em] uppercase text-[#D4A373]">{article.category}</span>
+                <div className="w-4 h-px bg-[var(--reader-accent)]" />
+                <span className="text-[10px] font-semibold tracking-[0.12em] uppercase text-[var(--reader-accent)]">{article.category}</span>
                 <span className="text-xs opacity-50">·</span>
                 <span className="text-xs font-medium opacity-70">{article.date}</span>
               </div>
@@ -811,7 +811,7 @@ function ArticleModal({
 
             {/* Title */}
             <h1
-              style={{ fontFamily: "Newsreader, Georgia, serif", letterSpacing: "-0.02em" }}
+              style={{ fontFamily: "var(--font-serif)", letterSpacing: "-0.02em" }}
               className="article-title text-2xl md:text-[34px] font-semibold leading-tight mb-6"
             >
               {article.title}
@@ -819,7 +819,7 @@ function ArticleModal({
 
             {/* Author Byline */}
             <div className="flex items-center gap-4 mb-8 pb-6 border-b border-black/10">
-              <div className="w-10 h-10 rounded-full bg-[#1A1A1A] flex items-center justify-center text-xs font-bold text-[#F8F6F0]">
+              <div className="w-10 h-10 rounded-full bg-[#0D3B4A] flex items-center justify-center text-xs font-bold text-white">
                 {article.byline.split(" ").filter((w) => w.length > 1).map((n) => n[0]).join("").slice(0, 2)}
               </div>
               <div>
@@ -855,7 +855,7 @@ function ArticleModal({
                 {article.keyMetrics.map((m, idx) => (
                   <div key={idx}>
                     <div className="text-[10px] uppercase tracking-wider opacity-60 mb-1">{m.label}</div>
-                    <div className="text-base font-bold text-[#D4A373]">{m.value}</div>
+                    <div className="text-base font-bold text-[var(--reader-accent)]">{m.value}</div>
                   </div>
                 ))}
               </div>
@@ -869,7 +869,7 @@ function ArticleModal({
                   triggerToast(isBookmarked ? "Removed from Notebook" : "Saved to Notebook!")
                 }}
                 className={`text-xs px-4 py-2 rounded border transition-colors flex items-center gap-1.5 ${
-                  isBookmarked ? "bg-[#1A1A1A] text-[#F8F6F0] border-[#1A1A1A]" : "border-black/20 hover:border-black/50"
+                  isBookmarked ? "bg-[#0D3B4A] text-white border-[#0D3B4A]" : "border-black/20 hover:border-black/50"
                 }`}
               >
                 <span>{isBookmarked ? "★ Bookmarked" : "☆ Save to Notebook"}</span>
@@ -886,7 +886,7 @@ function ArticleModal({
             </div>
 
             {toastMsg && (
-              <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[#1A1A1A] text-[#F8F6F0] text-xs py-2 px-5 rounded shadow-lg z-50 animate-fade-up">
+              <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-[var(--color-section-dark)] text-white text-xs py-2 px-5 rounded shadow-lg z-50 animate-fade-up">
                 {toastMsg}
               </div>
             )}
@@ -905,13 +905,13 @@ function CSuiteDigestModal({ onClose, onSelectArticle }: { onClose: () => void; 
       <div className="backdrop-overlay" onClick={onClose} />
       <div className="modal-panel" onClick={onClose}>
         <div
-          className="bg-[#1A1A1A] text-[#F8F6F0] border border-[#D4A373]/40 rounded-sm shadow-2xl w-full max-w-[800px] max-h-[88vh] overflow-y-auto p-6 md:p-10 animate-fade-up"
+          className="bg-[var(--color-section-dark)] text-[#F8F6F0] border border-[var(--color-brand-coral-on-dark)]/40 rounded-sm shadow-2xl w-full max-w-[800px] max-h-[88vh] overflow-y-auto p-6 md:p-10 animate-fade-up"
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#D4A373]" />
-              <h2 style={{ fontFamily: "Newsreader, Georgia, serif" }} className="text-xl md:text-2xl font-semibold text-[#D4A373]">
+              <div className="w-3 h-3 rounded-full bg-[var(--color-brand-coral-on-dark)]" />
+              <h2 style={{ fontFamily: "var(--font-serif)" }} className="text-xl md:text-2xl font-semibold text-[var(--color-brand-coral-on-dark)]">
                 60-Second C-Suite Executive Briefing
               </h2>
             </div>
@@ -927,17 +927,17 @@ function CSuiteDigestModal({ onClose, onSelectArticle }: { onClose: () => void; 
               <div
                 key={art.id}
                 onClick={() => { onClose(); onSelectArticle(art.id); }}
-                className="p-4 rounded border border-white/10 bg-white/5 hover:border-[#D4A373]/60 transition-colors cursor-pointer group"
+                className="p-4 rounded border border-white/10 bg-white/5 hover:border-[var(--color-brand-coral-on-dark)]/60 transition-colors cursor-pointer group"
               >
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-[10px] font-semibold text-[#D4A373] uppercase tracking-wider">{art.section} · {art.category}</span>
-                  <span className="text-[10px] text-white/50 group-hover:text-[#D4A373] transition-colors">Read Full Article →</span>
+                  <span className="text-[10px] font-semibold text-[var(--color-brand-coral-on-dark)] uppercase tracking-wider">{art.section} · {art.category}</span>
+                  <span className="text-[10px] text-white/50 group-hover:text-[var(--color-brand-coral-on-dark)] transition-colors">Read Full Article →</span>
                 </div>
                 <h3 className="text-sm font-semibold text-white mb-2 leading-snug">{art.title}</h3>
                 <ul className="space-y-1">
                   {art.cSuiteSummary.map((bullet, idx) => (
                     <li key={idx} className="text-xs text-white/80 flex items-start gap-2">
-                      <span className="text-[#D4A373] mt-0.5">•</span>
+                      <span className="text-[var(--color-brand-coral-on-dark)] mt-0.5">•</span>
                       <span>{bullet}</span>
                     </li>
                   ))}
@@ -971,32 +971,32 @@ function NotebookDrawer({
   return (
     <>
       <div className="backdrop-overlay" onClick={onClose} />
-      <div className="drawer-panel bg-[#F8F6F0] text-[#1A1A1A] p-6 shadow-2xl border-l border-black/10 animate-slide-in-right overflow-y-auto flex flex-col justify-between">
+      <div className="drawer-panel bg-[var(--color-paper)] text-[var(--color-ink)] p-6 shadow-2xl border-l border-[var(--color-border-subtle)] animate-slide-in-right overflow-y-auto flex flex-col justify-between">
         <div>
-          <div className="flex items-center justify-between pb-4 border-b border-black/10 mb-6">
+          <div className="flex items-center justify-between pb-4 border-b border-[var(--color-border-subtle)] mb-6">
             <div className="flex items-center gap-2">
-              <span className="text-base font-semibold" style={{ fontFamily: "Newsreader, Georgia, serif" }}>Saved Executive Notebook</span>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-[#1A1A1A] text-white font-bold">{savedArticles.length}</span>
+              <span className="text-base font-semibold" style={{ fontFamily: "var(--font-serif)" }}>Saved Executive Notebook</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-[var(--color-brand-teal)] text-[var(--color-paper)] font-bold">{savedArticles.length}</span>
             </div>
-            <button onClick={onClose} className="text-black/60 hover:text-black">✕</button>
+            <button onClick={onClose} className="text-[var(--color-slate-muted)] hover:text-[var(--color-ink)]">✕</button>
           </div>
 
           {savedArticles.length === 0 ? (
-            <div className="py-16 text-center text-xs text-black/50">
+            <div className="py-16 text-center text-xs text-[var(--color-slate-muted)]">
               No saved articles yet. Click "☆ Save to Notebook" on any article to store it for offline review.
             </div>
           ) : (
             <div className="space-y-4">
               {savedArticles.map((art) => (
-                <div key={art.id} className="p-4 rounded border border-black/10 bg-white shadow-sm flex flex-col justify-between">
+                <div key={art.id} className="p-4 rounded border border-[var(--color-border-subtle)] bg-white shadow-sm flex flex-col justify-between">
                   <div className="flex justify-between items-start mb-2">
-                    <span className="text-[10px] font-semibold text-[#D4A373] uppercase tracking-wider">{art.section}</span>
+                    <span className="text-[10px] font-semibold text-[var(--color-brand-coral)] uppercase tracking-wider">{art.section}</span>
                     <button onClick={() => onRemove(art.id)} className="text-xs text-rose-500 hover:underline">Remove</button>
                   </div>
-                  <h4 className="text-xs font-semibold text-[#1A1A1A] mb-3 line-clamp-2">{art.title}</h4>
+                  <h4 className="text-xs font-semibold text-[var(--color-ink)] mb-3 line-clamp-2">{art.title}</h4>
                   <button
                     onClick={() => { onClose(); onSelectArticle(art.id); }}
-                    className="w-full py-1.5 bg-[#1A1A1A] text-white text-[11px] font-medium rounded hover:bg-black transition-colors"
+                    className="w-full py-1.5 bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-[11px] font-medium rounded hover:bg-[var(--color-brand-teal)]/90 transition-colors"
                   >
                     Open Article
                   </button>
@@ -1006,7 +1006,7 @@ function NotebookDrawer({
           )}
         </div>
 
-        <div className="pt-4 border-t border-black/10 text-[10px] text-black/50 text-center">
+        <div className="pt-4 border-t border-[var(--color-border-subtle)] text-[10px] text-[var(--color-slate-muted)] text-center">
           Mediverse Executive Notebook · Issue 24 Sync
         </div>
       </div>
@@ -1060,14 +1060,14 @@ export default function MagazineTab() {
   return (
     <>
       {/* ── TOP CONTROL BAR: SEARCH, EDITION, VIEWS ── */}
-      <div className="mb-8 p-4 md:p-6 bg-white border border-[rgba(26,26,26,0.1)] rounded-sm shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+      <div className="mb-8 p-4 md:p-6 bg-white border border-[var(--color-border-subtle)] rounded-sm shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
         {/* Left: Edition & Search */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
           {/* Edition Selector */}
           <select
             value={edition}
             onChange={(e) => setEdition(e.target.value)}
-            className="px-3 py-2 text-xs font-semibold bg-[#F8F6F0] border border-[rgba(26,26,26,0.15)] rounded text-[#1A1A1A] cursor-pointer"
+            className="px-3 py-2 text-xs font-semibold bg-[var(--color-paper)] border border-[var(--color-border-subtle)] rounded text-[var(--color-ink)] cursor-pointer"
           >
             <option value="Vol. 2 Issue 24 (August 2026)">Vol. 2 Issue 24 (August 2026)</option>
             <option value="Vol. 2 Issue 23 (July 2026)">Vol. 2 Issue 23 (July 2026 Special)</option>
@@ -1081,13 +1081,13 @@ export default function MagazineTab() {
               placeholder="Search articles, topics (FDA, CRISPR, Robotics)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 text-xs bg-[#F8F6F0] border border-[rgba(26,26,26,0.15)] rounded text-[#1A1A1A] focus:outline-none focus:border-[#D4A373]"
+              className="w-full pl-9 pr-4 py-2 text-xs bg-[var(--color-paper)] border border-[var(--color-border-subtle)] rounded text-[var(--color-ink)] focus:outline-none focus:border-[var(--color-brand-coral)]"
             />
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-[#5A6B7C]">🔍</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-[var(--color-slate-muted)]">🔍</span>
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#5A6B7C] hover:text-[#1A1A1A]"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[var(--color-slate-muted)] hover:text-[var(--color-ink)]"
               >
                 ✕
               </button>
@@ -1100,7 +1100,7 @@ export default function MagazineTab() {
           {/* 60-Sec C-Suite Digest */}
           <button
             onClick={() => setShowCSuiteDigest(true)}
-            className="px-3 py-2 text-xs font-semibold bg-[#1A1A1A] text-[#D4A373] rounded hover:bg-black transition-colors flex items-center gap-1.5"
+            className="px-3 py-2 text-xs font-semibold bg-[var(--color-brand-teal)] text-[var(--color-paper)] rounded hover:bg-[var(--color-brand-teal)]/90 transition-colors flex items-center gap-1.5"
           >
             <span>⚡ 60-Sec C-Suite Brief</span>
           </button>
@@ -1108,28 +1108,28 @@ export default function MagazineTab() {
           {/* Notebook */}
           <button
             onClick={() => setNotebookOpen(true)}
-            className="px-3 py-2 text-xs font-medium border border-[rgba(26,26,26,0.15)] bg-[#F8F6F0] rounded hover:border-[#1A1A1A] transition-colors flex items-center gap-1.5"
+            className="px-3 py-2 text-xs font-medium border border-[var(--color-border-subtle)] bg-[var(--color-paper)] rounded hover:border-[var(--color-brand-teal)] transition-colors flex items-center gap-1.5"
           >
             <span>📓 Notebook</span>
             {savedArticles.length > 0 && (
-              <span className="w-4 h-4 rounded-full bg-[#D4A373] text-[#1A1A1A] font-bold text-[10px] flex items-center justify-center">
+              <span className="w-4 h-4 rounded-full bg-[var(--color-brand-coral)] text-white font-bold text-[10px] flex items-center justify-center">
                 {savedArticles.length}
               </span>
             )}
           </button>
 
           {/* View Mode Toggle */}
-          <div className="flex items-center border border-[rgba(26,26,26,0.15)] rounded overflow-hidden">
+          <div className="flex items-center border border-[var(--color-border-subtle)] rounded overflow-hidden">
             <button
               onClick={() => setViewMode("grid")}
-              className={`px-3 py-1.5 text-xs font-medium ${viewMode === "grid" ? "bg-[#1A1A1A] text-[#F8F6F0]" : "bg-[#F8F6F0] text-[#5A6B7C]"}`}
+              className={`px-3 py-1.5 text-xs font-medium ${viewMode === "grid" ? "bg-[var(--color-brand-teal)] text-[var(--color-paper)]" : "bg-[var(--color-paper)] text-[var(--color-slate-muted)]"}`}
               title="Modern Grid Layout"
             >
               Grid
             </button>
             <button
               onClick={() => setViewMode("newspaper")}
-              className={`px-3 py-1.5 text-xs font-medium ${viewMode === "newspaper" ? "bg-[#1A1A1A] text-[#F8F6F0]" : "bg-[#F8F6F0] text-[#5A6B7C]"}`}
+              className={`px-3 py-1.5 text-xs font-medium ${viewMode === "newspaper" ? "bg-[var(--color-brand-teal)] text-[var(--color-paper)]" : "bg-[var(--color-paper)] text-[var(--color-slate-muted)]"}`}
               title="Classic Multi-Column Layout"
             >
               Newspaper
@@ -1140,26 +1140,26 @@ export default function MagazineTab() {
 
       {/* ── FILTER CATEGORY CHIPS ── */}
       <div className="mb-6 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-        <span className="text-[11px] font-semibold text-[#5A6B7C] uppercase tracking-wider mr-2">Section:</span>
+        <span className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider mr-2">Section:</span>
         {["All", "Pharma", "MedTech", "AI-Health"].map((sec) => (
           <button
             key={sec}
             onClick={() => setActiveSection(sec)}
             className={`px-3 py-1 text-xs rounded-full border transition-colors ${
-              activeSection === sec ? "bg-[#1A1A1A] text-[#F8F6F0] border-[#1A1A1A]" : "border-[rgba(26,26,26,0.15)] text-[#5A6B7C] hover:border-black"
+              activeSection === sec ? "bg-[var(--color-brand-teal)] text-[var(--color-paper)] border-[var(--color-brand-teal)]" : "border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:border-[var(--color-brand-teal)]"
             }`}
           >
             {sec}
           </button>
         ))}
 
-        <span className="text-[11px] font-semibold text-[#5A6B7C] uppercase tracking-wider ml-4 mr-2">Category:</span>
+        <span className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider ml-4 mr-2">Category:</span>
         {["All", "Cover Story", "Deep Dive", "IP & Strategy", "Commercial", "Policy", "Interview"].map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
             className={`px-3 py-1 text-xs rounded-full border transition-colors ${
-              activeCategory === cat ? "bg-[#D4A373] text-[#1A1A1A] font-semibold border-[#D4A373]" : "border-[rgba(26,26,26,0.15)] text-[#5A6B7C] hover:border-black"
+              activeCategory === cat ? "bg-[var(--color-brand-coral)] text-white font-semibold border-[var(--color-brand-coral)]" : "border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:border-[var(--color-brand-teal)]"
             }`}
           >
             {cat}
@@ -1170,32 +1170,32 @@ export default function MagazineTab() {
       {/* ── MAIN CONTENT GRID WITH STICKY SIDEBAR ── */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8">
         {/* LEFT EDITORIAL CONTENT AREA */}
-        <div className="lg:pr-8 lg:border-r border-[rgba(26,26,26,0.08)]">
+        <div className="lg:pr-8 lg:border-r border-[var(--color-border-subtle)]">
           {/* Editor's Welcome Card */}
-          <div className="mb-10 p-6 md:p-8 bg-[#1A1A1A] rounded-sm text-[#F8F6F0] shadow-md relative overflow-hidden">
-            <div className="absolute right-0 top-0 w-32 h-32 bg-[#D4A373]/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="mb-10 p-6 md:p-8 bg-[var(--color-section-dark)] rounded-sm text-[#F8F6F0] shadow-md relative overflow-hidden">
+            <div className="absolute right-0 top-0 w-32 h-32 bg-[var(--color-brand-coral-on-dark)]/10 rounded-full blur-2xl pointer-events-none" />
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-4 h-px bg-[#D4A373]" />
-              <span className="text-[10px] font-semibold tracking-[0.14em] uppercase text-[#D4A373]">Editor's Note · Issue 24</span>
+              <div className="w-4 h-px bg-[var(--color-brand-coral-on-dark)]" />
+              <span className="text-[10px] font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral-on-dark)]">Editor's Note · Issue 24</span>
             </div>
-            <h3 style={{ fontFamily: "Newsreader, Georgia, serif" }} className="text-xl md:text-2xl font-semibold mb-3">
+            <h3 style={{ fontFamily: "var(--font-serif)" }} className="text-xl md:text-2xl font-semibold mb-3">
               {EDITORS_LETTER.title}
             </h3>
             <p className="text-xs md:text-sm leading-relaxed text-[rgba(248,246,240,0.8)] mb-4">{EDITORS_LETTER.body}</p>
             <div className="flex items-center justify-between text-xs">
-              <span className="text-[#D4A373] italic">{EDITORS_LETTER.signoff}</span>
+              <span className="text-[var(--color-brand-coral-on-dark)] italic">{EDITORS_LETTER.signoff}</span>
               <span className="text-white/50 text-[11px]">{articles.length} Core Articles</span>
             </div>
           </div>
 
           {/* Search Result Status */}
           {filteredArticles.length === 0 ? (
-            <div className="py-16 text-center border border-dashed border-black/20 rounded">
+            <div className="py-16 text-center border border-dashed border-[var(--color-border-subtle)] rounded">
               <div className="text-base font-semibold mb-1">No articles found</div>
-              <div className="text-xs text-[#5A6B7C]">Try broadening your search or resetting active category filters.</div>
+              <div className="text-xs text-[var(--color-slate-muted)]">Try broadening your search or resetting active category filters.</div>
               <button
                 onClick={() => { setSearchQuery(""); setActiveSection("All"); setActiveCategory("All"); }}
-                className="mt-4 px-4 py-2 bg-[#1A1A1A] text-white text-xs rounded"
+                className="mt-4 px-4 py-2 bg-[var(--color-brand-teal)] text-[var(--color-paper)] text-xs rounded"
               >
                 Reset All Filters
               </button>
@@ -1205,7 +1205,7 @@ export default function MagazineTab() {
               {/* HERO FEATURED COVER ARTICLE */}
               {heroArticle && (
                 <article
-                  className="mb-10 pb-8 border-b border-[rgba(26,26,26,0.12)] group cursor-pointer"
+                  className="mb-10 pb-8 border-b border-[var(--color-border-subtle)] group cursor-pointer"
                   onClick={() => setSelectedArticle(heroArticle)}
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
@@ -1214,24 +1214,24 @@ export default function MagazineTab() {
                     </div>
                     <div>
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="text-[10px] font-semibold uppercase tracking-wider text-[#D4A373]">{heroArticle.category}</span>
-                        <span className="text-xs text-[#5A6B7C]">· {heroArticle.readTime} read</span>
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-brand-coral)]">{heroArticle.category}</span>
+                        <span className="text-xs text-[var(--color-slate-muted)]">· {heroArticle.readTime} read</span>
                       </div>
                       <h2
-                        style={{ fontFamily: "Newsreader, Georgia, serif" }}
-                        className="text-xl md:text-2xl font-semibold leading-tight text-[#1A1A1A] mb-3 group-hover:text-[#5A6B7C] transition-colors"
+                        style={{ fontFamily: "var(--font-serif)" }}
+                        className="text-xl md:text-2xl font-semibold leading-tight text-[var(--color-ink)] mb-3 group-hover:text-[var(--color-slate-muted)] transition-colors"
                       >
                         {heroArticle.title}
                       </h2>
-                      <p className="text-xs text-[#5A6B7C] leading-relaxed mb-4 line-clamp-3">{heroArticle.excerpt}</p>
+                      <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-4 line-clamp-3">{heroArticle.excerpt}</p>
 
-                      <div className="flex items-center justify-between text-xs text-[#5A6B7C]">
+                      <div className="flex items-center justify-between text-xs text-[var(--color-slate-muted)]">
                         <div>
-                          <span className="font-semibold text-[#1A1A1A]">{heroArticle.byline}</span> · {heroArticle.authorRole}
+                          <span className="font-semibold text-[var(--color-ink)]">{heroArticle.byline}</span> · {heroArticle.authorRole}
                         </div>
                         <button
                           onClick={(e) => { e.stopPropagation(); setActiveAudioArticle(heroArticle); }}
-                          className="px-2.5 py-1 bg-[#D4A373]/20 text-[#1A1A1A] rounded font-semibold text-[10px] hover:bg-[#D4A373]"
+                          className="px-2.5 py-1 bg-[var(--color-brand-coral)]/20 text-[var(--color-ink)] rounded font-semibold text-[10px] hover:bg-[var(--color-brand-coral)]"
                         >
                           🔊 Listen
                         </button>
@@ -1246,7 +1246,7 @@ export default function MagazineTab() {
                 {filteredArticles.filter((a) => a.id !== heroArticle?.id).map((article) => (
                   <article
                     key={article.id}
-                    className="p-5 border border-[rgba(26,26,26,0.1)] rounded bg-white hover:border-[rgba(26,26,26,0.3)] transition-all flex flex-col justify-between group cursor-pointer shadow-sm"
+                    className="p-5 border border-[var(--color-border-subtle)] rounded bg-white hover:border-[var(--color-slate-muted)]/50 transition-all flex flex-col justify-between group cursor-pointer shadow-sm"
                     onClick={() => setSelectedArticle(article)}
                   >
                     <div>
@@ -1254,23 +1254,23 @@ export default function MagazineTab() {
                         <DynamicArticleGraphic articleId={article.id} />
                       </div>
                       <div className="flex items-center justify-between text-[10px] mb-2">
-                        <span className="font-semibold text-[#D4A373] uppercase tracking-wider">{article.section} · {article.category}</span>
-                        <span className="text-[#5A6B7C]">{article.readTime}</span>
+                        <span className="font-semibold text-[var(--color-brand-coral)] uppercase tracking-wider">{article.section} · {article.category}</span>
+                        <span className="text-[var(--color-slate-muted)]">{article.readTime}</span>
                       </div>
                       <h3
-                        style={{ fontFamily: "Newsreader, Georgia, serif" }}
-                        className="text-base font-semibold leading-snug text-[#1A1A1A] mb-2 group-hover:text-[#5A6B7C] transition-colors"
+                        style={{ fontFamily: "var(--font-serif)" }}
+                        className="text-base font-semibold leading-snug text-[var(--color-ink)] mb-2 group-hover:text-[var(--color-slate-muted)] transition-colors"
                       >
                         {article.title}
                       </h3>
-                      <p className="text-xs text-[#5A6B7C] leading-relaxed mb-4 line-clamp-2">{article.excerpt}</p>
+                      <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-4 line-clamp-2">{article.excerpt}</p>
                     </div>
 
-                    <div className="pt-3 border-t border-[rgba(26,26,26,0.08)] flex items-center justify-between text-xs">
-                      <span className="text-[11px] font-medium text-[#1A1A1A]">{article.byline}</span>
+                    <div className="pt-3 border-t border-[var(--color-border-subtle)] flex items-center justify-between text-xs">
+                      <span className="text-[11px] font-medium text-[var(--color-ink)]">{article.byline}</span>
                       <button
                         onClick={(e) => { e.stopPropagation(); setActiveAudioArticle(article); }}
-                        className="text-[10px] px-2 py-0.5 bg-[#EDEAE2] hover:bg-[#D4A373] rounded font-medium transition-colors"
+                        className="text-[10px] px-2 py-0.5 bg-[var(--color-surface)] hover:bg-[var(--color-brand-coral)] rounded font-medium transition-colors"
                       >
                         🔊 Brief
                       </button>
@@ -1285,15 +1285,15 @@ export default function MagazineTab() {
               {filteredArticles.map((article) => (
                 <div
                   key={article.id}
-                  className="break-inside-avoid pb-6 border-b border-black/10 cursor-pointer group"
+                  className="break-inside-avoid pb-6 border-b border-[var(--color-border-subtle)] cursor-pointer group"
                   onClick={() => setSelectedArticle(article)}
                 >
-                  <span className="text-[10px] font-bold text-[#D4A373] uppercase tracking-wider block mb-1">{article.category}</span>
-                  <h3 style={{ fontFamily: "Newsreader, Georgia, serif" }} className="text-lg font-semibold leading-snug mb-2 group-hover:underline">
+                  <span className="text-[10px] font-bold text-[var(--color-brand-coral)] uppercase tracking-wider block mb-1">{article.category}</span>
+                  <h3 style={{ fontFamily: "var(--font-serif)" }} className="text-lg font-semibold leading-snug mb-2 group-hover:underline">
                     {article.title}
                   </h3>
-                  <p className="text-xs text-[#5A6B7C] leading-relaxed mb-3">{article.excerpt}</p>
-                  <div className="text-[11px] text-[#1A1A1A] font-semibold">{article.byline} — {article.date}</div>
+                  <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-3">{article.excerpt}</p>
+                  <div className="text-[11px] text-[var(--color-ink)] font-semibold">{article.byline} — {article.date}</div>
                 </div>
               ))}
             </div>
@@ -1303,33 +1303,33 @@ export default function MagazineTab() {
         {/* RIGHT STICKY EXECUTIVE SIDEBAR */}
         <div className="flex flex-col gap-6">
           {/* Pro Subscription Status */}
-          <div className="p-5 border border-[rgba(212,163,115,0.4)] rounded bg-[rgba(212,163,115,0.06)] shadow-sm">
+          <div className="p-5 border border-[var(--color-brand-coral)]/40 rounded bg-[var(--color-brand-coral)]/6 shadow-sm">
             <div className="flex items-center gap-2 mb-2">
               <span className="tier-badge pro">Professional Plan</span>
             </div>
-            <p className="text-xs text-[#5A6B7C] leading-relaxed mb-3">
+            <p className="text-xs text-[var(--color-slate-muted)] leading-relaxed mb-3">
               Unlimited access to monthly drops, full editorial issue archives, regulatory briefs, and custom executive downloads.
             </p>
-            <div className="text-[10px] text-[#5A6B7C] border-t border-[rgba(212,163,115,0.2)] pt-2">
+            <div className="text-[10px] text-[var(--color-slate-muted)] border-t border-[var(--color-brand-coral)]/20 pt-2">
               Next Drop: September 1, 2026
             </div>
           </div>
 
           {/* Digests Briefings */}
-          <div className="p-5 border border-[rgba(26,26,26,0.1)] rounded bg-white shadow-sm">
-            <div className="flex items-center gap-2 mb-4 pb-2 border-b border-black/10">
-              <div className="w-3 h-px bg-[#D4A373]" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#1A1A1A]">Curated Digests</span>
+          <div className="p-5 border border-[var(--color-border-subtle)] rounded bg-white shadow-sm">
+            <div className="flex items-center gap-2 mb-4 pb-2 border-b border-[var(--color-border-subtle)]">
+              <div className="w-3 h-px bg-[var(--color-brand-coral)]" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-ink)]">Curated Digests</span>
             </div>
             <div className="space-y-2">
               {digests.map((d, i) => (
-                <div key={i} className="flex items-center justify-between p-2 rounded hover:bg-[#F8F6F0] transition-colors cursor-pointer">
+                <div key={i} className="flex items-center justify-between p-2 rounded hover:bg-[var(--color-paper)] transition-colors cursor-pointer">
                   <div>
-                    <div className="text-xs font-semibold text-[#1A1A1A]">{d.label}</div>
-                    <div className="text-[10px] text-[#5A6B7C]">{d.date} · {d.items} briefings</div>
+                    <div className="text-xs font-semibold text-[var(--color-ink)]">{d.label}</div>
+                    <div className="text-[10px] text-[var(--color-slate-muted)]">{d.date} · {d.items} briefings</div>
                   </div>
                   {d.unread > 0 && (
-                    <span className="w-5 h-5 rounded-full bg-[#D4A373] text-[#1A1A1A] text-[10px] font-bold flex items-center justify-center">
+                    <span className="w-5 h-5 rounded-full bg-[var(--color-brand-coral)] text-white text-[10px] font-bold flex items-center justify-center">
                       {d.unread}
                     </span>
                   )}
@@ -1339,20 +1339,20 @@ export default function MagazineTab() {
           </div>
 
           {/* Top Industry Contributors */}
-          <div className="p-5 border border-[rgba(26,26,26,0.1)] rounded bg-white shadow-sm">
-            <div className="flex items-center gap-2 mb-4 pb-2 border-b border-black/10">
-              <div className="w-3 h-px bg-[#D4A373]" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-[#1A1A1A]">Top Key Contributors</span>
+          <div className="p-5 border border-[var(--color-border-subtle)] rounded bg-white shadow-sm">
+            <div className="flex items-center gap-2 mb-4 pb-2 border-b border-[var(--color-border-subtle)]">
+              <div className="w-3 h-px bg-[var(--color-brand-coral)]" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-ink)]">Top Key Contributors</span>
             </div>
             <div className="space-y-3">
               {contributors.map((c, idx) => (
                 <div key={idx} className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-[#1A1A1A] text-[#F8F6F0] font-bold text-xs flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-full bg-[var(--color-brand-teal)] text-[var(--color-paper)] font-bold text-xs flex items-center justify-center">
                     {c.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
                   </div>
                   <div>
-                    <div className="text-xs font-semibold text-[#1A1A1A]">{c.name}</div>
-                    <div className="text-[10px] text-[#5A6B7C]">{c.org} · {c.topic}</div>
+                    <div className="text-xs font-semibold text-[var(--color-ink)]">{c.name}</div>
+                    <div className="text-[10px] text-[var(--color-slate-muted)]">{c.org} · {c.topic}</div>
                   </div>
                 </div>
               ))}

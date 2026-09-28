@@ -256,9 +256,9 @@ body {
 }
 
 /* ── Article reader themes (MagazineTab reader modal) ── */
-.theme-warm  { background-color: #F8F6F0; color: #1A1A1A; }
-.theme-sepia { background-color: #F4ECD8; color: #3B2F20; }
-.theme-dark  { background-color: #121417; color: #E8E4DE; }
+.theme-warm  { background-color: #F8F6F0; color: #1A1A1A; --reader-accent: #B84E2E; }
+.theme-sepia { background-color: #F4ECD8; color: #3B2F20; --reader-accent: #A6452A; }
+.theme-dark  { background-color: #121417; color: #E8E4DE; --reader-accent: #E8876A; }
 
 /* ── Respect reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
