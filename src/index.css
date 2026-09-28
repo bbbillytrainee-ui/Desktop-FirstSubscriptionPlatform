@@ -43,6 +43,29 @@
   --font-serif: 'Fraunces', Georgia, serif;
   --font-sans: 'Geist', system-ui, sans-serif;
   --font-mono: 'Geist Mono', monospace;
+
+  /* ── Type scale → text-display, text-h2, text-h3, text-eyebrow, text-meta ── */
+  --text-display: clamp(2.4rem, 4.5vw, 3.8rem);
+  --text-display--line-height: 1.08;
+  --text-h2: clamp(1.625rem, 2.6vw, 2rem);
+  --text-h2--line-height: 1.2;
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.35;
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1rem;
+  --text-eyebrow--letter-spacing: 0.14em;
+  --text-meta: 0.75rem;
+  --text-meta--line-height: 1.125rem;
+
+  /* ── Radius → rounded-control (buttons, inputs, chips), rounded-card, rounded-overlay (modals, menus) ── */
+  --radius-control: 4px;
+  --radius-card: 8px;
+  --radius-overlay: 12px;
+
+  /* ── Elevation → shadow-card, shadow-raised, shadow-overlay ── */
+  --shadow-card: 0 1px 2px rgba(13, 59, 74, 0.04), 0 1px 3px rgba(13, 59, 74, 0.06);
+  --shadow-raised: 0 8px 24px -6px rgba(13, 59, 74, 0.14);
+  --shadow-overlay: 0 20px 50px -10px rgba(13, 59, 74, 0.25);
 }
 
 * {
