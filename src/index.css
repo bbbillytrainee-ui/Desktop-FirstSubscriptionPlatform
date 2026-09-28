@@ -257,6 +257,18 @@ body {
   transform: none;
 }
 
+/* ── Saved counter bump (Header): replays whenever the count changes ── */
+@keyframes countBump {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+.saved-count-bump {
+  display: inline-block;
+  animation: countBump var(--duration-slow) var(--ease-out);
+}
+
 /* ── View transitions (topic filtering) ── */
 ::view-transition-old(root),
 ::view-transition-new(root) {

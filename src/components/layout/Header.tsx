@@ -6,6 +6,7 @@ import BookmarksDrawer from "../modals/BookmarksDrawer"
 import { BookmarkFilled } from "../ui/Icons"
 import { useBookmarks } from "../../lib/bookmarks"
 import { useTheme } from "../../lib/theme"
+import { useScrollHeader } from "../../lib/useScrollHeader"
 
 export interface HeaderProps {
   onJoin?: () => void
@@ -23,6 +24,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
   const [bookmarksOpen, setBookmarksOpen] = useState(false)
   const navRef = useRef<HTMLDivElement>(null)
   const { savedCount } = useBookmarks()
+  const { scrolled, hidden } = useScrollHeader()
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -66,7 +68,18 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
       />
 
       {/* Main Glass Header */}
-      <header className="sticky top-0 z-40 bg-[var(--color-paper)]/95 backdrop-blur-xl border-b border-[var(--color-border-subtle)] px-4 sm:px-6 md:px-12 py-3 shadow-xs">
+      <header
+        className={`sticky top-0 z-40 bg-[var(--color-paper)]/90 backdrop-blur-xl border-b border-[var(--color-border-subtle)] px-4 sm:px-6 md:px-12 py-3 transition-transform duration-[var(--duration-base)] ease-[var(--ease-out)] ${
+          hidden && !mobileMenuOpen ? "max-md:-translate-y-full" : ""
+        }`}
+      >
+        {/* Elevation fades in once the page scrolls (opacity only, no box-shadow animation) */}
+        <span
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-x-0 top-full h-4 bg-gradient-to-b from-[rgba(13,59,74,0.10)] to-transparent transition-opacity duration-[var(--duration-base)] ${
+            scrolled ? "opacity-100" : "opacity-0"
+          }`}
+        />
         <div className="max-w-[var(--container-max)] mx-auto flex items-center justify-between gap-4" ref={navRef}>
           
           {/* Brand Logo */}
@@ -367,25 +380,28 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
             {/* Search Input Trigger */}
             <button
               onClick={() => setSearchOpen(true)}
-              className="px-3 py-1.5 text-[var(--color-ink)] rounded-full border border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)]/40 bg-[var(--color-surface)] hover:bg-card transition-all flex items-center gap-2.5 text-xs font-medium shadow-xs group"
+              aria-label="Search (Ctrl+K)"
+              className="h-9 px-2.5 xl:px-3 text-[var(--color-ink)] rounded-full border border-[var(--color-border-subtle)] hover:border-[var(--color-brand-teal)]/40 bg-[var(--color-surface)] hover:bg-card transition-colors flex items-center gap-2.5 text-xs font-medium group"
               title="Search articles & intelligence (Ctrl+K)"
             >
-              <svg className="w-3.5 h-3.5 text-[var(--color-brand-teal)] group-hover:scale-110 transition-transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-[var(--color-brand-teal)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-              <span className="text-[var(--color-slate-muted)] font-normal">Search intelligence...</span>
-              <kbd className="text-[11px] font-mono bg-card border border-[var(--color-border-subtle)] px-1.5 py-0.5 rounded text-[var(--color-slate-muted)] font-semibold shadow-2xs group-hover:border-[var(--color-border-subtle)]">
+              <span className="hidden xl:inline text-[var(--color-slate-muted)] font-normal">Search intelligence…</span>
+              <kbd className="hidden xl:inline text-[11px] font-mono bg-card border border-[var(--color-border-subtle)] px-1.5 py-0.5 rounded text-[var(--color-slate-muted)] font-semibold">
                 Ctrl+K
               </kbd>
             </button>
 
             <button
               onClick={() => setBookmarksOpen(true)}
-              className="px-3 py-1.5 text-xs font-semibold text-[var(--color-ink)] hover:text-[var(--color-brand-teal)] hover:bg-[var(--color-surface)] rounded-md transition-colors flex items-center gap-1.5 cursor-pointer relative"
-              title="Open Saved Intelligence Vault"
+              aria-label={`Saved articles (${savedCount})`}
+              className="h-9 px-2.5 xl:px-3 text-xs font-semibold text-[var(--color-ink)] hover:text-[var(--color-brand-teal)] hover:bg-[var(--color-surface)] rounded-md transition-colors flex items-center gap-1.5 cursor-pointer"
+              title="Saved articles"
             >
-              <BookmarkFilled size={13} className="text-[var(--color-brand-coral)]" />
-              <span>Saved ({savedCount})</span>
+              <BookmarkFilled size={14} className="text-[var(--color-brand-coral)]" />
+              <span className="hidden xl:inline">Saved</span>
+              <span key={savedCount} className="saved-count-bump font-mono tabular-nums">{savedCount}</span>
             </button>
 
             {/* Theme Toggle Button */}
@@ -409,19 +425,19 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
             {onSignIn && (
               <button
                 onClick={onSignIn}
-                className="px-3 py-1.5 text-xs font-semibold text-[var(--color-ink)] hover:text-[var(--color-brand-teal)] hover:bg-[var(--color-surface)] rounded-md transition-colors"
+                className="hidden xl:inline-flex h-9 items-center px-3 text-xs font-semibold text-[var(--color-ink)] hover:text-[var(--color-brand-teal)] hover:bg-[var(--color-surface)] rounded-md transition-colors"
               >
-                Sign In
+                Sign in
               </button>
             )}
 
             {onJoin && (
               <button
                 onClick={onJoin}
-                className="px-4 py-1.5 text-xs font-semibold text-white bg-gradient-to-r from-[var(--color-brand-coral)] via-[#D86845] to-[#B94E2C] hover:brightness-105 active:scale-[0.98] rounded-md transition-all shadow-sm flex items-center gap-1.5 group cursor-pointer"
+                className="h-9 px-4 text-xs font-semibold text-white bg-[var(--color-brand-coral)] hover:bg-[var(--color-brand-coral-hover)] rounded-md transition-colors flex items-center gap-1.5 group cursor-pointer whitespace-nowrap"
               >
-                <span>Join the Network</span>
-                <span className="group-hover:translate-x-0.5 transition-transform">→</span>
+                <span>Join the network</span>
+                <span aria-hidden="true" className="group-hover:translate-x-0.5 transition-transform">→</span>
               </button>
             )}
           </div>
