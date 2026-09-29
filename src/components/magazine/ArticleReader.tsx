@@ -304,18 +304,18 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
       {paywall?.truncated && (
         <div className="my-10 p-8 bg-[var(--color-surface)] border border-[var(--color-brand-coral)]/30 rounded-sm text-center">
           <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] mb-2 block">
-            Professional Subscriber Access
+            Personal Plan Access
           </span>
           <h3 className="font-serif text-2xl font-semibold text-[var(--color-ink)] mb-3">
-            Keep reading with Mediverse Professional
+            Keep reading with Mediverse Personal
           </h3>
           <p className="text-sm text-[var(--color-slate-muted)] max-w-md mx-auto mb-6">
-            You've read {paywall.shown} of {paywall.total} paragraphs. The rest of this dossier is available to Professional members.
+            You've read {paywall.shown} of {paywall.total} paragraphs. The rest of this dossier is available on the Personal plan.
           </p>
           {paywall.signedIn ? (
             onJoinPrompt && (
               <Button variant="coral" size="md" onClick={onJoinPrompt}>
-                Upgrade to Professional
+                Upgrade to Personal
               </Button>
             )
           ) : (
@@ -327,7 +327,7 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
       )}
       {paywall && !paywall.truncated && article.isLocked && (
         <p className="my-8 font-mono text-label uppercase text-[var(--color-slate-muted)] text-center">
-          Full dossier unlocked with your Professional plan
+          Full dossier unlocked with your Personal plan
         </p>
       )}
 
@@ -335,17 +335,17 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
       {!paywall && article.isLocked && (
         <div className="my-10 p-8 bg-[var(--color-surface)] border border-[var(--color-brand-coral)]/30 rounded-sm text-center">
           <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] mb-2 block">
-            Professional Subscriber Access
+            Personal Plan Access
           </span>
           <h3 className="font-serif text-2xl font-semibold text-[var(--color-ink)] mb-3">
             Read the complete analysis in the September Issue
           </h3>
           <p className="text-sm text-[var(--color-slate-muted)] max-w-md mx-auto mb-6">
-            Unlock full dossiers, guest contributor insights, and monthly matching drops across Pharma, MedTech, and AI-Health.
+            Unlock every premium dossier in full, plus regulatory intelligence and the CDMO &amp; vendor directory.
           </p>
           {onJoinPrompt && (
             <Button variant="coral" size="md" onClick={onJoinPrompt}>
-              Start Professional Trial
+              See the Personal plan
             </Button>
           )}
         </div>

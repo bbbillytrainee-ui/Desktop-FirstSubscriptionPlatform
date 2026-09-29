@@ -32,7 +32,7 @@ export const MOCK_REFERRAL_STATS: ReferralStats = {
   bonusMonthsEarned: 2,
   peerIntroductionsUnlocked: 10,
   currentTierBadge: "Pharma Connector (Level 2)",
-  nextMilestone: "2 more signups to unlock 3 months of In-House R&D Pro access free!",
+  nextMilestone: "2 more signups to unlock 3 months of Personal access free!",
   referredUsers: [
     {
       id: "ref-1",

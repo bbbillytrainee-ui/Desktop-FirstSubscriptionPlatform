@@ -1,7 +1,7 @@
 import Logo from "../brand/Logo"
 import Badge from "../ui/Badge"
 
-export type AppTab = "magazine" | "matches" | "contacts"
+export type AppTab = "magazine" | "doctor" | "matches" | "contacts"
 
 export interface AppHeaderProps {
   activeTab: AppTab
@@ -21,6 +21,7 @@ export default function AppHeader({
 }: AppHeaderProps) {
   const tabs: { id: AppTab; label: string; badge?: string }[] = [
     { id: "magazine", label: "Magazine", badge: "Aug '26" },
+    { id: "doctor", label: "Doctor", badge: "Clinical" },
     { id: "matches", label: "Matches", badge: "4 drop" },
     { id: "contacts", label: "Contacts", badge: "Directory" },
   ]

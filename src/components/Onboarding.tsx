@@ -8,10 +8,10 @@ export interface OnboardingProps {
 }
 
 const ROLES = [
-  { id: "rnd", track: "In-House & R&D", label: "Scientist & R&D Lead", desc: "Formulation, drug discovery, QC/QA, clinical research", package: "In-House R&D Package (₹999/mo)" },
+  { id: "rnd", track: "In-House & R&D", label: "Scientist & R&D Lead", desc: "Formulation, drug discovery, QC/QA, clinical research", package: "Personal Package (₹99/yr)" },
   { id: "sales", track: "Commercial & Sales", label: "BD, Licensing & Commercial", desc: "Out-licensing, market access, commercial launches, sales", package: "Sales & Commercial Package (₹1,499/mo)" },
   { id: "logistics", track: "Supply Chain & Logistics", label: "Supply Chain & Manufacturing", desc: "Cold-chain distribution, CDMO sourcing, packaging, transit", package: "Logistics Package (₹999/mo)" },
-  { id: "clinical", track: "Clinical & Regulatory", label: "Regulatory & Clinical Lead", desc: "CDSCO/FDA submissions, clinical trials, pharmacovigilance", package: "In-House R&D Package (₹999/mo)" },
+  { id: "clinical", track: "Clinical & Regulatory", label: "Regulatory & Clinical Lead", desc: "CDSCO/FDA submissions, clinical trials, pharmacovigilance", package: "Personal Package (₹99/yr)" },
   { id: "executive", track: "Executive & Corporate", label: "C-Suite, Founder & Investor", desc: "Enterprise licensing, executive networking, team seats", package: "Enterprise Package" },
 ]
 

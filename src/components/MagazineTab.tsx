@@ -5,7 +5,7 @@ import { useReaderPrefs } from "../lib/readerPrefs"
 
 export interface Article {
   id: number
-  section: "Pharma" | "MedTech" | "AI-Health"
+  section: "Pharma" | "MedTech" | "AI-Health" | "Doctor"
   category: string
   title: string
   byline: string
@@ -298,11 +298,11 @@ const articles: Article[] = [
   },
   {
     id: 10,
-    section: "MedTech",
+    section: "Doctor",
     category: "Interview",
     title: "\"The Operating Room of 2030 Will Be Unrecognizable\" — A Conversation with Dr. Kavita Sharma",
     byline: "Mediverse Editorial Team",
-    authorRole: "Mediverse Life Sciences",
+    authorRole: "Chief of Surgical Innovation, Apollo Hospitals",
     date: "Aug 14, 2026",
     readTime: "12 min",
     audioTime: "8 min 45s",
@@ -326,6 +326,34 @@ const articles: Article[] = [
       { label: "Autonomy Forecast", value: "Level 3 by 2030" },
       { label: "Key Adoption Barrier", value: "Surgeon Identity" },
       { label: "Data Advantage", value: "High IN Volume" }
+    ]
+  },
+  {
+    id: 11,
+    section: "Doctor",
+    category: "Clinical",
+    title: "Physician-Led Protocol Governance: Managing Ethics Review & Decentralized Telemetry",
+    byline: "Dr. Anirudh Sen",
+    authorRole: "Principal Investigator & Senior Consultant, Apollo Clinical Trials",
+    date: "Aug 11, 2026",
+    readTime: "8 min",
+    audioTime: "5 min 30s",
+    audioDurationSec: 330,
+    excerpt: "Operational blueprints for clinical trial principal investigators navigating multi-center patient recruitment, digital ePRO compliance, and CDSCO audit readiness.",
+    body: [
+      "For physician investigators balancing active clinical practice with sponsored trial responsibilities, protocol governance requires heightened operational rigor under revised 2026 Good Clinical Practice directives.",
+      "Three focus areas dictate trial compliance: digital patient ePRO audit trails, unblinded safety surveillance, and cross-functional alignment between hospital ethics committees and biopharma sponsors."
+    ],
+    pullQuote: "Principal investigators must maintain direct oversight of digital data streams to safeguard clinical trial integrity.",
+    cSuiteSummary: [
+      "Mandatory real-time electronic protocol deviation reporting under 2026 GCP.",
+      "ePRO remote patient telemetry requires verifiable audit trails.",
+      "Ethics committee alignment accelerates multi-center initiation."
+    ],
+    keyMetrics: [
+      { label: "GCP Compliance", value: "2026 Standard" },
+      { label: "Recruitment Target", value: "94% On-Track" },
+      { label: "Audit Readiness", value: "Tier 1 Verified" }
     ]
   },
 ]
@@ -1145,7 +1173,7 @@ export default function MagazineTab() {
       <div className="mb-8 grid gap-3">
       <div className="flex flex-wrap items-center gap-2">
         <span className="w-20 shrink-0 font-mono text-label uppercase text-[var(--color-slate-muted)]">Section</span>
-        {["All", "Pharma", "MedTech", "AI-Health"].map((sec) => (
+        {["All", "Pharma", "MedTech", "AI-Health", "Doctor"].map((sec) => (
           <button
             key={sec}
             onClick={() => setActiveSection(sec)}

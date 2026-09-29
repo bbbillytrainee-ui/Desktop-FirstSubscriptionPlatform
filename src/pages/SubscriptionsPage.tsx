@@ -47,7 +47,7 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
             Simple, Transparent Pricing
           </h1>
           <p className="text-base md:text-lg text-[var(--color-slate-muted)] leading-relaxed">
-            Select the plan suited for your needs — Explorer, In-House / R&D, or Organization / Enterprise. Fully expense-ready with tax invoice.
+            Select the plan suited for your needs — Explorer, Personal, or Organization / Enterprise. Each plan includes everything in the one before it.
           </p>
         </div>
 
@@ -107,8 +107,8 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
                       {!isFree && <span className="text-xs font-semibold text-[var(--color-slate-muted)]">{period}</span>}
                     </div>
                     {!isFree ? (
-                      <p className="text-[11px] text-[var(--color-brand-teal)] font-semibold mt-1">
-                        GST invoice ready for expense reporting
+                      <p className="text-[11px] text-[var(--color-slate-muted)] font-medium mt-1">
+                        Billed yearly · online payment opening soon
                       </p>
                     ) : (
                       <p className="text-[11px] text-[var(--color-slate-muted)] font-medium mt-1">
@@ -120,13 +120,24 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
                   {/* Features List */}
                   <div className="border-t border-[var(--color-border-subtle)] pt-5 mb-6">
                     <span className="text-[11px] font-bold uppercase font-mono text-[var(--color-slate-muted)] block mb-3 tracking-wider">
-                      Included Features:
+                      {tier.includesTier ? `Everything in ${tier.includesTier}, plus:` : "Included Features:"}
                     </span>
                     <ul className="space-y-2.5 text-xs text-[var(--color-ink)] font-medium">
                       {tier.features.map((feat, idx) => (
                         <li key={idx} className="flex items-start gap-2.5">
-                          <span className="text-[var(--color-brand-teal)] font-bold text-sm shrink-0">✓</span>
-                          <span className="leading-snug text-[var(--color-ink)]">{feat}</span>
+                          {feat.comingSoon ? (
+                            <span className="text-[var(--color-slate-muted)] font-bold text-sm shrink-0">○</span>
+                          ) : (
+                            <span className="text-[var(--color-brand-teal)] font-bold text-sm shrink-0">✓</span>
+                          )}
+                          <span className={`leading-snug ${feat.comingSoon ? "text-[var(--color-slate-muted)]" : "text-[var(--color-ink)]"}`}>
+                            {feat.text}
+                            {feat.comingSoon && (
+                              <span className="ml-1.5 inline-block align-middle px-1.5 py-px rounded-sm text-[9px] font-mono font-semibold uppercase tracking-wider border border-[var(--color-border-subtle)] text-[var(--color-slate-muted)]">
+                                Coming soon
+                              </span>
+                            )}
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -141,7 +152,7 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
                     className="w-full font-semibold"
                     onClick={onJoin}
                   >
-                    {isFree ? "Start Explorer Free" : `Subscribe ${tier.name}`}
+                    {isFree ? "Start Explorer Free" : "Create account"}
                   </Button>
                 </div>
               </div>
@@ -167,7 +178,7 @@ export default function SubscriptionsPage({ onJoin, onNavigate }: SubscriptionsP
                 Earn Free Months with Referral Program
               </h3>
               <p className="text-xs text-[var(--color-slate-muted)] max-w-xl leading-relaxed">
-                Invite fellow scientists, regulatory leaders, and pharma colleagues. For every 2 peer signups, receive 1 additional month of In-House / R&D Pro membership free.
+                Invite fellow scientists, regulatory leaders, and pharma colleagues. For every 2 peer signups, receive 1 additional month of Personal membership free.
               </p>
             </div>
           </div>

@@ -8,6 +8,7 @@ export interface MobileNavProps {
 export default function MobileNav({ activeTab, onTabChange }: MobileNavProps) {
   const tabs: { id: AppTab; label: string; icon: string }[] = [
     { id: "magazine", label: "Magazine", icon: "📰" },
+    { id: "doctor", label: "Doctor", icon: "🩺" },
     { id: "matches", label: "Matches", icon: "🤝" },
     { id: "contacts", label: "Contacts", icon: "📇" },
   ]

@@ -10,7 +10,7 @@ export interface Article {
   slug: string
   title: string
   dek: string
-  category: "Pharma" | "MedTech" | "AI-Health"
+  category: "Pharma" | "MedTech" | "AI-Health" | "Doctor"
   format: "Feature" | "Analysis" | "Interview" | "Digest"
   issueId: string
   authorId: string

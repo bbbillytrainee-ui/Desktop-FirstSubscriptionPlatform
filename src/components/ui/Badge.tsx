@@ -18,7 +18,7 @@ export default function Badge({ type, label, className = "" }: BadgeProps) {
     contributor: "Contributor",
     verified: "Verified",
     member: "Member",
-    pro: "Professional",
+    pro: "Personal",
     free: "Free",
     enterprise: "Enterprise",
   }

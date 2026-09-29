@@ -4,6 +4,7 @@ import MobileNav from "./layout/MobileNav"
 import MagazineTab from "./MagazineTab"
 import MatchesTab from "./MatchesTab"
 import ContactsTab from "./ContactsTab"
+import DoctorTab from "./DoctorTab"
 import Modal from "./ui/Modal"
 import Button from "./ui/Button"
 import ErrorBoundary from "./ui/ErrorBoundary"
@@ -97,6 +98,7 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
               <MagazineTab />
             </div>
           )}
+          {activeTab === "doctor" && <DoctorTab />}
           {activeTab === "matches" && <MatchesTab />}
           {activeTab === "contacts" && <ContactsTab />}
         </ErrorBoundary>
@@ -127,7 +129,7 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
             </div>
           </div>
           <div className="text-[11px] text-[var(--color-slate-muted)] border-t border-[var(--color-border-subtle)] pt-3">
-            Reward status: <strong>0 / 3 colleagues joined</strong>. Once 3 colleagues activate their profiles, your account receives an automatic 30-day Professional extension.
+            Reward status: <strong>0 / 3 colleagues joined</strong>. Once 3 colleagues activate their profiles, your account receives an automatic 30-day Personal extension.
           </div>
         </div>
       </Modal>

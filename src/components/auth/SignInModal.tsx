@@ -15,7 +15,7 @@ const FIELD =
 
 // Local demo accounts created by `python -m scripts.seed_dev`; shown in development builds only
 const DEMO_ACCOUNTS = [
-  { email: "pro@example.com", label: "Professional" },
+  { email: "pro@example.com", label: "Personal" },
   { email: "reader@example.com", label: "Free" },
 ]
 const DEMO_PASSWORD = "mediverse-local-dev"

@@ -18,6 +18,7 @@ export default function BrowseControls({
     { id: "Pharma", label: "Pharma" },
     { id: "MedTech", label: "MedTech" },
     { id: "AI-Health", label: "AI-Health" },
+    { id: "Doctor", label: "Doctor" },
   ]
 
   const formatOptions = [
