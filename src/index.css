@@ -602,6 +602,32 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
     gap: 2.5rem;
   }
   .story-counter, .story-nav, .story-rail, .story-toggle { display: none; }
+
+  /* Step number in a thin ring (nav in the carousel; tag above each block in the stacked list) */
+  .story-ring {
+    position: relative;
+    display: inline-grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    font-size: 0.6875rem;
+  }
+  .story-ring svg { position: absolute; inset: 0; width: 100%; height: 100%; rotate: -90deg; overflow: visible; }
+  .story-ring circle { fill: none; stroke-width: 1.5; }
+  .story-ring-track { stroke: var(--border-strong); }
+  .story-ring-fill { stroke: var(--accent-decor); stroke-dasharray: 100; stroke-dashoffset: 0; stroke-linecap: round; }
+  .story-step-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .story-step-tag .font-mono { color: var(--premium-text); }
+  .story.is-carousel .story-step-tag { display: none; }
   .story-slides { display: grid; gap: 3.5rem; }
   .story-slide + .story-slide { padding-top: 3.5rem; border-top: 1px solid var(--border-subtle); }
   .story-media {
@@ -612,14 +638,17 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
     background: var(--surface-sunken);
   }
   .story-media-img { position: relative; width: 100%; height: 100%; object-fit: cover; }
+  /* teal duotone wash + depth gradient so the photo sits in the section instead of on it */
+  .story-media::before,
+  .story-media::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit; }
+  .story-media::before { background: var(--color-teal-700); mix-blend-mode: color; opacity: 0.45; }
+  .story-media::after {
+    background: linear-gradient(160deg, rgba(13, 59, 74, 0) 35%, rgba(5, 26, 33, 0.45) 100%);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  }
 
   /* ── Carousel (>= 768px) ── */
-  .story.is-carousel .story-stage {
-    min-height: calc(100svh - var(--story-top));
-    display: flex;
-    align-items: center;
-    padding: 3rem 1.5rem;
-  }
+  .story.is-carousel .story-stage { padding: var(--section-y) 1.5rem; }
   .story.is-carousel .story-inner {
     width: 100%;
     grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
@@ -645,8 +674,8 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    min-height: 36px;
-    padding: 0 0.75rem;
+    min-height: 40px;
+    padding: 0 0.875rem 0 0.3125rem;
     border-radius: 999px;
     font-size: 0.875rem;
     font-weight: 500;
@@ -655,30 +684,19 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
   }
   .story-nav-item:hover { color: var(--text-primary); }
   .story-nav-item[aria-current] { color: var(--text-primary); background: var(--surface-raised); }
-  .story-nav-item[aria-current] .font-mono { color: var(--premium-text); }
+  /* number in primary (brass on the raised pill is 4.2:1); the accent ring carries the emphasis */
+  .story-nav-item[aria-current] .font-mono { color: var(--text-primary); font-weight: 600; }
 
-  /* Timer: a slim bar under each step; the active one fills over --story-interval and its
-     animationend advances the carousel. Paused (keeping its place) unless the section is running. */
-  .story-nav-progress {
-    position: absolute;
-    left: 0.75rem;
-    right: 0.75rem;
-    bottom: 3px;
-    height: 2px;
-    border-radius: 2px;
-    background: var(--border-subtle);
-    overflow: hidden;
-  }
-  .story-nav-progress-fill {
-    position: absolute;
-    inset: 0;
-    background: var(--accent-decor);
-    transform-origin: left center;
-    transform: scaleX(0);
-    animation: storyTimer var(--story-interval) linear forwards;
+  /* Timer: the active ring fills over --story-interval; its animationend advances the carousel.
+     Frozen in place (and dimmed) while paused; without auto-advance it is simply full. */
+  .story.is-auto .story-ring-fill {
+    stroke-dashoffset: 100;
+    animation: storyRing var(--story-interval) linear forwards;
     animation-play-state: paused;
+    opacity: 0.55;
+    transition: opacity var(--duration-base) var(--ease-out);
   }
-  .story[data-running] .story-nav-progress-fill { animation-play-state: running; }
+  .story.is-auto[data-running] .story-ring-fill { animation-play-state: running; opacity: 1; }
 
   /* progress rail: fills per step (transform only) */
   .story.is-carousel .story-rail {
@@ -702,20 +720,22 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
   .story.is-auto .story-toggle {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    min-height: 36px;
-    margin-top: 1rem;
-    padding: 0 0.75rem;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: 1.25rem 0 0 0.3125rem;
     border-radius: 999px;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    border: 1px solid var(--border-strong);
     color: var(--text-muted);
-    transition: color var(--duration-fast) var(--ease-out);
+    transition:
+      color var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
   }
-  .story-toggle:hover { color: var(--text-primary); }
+  .story-toggle:hover,
+  .story-toggle:focus-visible { color: var(--text-primary); background: var(--surface-raised); border-color: var(--accent-decor); }
+  .story-toggle:active { transform: scale(0.94); }
 
   /* Steps share one cell; the inactive ones are transparent but stay in the accessibility tree */
   .story.is-carousel .story-slides { gap: 0; }
@@ -727,6 +747,8 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
     pointer-events: none;
   }
   .story.is-carousel .story-slide.is-active { opacity: 1; pointer-events: auto; }
+  /* the overview is shorter than the vertical steps: centre it rather than leave a gap below */
+  .story.is-carousel .story-slide:first-child { align-self: center; }
   .story.is-carousel .story-media { aspect-ratio: auto; height: clamp(160px, 34svh, 340px); }
 
   /* Crossfade: the outgoing step fades in place, the incoming one fades in and settles up */
@@ -739,7 +761,20 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
     transition: opacity var(--story-fade) var(--ease-out), transform var(--story-fade) var(--ease-out);
   }
 }
-@keyframes storyTimer { to { transform: scaleX(1); } }
+@keyframes storyRing { to { stroke-dashoffset: 0; } }
+
+/* Ken Burns: the showing image eases 1 -> 1.04; the outgoing one holds its scale until it has
+   faded, then resets out of sight (a transition, not an animation, so leaving never snaps).
+   Unlayered on purpose: SafeImage's transition-opacity utility would otherwise replace it
+   (opacity is kept in the list for the image's load fade-in). */
+.story.is-auto .story-media-img {
+  scale: 1;
+  transition: scale 0s linear var(--story-fade), opacity var(--duration-slow) var(--ease-out);
+}
+.story.is-auto .story-slide.is-active .story-media-img {
+  scale: 1.04;
+  transition: scale calc(var(--story-interval) + 1.5s) linear, opacity var(--duration-slow) var(--ease-out);
+}
 
 /* ── Dossier rail: "More from this issue" (magazine/DossierRail.tsx) ── */
 @layer components {

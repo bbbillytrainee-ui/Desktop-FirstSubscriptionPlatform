@@ -24,6 +24,30 @@ export interface CoverageStoryProps {
 const pad = (n: number) => String(n).padStart(2, "0")
 
 /**
+ * Step number inside a thin ring. Active + auto: the ring fills over --story-interval and its
+ * animationend advances the carousel (re-keyed by `cycle` to restart at 0). Active otherwise: full.
+ */
+function StepRing({ n, active, cycle, onDone }: { n: number; active: boolean; cycle?: number; onDone?: () => void }) {
+  return (
+    <span className="story-ring">
+      <svg aria-hidden="true" viewBox="0 0 32 32">
+        <circle className="story-ring-track" cx="16" cy="16" r="14.5" pathLength="100" />
+        {active && <circle key={cycle} className="story-ring-fill" cx="16" cy="16" r="14.5" pathLength="100" onAnimationEnd={onDone} />}
+      </svg>
+      <span className="font-mono tabular-nums">{pad(n)}</span>
+    </span>
+  )
+}
+
+/** Phones only (stacked list): the step's number and name above each block, ring shown full */
+const StepTag = ({ n, label }: { n: number; label: string }) => (
+  <p aria-hidden="true" className="story-step-tag">
+    <StepRing n={n} active />
+    {label}
+  </p>
+)
+
+/**
  * stacked: phones (< 768px), a plain list.
  * manual:  >= 768px with reduced motion or ?fx=off. One step at a time, reader clicks through, instant swap.
  * auto:    >= 768px with motion allowed. Advances every --story-interval with a short crossfade.
@@ -50,9 +74,9 @@ function useMode(): Mode {
 /**
  * Core Coverage as a one-viewport carousel: overview + one step per vertical.
  *
- * Timing: the active step's progress bar is a CSS animation, and its `animationend` advances
- * the carousel, so the bar and the timer can never drift. Pausing sets animation-play-state,
- * which keeps the remaining time; manual navigation re-keys the bar, resetting it to 0.
+ * Timing: the ring around the active step's number is a CSS animation, and its `animationend`
+ * advances the carousel, so the ring and the timer can never drift. Pausing sets
+ * animation-play-state, which keeps the remaining time; manual navigation re-keys it to 0.
  *
  * Auto-advance runs only while the section is on screen and nobody is interacting:
  * - hovering (a mouse that moves over it) or keyboard focus inside pauses it for as long as it lasts;
@@ -73,7 +97,6 @@ export default function CoverageStory({ verticals, totalDossiers, onSelectTopic 
   const labels = ["Overview", ...verticals.map(v => v.short)]
 
   const [active, setActive] = useState(0)
-  const [visited, setVisited] = useState<Set<number>>(() => new Set([0]))
   // Bumped on every manual navigation so the timer bar remounts at 0
   const [cycle, setCycle] = useState(0)
   const [inView, setInView] = useState(false)
@@ -82,10 +105,6 @@ export default function CoverageStory({ verticals, totalDossiers, onSelectTopic 
   const [held, setHeld] = useState(false)
 
   const running = auto && inView && !hovered && !keyboardFocus && !held
-
-  useEffect(() => {
-    setVisited(prev => (prev.has(active) ? prev : new Set(prev).add(active)))
-  }, [active])
 
   // On screen = at least 40% visible. Leaving the section releases a held pause.
   useEffect(() => {
@@ -131,8 +150,6 @@ export default function CoverageStory({ verticals, totalDossiers, onSelectTopic 
       if (carousel && i !== active) select(i)
     },
   })
-
-  const statPlay = (i: number) => (carousel ? visited.has(i) : undefined)
 
   return (
     <section
@@ -185,13 +202,8 @@ export default function CoverageStory({ verticals, totalDossiers, onSelectTopic 
               {labels.map((label, i) => (
                 <li key={label}>
                   <button type="button" aria-current={i === active ? "step" : undefined} onClick={() => select(i)} className="story-nav-item">
-                    <span className="font-mono tabular-nums">{pad(i + 1)}</span>
+                    <StepRing n={i + 1} active={i === active} cycle={cycle} onDone={auto && i === active ? advance : undefined} />
                     {label}
-                    {auto && (
-                      <span aria-hidden="true" className="story-nav-progress">
-                        {i === active && <span key={cycle} className="story-nav-progress-fill" onAnimationEnd={advance} />}
-                      </span>
-                    )}
                   </button>
                 </li>
               ))}
@@ -207,9 +219,9 @@ export default function CoverageStory({ verticals, totalDossiers, onSelectTopic 
                 onClick={() => setHeld(h => !h)}
                 className="story-toggle"
                 aria-label={held ? "Resume auto-advance" : "Pause auto-advance"}
+                title={held ? "Resume" : "Pause"}
               >
-                {held ? <Play size={12} aria-hidden="true" /> : <Pause size={12} aria-hidden="true" />}
-                <span aria-hidden="true">{held ? "Play" : "Pause"}</span>
+                {held ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}
               </button>
             )}
           </div>
@@ -217,6 +229,7 @@ export default function CoverageStory({ verticals, totalDossiers, onSelectTopic 
           {/* Right: the steps (stacked in one grid cell in carousel modes, so height is reserved) */}
           <div className="story-slides">
             <article {...slideProps(0)}>
+              <StepTag n={1} label={labels[0]} />
               <h2 id="coverage-title" className="font-serif text-h1 font-semibold text-[var(--text-primary)] mb-4 [text-wrap:balance]">
                 Three verticals. Focused depth.
               </h2>
@@ -232,7 +245,7 @@ export default function CoverageStory({ verticals, totalDossiers, onSelectTopic 
                   <div key={stat.label} className="flex flex-col-reverse justify-end gap-1.5">
                     <dt className="font-mono text-label font-semibold uppercase text-[var(--text-muted)]">{stat.label}</dt>
                     <dd className="font-serif text-[2.5rem] leading-none font-semibold text-[var(--text-primary)]">
-                      <CountUp value={stat.value} play={statPlay(0)} durationMs={900} />
+                      <CountUp value={stat.value} durationMs={900} />
                     </dd>
                   </div>
                 ))}
@@ -243,6 +256,7 @@ export default function CoverageStory({ verticals, totalDossiers, onSelectTopic 
               const i = idx + 1
               return (
                 <article key={v.topicId} {...slideProps(i)}>
+                  <StepTag n={i + 1} label={labels[i]} />
                   <div className="story-media">
                     <SafeImage src={v.image} alt="" width={720} blurUp className="story-media-img" />
                     <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-teal-950/60 to-transparent" />
@@ -253,7 +267,7 @@ export default function CoverageStory({ verticals, totalDossiers, onSelectTopic 
                   <div className="flex flex-wrap items-end justify-between gap-6">
                     <p className="flex items-baseline gap-3">
                       <span className="font-serif text-[2.5rem] leading-none font-semibold text-[var(--text-primary)]">
-                        <CountUp value={v.count} play={statPlay(i)} durationMs={900} />
+                        <CountUp value={v.count} static={carousel} durationMs={900} />
                       </span>
                       <span className="font-mono text-label font-semibold uppercase text-[var(--text-muted)]">dossiers in the archive</span>
                     </p>
