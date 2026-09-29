@@ -16,7 +16,13 @@ async def test_categories_seeded_by_migration(session: AsyncSession) -> None:
     query = select(Category.slug, Category.is_primary).order_by(Category.sort_order)
     rows = (await session.execute(query)).all()
     assert [r.slug for r in rows] == [
-        "pharma", "regulatory", "medtech", "ai-health", "clinical", "supply-chain", "market-access",
+        "pharma",
+        "regulatory",
+        "medtech",
+        "ai-health",
+        "clinical",
+        "supply-chain",
+        "market-access",
     ]
     assert {r.slug for r in rows if r.is_primary} == {"pharma", "medtech", "ai-health"}
 
@@ -27,9 +33,14 @@ async def test_search_vector_covers_title_deck_tags_and_body(session: AsyncSessi
     await session.flush()
     session.add(
         Dossier(
-            slug="glp1-warchests", title="GLP-1 Peptide Warchests", deck="Patent cliffs loom",
-            body=["Semaglutide biosimilars scale up in Hyderabad."], primary_category_id=1,
-            author_id=author.id, tags=["Bioprocessing"], read_time_minutes=7,
+            slug="glp1-warchests",
+            title="GLP-1 Peptide Warchests",
+            deck="Patent cliffs loom",
+            body=["Semaglutide biosimilars scale up in Hyderabad."],
+            primary_category_id=1,
+            author_id=author.id,
+            tags=["Bioprocessing"],
+            read_time_minutes=7,
         )
     )
     await session.commit()
@@ -52,8 +63,16 @@ async def test_published_dossier_requires_published_at(session: AsyncSession) ->
     session.add(author)
     await session.flush()
     session.add(
-        Dossier(slug="no-date", title="t", deck="d", body=[], primary_category_id=1, author_id=author.id,
-                read_time_minutes=3, status="published")
+        Dossier(
+            slug="no-date",
+            title="t",
+            deck="d",
+            body=[],
+            primary_category_id=1,
+            author_id=author.id,
+            read_time_minutes=3,
+            status="published",
+        )
     )
     with pytest.raises(IntegrityError):
         await session.commit()

@@ -205,9 +205,7 @@ class Dossier(TimestampMixin, Base):
     is_locked: Mapped[bool] = mapped_column(Boolean, server_default=text("false"))
     status: Mapped[str] = mapped_column(String(16), server_default="draft")
     published_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
-    search_vector: Mapped[str | None] = mapped_column(
-        TSVECTOR, Computed(SEARCH_VECTOR_SQL, persisted=True)
-    )
+    search_vector: Mapped[str | None] = mapped_column(TSVECTOR, Computed(SEARCH_VECTOR_SQL, persisted=True))
 
     primary_category: Mapped[Category] = relationship(lazy="raise")
     issue: Mapped[Issue | None] = relationship(lazy="raise")

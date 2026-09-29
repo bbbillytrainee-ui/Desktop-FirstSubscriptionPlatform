@@ -53,7 +53,7 @@ class Settings(BaseSettings):
     def _asyncpg_driver(cls, v: str) -> str:
         for prefix in ("postgres://", "postgresql://"):
             if v.startswith(prefix):
-                return "postgresql+asyncpg://" + v[len(prefix):]
+                return "postgresql+asyncpg://" + v[len(prefix) :]
         return v
 
     @property

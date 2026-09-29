@@ -14,6 +14,7 @@ os.environ["EMAIL_BACKEND"] = "console"
 
 from collections.abc import AsyncIterator
 
+import httpx
 import pytest
 from alembic import command
 from alembic.config import Config
@@ -24,8 +25,16 @@ from app.db import dispose_engine, get_engine, get_sessionmaker
 
 # Everything except reference data seeded by migrations
 TABLES = [
-    "saved_items", "dossier_categories", "dossiers", "authors", "issues", "speed_feed_items",
-    "newsletter_subscribers", "refresh_tokens", "user_tokens", "users",
+    "saved_items",
+    "dossier_categories",
+    "dossiers",
+    "authors",
+    "issues",
+    "speed_feed_items",
+    "newsletter_subscribers",
+    "refresh_tokens",
+    "user_tokens",
+    "users",
 ]
 
 
@@ -54,3 +63,37 @@ async def _dispose_engine() -> AsyncIterator[None]:
 async def session() -> AsyncIterator[AsyncSession]:
     async with get_sessionmaker()() as s:
         yield s
+
+
+class EmailOutbox:
+    """Captures outgoing email instead of sending it."""
+
+    def __init__(self) -> None:
+        self.sent: list = []
+
+    async def send(self, email) -> None:  # type: ignore[no-untyped-def]
+        self.sent.append(email)
+
+    def last_token(self) -> str:
+        import re
+
+        match = re.search(r"token=([A-Za-z0-9_\-]+)", self.sent[-1].text)
+        assert match, "no token in the last email"
+        return match.group(1)
+
+
+@pytest.fixture
+def outbox() -> EmailOutbox:
+    return EmailOutbox()
+
+
+@pytest.fixture
+async def client(outbox: EmailOutbox) -> AsyncIterator[httpx.AsyncClient]:
+    from app.emails import get_email_sender
+    from app.main import app
+
+    app.dependency_overrides[get_email_sender] = lambda: outbox
+    transport = httpx.ASGITransport(app=app)
+    async with httpx.AsyncClient(transport=transport, base_url="http://testserver") as c:
+        yield c
+    app.dependency_overrides.clear()
