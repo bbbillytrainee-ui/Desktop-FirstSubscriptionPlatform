@@ -1096,9 +1096,10 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
   .hero-backdrop::before {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%230D3B4A' stroke-width='0.8'%3E%3Cpath d='M0 36L36 0L72 36L36 72Z M36 0V72 M0 36H72'/%3E%3C/g%3E%3Cg fill='%230D3B4A'%3E%3Ccircle cx='36' cy='0' r='2'/%3E%3Ccircle cx='0' cy='36' r='2'/%3E%3Ccircle cx='72' cy='36' r='2'/%3E%3Ccircle cx='36' cy='72' r='2'/%3E%3Ccircle cx='36' cy='36' r='2.6'/%3E%3C/g%3E%3C/svg%3E");
     background-size: 72px 72px;
-    opacity: 0.07;
-    -webkit-mask-image: radial-gradient(ellipse 45% 65% at 80% 45%, #000 0%, transparent 72%);
-    mask-image: radial-gradient(ellipse 45% 65% at 80% 45%, #000 0%, transparent 72%);
+    opacity: 0.15;
+    /* focal: strongest around the cover, fading out before the headline and the section edges */
+    -webkit-mask-image: radial-gradient(ellipse 42% 62% at 78% 46%, #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 76%);
+    mask-image: radial-gradient(ellipse 42% 62% at 78% 46%, #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 76%);
   }
   .hero-backdrop::after {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.24 0 0 0 0 0.15 0 0 0 0 0.09 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -1108,8 +1109,8 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
   @media (max-width: 1023px) {
     /* stacked layout: lattice sits behind the cover, below the text */
     .hero-backdrop::before {
-      -webkit-mask-image: radial-gradient(ellipse 80% 35% at 50% 82%, #000 0%, transparent 75%);
-      mask-image: radial-gradient(ellipse 80% 35% at 50% 82%, #000 0%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 85% 38% at 50% 80%, #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 78%);
+      mask-image: radial-gradient(ellipse 85% 38% at 50% 80%, #000 0%, rgba(0, 0, 0, 0.55) 45%, transparent 78%);
     }
   }
   html.dark .hero-backdrop {
@@ -1119,7 +1120,7 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
   }
   html.dark .hero-backdrop::before {
     filter: invert(1);
-    opacity: 0.06;
+    opacity: 0.12;
   }
   html.dark .hero-backdrop::after {
     mix-blend-mode: soft-light;
@@ -1175,19 +1176,44 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
     box-shadow: var(--elev-3);
     transition: transform var(--duration-slow) var(--ease-out);
   }
+  /* Fanned hand: two blank cards behind the cover, pivoting on their bottom edge, each a step
+     smaller. Individual rotate/translate/scale so they compose with the pointer parallax (inline
+     transform). The top ~57% is a slightly different tone, standing in for the cover image. */
+  .cover-fan {
+    --fan-shadow: 0 2px 6px rgba(84, 52, 30, 0.08), 0 18px 36px -14px rgba(84, 52, 30, 0.3);
+  }
+  html.dark .cover-fan {
+    --fan-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 6px 16px -8px rgba(70, 35, 18, 0.45), 0 22px 44px -16px rgba(0, 0, 0, 0.6);
+  }
   .cover-sheet {
     position: absolute;
     inset: 0;
     border-radius: var(--radius-overlay);
     border: 1px solid var(--border-subtle);
-    box-shadow: var(--elev-1);
-    transition: transform var(--duration-slow) var(--ease-out), rotate var(--duration-slow) var(--ease-out), translate var(--duration-slow) var(--ease-out);
+    box-shadow: var(--fan-shadow);
+    transform-origin: 50% 100%;
+    transition: rotate 260ms var(--ease-out), translate 260ms var(--ease-out), scale 260ms var(--ease-out);
   }
-  .cover-sheet-back { background: var(--surface-sunken); rotate: 4.5deg; translate: 14px 10px; }
-  .cover-sheet-mid  { background: var(--surface-card);   rotate: -2.5deg; translate: -8px 8px; }
-  /* hovering the cover fans the sheets out a little */
-  div:has(> .cover:hover) > .cover-sheet-back { rotate: 6.5deg; translate: 20px 12px; }
-  div:has(> .cover:hover) > .cover-sheet-mid  { rotate: -4deg; translate: -14px 10px; }
+  .cover-sheet-mid {
+    background: linear-gradient(var(--surface-sunken) 0 57%, var(--surface-card) 57%);
+    rotate: -4deg; translate: -14px 4px; scale: 0.98;
+  }
+  .cover-sheet-back {
+    background: linear-gradient(var(--border-subtle) 0 57%, var(--surface-sunken) 57%), var(--surface-sunken);
+    rotate: 3deg; translate: 18px 8px; scale: 0.96;
+  }
+  /* hovering (or focusing) the card area opens the fan a little wider; motion allowed only */
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .cover-fan:hover > .cover-sheet-mid,
+    .cover-fan:focus-within > .cover-sheet-mid  { rotate: -7deg; translate: -22px 4px; }
+    .cover-fan:hover > .cover-sheet-back,
+    .cover-fan:focus-within > .cover-sheet-back { rotate: 6deg; translate: 28px 10px; }
+  }
+  /* phones: the cover is nearly full width, so a narrower fan that stays inside the gutter */
+  @media (max-width: 639px) {
+    .cover-sheet-mid  { rotate: -2.5deg; translate: -6px 3px; }
+    .cover-sheet-back { rotate: 2deg; translate: 8px 6px; }
+  }
 
   .cover-ribbon {
     position: absolute;

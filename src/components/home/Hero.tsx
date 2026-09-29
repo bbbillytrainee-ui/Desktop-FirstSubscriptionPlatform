@@ -124,8 +124,8 @@ export default function Hero({ issue, onJoin, onOpenIssue, onArchive, notice }: 
         {/* ── Right: the current issue as a magazine cover ── */}
         <div data-reveal="rise" style={{ "--i": 2 } as CSSProperties} className="relative mx-auto w-full max-w-[26rem] lg:max-w-none">
           {/* scroll drift lives on its own layer so it never fights the pointer parallax or the entrance */}
-          <div className="hero-cover-drift relative">
-          {/* stacked paper behind the cover (moves opposite the cover for depth) */}
+          <div className="hero-cover-drift cover-fan relative">
+          {/* two cards fanned behind the cover, like a hand of cards (moves opposite the cover for depth) */}
           <div aria-hidden="true" className="cover-sheet cover-sheet-back" style={parallax(-4)} />
           <div aria-hidden="true" className="cover-sheet cover-sheet-mid" style={parallax(-2)} />
 
