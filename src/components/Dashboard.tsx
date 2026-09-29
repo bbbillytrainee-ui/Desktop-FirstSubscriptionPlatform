@@ -92,7 +92,11 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
 
       <main className="flex-1">
         <ErrorBoundary key={activeTab} onReset={() => onNavigate?.("home")}>
-          {activeTab === "magazine" && <MagazineTab />}
+          {activeTab === "magazine" && (
+            <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 lg:px-10 py-8 lg:py-10">
+              <MagazineTab />
+            </div>
+          )}
           {activeTab === "matches" && <MatchesTab />}
           {activeTab === "contacts" && <ContactsTab />}
         </ErrorBoundary>

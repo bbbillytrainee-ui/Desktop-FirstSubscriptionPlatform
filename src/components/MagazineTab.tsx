@@ -1063,7 +1063,7 @@ export default function MagazineTab() {
   return (
     <>
       {/* ── TOP CONTROL BAR: SEARCH, EDITION, VIEWS ── */}
-      <div className="mb-8 p-4 md:p-6 bg-card border border-[var(--color-border-subtle)] rounded-sm shadow-sm flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+      <div className="mb-6 p-3 md:p-4 bg-card border border-[var(--color-border-subtle)] rounded-card flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
         {/* Left: Edition & Search */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
           {/* Edition Selector */}
@@ -1142,8 +1142,9 @@ export default function MagazineTab() {
       </div>
 
       {/* ── FILTER CATEGORY CHIPS ── */}
-      <div className="mb-6 flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-        <span className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider mr-2">Section:</span>
+      <div className="mb-8 grid gap-3">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="w-20 shrink-0 font-mono text-label uppercase text-[var(--color-slate-muted)]">Section</span>
         {["All", "Pharma", "MedTech", "AI-Health"].map((sec) => (
           <button
             key={sec}
@@ -1156,18 +1157,21 @@ export default function MagazineTab() {
           </button>
         ))}
 
-        <span className="text-[11px] font-semibold text-[var(--color-slate-muted)] uppercase tracking-wider ml-4 mr-2">Category:</span>
+      </div>
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="w-20 shrink-0 font-mono text-label uppercase text-[var(--color-slate-muted)]">Format</span>
         {["All", "Cover Story", "Deep Dive", "IP & Strategy", "Commercial", "Policy", "Interview"].map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
             className={`px-3 py-1 text-xs rounded-full border transition-colors ${
-              activeCategory === cat ? "bg-[var(--color-brand-coral-fill)] text-white font-semibold border-[var(--color-brand-coral)]" : "border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:border-[var(--color-brand-teal)]"
+              activeCategory === cat ? "bg-[var(--color-ink)] text-[var(--color-paper)] font-semibold border-[var(--color-ink)]" : "border-[var(--color-border-subtle)] text-[var(--color-slate-muted)] hover:border-[var(--color-brand-teal)]"
             }`}
           >
             {cat}
           </button>
         ))}
+      </div>
       </div>
 
       {/* ── MAIN CONTENT GRID WITH STICKY SIDEBAR ── */}
@@ -1175,16 +1179,16 @@ export default function MagazineTab() {
         {/* LEFT EDITORIAL CONTENT AREA */}
         <div className="lg:pr-8 lg:border-r border-[var(--color-border-subtle)]">
           {/* Editor's Welcome Card */}
-          <div className="mb-10 p-6 md:p-8 bg-[var(--color-section-dark)] rounded-sm text-[var(--color-sand-50)] shadow-md relative overflow-hidden">
+          <div className="mb-10 p-6 md:p-10 bg-[var(--color-section-dark)] rounded-card text-[var(--color-sand-50)] shadow-md relative overflow-hidden">
             <div className="absolute right-0 top-0 w-32 h-32 bg-[var(--color-brand-coral-on-dark)]/10 rounded-full blur-2xl pointer-events-none" />
             <div className="flex items-center gap-2 mb-3">
               <div className="w-4 h-px bg-[var(--color-brand-coral-on-dark)]" />
               <span className="text-[11px] font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral-on-dark)]">Editor's Note · Issue 24</span>
             </div>
-            <h3 className="font-serif text-xl md:text-2xl font-semibold mb-3">
+            <h3 className="font-serif text-2xl md:text-h2 font-semibold mb-4 [text-wrap:balance]">
               {EDITORS_LETTER.title}
             </h3>
-            <p className="text-xs md:text-sm leading-relaxed text-[rgba(248,246,240,0.8)] mb-4">{EDITORS_LETTER.body}</p>
+            <p className="text-sm md:text-base leading-relaxed text-[rgba(248,246,240,0.82)] mb-6 max-w-[65ch]">{EDITORS_LETTER.body}</p>
             <div className="flex items-center justify-between text-xs">
               <span className="text-[var(--color-brand-coral-on-dark)] italic">{EDITORS_LETTER.signoff}</span>
               <span className="text-white/50 text-[11px]">{articles.length} Core Articles</span>
@@ -1304,7 +1308,7 @@ export default function MagazineTab() {
         {/* RIGHT STICKY EXECUTIVE SIDEBAR */}
         <div className="flex flex-col gap-6">
           {/* Pro Subscription Status */}
-          <div className="p-5 border border-[var(--color-brand-coral)]/40 rounded bg-[var(--color-brand-coral)]/6 shadow-sm">
+          <div className="p-5 border border-[var(--color-brand-coral)]/40 rounded-card bg-[var(--color-brand-coral)]/6">
             <div className="flex items-center gap-2 mb-2">
               <span className="tier-badge pro">Professional Plan</span>
             </div>
@@ -1317,7 +1321,7 @@ export default function MagazineTab() {
           </div>
 
           {/* Digests Briefings */}
-          <div className="p-5 border border-[var(--color-border-subtle)] rounded bg-card shadow-sm">
+          <div className="p-5 border border-[var(--color-border-subtle)] rounded-card bg-card">
             <div className="flex items-center gap-2 mb-4 pb-2 border-b border-[var(--color-border-subtle)]">
               <div className="w-3 h-px bg-[var(--color-brand-coral-fill)]" />
               <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-ink)]">Curated Digests</span>
@@ -1330,8 +1334,8 @@ export default function MagazineTab() {
                     <div className="text-[11px] text-[var(--color-slate-muted)]">{d.date} · {d.items} briefings</div>
                   </div>
                   {d.unread > 0 && (
-                    <span className="w-5 h-5 rounded-full bg-[var(--color-brand-coral-fill)] text-white text-[11px] font-bold flex items-center justify-center">
-                      {d.unread}
+                    <span className="shrink-0 px-2 py-0.5 rounded-full bg-[var(--color-surface)] text-[var(--color-ink)] font-mono text-[11px] tabular-nums">
+                      {d.unread} new
                     </span>
                   )}
                 </div>
@@ -1340,7 +1344,7 @@ export default function MagazineTab() {
           </div>
 
           {/* Top Industry Contributors */}
-          <div className="p-5 border border-[var(--color-border-subtle)] rounded bg-card shadow-sm">
+          <div className="p-5 border border-[var(--color-border-subtle)] rounded-card bg-card">
             <div className="flex items-center gap-2 mb-4 pb-2 border-b border-[var(--color-border-subtle)]">
               <div className="w-3 h-px bg-[var(--color-brand-coral-fill)]" />
               <span className="text-xs font-semibold uppercase tracking-wider text-[var(--color-ink)]">Top Key Contributors</span>
