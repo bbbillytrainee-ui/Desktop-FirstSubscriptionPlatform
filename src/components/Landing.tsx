@@ -8,6 +8,7 @@ import ArticleCard from "./magazine/ArticleCard"
 import DossierRail from "./magazine/DossierRail"
 import MagazineFlipbook from "./magazine/LazyMagazineFlipbook"
 import LastMonthTrending from "./magazine/LastMonthTrending"
+import ContinueReading from "./magazine/ContinueReading"
 import LatestNewsSidebar from "./news/LatestNewsSidebar"
 import Card from "./ui/Card"
 import SectionHeader from "./ui/SectionHeader"
@@ -133,6 +134,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
         onJoin={onGetAccess}
         onOpenIssue={() => setShowFlipbook(true)}
         onArchive={() => onNavigate?.("archive")}
+        notice={<ContinueReading onOpen={openArticle} />}
       />
 
       {/* SECTION 3: Newspaper Editorial Grid (Lead Dossier + Live Breaking Sidebar + 3 Sub-Features) */}

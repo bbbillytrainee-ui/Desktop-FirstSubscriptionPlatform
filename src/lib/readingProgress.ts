@@ -16,6 +16,38 @@ const readAll = (): ProgressMap => {
 
 export const getSavedProgress = (slug: string): number => readAll()[slug]?.ratio ?? 0
 
+const DISMISSED_KEY = "mediverse_resume_dismissed_v1"
+const RESUME_MAX_AGE = 30 * 86_400_000
+
+export interface ResumePoint {
+  slug: string
+  ratio: number
+  updatedAt: number
+}
+
+/**
+ * The most recently read unfinished article, for the "Continue reading" card. Same thresholds as
+ * the in-article resume prompt. A dismissal hides that visit only: reading further brings it back.
+ */
+export function getLatestResumable(): ResumePoint | null {
+  let dismissed = ""
+  try {
+    dismissed = localStorage.getItem(DISMISSED_KEY) ?? ""
+  } catch {}
+  const now = Date.now()
+  const candidates = Object.entries(readAll())
+    .map(([slug, p]) => ({ slug, ratio: Number(p?.ratio), updatedAt: Number(p?.updatedAt) }))
+    .filter(p => p.ratio > 0.08 && p.ratio < 0.95 && now - p.updatedAt < RESUME_MAX_AGE && `${p.slug}:${p.updatedAt}` !== dismissed)
+    .sort((a, b) => b.updatedAt - a.updatedAt)
+  return candidates[0] ?? null
+}
+
+export const dismissResumable = (point: ResumePoint) => {
+  try {
+    localStorage.setItem(DISMISSED_KEY, `${point.slug}:${point.updatedAt}`)
+  } catch {}
+}
+
 const saveProgress = (slug: string, ratio: number) => {
   try {
     const all = readAll()

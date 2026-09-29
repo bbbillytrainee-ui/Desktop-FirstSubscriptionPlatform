@@ -7,6 +7,7 @@ import ArticleCard from "../components/magazine/ArticleCard"
 import ArticleReader from "../components/magazine/ArticleReader"
 import MagazineFlipbook from "../components/magazine/LazyMagazineFlipbook"
 import LastMonthTrending from "../components/magazine/LastMonthTrending"
+import ContinueReading from "../components/magazine/ContinueReading"
 import Button from "../components/ui/Button"
 import Badge from "../components/ui/Badge"
 import { BookOpen, Download, Plus } from "../components/ui/Icons"
@@ -108,6 +109,8 @@ export default function MagazinePage({ onJoin, onNavigate }: MagazinePageProps) 
       <TaxonomyNav activeTopic={activeTopic} counts={topicCounts} onSelectTopic={selectTopic} />
 
       <main className="flex-1 max-w-[var(--container-max)] mx-auto px-6 md:px-12 py-10 w-full">
+        <ContinueReading onOpen={openArticle} className="mb-8" />
+
         {/* Magazine Cover Hero Banner */}
         <div className="bg-card border border-[var(--color-border-subtle)] rounded-sm p-6 sm:p-8 mb-10 shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
