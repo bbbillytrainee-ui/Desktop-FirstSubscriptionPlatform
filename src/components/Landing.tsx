@@ -1,7 +1,6 @@
 import { useMemo, useState, type CSSProperties } from "react"
 import Header from "./layout/Header"
 import Footer from "./layout/Footer"
-import TaxonomyNav from "./layout/TaxonomyNav"
 import Button from "./ui/Button"
 import Badge from "./ui/Badge"
 import ArticleCard from "./magazine/ArticleCard"
@@ -124,15 +123,16 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
       {/* Header */}
       <Header onJoin={onGetAccess} onSignIn={onGetAccess} onNavigate={onNavigate} />
 
-      {/* Taxonomy Filter Bar (Top Sub-Nav) */}
-      <TaxonomyNav activeTopic={activeTopic} counts={topicCounts} updated={updatedTopics} onSelectTopic={id => selectTopic(id)} />
-
       <main id="main-content">
       {/* SECTION 1: Hero */}
       <Hero
         issue={currentIssue}
+        previousIssues={[ISSUES[1], ISSUES[2]]}
         onJoin={onGetAccess}
-        onOpenIssue={() => setShowFlipbook(true)}
+        onOpenIssue={(targetIssue) => {
+          setActiveFlipbookIssue(targetIssue ?? currentIssue)
+          setShowFlipbook(true)
+        }}
         onArchive={() => onNavigate?.("archive")}
         notice={<ContinueReading onOpen={openArticle} />}
       />
@@ -158,6 +158,43 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
               </span>
             }
           />
+
+          {/* Topic Filter Pills Bar */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-8 scrollbar-none [mask-image:linear-gradient(to_right,#000_calc(100%-40px),transparent)]">
+            {TOPICS.map(topic => {
+              const isSelected = activeTopic === topic.id
+              const count = topicCounts[topic.id]
+              const isUpdated = updatedTopics.includes(topic.id)
+              return (
+                <button
+                  key={topic.id}
+                  type="button"
+                  data-topic={topic.id}
+                  aria-pressed={isSelected}
+                  onClick={() => selectTopic(topic.id, { scroll: false })}
+                  className={`relative px-4 py-2 whitespace-nowrap text-xs font-medium rounded-full cursor-pointer shrink-0 flex items-center gap-2 border transition-all duration-200 ${
+                    isSelected
+                      ? "bg-[var(--brand-text)] text-white font-semibold border-transparent shadow-md scale-[1.02]"
+                      : "bg-[var(--surface-sunken)] hover:bg-[var(--surface-raised)] text-[var(--text-muted)] hover:text-[var(--text-primary)] border-[var(--border-subtle)]"
+                  }`}
+                >
+                  <span>{topic.label}</span>
+                  {count !== undefined && (
+                    <span
+                      className={`font-mono text-[11px] tabular-nums px-2 py-0.5 rounded-full ${
+                        isSelected ? "bg-white/20 text-white font-bold" : "bg-[var(--border-subtle)] text-[var(--text-muted)]"
+                      }`}
+                    >
+                      {count}
+                    </span>
+                  )}
+                  {isUpdated && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-decor)] animate-pulse" title="Updated this week" />
+                  )}
+                </button>
+              )
+            })}
+          </div>
 
           {/* Top Row: Hero Article (7 cols) + Live Breaking Feed Sidebar (5 cols) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-10">

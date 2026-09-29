@@ -104,7 +104,7 @@ export const ISSUES: Issue[] = [
     month: "July 2026",
     theme: "Cell & Gene Therapy Scale-Up in APAC",
     summary: "Manufacturing bottlenecks, cold-chain logistics in Tier-2 Indian hubs, and regional IP landscape updates.",
-    coverImage: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=1200&q=80",
+    coverImage: "https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=1200&q=80",
     status: "archived",
     readersCount: "22,400+",
     editorialColumn: {
