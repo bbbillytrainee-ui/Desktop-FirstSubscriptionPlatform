@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config import get_settings
 from app.db import dispose_engine
 from app.errors import register_error_handlers
-from app.routers import auth, me
+from app.routers import auth, content, me
 
 
 @asynccontextmanager
@@ -40,6 +40,7 @@ def create_app() -> FastAPI:
     register_error_handlers(app)
     app.include_router(auth.router)
     app.include_router(me.router)
+    app.include_router(content.router)
     return app
 
 
