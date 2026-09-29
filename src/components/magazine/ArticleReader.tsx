@@ -40,9 +40,17 @@ export interface ArticleReaderProps {
   onOpenFlipbook?: () => void
   /** Enables "Next up" and "Related dossiers" at the end of the article */
   onOpenArticle?: (article: Article) => void
+  /** Server paywall state (backend connected). Without it, the fixture's isLocked drives the gate. */
+  paywall?: {
+    truncated: boolean
+    shown: number
+    total: number
+    signedIn: boolean
+    onSignIn: () => void
+  }
 }
 
-export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFlipbook, onOpenArticle }: ArticleReaderProps) {
+export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFlipbook, onOpenArticle, paywall }: ArticleReaderProps) {
   const { isBookmarked: checkIsBookmarked, toggleBookmark } = useBookmarks()
   const isBookmarked = checkIsBookmarked(article.slug)
   const { copy, info } = useToast()
@@ -292,8 +300,39 @@ export default function ArticleReader({ article, onClose, onJoinPrompt, onOpenFl
         </section>
       )}
 
-      {/* Locked Soft Gate */}
-      {article.isLocked && (
+      {/* Server paywall: the rest of the body was withheld by the API */}
+      {paywall?.truncated && (
+        <div className="my-10 p-8 bg-[var(--color-surface)] border border-[var(--color-brand-coral)]/30 rounded-sm text-center">
+          <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] mb-2 block">
+            Professional Subscriber Access
+          </span>
+          <h3 className="font-serif text-2xl font-semibold text-[var(--color-ink)] mb-3">
+            Keep reading with Mediverse Professional
+          </h3>
+          <p className="text-sm text-[var(--color-slate-muted)] max-w-md mx-auto mb-6">
+            You've read {paywall.shown} of {paywall.total} paragraphs. The rest of this dossier is available to Professional members.
+          </p>
+          {paywall.signedIn ? (
+            onJoinPrompt && (
+              <Button variant="coral" size="md" onClick={onJoinPrompt}>
+                Upgrade to Professional
+              </Button>
+            )
+          ) : (
+            <Button variant="coral" size="md" onClick={paywall.onSignIn}>
+              Sign in to keep reading
+            </Button>
+          )}
+        </div>
+      )}
+      {paywall && !paywall.truncated && article.isLocked && (
+        <p className="my-8 font-mono text-label uppercase text-[var(--color-slate-muted)] text-center">
+          Full dossier unlocked with your Professional plan
+        </p>
+      )}
+
+      {/* Locked Soft Gate (fixture mode, no backend) */}
+      {!paywall && article.isLocked && (
         <div className="my-10 p-8 bg-[var(--color-surface)] border border-[var(--color-brand-coral)]/30 rounded-sm text-center">
           <span className="font-mono text-xs font-semibold tracking-[0.14em] uppercase text-[var(--color-brand-coral)] mb-2 block">
             Professional Subscriber Access

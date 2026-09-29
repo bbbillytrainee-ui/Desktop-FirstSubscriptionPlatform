@@ -8,6 +8,8 @@ import { ARTICLES } from "../data/fixtures/articles"
 import { ISSUES } from "../data/fixtures/issues"
 import { articleRoute } from "../lib/router"
 import { useReaderPrefs } from "../lib/readerPrefs"
+import { fetchDossier, type ApiArticle } from "../lib/api"
+import { useSession } from "../lib/session"
 
 export interface ArticlePageProps {
   slug: string
@@ -20,6 +22,21 @@ export default function ArticlePage({ slug, onJoin, onNavigate }: ArticlePagePro
   const article = ARTICLES.find(a => a.slug === slug)
   const [showFlipbook, setShowFlipbook] = useState(false)
   const [{ focus }, setPrefs] = useReaderPrefs()
+  const session = useSession()
+  const [remote, setRemote] = useState<ApiArticle | null>(null)
+
+  // Backend connected: fetch with the reader's token (refetched on sign-in / sign-out).
+  // If the API is unreachable the page keeps the built-in content, so it never breaks.
+  useEffect(() => {
+    if (!session.enabled || session.restoring) return
+    let alive = true
+    fetchDossier(slug, { token: session.token })
+      .then(a => alive && setRemote(a))
+      .catch(() => undefined)
+    return () => {
+      alive = false
+    }
+  }, [slug, session.enabled, session.restoring, session.token])
 
   // Leaving the page always leaves focus mode
   useEffect(() => () => setPrefs({ focus: false }), [setPrefs])
@@ -29,6 +46,19 @@ export default function ArticlePage({ slug, onJoin, onNavigate }: ArticlePagePro
   }, [article])
 
   if (!article) return <NotFoundPage onJoin={onJoin} onNavigate={onNavigate} />
+
+  const fromApi = remote?.slug === slug ? remote : null
+  // Until the server answers, a locked piece shows only its opening paragraph (never the full text)
+  const shown = fromApi ?? (session.enabled && article.isLocked ? { ...article, body: article.body.slice(0, 1) } : article)
+  const paywall = session.enabled
+    ? {
+        truncated: fromApi ? fromApi.bodyTruncated : article.isLocked === true,
+        shown: shown.body.length,
+        total: fromApi ? fromApi.paragraphCount : article.body.length,
+        signedIn: session.user !== null,
+        onSignIn: () => session.openSignIn(),
+      }
+    : undefined
 
   const issue = ISSUES.find(i => i.id === article.issueId) ?? ISSUES[0]
   const issueArticles = ARTICLES.filter(a => a.issueId === issue.id)
@@ -53,7 +83,8 @@ export default function ArticlePage({ slug, onJoin, onNavigate }: ArticlePagePro
       <main className="flex-1 py-8">
         <ArticleReader
           key={article.slug}
-          article={article}
+          article={shown}
+          paywall={paywall}
           onClose={handleClose}
           onJoinPrompt={onJoin}
           onOpenFlipbook={() => setShowFlipbook(true)}

@@ -7,6 +7,7 @@ import { AuthProvider } from "./lib/auth"
 import { RouterProvider, useRouter } from "./lib/router"
 import { ToastProvider } from "./lib/toast"
 import { BookmarksProvider } from "./lib/bookmarks"
+import { SessionProvider } from "./lib/session"
 import { ThemeProvider } from "./lib/theme"
 import { useScrollReveal } from "./lib/useScrollReveal"
 
@@ -265,9 +266,11 @@ export default function App() {
       <AuthProvider>
         <RouterProvider>
           <ToastProvider>
-            <BookmarksProvider>
-              <AppRoutes />
-            </BookmarksProvider>
+            <SessionProvider>
+              <BookmarksProvider>
+                <AppRoutes />
+              </BookmarksProvider>
+            </SessionProvider>
           </ToastProvider>
         </RouterProvider>
       </AuthProvider>

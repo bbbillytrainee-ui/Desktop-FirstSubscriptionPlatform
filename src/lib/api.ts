@@ -77,7 +77,7 @@ import type { Article as FixtureArticle, ArticleReference } from "../data/fixtur
 import type { ArticleSection } from "../data/fixtures/articleSections"
 import type { EditorialColumn, Issue, MacroSignal } from "../data/fixtures/issues"
 
-const API_URL: string = (import.meta.env?.VITE_API_URL ?? "").replace(/\/$/, "")
+export const API_URL: string = (import.meta.env?.VITE_API_URL ?? "").replace(/\/$/, "")
 export const isApiConfigured = API_URL !== ""
 
 // ── Wire types (what the backend sends) ──────────────────────────────────────

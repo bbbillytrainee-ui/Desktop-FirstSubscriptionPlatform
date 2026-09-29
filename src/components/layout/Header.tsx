@@ -7,6 +7,7 @@ import MobileNavDrawer from "./MobileNavDrawer"
 import ScrollProgress from "./ScrollProgress"
 import { BookmarkFilled, BookOpen, Building2, FileText, PenTool, Play } from "../ui/Icons"
 import { useBookmarks } from "../../lib/bookmarks"
+import { useSession } from "../../lib/session"
 import { useTheme } from "../../lib/theme"
 import { useScrollHeader } from "../../lib/useScrollHeader"
 import { useRouter } from "../../lib/router"
@@ -40,6 +41,8 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
   const [bookmarksOpen, setBookmarksOpen] = useState(false)
   const navRef = useRef<HTMLDivElement>(null)
   const { savedCount } = useBookmarks()
+  const session = useSession()
+  const TIER_LABELS = { free: "Free", professional: "Pro", enterprise: "Enterprise" } as const
   const { scrolled, hidden } = useScrollHeader()
   const { route } = useRouter()
   const activeNav = navKeyFor(route)
@@ -425,7 +428,7 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
               <svg className="w-4 h-4 text-[var(--color-brand-teal)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-              <span className="hidden xl:inline text-[var(--color-slate-muted)] font-normal">Search intelligence…</span>
+              <span className="hidden xl:inline whitespace-nowrap text-[var(--color-slate-muted)] font-normal">Search intelligence…</span>
               <kbd className="hidden xl:inline text-[11px] font-mono bg-card border border-[var(--color-border-subtle)] px-1.5 py-0.5 rounded text-[var(--color-slate-muted)] font-semibold">
                 Ctrl+K
               </kbd>
@@ -460,10 +463,26 @@ export default function Header({ onJoin, onSignIn, onNavigate, onSelectArticle, 
               )}
             </button>
 
-            {onSignIn && (
+            {session.enabled && session.user ? (
+              <span className="hidden md:inline-flex items-center gap-2 h-9 pl-3 pr-1 rounded-md bg-[var(--color-surface)]">
+                <span className="text-xs font-semibold text-[var(--color-ink)] max-w-[7rem] truncate" title={session.user.name}>
+                  {session.user.name.split(" ")[0]}
+                </span>
+                <span className="font-mono text-[11px] font-semibold uppercase px-1.5 py-0.5 rounded bg-[var(--premium-fill)] text-[var(--premium-fill-text)]">
+                  {TIER_LABELS[session.user.tier]}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => session.signOut()}
+                  className="h-7 px-2 text-xs font-semibold whitespace-nowrap text-[var(--color-slate-muted)] hover:text-[var(--color-ink)] rounded"
+                >
+                  Sign out
+                </button>
+              </span>
+            ) : (session.enabled || onSignIn) && (
               <button
-                onClick={onSignIn}
-                className="hidden xl:inline-flex h-9 items-center px-3 text-xs font-semibold text-[var(--color-ink)] hover:text-[var(--color-brand-teal)] hover:bg-[var(--color-surface)] rounded-md transition-colors"
+                onClick={session.enabled ? () => session.openSignIn() : onSignIn}
+                className="hidden md:inline-flex h-9 items-center px-3 text-xs font-semibold text-[var(--color-ink)] hover:text-[var(--color-brand-teal)] hover:bg-[var(--color-surface)] rounded-md transition-colors"
               >
                 Sign in
               </button>
