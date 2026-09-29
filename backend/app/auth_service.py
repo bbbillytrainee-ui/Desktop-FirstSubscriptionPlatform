@@ -147,14 +147,62 @@ async def verify_email(session: AsyncSession, raw: str) -> User:
     return user
 
 
-async def _create_user_token(session: AsyncSession, user: User, purpose: str) -> str:
+async def start_password_reset(session: AsyncSession, email: str) -> tuple[User, str] | None:
+    """Returns (user, raw_token), or None for an unknown email (the caller answers the same way).
+    Any earlier unused reset links stop working."""
+    user = await session.scalar(select(User).where(User.email == email))
+    if user is None:
+        logger.info("auth_reset_unknown_email", extra={"email_hash": hash_opaque_token(email)[:16]})
+        return None
+    await session.execute(
+        update(UserToken)
+        .where(
+            UserToken.user_id == user.id,
+            UserToken.purpose == "reset_password",
+            UserToken.used_at.is_(None),
+        )
+        .values(used_at=utcnow())
+    )
+    lifetime = timedelta(minutes=get_settings().reset_token_minutes)
+    return user, await _create_user_token(session, user, "reset_password", lifetime)
+
+
+async def reset_password(session: AsyncSession, raw: str, new_password: str) -> User:
+    """Sets the new password, signs the account out everywhere, and marks the email verified
+    (following the emailed link proves control of the inbox)."""
+    token = await session.scalar(
+        select(UserToken)
+        .where(UserToken.token_hash == hash_opaque_token(raw), UserToken.purpose == "reset_password")
+        .with_for_update()
+    )
+    invalid = APIError(400, "invalid_token", "This reset link is invalid or has expired.")
+    if token is None or token.used_at is not None or token.expires_at <= utcnow():
+        raise invalid
+    user = await session.get(User, token.user_id)
+    if user is None:
+        raise invalid
+    token.used_at = utcnow()
+    user.hashed_password = await hash_password(new_password)
+    user.email_verified = True
+    await session.execute(
+        update(RefreshToken)
+        .where(RefreshToken.user_id == user.id, RefreshToken.revoked_at.is_(None))
+        .values(revoked_at=utcnow())
+    )
+    logger.info("auth_password_reset", extra={"user_id": str(user.id)})
+    return user
+
+
+async def _create_user_token(
+    session: AsyncSession, user: User, purpose: str, lifetime: timedelta | None = None
+) -> str:
     raw, token_hash = new_opaque_token()
     session.add(
         UserToken(
             user_id=user.id,
             purpose=purpose,
             token_hash=token_hash,
-            expires_at=utcnow() + timedelta(hours=get_settings().email_token_hours),
+            expires_at=utcnow() + (lifetime or timedelta(hours=get_settings().email_token_hours)),
         )
     )
     await session.flush()

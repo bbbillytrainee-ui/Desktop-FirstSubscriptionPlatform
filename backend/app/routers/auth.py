@@ -15,15 +15,32 @@ from app.auth_service import (
     issue_refresh_token,
     logout,
     register_user,
+    reset_password,
     rotate_refresh_token,
+    start_password_reset,
     verify_email,
 )
 from app.config import get_settings
 from app.deps import SessionDep
-from app.emails import EmailSender, get_email_sender, send_safely, verification_email
+from app.emails import (
+    EmailSender,
+    get_email_sender,
+    password_reset_email,
+    send_safely,
+    verification_email,
+)
 from app.errors import APIError
 from app.models import User
-from app.schemas import AuthOut, LoginIn, RegisterIn, UserOut, VerifyEmailIn
+from app.schemas import (
+    AuthOut,
+    ForgotPasswordIn,
+    LoginIn,
+    RegisterIn,
+    ResetPasswordIn,
+    StatusOut,
+    UserOut,
+    VerifyEmailIn,
+)
 from app.security import create_access_token
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -138,6 +155,30 @@ async def verify_email_route(body: VerifyEmailIn, session: SessionDep) -> UserOu
     user = await verify_email(session, body.token)
     await session.commit()
     return UserOut.model_validate(user)
+
+
+@router.post("/forgot-password", status_code=status.HTTP_202_ACCEPTED, response_model=StatusOut)
+async def forgot_password(
+    body: ForgotPasswordIn,
+    session: SessionDep,
+    background: BackgroundTasks,
+    sender: Annotated[EmailSender, Depends(get_email_sender)],
+) -> StatusOut:
+    """Same answer whether or not the email has an account (the email itself is the signal)."""
+    started = await start_password_reset(session, body.email)
+    await session.commit()
+    if started is not None:
+        user, token = started
+        background.add_task(send_safely, sender, password_reset_email(user.email, user.name, token))
+    return StatusOut(status="If that email has an account, a reset link is on its way.")
+
+
+@router.post("/reset-password", response_model=StatusOut)
+async def reset_password_route(body: ResetPasswordIn, session: SessionDep, response: Response) -> StatusOut:
+    await reset_password(session, body.token, body.password)
+    await session.commit()
+    _clear_refresh_cookie(response)  # every session was revoked, including this browser's
+    return StatusOut(status="Password updated. Sign in with your new password.")
 
 
 def _cleared_cookie_header() -> str:

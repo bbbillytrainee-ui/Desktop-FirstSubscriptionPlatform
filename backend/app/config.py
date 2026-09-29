@@ -32,6 +32,7 @@ class Settings(BaseSettings):
     access_token_minutes: int = Field(15, ge=1, le=60)
     refresh_token_days: int = Field(14, ge=1, le=90)
     email_token_hours: int = Field(24, ge=1, le=168)
+    reset_token_minutes: int = Field(60, ge=5, le=240)
 
     # Refresh-token cookie. Domain is the shared parent (e.g. ".mediverselifesciences.com") so
     # api.<domain> and www.<domain> are same-site; empty = host-only (local development).

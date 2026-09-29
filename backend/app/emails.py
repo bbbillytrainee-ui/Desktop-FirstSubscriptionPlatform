@@ -84,5 +84,22 @@ def verification_email(to: str, name: str, token: str) -> Email:
     return Email(to=to, subject="Verify your Mediverse email", text=text, html=html)
 
 
+def password_reset_email(to: str, name: str, token: str) -> Email:
+    link = f"{get_settings().frontend_url}/reset-password?token={token}"
+    minutes = get_settings().reset_token_minutes
+    text = (
+        f"Hi {name},\n\nReset your Mediverse Life Sciences password:\n{link}\n\n"
+        f"The link expires in {minutes} minutes and works once. If you didn't ask for this, ignore this "
+        "email: your password stays the same."
+    )
+    html = (
+        f"<p>Hi {_escape(name)},</p><p>Reset your Mediverse Life Sciences password:</p>"
+        f'<p><a href="{link}">Choose a new password</a></p>'
+        f"<p>The link expires in {minutes} minutes and works once. If you didn't ask for this, ignore this "
+        "email: your password stays the same.</p>"
+    )
+    return Email(to=to, subject="Reset your Mediverse password", text=text, html=html)
+
+
 def _escape(value: str) -> str:
     return value.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")

@@ -51,8 +51,24 @@ class LoginIn(RequestModel):
     password: Annotated[str, Field(min_length=1, max_length=128)]
 
 
+Token = Annotated[str, Field(min_length=20, max_length=128)]
+
+
 class VerifyEmailIn(RequestModel):
-    token: Annotated[str, Field(min_length=20, max_length=128)]
+    token: Token
+
+
+class ForgotPasswordIn(RequestModel):
+    email: Email
+
+
+class ResetPasswordIn(RequestModel):
+    token: Token
+    password: Password
+
+
+class StatusOut(CamelModel):
+    status: str
 
 
 class UserOut(CamelModel):
