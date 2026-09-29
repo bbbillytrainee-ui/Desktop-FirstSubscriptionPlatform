@@ -25,12 +25,11 @@
   --header-logo-scale: 0.92;
   --hide-header-on-desktop: 0;   /* 1 = header also hides on scroll-down at >= 768px (default: phones only) */
 
-  /* ── Pinned Core Coverage story (home/CoverageStory.tsx), >= 768px only ── */
-  --pin-top: 69px;               /* sticky offset = header height, so the stage sits right under it */
-  --pin-step: 70svh;             /* scroll distance per slide (svh: stable when mobile browser bars move) */
-  --pin-slide-shift: 64px;       /* carousel travel: next slide enters from the right, previous leaves left */
-  --pin-slide-duration: 650ms;
-  --pin-media-duration: 900ms;   /* image curtain reveal */
+  /* ── Core Coverage carousel (home/CoverageStory.tsx), >= 768px only ── */
+  --story-top: 69px;             /* header height: the stage fills the viewport below it */
+  --story-interval: 5s;          /* time on each step before auto-advancing */
+  --story-fade: 260ms;           /* crossfade between steps */
+  --story-shift: 12px;           /* incoming step settles up by this much */
 }
 
 /* ── Scene palettes: light theme ── */

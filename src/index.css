@@ -587,8 +587,9 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
 }
 
 /* ── Core Coverage story (home/CoverageStory.tsx) ──
-   Stacked by default (phones, reduced motion, fx-off). .is-pinned: a sticky stage over a track
-   of --steps × --pin-step; slides share one grid cell and swap like a carousel. */
+   Stacked by default (phones). .is-carousel (>= 768px): one viewport-high stage, steps share one
+   grid cell (height reserved by the tallest, so no shift). .is-auto adds the timer bars and the
+   crossfade; without it (reduced motion, ?fx=off) steps swap instantly and never auto-advance. */
 @layer components {
   .story { position: relative; }
   .story-stage { position: relative; padding: var(--section-y) 1.5rem; }
@@ -600,7 +601,7 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
     display: grid;
     gap: 2.5rem;
   }
-  .story-counter, .story-nav, .story-rail { display: none; }
+  .story-counter, .story-nav, .story-rail, .story-toggle { display: none; }
   .story-slides { display: grid; gap: 3.5rem; }
   .story-slide + .story-slide { padding-top: 3.5rem; border-top: 1px solid var(--border-subtle); }
   .story-media {
@@ -612,33 +613,21 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
   }
   .story-media-img { position: relative; width: 100%; height: 100%; object-fit: cover; }
 
-  /* ── Pinned (>= 768px, motion allowed, effects on) ── */
-  .story.is-pinned { height: calc(100svh - var(--pin-top) + var(--steps) * var(--pin-step)); }
-  .story.is-pinned .story-sentinel {
-    position: absolute;
-    left: 0;
-    width: 1px;
-    height: var(--pin-step);
-    top: calc(50svh - var(--pin-top) + var(--i) * var(--pin-step));
-    pointer-events: none;
-  }
-  .story.is-pinned .story-stage {
-    position: sticky;
-    top: var(--pin-top);
-    height: calc(100svh - var(--pin-top));
+  /* ── Carousel (>= 768px) ── */
+  .story.is-carousel .story-stage {
+    min-height: calc(100svh - var(--story-top));
     display: flex;
     align-items: center;
-    padding: 2rem 1.5rem;
-    overflow: clip;
+    padding: 3rem 1.5rem;
   }
-  .story.is-pinned .story-inner {
+  .story.is-carousel .story-inner {
     width: 100%;
     grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
     gap: clamp(2rem, 5vw, 5rem);
     align-items: center;
   }
 
-  .story.is-pinned .story-counter {
+  .story.is-carousel .story-counter {
     display: block;
     margin: 1.75rem 0 1.5rem;
     font-family: var(--font-serif);
@@ -650,8 +639,9 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
   .story-counter-current { font-size: clamp(3.5rem, 2rem + 4vw, 5.5rem); letter-spacing: -0.03em; }
   .story-counter-total { font-size: 1.25rem; color: var(--text-muted); }
 
-  .story.is-pinned .story-nav { display: grid; gap: 2px; }
+  .story.is-carousel .story-nav { display: grid; gap: 2px; }
   .story-nav-item {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -667,8 +657,31 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
   .story-nav-item[aria-current] { color: var(--text-primary); background: var(--surface-raised); }
   .story-nav-item[aria-current] .font-mono { color: var(--premium-text); }
 
+  /* Timer: a slim bar under each step; the active one fills over --story-interval and its
+     animationend advances the carousel. Paused (keeping its place) unless the section is running. */
+  .story-nav-progress {
+    position: absolute;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: 3px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--border-subtle);
+    overflow: hidden;
+  }
+  .story-nav-progress-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--accent-decor);
+    transform-origin: left center;
+    transform: scaleX(0);
+    animation: storyTimer var(--story-interval) linear forwards;
+    animation-play-state: paused;
+  }
+  .story[data-running] .story-nav-progress-fill { animation-play-state: running; }
+
   /* progress rail: fills per step (transform only) */
-  .story.is-pinned .story-rail {
+  .story.is-carousel .story-rail {
     display: block;
     position: relative;
     width: 2px;
@@ -683,54 +696,50 @@ html.reveal-ready [data-reveal].is-in   { opacity: 1; transform: none; }
     inset: 0;
     background: var(--accent-decor);
     transform-origin: top center;
-    transition: transform var(--pin-slide-duration) var(--ease-out);
+    transition: transform var(--story-fade) var(--ease-out);
   }
 
-  /* Carousel: every slide in the same cell; only opacity/transform/clip-path animate */
-  .story.is-pinned .story-slides { gap: 0; }
-  .story.is-pinned .story-slide {
+  .story.is-auto .story-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 36px;
+    margin-top: 1rem;
+    padding: 0 0.75rem;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+  .story-toggle:hover { color: var(--text-primary); }
+
+  /* Steps share one cell; the inactive ones are transparent but stay in the accessibility tree */
+  .story.is-carousel .story-slides { gap: 0; }
+  .story.is-carousel .story-slide {
     grid-area: 1 / 1;
     padding-top: 0;
     border-top: 0;
     opacity: 0;
-    transform: translate3d(var(--pin-slide-shift), 0, 0);
     pointer-events: none;
-    transition:
-      opacity calc(var(--pin-slide-duration) * 0.7) var(--ease-out),
-      transform var(--pin-slide-duration) var(--ease-out);
   }
-  .story.is-pinned .story-slide.is-past { transform: translate3d(calc(var(--pin-slide-shift) * -1), 0, 0); }
-  .story.is-pinned .story-slide.is-active { opacity: 1; transform: none; pointer-events: auto; }
+  .story.is-carousel .story-slide.is-active { opacity: 1; pointer-events: auto; }
+  .story.is-carousel .story-media { aspect-ratio: auto; height: clamp(160px, 34svh, 340px); }
 
-  /* Image: curtain unveils left-to-right while the photo settles from 1.08 to 1 */
-  .story.is-pinned .story-media {
-    aspect-ratio: auto;
-    height: clamp(160px, 34svh, 340px);
-    clip-path: inset(0 100% 0 0 round var(--radius-overlay));
-    transition: clip-path var(--pin-media-duration) var(--ease-out) 80ms;
+  /* Crossfade: the outgoing step fades in place, the incoming one fades in and settles up */
+  .story.is-auto .story-slide {
+    transform: translate3d(0, var(--story-shift), 0);
+    transition: opacity var(--story-fade) var(--ease-out), transform 0s linear var(--story-fade);
   }
-  .story.is-pinned .story-media-img {
-    scale: 1.08;
-    transition: scale calc(var(--pin-media-duration) + 300ms) var(--ease-out);
-  }
-  .story.is-pinned .is-active .story-media { clip-path: inset(0 0 0 0 round var(--radius-overlay)); }
-  .story.is-pinned .is-active .story-media-img { scale: 1; }
-
-  /* Text lines follow the slide in, staggered */
-  .story.is-pinned .story-line {
-    opacity: 0;
-    transform: translate3d(0, 14px, 0);
-    transition: opacity 450ms var(--ease-out), transform 550ms var(--ease-out);
-  }
-  .story.is-pinned .is-active .story-line {
-    opacity: 1;
+  .story.is-auto .story-slide.is-active {
     transform: none;
-    transition-delay: calc(180ms + var(--line, 0) * 70ms); /* --line set per element */
+    transition: opacity var(--story-fade) var(--ease-out), transform var(--story-fade) var(--ease-out);
   }
-
-  .story-hint-arrow { display: inline-block; animation: hintNudge 1.6s var(--ease-in-out) infinite; }
 }
-@keyframes hintNudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+@keyframes storyTimer { to { transform: scaleX(1); } }
 
 /* ── Dossier rail: "More from this issue" (magazine/DossierRail.tsx) ── */
 @layer components {

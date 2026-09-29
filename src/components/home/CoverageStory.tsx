@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react"
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react"
 import CountUp from "../ui/CountUp"
 import SafeImage from "../ui/SafeImage"
-import { fxOff, readConfig } from "../../lib/fx"
-import { prefersReducedMotion } from "../../lib/motion"
+import { Pause, Play } from "../ui/Icons"
+import { fxOff } from "../../lib/fx"
 
 export interface CoverageVertical {
   topicId: string
@@ -23,76 +23,116 @@ export interface CoverageStoryProps {
 
 const pad = (n: number) => String(n).padStart(2, "0")
 
-/** Pinned only on >= 768px with motion allowed and effects on; otherwise a plain stacked list. */
-function usePinned() {
-  const [pinned, setPinned] = useState(false)
+/**
+ * stacked: phones (< 768px), a plain list.
+ * manual:  >= 768px with reduced motion or ?fx=off. One step at a time, reader clicks through, instant swap.
+ * auto:    >= 768px with motion allowed. Advances every --story-interval with a short crossfade.
+ */
+type Mode = "stacked" | "manual" | "auto"
+
+function useMode(): Mode {
+  const [mode, setMode] = useState<Mode>("stacked")
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px) and (prefers-reduced-motion: no-preference)")
-    const update = () => setPinned(mq.matches && !fxOff() && "IntersectionObserver" in window)
+    const wide = window.matchMedia("(min-width: 768px)")
+    const motion = window.matchMedia("(prefers-reduced-motion: no-preference)")
+    const update = () => setMode(!wide.matches ? "stacked" : motion.matches && !fxOff() ? "auto" : "manual")
     update()
-    mq.addEventListener("change", update)
-    return () => mq.removeEventListener("change", update)
+    wide.addEventListener("change", update)
+    motion.addEventListener("change", update)
+    return () => {
+      wide.removeEventListener("change", update)
+      motion.removeEventListener("change", update)
+    }
   }, [])
-  return pinned
+  return mode
 }
 
 /**
- * Core Coverage as a pinned story (effect 5). The teal stage sticks while the reader scrolls
- * through 4 steps (intro + 3 verticals); slides swap like a carousel: the next one slides in
- * from the right as the previous exits left, its image unveils and its stat counts up.
- * Native scrolling throughout (position: sticky, no scroll-jacking); the active step comes from
- * invisible sentinels crossing the viewport centre. Every slide stays in the DOM and in the
- * accessibility tree; focusing something in a hidden slide scrolls that slide into place.
+ * Core Coverage as a one-viewport carousel: overview + one step per vertical.
+ *
+ * Timing: the active step's progress bar is a CSS animation, and its `animationend` advances
+ * the carousel, so the bar and the timer can never drift. Pausing sets animation-play-state,
+ * which keeps the remaining time; manual navigation re-keys the bar, resetting it to 0.
+ *
+ * Auto-advance runs only while the section is on screen and nobody is interacting:
+ * - hovering (a mouse that moves over it) or keyboard focus inside pauses it for as long as it lasts;
+ * - choosing a step, arrow keys, a touch, or the Pause button pause it until the reader presses
+ *   Play or scrolls the section away and back.
+ *
+ * Every step stays in the DOM and the accessibility tree; focusing anything in a hidden step
+ * brings that step forward.
  */
 export default function CoverageStory({ verticals, totalDossiers, onSelectTopic }: CoverageStoryProps) {
-  const pinned = usePinned()
+  const mode = useMode()
+  const carousel = mode !== "stacked"
+  const auto = mode === "auto"
   const sectionRef = useRef<HTMLElement>(null)
+  const navRef = useRef<HTMLOListElement>(null)
+  const lastPointer = useRef("")
+  const steps = verticals.length + 1
+  const labels = ["Overview", ...verticals.map(v => v.short)]
+
   const [active, setActive] = useState(0)
   const [visited, setVisited] = useState<Set<number>>(() => new Set([0]))
-  const steps = verticals.length + 1
+  // Bumped on every manual navigation so the timer bar remounts at 0
+  const [cycle, setCycle] = useState(0)
+  const [inView, setInView] = useState(false)
+  const [hovered, setHovered] = useState(false)
+  const [keyboardFocus, setKeyboardFocus] = useState(false)
+  const [held, setHeld] = useState(false)
+
+  const running = auto && inView && !hovered && !keyboardFocus && !held
 
   useEffect(() => {
     setVisited(prev => (prev.has(active) ? prev : new Set(prev).add(active)))
   }, [active])
 
-  // Active step = the sentinel covering the viewport's centre line
+  // On screen = at least 40% visible. Leaving the section releases a held pause.
   useEffect(() => {
     const section = sectionRef.current
-    if (!pinned || !section) return
+    if (!auto || !section) return
     const observer = new IntersectionObserver(
-      entries => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) setActive(Number((entry.target as HTMLElement).dataset.step))
-        }
+      ([entry]) => {
+        setInView(entry.isIntersecting)
+        if (!entry.isIntersecting) setHeld(false)
       },
-      { rootMargin: "-50% 0px -50% 0px" }
+      { threshold: 0.4 }
     )
-    section.querySelectorAll(".story-sentinel").forEach(el => observer.observe(el))
+    observer.observe(section)
     return () => observer.disconnect()
-  }, [pinned])
+  }, [auto])
 
-  /** Scrolls the page so step `i` is the active one (the stage stays pinned) */
-  const goTo = useCallback(
-    (i: number, smooth = true) => {
-      const section = sectionRef.current
-      const sentinel = section?.querySelector<HTMLElement>(`.story-sentinel[data-step="${i}"]`)
-      if (!section || !sentinel) return
-      const pinTop = readConfig("--pin-top", 69)
-      const top = section.getBoundingClientRect().top + window.scrollY - pinTop + i * sentinel.offsetHeight + 2
-      window.scrollTo({ top, behavior: smooth && !prefersReducedMotion() ? "smooth" : "auto" })
-    },
-    []
-  )
+  /** Manual navigation: show step i, reset its timer, hold the pause */
+  const select = useCallback((i: number) => {
+    setActive(i)
+    setCycle(c => c + 1)
+    setHeld(true)
+  }, [])
+
+  const advance = () => setActive(a => (a + 1) % steps)
+
+  // Arrow keys move between steps while focus is in the step list
+  const onNavKeyDown = (e: KeyboardEvent<HTMLOListElement>) => {
+    const delta = e.key === "ArrowDown" || e.key === "ArrowRight" ? 1 : e.key === "ArrowUp" || e.key === "ArrowLeft" ? -1 : 0
+    if (!delta) return
+    e.preventDefault()
+    const next = (active + delta + steps) % steps
+    select(next)
+    navRef.current?.querySelectorAll<HTMLButtonElement>("button")[next]?.focus()
+  }
 
   const slideProps = (i: number) => ({
-    className: `story-slide ${i === active ? "is-active" : i < active ? "is-past" : ""}`,
-    // keyboard: tabbing into a slide that isn't showing brings it forward
+    role: carousel ? "group" : undefined,
+    "aria-roledescription": carousel ? "slide" : undefined,
+    "aria-label": carousel ? `${i + 1} of ${steps}: ${labels[i]}` : undefined,
+    className: `story-slide ${i === active ? "is-active" : ""}`,
+    // keyboard: tabbing into a step that isn't showing brings it forward
     onFocus: () => {
-      if (pinned && i !== active) goTo(i, false)
+      if (carousel && i !== active) select(i)
     },
   })
 
-  const statPlay = (i: number) => (pinned ? visited.has(i) : undefined)
+  const statPlay = (i: number) => (carousel ? visited.has(i) : undefined)
 
   return (
     <section
@@ -102,14 +142,28 @@ export default function CoverageStory({ verticals, totalDossiers, onSelectTopic 
       data-chapter-dark
       data-scene="teal"
       aria-labelledby="coverage-title"
-      className={`story ${pinned ? "is-pinned" : ""}`}
-      style={{ "--steps": steps } as CSSProperties}
+      aria-roledescription={carousel ? "carousel" : undefined}
+      className={`story ${carousel ? "is-carousel" : ""} ${auto ? "is-auto" : ""}`}
+      data-running={running || undefined}
+      onPointerMove={e => {
+        // The section fills the viewport, so a resting pointer sits over it after any scroll:
+        // only a pointer that actually moves counts as hovering (scroll-synthesised moves keep x/y)
+        if (e.pointerType !== "mouse") return
+        const at = `${e.clientX},${e.clientY}`
+        if (lastPointer.current && at !== lastPointer.current) setHovered(true)
+        lastPointer.current = at
+      }}
+      onPointerLeave={() => {
+        lastPointer.current = ""
+        setHovered(false)
+      }}
+      onPointerDown={e => e.pointerType !== "mouse" && setHeld(true)}
+      onFocus={e => {
+        const target = e.target as Element
+        if (target.matches(":focus-visible") && !target.closest(".story-toggle")) setKeyboardFocus(true)
+      }}
+      onBlur={e => !e.currentTarget.contains(e.relatedTarget as Node) && setKeyboardFocus(false)}
     >
-      {pinned &&
-        Array.from({ length: steps }, (_, i) => (
-          <div key={i} aria-hidden="true" data-step={i} className="story-sentinel" style={{ "--i": i } as CSSProperties} />
-        ))}
-
       <div className="story-stage band-glow">
         <div className="story-inner">
           {/* Left: where you are in the story */}
@@ -127,12 +181,17 @@ export default function CoverageStory({ verticals, totalDossiers, onSelectTopic 
               <span className="story-counter-total"> / {pad(steps)}</span>
             </p>
 
-            <ol className="story-nav" aria-label="Coverage story steps">
-              {["Overview", ...verticals.map(v => v.short)].map((label, i) => (
+            <ol ref={navRef} className="story-nav" aria-label="Coverage steps" onKeyDown={onNavKeyDown}>
+              {labels.map((label, i) => (
                 <li key={label}>
-                  <button type="button" aria-current={i === active ? "step" : undefined} onClick={() => goTo(i)} className="story-nav-item">
+                  <button type="button" aria-current={i === active ? "step" : undefined} onClick={() => select(i)} className="story-nav-item">
                     <span className="font-mono tabular-nums">{pad(i + 1)}</span>
                     {label}
+                    {auto && (
+                      <span aria-hidden="true" className="story-nav-progress">
+                        {i === active && <span key={cycle} className="story-nav-progress-fill" onAnimationEnd={advance} />}
+                      </span>
+                    )}
                   </button>
                 </li>
               ))}
@@ -141,9 +200,21 @@ export default function CoverageStory({ verticals, totalDossiers, onSelectTopic 
             <span aria-hidden="true" className="story-rail">
               <span className="story-rail-fill" style={{ transform: `scaleY(${(active + 1) / steps})` }} />
             </span>
+
+            {auto && (
+              <button
+                type="button"
+                onClick={() => setHeld(h => !h)}
+                className="story-toggle"
+                aria-label={held ? "Resume auto-advance" : "Pause auto-advance"}
+              >
+                {held ? <Play size={12} aria-hidden="true" /> : <Pause size={12} aria-hidden="true" />}
+                <span aria-hidden="true">{held ? "Play" : "Pause"}</span>
+              </button>
+            )}
           </div>
 
-          {/* Right: the slides (stacked in one grid cell when pinned) */}
+          {/* Right: the steps (stacked in one grid cell in carousel modes, so height is reserved) */}
           <div className="story-slides">
             <article {...slideProps(0)}>
               <h2 id="coverage-title" className="font-serif text-h1 font-semibold text-[var(--text-primary)] mb-4 [text-wrap:balance]">
@@ -166,11 +237,6 @@ export default function CoverageStory({ verticals, totalDossiers, onSelectTopic 
                   </div>
                 ))}
               </dl>
-              {pinned && (
-                <p aria-hidden="true" className="story-hint font-mono text-label uppercase text-[var(--text-muted)] mt-10">
-                  Scroll to explore <span className="story-hint-arrow">↓</span>
-                </p>
-              )}
             </article>
 
             {verticals.map((v, idx) => {
@@ -181,12 +247,10 @@ export default function CoverageStory({ verticals, totalDossiers, onSelectTopic 
                     <SafeImage src={v.image} alt="" width={720} blurUp className="story-media-img" />
                     <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-teal-950/60 to-transparent" />
                   </div>
-                  <p style={{ "--line": 0 } as CSSProperties} className="story-line mt-6 mb-2 font-mono text-label font-semibold uppercase text-[var(--accent-text)]">
-                    {v.label}
-                  </p>
-                  <h3 style={{ "--line": 1 } as CSSProperties} className="story-line font-serif text-h2 font-semibold text-[var(--text-primary)] mb-3">{v.title}</h3>
-                  <p style={{ "--line": 2 } as CSSProperties} className="story-line text-body text-[var(--text-muted)] max-w-[56ch] mb-6">{v.description}</p>
-                  <div style={{ "--line": 3 } as CSSProperties} className="story-line flex flex-wrap items-end justify-between gap-6">
+                  <p className="mt-6 mb-2 font-mono text-label font-semibold uppercase text-[var(--accent-text)]">{v.label}</p>
+                  <h3 className="font-serif text-h2 font-semibold text-[var(--text-primary)] mb-3">{v.title}</h3>
+                  <p className="text-body text-[var(--text-muted)] max-w-[56ch] mb-6">{v.description}</p>
+                  <div className="flex flex-wrap items-end justify-between gap-6">
                     <p className="flex items-baseline gap-3">
                       <span className="font-serif text-[2.5rem] leading-none font-semibold text-[var(--text-primary)]">
                         <CountUp value={v.count} play={statPlay(i)} durationMs={900} />
