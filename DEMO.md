@@ -54,8 +54,9 @@ Switch to the **http://localhost:8765/docs** tab.
 > "This is the API the site talks to: authentication with password reset, dossiers with full-text
 > search, categories, issues. 70 automated tests run against a real PostgreSQL database."
 
-Optional: expand **GET /dossiers**, click **Try it out**, type `semaglutide` in **q**, **Execute**:
-ranked search results from the database.
+Optional: expand **GET /dossiers**, click **Try it out**, type `CDSCO` in **q**, **Execute**:
+4 ranked results from the database's full-text search (`clinical trials` gives 5,
+`regulatory` gives 7).
 
 ### 5. Sign out (15 s)
 
