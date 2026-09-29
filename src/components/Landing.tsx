@@ -188,7 +188,7 @@ export default function Landing({ onGetAccess, onNavigate }: LandingProps) {
 
           {/* The rest of the issue as one swipeable row (was 2 medium cards + 4 compact rows stacked) */}
           {filteredArticles.length > 1 && (
-            <div data-reveal="up" className="pt-8 border-t border-[var(--border-subtle)]">
+            <div data-reveal="up" className="mt-4 pt-12 md:pt-16 border-t border-[var(--border-subtle)]">
               <DossierRail
                 articles={filteredArticles.slice(1)}
                 onOpen={openArticle}

@@ -33,7 +33,7 @@ export default function DossierRail({ articles, onOpen, onViewAll, total }: Doss
       const progress = max > 0 ? track.scrollLeft / max : 1
       const visible = track.scrollWidth > 0 ? track.clientWidth / track.scrollWidth : 1
       // bar shows the visible window: its length is the visible share, its end follows the scroll
-      if (fillRef.current) fillRef.current.style.transform = `scaleX(${Math.min(1, visible + (1 - visible) * progress)})`
+      if (fillRef.current) fillRef.current.style.width = `${Math.min(100, (visible + (1 - visible) * progress) * 100)}%`
       const start = track.scrollLeft <= 2
       const end = track.scrollLeft >= max - 2
       setEdges(prev => (prev.start === start && prev.end === end ? prev : { start, end }))
@@ -106,10 +106,13 @@ export default function DossierRail({ articles, onOpen, onViewAll, total }: Doss
 
   return (
     <div className="dossier-rail">
-      <div className="flex items-end justify-between gap-4 mb-5">
+      <div className="flex items-end justify-between gap-4 mb-7">
         <div>
-          <p className="font-mono text-label font-semibold uppercase text-[var(--accent-text)]">More from this issue</p>
-          <p className="mt-1 text-caption text-[var(--text-muted)]">
+          <p className="flex items-center gap-2.5 font-mono text-label font-semibold uppercase text-[var(--accent-text)]">
+            <span aria-hidden="true" className="h-px w-6 bg-[var(--accent-decor)]" />
+            More from this issue
+          </p>
+          <p className="mt-2 text-caption text-[var(--text-muted)]">
             {articles.length} more dossiers · swipe or drag to browse
           </p>
         </div>
@@ -124,7 +127,9 @@ export default function DossierRail({ articles, onOpen, onViewAll, total }: Doss
               onClick={() => page(dir === "prev" ? -1 : 1)}
               className="rail-btn"
             >
-              <span aria-hidden="true">{dir === "prev" ? "←" : "→"}</span>
+              <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                {dir === "prev" ? <path d="M19 12H5M11 18l-6-6 6-6" /> : <path d="M5 12h14M13 6l6 6-6 6" />}
+              </svg>
             </button>
           ))}
         </div>
