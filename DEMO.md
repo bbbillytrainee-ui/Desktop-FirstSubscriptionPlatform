@@ -67,8 +67,11 @@ Back on the site, click **Sign out**: the article is locked again.
 - **Next 1–2 weeks:** saved items synced to the account (merged from the browser on sign-in),
   the live Speed Feed over WebSockets, newsletter double opt-in via Resend, rate limiting,
   error monitoring (Sentry), then deployment to Railway + Vercel on our own domain.
-- **Needs a decision/budget:** the production domain (~$10–12/yr) and Railway hosting
-  (Hobby plan, ~$5/month plus usage, likely enough for 500–600 users).
+- **Needs a decision/budget:** the production domain (~$10–12/yr), Railway for the API and
+  database (Hobby plan, ~$5/month plus usage above its allowance, likely enough for 500–600 users),
+  and website hosting: Vercel's free tier is non-commercial only, so Vercel Pro (~$20/month) or a
+  free static host such as Cloudflare Pages. Estimates; confirm current pricing.
+- **Full written summary:** open `BUILD-REPORT.html` (in the project folder) in a browser, or email it.
 
 ## If something goes wrong
 
