@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import { Issue } from "../../data/fixtures/issues"
 import { Article } from "../../data/fixtures/articles"
 import { AUTHORS } from "../../data/fixtures/authors"
@@ -10,6 +10,35 @@ import { BookOpen, Download, Share2, X, CheckIcon, PenTool, FileText, Search, Tr
 import { useToast } from "../../lib/toast"
 import { downloadMagazinePdf } from "../../lib/pdfGenerator"
 
+/** The spreads that actually have content, in reading order. Navigation, the section menu and the
+ *  progress bar all derive from this list, so they can never point at an empty spread. */
+const SECTIONS = [
+  "Cover",
+  "Contents & editor’s letter",
+  "Lead feature",
+  "Analysis",
+  "Executive dialogue",
+  "Back cover",
+]
+
+const iconBtn =
+  "inline-flex items-center justify-center gap-1.5 h-9 min-w-9 px-2.5 rounded-full text-xs font-semibold text-white/80 " +
+  "hover:text-white hover:bg-white/10 focus-visible:bg-white/10 transition-colors"
+
+/** In-page "continue" links, styled for the paper */
+function PageLink({ onClick, children }: { onClick: () => void; children: React.ReactNode }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="group inline-flex items-center gap-1 text-xs font-semibold text-[var(--print-accent)] hover:text-[#B4492A] underline-offset-4 hover:underline transition-colors"
+    >
+      {children}
+      <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">→</span>
+    </button>
+  )
+}
+
 export interface MagazineFlipbookProps {
   issue: Issue
   articles: Article[]
@@ -18,7 +47,7 @@ export interface MagazineFlipbookProps {
 }
 
 export default function MagazineFlipbook({ issue, articles, onClose, onJoinPrompt }: MagazineFlipbookProps) {
-  const [currentSpread, setCurrentSpread] = useState(0) // spread index (0..27 for 56 pages total)
+  const [currentSpread, setCurrentSpread] = useState(0) // index into SECTIONS
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [showShareModal, setShowShareModal] = useState(false)
   const [showNotesDrawer, setShowNotesDrawer] = useState(false)
@@ -46,7 +75,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
     setActiveNoteText(notes[currentSpread] || "")
   }, [currentSpread, notes])
 
-  const totalSpreads = 28 // 56 pages total (2 pages per spread)
+  const totalSpreads = SECTIONS.length
   const shareUrl = `https://mediverse.network/magazine/${issue.id}?spread=${currentSpread + 1}`
 
   const handleSaveCurrentNote = (textToSave: string) => {
@@ -60,7 +89,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
     } catch (e) {
       console.error(e)
     }
-    success("Note Saved", `Annotation saved for Spread #${currentSpread + 1}.`)
+    success("Note saved", `Saved for “${SECTIONS[currentSpread]}”.`)
   }
 
   const handleDeleteNote = (spreadIdx: number) => {
@@ -75,7 +104,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
     } catch (e) {
       console.error(e)
     }
-    success("Note Deleted", `Spread #${spreadIdx + 1} note removed.`)
+    success("Note deleted", `Removed from “${SECTIONS[spreadIdx] ?? "this section"}”.`)
   }
 
   const handleExportNotes = () => {
@@ -86,7 +115,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
     }
 
     const textContent = `MEDIVERSE LIFE SCIENCES — EXECUTIVE STUDY NOTES\nIssue #${issue.number}: ${issue.theme}\nDate: ${issue.month}\nSaved Notes: ${entries.length}\n\n` +
-      entries.map(([sIdx, noteVal]) => `[SPREAD #${Number(sIdx) + 1} NOTES]\n${noteVal}\n`).join("\n----------------------------------------\n\n")
+      entries.map(([sIdx, noteVal]) => `[${(SECTIONS[Number(sIdx)] ?? `Section ${Number(sIdx) + 1}`).toUpperCase()}]\n${noteVal}\n`).join("\n----------------------------------------\n\n")
 
     const element = document.createElement("a")
     const file = new Blob([textContent], { type: "text/plain" })
@@ -186,101 +215,98 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
   }
 
   return (
-    <div className="fixed inset-0 h-screen max-h-screen z-50 bg-[var(--print-cover)] flex flex-col justify-between p-2 sm:p-4 overflow-hidden font-sans">
+    <div className="fixed inset-0 h-[100dvh] z-50 bg-[var(--print-cover)] flex flex-col justify-between px-3 py-3 sm:px-6 sm:py-4 overflow-hidden font-sans" role="dialog" aria-modal="true" aria-label={`Issue #${issue.number}: ${issue.theme}`}>
       
-      {/* Top Bar Controls */}
-      <div className="flex items-center justify-between text-white border-b border-white/20 pb-3 z-30 gap-2 flex-wrap bg-[var(--print-cover)]">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <span className="font-serif font-bold text-lg text-white">
-              MEDIVERSE
-            </span>
-            <span className="font-mono text-[10px] text-[var(--color-brand-coral)] font-semibold uppercase tracking-widest pl-1">
+      {/* Top bar: close + issue (left), section menu (centre), reading tools (right) */}
+      <div className="z-30 flex flex-wrap md:flex-nowrap items-center gap-x-3 gap-y-2 pb-3 border-b border-white/15 text-white bg-[var(--print-cover)]">
+        <div className="flex items-center gap-3 min-w-0 flex-1 md:flex-none">
+          <button type="button" onClick={onClose} className={`${iconBtn} border border-white/20`} aria-label="Close the reader" title="Close (Esc)">
+            <X size={16} />
+          </button>
+          <div className="min-w-0 leading-tight">
+            <span className="block font-serif font-semibold text-base text-white truncate">Mediverse</span>
+            <span className="block font-mono text-[10px] uppercase tracking-[0.14em] text-[var(--color-brand-coral-on-dark)] truncate">
               Issue #{issue.number} · {issue.month}
             </span>
           </div>
+        </div>
 
-          {/* Quick Section Jump Dropdown */}
+        <label className="hidden md:flex flex-1 justify-center">
+          <span className="sr-only">Jump to section</span>
           <select
             value={currentSpread}
             onChange={e => goToSpread(Number(e.target.value))}
-            className="hidden md:block bg-white/10 text-white text-xs border border-white/20 rounded-xs px-2.5 py-1 focus:outline-none cursor-pointer font-mono"
+            className="h-9 max-w-[18rem] w-full rounded-full bg-white/10 hover:bg-white/15 border border-white/15 px-4 text-xs font-semibold text-white focus:outline-none focus:border-white/40 cursor-pointer"
           >
-            <option value={0} className="text-black">Cover & Metadata (Pages 1–2)</option>
-            <option value={1} className="text-black">Table of Contents & Editorial (Pages 3–4)</option>
-            <option value={2} className="text-black">Macro Signals & Barometer (Pages 5–6)</option>
-            <option value={3} className="text-black">CAPEX & Capacity Tracker (Pages 7–8)</option>
-            <option value={4} className="text-black">Lead Dossier: Bioprocessing (Pages 9–16)</option>
-            <option value={8} className="text-black">CDSCO SaMD Guidance (Pages 17–24)</option>
-            <option value={12} className="text-black">Greenfield CAPEX Directory (Pages 25–32)</option>
-            <option value={16} className="text-black">Executive C-Suite Interviews (Pages 33–40)</option>
-            <option value={20} className="text-black">Clinical Trial Telemetry (Pages 41–48)</option>
-            <option value={24} className="text-black">GLP-1 Generic Launch Matrix (Pages 49–55)</option>
-            <option value={27} className="text-black">Back Cover Vault (Page 56)</option>
+            {SECTIONS.map((title, i) => (
+              <option key={title} value={i} className="text-black">
+                {i + 1}. {title}
+              </option>
+            ))}
           </select>
-        </div>
+        </label>
 
-        <div className="flex items-center gap-2">
-          <Button
-            variant="secondary"
-            size="sm"
-            className="text-xs flex items-center gap-1.5 bg-gold-400/20 text-gold-200 hover:bg-gold-400/30 border border-gold-400/40"
+        {/* Tools: one row that scrolls sideways on narrow screens instead of overflowing */}
+        <div className="w-full md:w-auto flex items-center gap-1 overflow-x-auto scrollbar-none -mx-1 px-1">
+          <button
+            type="button"
             onClick={() => setShowNotesDrawer(!showNotesDrawer)}
-            title="Write margin notes and research takeaways for this issue"
+            className={`${iconBtn} shrink-0 bg-gold-400/15 text-gold-200 hover:bg-gold-400/25 hover:text-gold-100`}
+            title="Margin notes for this issue"
           >
-            <PenTool size={13} className="text-gold-200" />
-            <span>Write Notes {Object.keys(notes).length > 0 ? `(${Object.keys(notes).length})` : ""}</span>
-          </Button>
-
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-white hover:bg-white/10 text-xs flex items-center gap-1.5"
-            onClick={() => setShowSearchModal(true)}
-            title="Search text across issue spreads"
+            <PenTool size={14} />
+            <span>Notes</span>
+            {Object.keys(notes).length > 0 && (
+              <span className="ml-0.5 px-1.5 rounded-full bg-gold-400/30 font-mono text-[10px] tabular-nums">{Object.keys(notes).length}</span>
+            )}
+          </button>
+          <span aria-hidden="true" className="mx-1 h-5 w-px bg-white/15 shrink-0" />
+          <button type="button" onClick={() => setShowSearchModal(true)} className={`${iconBtn} shrink-0`} aria-label="Search this issue" title="Search this issue">
+            <Search size={15} />
+          </button>
+          <button
+            type="button"
+            onClick={() => setFontSize(f => (f === "normal" ? "large" : "normal"))}
+            className={`${iconBtn} shrink-0`}
+            aria-label={fontSize === "normal" ? "Larger text" : "Smaller text"}
+            aria-pressed={fontSize === "large"}
+            title={fontSize === "normal" ? "Larger text" : "Smaller text"}
           >
-            <Search size={14} />
-            <span>Search</span>
-          </Button>
-
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-white hover:bg-white/10 text-xs hidden sm:flex items-center gap-1"
-            onClick={() => setFontSize(f => f === "normal" ? "large" : "normal")}
-            title="Toggle text font scale"
+            {fontSize === "normal" ? <ZoomIn size={15} /> : <ZoomOut size={15} />}
+          </button>
+          <button type="button" onClick={handleDownloadPdf} className={`${iconBtn} shrink-0`} aria-label="Download PDF" title="Download PDF">
+            <Download size={15} />
+          </button>
+          <button type="button" onClick={() => setShowShareModal(true)} className={`${iconBtn} shrink-0`} aria-label="Share this issue" title="Share this issue">
+            <Share2 size={15} />
+          </button>
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            className={`${iconBtn} shrink-0 max-lg:hidden`}
+            aria-label={isFullscreen ? "Exit full screen" : "Full screen"}
+            title={isFullscreen ? "Exit full screen" : "Full screen"}
           >
-            {fontSize === "normal" ? <ZoomIn size={14} /> : <ZoomOut size={14} />}
-            <span>Text {fontSize === "normal" ? "A+" : "A-"}</span>
-          </Button>
-
-          <Button variant="ghost" size="sm" className="text-white hover:bg-white/10 text-xs flex items-center gap-1.5" onClick={handleDownloadPdf}>
-            <Download size={14} className="text-gold-200" />
-            <span className="hidden md:inline">Download PDF</span>
-          </Button>
-          
-          <Button variant="ghost" size="sm" className="text-white hover:bg-white/10 text-xs flex items-center gap-1.5" onClick={() => setShowShareModal(true)}>
-            <Share2 size={14} />
-            <span className="hidden md:inline">Share</span>
-          </Button>
-
-          <Button variant="ghost" size="sm" className="text-white hover:bg-white/10 text-xs hidden lg:inline-flex" onClick={toggleFullscreen}>
-            {isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
-          </Button>
-          
-          <Button variant="coral" size="sm" className="flex items-center gap-1" onClick={onClose}>
-            <X size={14} />
-            <span>Close Reader</span>
-          </Button>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              {isFullscreen ? <path d="M9 3v6H3M15 3v6h6M9 21v-6H3M15 21v-6h6" /> : <path d="M3 9V3h6M21 9V3h-6M3 15v6h6M21 15v6h-6" />}
+            </svg>
+          </button>
         </div>
       </div>
 
       {/* Main 3D Book Stage */}
-      <div className="flex-1 min-h-0 py-2 sm:py-4 px-2 sm:px-6 flex items-center justify-center book-stage z-20 overflow-hidden">
+      <div className="relative flex-1 min-h-0 py-3 sm:py-6 px-0 sm:px-6 md:px-20 flex items-center justify-center book-stage z-20 overflow-hidden">
+        {/* Page-turn arrows beside the book (desktop); phones use the bottom bar */}
+        <button type="button" onClick={prevSpread} disabled={currentSpread === 0} aria-label="Previous section" className="hidden md:inline-flex absolute top-1/2 -translate-y-1/2 z-30 w-12 h-12 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white hover:bg-white/15 hover:scale-105 transition disabled:opacity-25 disabled:pointer-events-none left-4">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6" /></svg>
+        </button>
+        <button type="button" onClick={nextSpread} disabled={currentSpread === totalSpreads - 1} aria-label="Next section" className="hidden md:inline-flex absolute top-1/2 -translate-y-1/2 z-30 w-12 h-12 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white hover:bg-white/15 hover:scale-105 transition disabled:opacity-25 disabled:pointer-events-none right-4">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6" /></svg>
+        </button>
         
         {/* Book Container with Pure High-Contrast White/Cream Background */}
         <div
-          className={`relative w-full max-w-5xl h-full max-h-[540px] sm:max-h-[620px] bg-[var(--print-paper)] text-[var(--print-ink)] rounded-md shadow-[0_30px_90px_rgba(0,0,0,0.9)] border border-[var(--color-border-subtle)] grid grid-cols-1 md:grid-cols-2 overflow-hidden transition-transform duration-300 transform-gpu z-20 ${
+          className={`relative w-full max-w-5xl h-full max-h-[540px] sm:max-h-[620px] bg-[var(--print-paper)] text-[var(--print-ink)] rounded-lg shadow-[0_2px_6px_rgba(0,0,0,0.3),0_40px_80px_-20px_rgba(0,0,0,0.75)] [--color-brand-teal:var(--print-accent)] [--color-brand-coral:#B4492A] [--color-ink:var(--print-ink)] [--color-slate-muted:var(--print-muted)] [--color-border-subtle:#E3DDD2] grid grid-cols-1 md:grid-cols-2 overflow-hidden transition-transform duration-300 transform-gpu z-20 ${
             isFlipping ? (flipDirection === "next" ? "book-flip-next" : "book-flip-prev") : ""
           }`}
         >
@@ -327,7 +353,8 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                     </span>
                     <Badge type="pro" label="Digital Issue" />
                   </div>
-                  <span className="font-mono text-xs font-semibold text-[var(--color-brand-coral)] uppercase tracking-[0.16em] block mb-2">
+                  {/* on the dark cover photo: light coral (the paper's deep coral would be too dim here) */}
+                  <span className="font-mono text-xs font-semibold text-[#F0A386] uppercase tracking-[0.16em] block mb-2">
                     Special Monthly Dossier
                   </span>
                   <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-semibold text-white leading-tight mb-4">
@@ -395,22 +422,20 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                   </h2>
                   
                   <div className="space-y-3.5">
-                    {articles.slice(0, 4).map((art, idx) => {
-                      const targetSpread = idx === 0 ? 2 : idx === 1 ? 3 : 4
+                    {articles.slice(0, 3).map((art, idx) => {
+                      const targetSpread = idx + 2
                       return (
                         <div
                           key={art.slug}
                           onClick={() => goToSpread(targetSpread)}
-                          className="flex items-baseline justify-between border-b border-[var(--color-border-subtle)] pb-2 cursor-pointer group"
+                          className="flex items-baseline gap-3 border-b border-[var(--color-border-subtle)] pb-2.5 cursor-pointer group"
                         >
-                          <div className="pr-4 min-w-0">
-                            <span className="font-mono text-[10px] text-[var(--color-brand-coral)] font-bold mr-2">
-                              0{idx + 1}
-                            </span>
-                            <span className="text-xs font-semibold text-[var(--print-ink)] group-hover:text-[var(--color-brand-teal)] transition-colors truncate">
-                              {art.title}
-                            </span>
-                          </div>
+                          <span className="font-mono text-[10px] text-[var(--color-brand-coral)] font-bold shrink-0">
+                            0{idx + 1}
+                          </span>
+                          <span className="flex-1 min-w-0 text-xs font-semibold leading-snug text-[var(--print-ink)] group-hover:text-[var(--color-brand-teal)] transition-colors line-clamp-2">
+                            {art.title}
+                          </span>
                           <span className="font-mono text-[10px] text-[var(--print-muted)] whitespace-nowrap group-hover:text-[var(--color-brand-teal)]">
                             P. {idx * 2 + 4} →
                           </span>
@@ -424,9 +449,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                   <span className="font-mono text-[10px] text-[var(--print-muted)]">
                     Page 3
                   </span>
-                  <Button variant="ghost" size="sm" onClick={nextSpread}>
-                    Read Lead Feature →
-                  </Button>
+                  <PageLink onClick={nextSpread}>Read Lead Feature</PageLink>
                 </div>
               </div>
             </>
@@ -475,9 +498,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                   <span className="font-mono text-[10px] text-[var(--print-muted)]">
                     Page 5
                   </span>
-                  <Button variant="ghost" size="sm" onClick={nextSpread}>
-                    Next Analysis →
-                  </Button>
+                  <PageLink onClick={nextSpread}>Next Analysis</PageLink>
                 </div>
               </div>
             </>
@@ -512,7 +533,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
               <div className="p-8 sm:p-10 bg-[var(--print-paper)] text-[var(--print-ink)] flex flex-col justify-between relative z-20">
                 <div className="book-gutter-shadow absolute inset-y-0 left-0 w-8 pointer-events-none" />
                 <div>
-                  <div className="p-4 bg-card border border-[var(--color-border-subtle)] rounded-sm mb-4 shadow-sm">
+                  <div className="p-4 bg-[var(--print-paper-alt)] border border-[var(--color-border-subtle)] rounded-sm mb-4">
                     <span className="font-mono text-[10px] uppercase font-bold text-[var(--color-brand-teal)] block mb-1">
                       Key Takeaway Matrix
                     </span>
@@ -536,9 +557,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                   <span className="font-mono text-[10px] text-[var(--print-muted)]">
                     Page 7
                   </span>
-                  <Button variant="ghost" size="sm" onClick={nextSpread}>
-                    Executive Dialogue →
-                  </Button>
+                  <PageLink onClick={nextSpread}>Executive Dialogue</PageLink>
                 </div>
               </div>
             </>
@@ -557,7 +576,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                   <h3 className="font-serif text-xl font-semibold text-[var(--print-ink)] mb-3">
                     Conversation with {interviewAuthor?.name || "Industry Pioneer"}
                   </h3>
-                  <div className="p-3 bg-card border border-[var(--color-border-subtle)] rounded-sm mb-4 text-xs text-[var(--print-muted)]">
+                  <div className="p-3 bg-[var(--print-paper-alt)] border border-[var(--color-border-subtle)] rounded-sm mb-4 text-xs text-[var(--print-muted)]">
                     <strong>Position:</strong> {interviewAuthor?.role} at {interviewAuthor?.company}
                   </div>
                   <p className="text-xs text-[var(--print-ink)] leading-relaxed italic">
@@ -596,9 +615,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                   <span className="font-mono text-[10px] text-[var(--print-muted)]">
                     Page 9
                   </span>
-                  <Button variant="ghost" size="sm" onClick={nextSpread}>
-                    Back Cover →
-                  </Button>
+                  <PageLink onClick={nextSpread}>Back Cover</PageLink>
                 </div>
               </div>
             </>
@@ -662,37 +679,42 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
         </div>
       </div>
 
-      {/* Bottom Spread Scrubber Controls */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-white border-t border-white/20 pt-3 z-30 bg-[var(--print-cover)]">
-        <div className="flex items-center gap-2">
-          <Button variant="secondary" size="sm" onClick={prevSpread} disabled={currentSpread === 0}>
-            ← Prev Spread
-          </Button>
-          <span className="font-mono text-xs text-white/90 px-2">
-            Spread {currentSpread + 1} of {totalSpreads} (Pages {currentSpread * 2 + 1}–{Math.min(currentSpread * 2 + 2, 56)} of 56)
-          </span>
-          <Button variant="secondary" size="sm" onClick={nextSpread} disabled={currentSpread === totalSpreads - 1}>
-            Next Spread →
-          </Button>
+      {/* Bottom bar: where you are, and a clickable progress bar of the real sections */}
+      <div className="z-30 pt-3 border-t border-white/15 text-white bg-[var(--print-cover)] flex items-center gap-3">
+        <button type="button" onClick={prevSpread} disabled={currentSpread === 0} aria-label="Previous section" className={`${iconBtn} md:hidden border border-white/20 disabled:opacity-30`}>
+          ←
+        </button>
+        <div className="flex-1 min-w-0 flex flex-col md:flex-row md:items-center gap-1 md:gap-5">
+          <p className="min-w-0 text-sm font-semibold truncate md:w-64 md:shrink-0" aria-live="polite">
+            {SECTIONS[currentSpread]}
+            <span className="ml-2 font-mono text-xs font-normal text-white/60 tabular-nums">
+              {currentSpread + 1} / {totalSpreads}
+            </span>
+          </p>
+          <div className="flex-1 flex gap-1" role="group" aria-label="Sections">
+            {SECTIONS.map((title, i) => (
+              <button
+                key={title}
+                type="button"
+                onClick={() => goToSpread(i)}
+                aria-label={`${i + 1}. ${title}`}
+                aria-current={i === currentSpread ? "step" : undefined}
+                title={title}
+                className="group flex-1 py-2 cursor-pointer"
+              >
+                <span
+                  className={`block h-1 rounded-full transition-colors ${
+                    i < currentSpread ? "bg-white/60" : i === currentSpread ? "bg-[var(--color-brand-coral-fill)]" : "bg-white/15 group-hover:bg-white/35"
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
+          <span className="hidden lg:inline font-mono text-[11px] text-white/50 shrink-0">← → to turn · Esc to close</span>
         </div>
-
-        {/* Spread Step Indicators */}
-        <div className="flex items-center gap-1.5">
-          {Array.from({ length: totalSpreads }).map((_, i) => (
-            <button
-              key={i}
-              onClick={() => goToSpread(i)}
-              className={`h-2 rounded-full transition cursor-pointer ${
-                i === currentSpread ? "w-6 bg-[var(--color-brand-coral-fill)]" : "w-2 bg-white/40 hover:bg-white/70"
-              }`}
-              aria-label={`Go to spread ${i + 1}`}
-            />
-          ))}
-        </div>
-
-        <div className="text-[11px] text-white/70 font-mono hidden md:block">
-          Use ← / → keys to flip pages
-        </div>
+        <button type="button" onClick={nextSpread} disabled={currentSpread === totalSpreads - 1} aria-label="Next section" className={`${iconBtn} md:hidden border border-white/20 disabled:opacity-30`}>
+          →
+        </button>
       </div>
 
       {/* Share Modal */}
@@ -750,11 +772,11 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                   Active Spread Target
                 </span>
                 <span className="font-mono text-[10px] text-white/60">
-                  Spread #{currentSpread + 1} of {totalSpreads}
+                  {currentSpread + 1} of {totalSpreads}
                 </span>
               </div>
               <h4 className="font-serif text-sm font-semibold text-white">
-                {currentSpread === 0 ? "Cover Spread" : currentSpread === 1 ? "Table of Contents & Editorial" : currentSpread === 2 ? "Lead Feature Article" : currentSpread === 3 ? "Regulatory Analysis" : currentSpread === 4 ? "Executive Dialogue" : "Back Cover Vault"}
+                {SECTIONS[currentSpread]}
               </h4>
             </div>
 
@@ -808,7 +830,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                   onClick={() => handleSaveCurrentNote(activeNoteText)}
                 >
                   <CheckIcon size={12} />
-                  <span>Save Note for Spread #{currentSpread + 1}</span>
+                  <span>Save note for “{SECTIONS[currentSpread]}”</span>
                 </Button>
               </div>
             </div>
@@ -847,7 +869,7 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
                       >
                         <div className="flex items-center justify-between mb-1">
                           <span className="font-mono text-[10px] font-bold text-gold-200">
-                            Spread #{sIdx + 1}
+                            {SECTIONS[sIdx] ?? `Section ${sIdx + 1}`}
                           </span>
                           <div className="flex items-center gap-1.5">
                             <button
@@ -908,11 +930,11 @@ export default function MagazineFlipbook({ issue, articles, onClose, onJoinPromp
               </p>
             ) : (
               [
-                { sIdx: 0, title: "Cover Spread", text: issue.theme + " " + issue.summary },
-                { sIdx: 1, title: "Spread 2: Editorial Column & Table of Contents", text: (issue.editorialColumn?.title || "") + " " + (issue.editorialColumn?.quote || "") },
-                { sIdx: 2, title: "Spread 3: Lead Dossier Feature", text: articles[0]?.title + " " + articles[0]?.dek + " " + (articles[0]?.body.join(" ") || "") },
-                { sIdx: 3, title: "Spread 4: Regulatory Strategy Analysis", text: articles[1]?.title + " " + articles[1]?.dek + " " + (articles[1]?.body.join(" ") || "") },
-                { sIdx: 4, title: "Spread 5: Executive Dialogue Interview", text: articles[2]?.title + " " + articles[2]?.dek + " " + (articles[2]?.body.join(" ") || "") },
+                { sIdx: 0, title: SECTIONS[0], text: issue.theme + " " + issue.summary },
+                { sIdx: 1, title: SECTIONS[1], text: (issue.editorialColumn?.title || "") + " " + (issue.editorialColumn?.quote || "") },
+                { sIdx: 2, title: SECTIONS[2], text: articles[0]?.title + " " + articles[0]?.dek + " " + (articles[0]?.body.join(" ") || "") },
+                { sIdx: 3, title: SECTIONS[3], text: articles[1]?.title + " " + articles[1]?.dek + " " + (articles[1]?.body.join(" ") || "") },
+                { sIdx: 4, title: SECTIONS[4], text: articles[2]?.title + " " + articles[2]?.dek + " " + (articles[2]?.body.join(" ") || "") },
               ]
                 .filter(item => item.text.toLowerCase().includes(searchQuery.toLowerCase()))
                 .map(match => (
