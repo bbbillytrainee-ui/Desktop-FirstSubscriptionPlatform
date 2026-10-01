@@ -49,6 +49,9 @@ class Settings(BaseSettings):
     resend_api_key: str = ""
     email_from: str = "Mediverse <onboarding@resend.dev>"
 
+    # Sentry — leave empty to disable (local dev)
+    sentry_dsn: str = ""
+
     @field_validator("database_url")
     @classmethod
     def _asyncpg_driver(cls, v: str) -> str:

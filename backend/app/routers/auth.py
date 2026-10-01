@@ -1,4 +1,4 @@
-"""/auth: register, login, refresh, logout, verify-email.
+"""/auth: register, login, refresh, logout, verify-email, resend-verification.
 
 The access token goes in the JSON body (the frontend keeps it in memory). The refresh token only
 ever travels in an httpOnly cookie scoped to /auth, so page scripts can't read it and it isn't
@@ -21,7 +21,7 @@ from app.auth_service import (
     verify_email,
 )
 from app.config import get_settings
-from app.deps import SessionDep
+from app.deps import OptionalUser, SessionDep
 from app.emails import (
     EmailSender,
     get_email_sender,
@@ -31,11 +31,13 @@ from app.emails import (
 )
 from app.errors import APIError
 from app.models import User
+from app.ratelimit import limiter
 from app.schemas import (
     AuthOut,
     ForgotPasswordIn,
     LoginIn,
     RegisterIn,
+    ResendVerificationIn,
     ResetPasswordIn,
     StatusOut,
     UserOut,
@@ -91,9 +93,10 @@ def _auth_out(user: User) -> AuthOut:
 
 
 @router.post("/register", status_code=status.HTTP_201_CREATED, response_model=AuthOut)
+@limiter.limit("10/hour")
 async def register(
-    body: RegisterIn,
     request: Request,
+    body: RegisterIn,
     response: Response,
     session: SessionDep,
     background: BackgroundTasks,
@@ -111,7 +114,13 @@ async def register(
 
 
 @router.post("/login", response_model=AuthOut)
-async def login(body: LoginIn, request: Request, response: Response, session: SessionDep) -> AuthOut:
+@limiter.limit("20/hour")
+async def login(
+    request: Request,
+    body: LoginIn,
+    response: Response,
+    session: SessionDep,
+) -> AuthOut:
     user = await authenticate(session, email=body.email, password=body.password)
     issued = await issue_refresh_token(session, user, user_agent=request.headers.get("user-agent"))
     await session.commit()
@@ -158,7 +167,9 @@ async def verify_email_route(body: VerifyEmailIn, session: SessionDep) -> UserOu
 
 
 @router.post("/forgot-password", status_code=status.HTTP_202_ACCEPTED, response_model=StatusOut)
+@limiter.limit("5/hour")
 async def forgot_password(
+    request: Request,
     body: ForgotPasswordIn,
     session: SessionDep,
     background: BackgroundTasks,
@@ -179,6 +190,37 @@ async def reset_password_route(body: ResetPasswordIn, session: SessionDep, respo
     await session.commit()
     _clear_refresh_cookie(response)  # every session was revoked, including this browser's
     return StatusOut(status="Password updated. Sign in with your new password.")
+
+
+@router.post("/resend-verification", status_code=status.HTTP_202_ACCEPTED, response_model=StatusOut)
+@limiter.limit("3/hour")
+async def resend_verification(
+    request: Request,
+    session: SessionDep,
+    background: BackgroundTasks,
+    sender: Annotated[EmailSender, Depends(get_email_sender)],
+    body: ResendVerificationIn | None = None,
+    current_user: OptionalUser = None,
+) -> StatusOut:
+    """Re-send the email verification link. Accepts an optional Bearer token or a body with email.
+    Always returns 202 to avoid user enumeration."""
+    email: str | None = None
+    if current_user is not None:
+        email = current_user.email
+    elif body is not None:
+        email = body.email
+    if email is not None:
+        from sqlalchemy import select as sa_select
+
+        from app.auth_service import _create_user_token
+        from app.models import User as UserModel
+
+        user = await session.scalar(sa_select(UserModel).where(UserModel.email == email))
+        if user is not None and not user.email_verified:
+            token = await _create_user_token(session, user, "verify_email")
+            await session.commit()
+            background.add_task(send_safely, sender, verification_email(user.email, user.name, token))
+    return StatusOut(status="If that email has an unverified account, a new link is on its way.")
 
 
 def _cleared_cookie_header() -> str:

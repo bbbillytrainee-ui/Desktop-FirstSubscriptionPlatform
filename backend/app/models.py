@@ -268,3 +268,16 @@ class NewsletterSubscriber(Base):
     subscribed_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     confirmed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     unsubscribed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class EmailSendLog(Base):
+    """Daily tally of Resend sends. One row per calendar date (UTC). Used to enforce the 100/day free cap."""
+
+    __tablename__ = "email_send_log"
+
+    id: Mapped[int] = mapped_column(BigInteger, primary_key=True, autoincrement=True)
+    send_date: Mapped[date] = mapped_column(Date, unique=True)
+    count: Mapped[int] = mapped_column(Integer, server_default="0")
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )

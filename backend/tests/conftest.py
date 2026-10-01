@@ -25,6 +25,7 @@ from app.db import dispose_engine, get_engine, get_sessionmaker
 
 # Everything except reference data seeded by migrations
 TABLES = [
+    "email_send_log",
     "saved_items",
     "dossier_categories",
     "dossiers",

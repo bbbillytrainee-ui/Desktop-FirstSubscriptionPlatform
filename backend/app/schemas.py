@@ -86,3 +86,7 @@ class AuthOut(CamelModel):
     token_type: str = "bearer"  # noqa: S105 (OAuth token type, not a secret)
     expires_in: int
     user: UserOut
+
+
+class ResendVerificationIn(RequestModel):
+    email: Email
