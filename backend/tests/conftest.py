@@ -88,6 +88,14 @@ def outbox() -> EmailOutbox:
     return EmailOutbox()
 
 
+@pytest.fixture(autouse=True)
+def reset_rate_limiter() -> None:
+    """Reset the in-memory rate limiter before every test so counts don't bleed between tests."""
+    from app.ratelimit import limiter
+
+    limiter.reset()
+
+
 @pytest.fixture
 async def client(outbox: EmailOutbox) -> AsyncIterator[httpx.AsyncClient]:
     from app.emails import get_email_sender
