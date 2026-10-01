@@ -31,12 +31,10 @@ def upgrade() -> None:
         sa.PrimaryKeyConstraint("id", name=op.f("pk_email_send_log")),
         sa.UniqueConstraint("send_date", name=op.f("uq_email_send_log_send_date")),
     )
-    op.create_index("ix_email_send_log_date", "email_send_log", ["send_date"], unique=True)
     op.execute(
         "INSERT INTO email_send_log (send_date, count) VALUES (CURRENT_DATE, 0) ON CONFLICT DO NOTHING"
     )
 
 
 def downgrade() -> None:
-    op.drop_index("ix_email_send_log_date", table_name="email_send_log")
     op.drop_table("email_send_log")

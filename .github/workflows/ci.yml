@@ -25,6 +25,7 @@ jobs:
           --health-retries 5
     env:
       DATABASE_URL: postgresql://mediverse:mediverse@localhost:5432/mediverse_test
+      TEST_DATABASE_URL: postgresql+asyncpg://mediverse:mediverse@localhost:5432/mediverse_test
     defaults:
       run:
         working-directory: backend

@@ -6,6 +6,7 @@ services:
     plan: free
     rootDir: backend
     buildCommand: pip install uv && uv sync --frozen
+    preDeployCommand: uv run alembic upgrade head
     startCommand: >
       gunicorn app.main:app
       --worker-class uvicorn.workers.UvicornWorker
@@ -22,7 +23,7 @@ services:
       - key: DATABASE_URL
         sync: false
       - key: JWT_SECRET
-        generateValue: true
+        sync: false
       - key: COOKIE_DOMAIN
         value: .mediverselifesciences.com
       - key: COOKIE_SECURE
